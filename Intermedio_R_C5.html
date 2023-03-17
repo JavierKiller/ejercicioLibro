@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Utilities</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Intermedio_R_C5_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Intermedio_R_C5_files/libs/quarto-html/quarto.js"></script>
+<script src="Intermedio_R_C5_files/libs/quarto-html/popper.min.js"></script>
+<script src="Intermedio_R_C5_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Intermedio_R_C5_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Intermedio_R_C5_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Intermedio_R_C5_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Intermedio_R_C5_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Intermedio_R_C5_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Intermedio_R_C5_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Utilities</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="mathematical-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-utilities">Mathematical utilities</h2>
+<p>Have another look at some useful math functions that R features:</p>
+<ul>
+<li>abs(): Calculate the absolute value.</li>
+<li>sum(): Calculate the sum of all the values in a data structure.</li>
+<li>mean(): Calculate the arithmetic mean.</li>
+<li>round(): Round the values to 0 decimal places by default. Try out ?round in the console for variations of round() and ways to change the number of digits to round to.</li>
+</ul>
+<p>As a data scientist in training, you’ve estimated a regression model on the sales data for the past six months. After evaluating your model, you see that the training error of your model is quite regular, showing both positive and negative values. A vector errors containing the error values has been pre-defined for you.</p>
+</section>
+<section id="instructions-100-xp" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp">Instructions <code class="unnumbered">100 XP</code></h2>
+<p>Calculate the sum of the absolute rounded values of the training errors. You can work in parts, or with a single one-liner. There’s no need to store the result in a variable, just have R print it.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E1.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The errors vector has already been defined for you</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>errors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.9</span>, <span class="sc">-</span><span class="fl">2.6</span>, <span class="fl">4.0</span>, <span class="sc">-</span><span class="fl">9.5</span>, <span class="sc">-</span><span class="fl">3.4</span>, <span class="fl">7.3</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum of absolute rounded values of errors</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">abs</span>(<span class="fu">round</span>(errors)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-the-error" class="level2">
+<h2 class="anchored" data-anchor-id="find-the-error">Find the error</h2>
+<p>We went ahead and pre-loaded some code for you, but there’s still an error. Can you trace it and fix it?</p>
+<p>In times of despair, help with functions such as sum() and rev() are a single command away; simply execute the code ?sum and ?rev.</p>
+</section>
+<section id="instructions-100-xp-1" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-1">Instructions <code class="unnumbered">100 XP</code></h2>
+<p>Fix the error by including code on the last line. Remember: you want to call mean() only once!</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E2.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Don't edit these two lines</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">2.5</span>, <span class="fl">8.4</span>, <span class="fl">3.7</span>, <span class="fl">6.3</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>vec2 <span class="ot">&lt;-</span> <span class="fu">rev</span>(vec1)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix the error</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(vec1)) </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">abs</span>(vec2))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ?mean()</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ?rev()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data-utilities" class="level2">
+<h2 class="anchored" data-anchor-id="data-utilities">Data Utilities</h2>
+<p>R features a bunch of functions to juggle around with data structures::</p>
+<ul>
+<li>seq(): Generate sequences, by specifying the from, to, and by arguments.</li>
+<li>rep(): Replicate elements of vectors and lists.</li>
+<li>sort(): Sort a vector in ascending order. Works on numerics, but also on</li>
+<li>character strings and logicals.</li>
+<li>rev(): Reverse the elements in a data structures for which reversal is defined.</li>
+<li>str(): Display the structure of any R object.</li>
+<li>append(): Merge vectors or lists.</li>
+<li>is.*(): Check for the class of an R object.</li>
+<li>as.*(): Convert an R object from one class to another.</li>
+<li>unlist(): Flatten (possibly embedded) lists to produce a vector.</li>
+</ul>
+<p>Remember the social media profile views data? Your LinkedIn and Facebook view counts for the last seven days have been pre-defined as lists.</p>
+</section>
+<section id="instructions-100-xp-2" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-2">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Convert both linkedin and facebook lists to a vector, and store them as li_vec and fb_vec respectively.</li>
+<li>Next, append fb_vec to the li_vec (Facebook data comes last). Save the result as social_vec.</li>
+<li>Finally, sort social_vec from high to low. Print the resulting vector.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E3.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The linkedin and facebook lists have already been created for you</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>linkedin <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">16</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">17</span>, <span class="dv">14</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>facebook <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">17</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">16</span>, <span class="dv">8</span>, <span class="dv">13</span>, <span class="dv">14</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert linkedin and facebook to a vector: li_vec and fb_vec</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>li_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(linkedin)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fb_vec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(facebook)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Append fb_vec to li_vec: social_vec</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>social_vec <span class="ot">&lt;-</span><span class="fu">unlist</span>(<span class="fu">append</span>(li_vec, fb_vec))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort social_vec</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(social_vec,<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="find-the-error-2" class="level2">
+<h2 class="anchored" data-anchor-id="find-the-error-2">Find the error (2)</h2>
+<p>Just as before, let’s switch roles. It’s up to you to see what unforgivable mistakes we’ve made. Go fix them!</p>
+</section>
+<section id="instructions-100-xp-3" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-3">Instructions <code class="unnumbered">100 XP</code></h2>
+<p>Correct the expression. Make sure that your fix still uses the functions rep() and seq().</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E4.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix me</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="at">by =</span> <span class="dv">2</span>), <span class="at">times =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="beat-gauss-using-r" class="level2">
+<h2 class="anchored" data-anchor-id="beat-gauss-using-r">Beat Gauss using R</h2>
+<p>There is a popular story about young Gauss. As a pupil, he had a lazy teacher who wanted to keep the classroom busy by having them add up the numbers 1 to 100. Gauss came up with an answer almost instantaneously, 5050. On the spot, he had developed a formula for calculating the sum of an arithmetic series. There are more general formulas for calculating the sum of an arithmetic series with different starting values and increments. Instead of deriving such a formula, why not use R to calculate the sum of a sequence?</p>
+</section>
+<section id="instructions-100-xp-4" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-4">Instructions <code class="unnumbered">100 XP</code></h2>
+<p>Using the function seq(), create a sequence that ranges from 1 to 500 in increments of 3. Assign the resulting vector to a variable seq1. Again with the function seq(), create a sequence that ranges from 1200 to 900 in increments of -7. Assign it to a variable seq2. Calculate the total sum of the sequences, either by using the sum() function twice and adding the two results, or by first concatenating the sequences and then using the sum() function once. Print the result to the console.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E5.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create first sequence: seq1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>seq1<span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">500</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create second sequence: seq2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>seq2<span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1200</span>, <span class="at">to =</span> <span class="dv">900</span>, <span class="at">by =</span> <span class="sc">-</span><span class="dv">7</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total sum of the sequences</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(seq1, seq2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="grepl-grep" class="level2">
+<h2 class="anchored" data-anchor-id="grepl-grep">grepl &amp; grep</h2>
+<p>In their most basic form, regular expressions can be used to see whether a pattern exists inside a character string or a vector of character strings. For this purpose, you can use:</p>
+<ul>
+<li>grepl(), which returns TRUE when a pattern is found in the corresponding character string.</li>
+<li>grep(), which returns a vector of indices of the character strings that contains the pattern.</li>
+</ul>
+<p>Both functions need a pattern and an x argument, where pattern is the regular expression you want to match for, and the x argument is the character vector from which matches should be sought.</p>
+<p>In this and the following exercises, you’ll be querying and manipulating a character vector of email addresses! The vector emails has been pre-defined so you can begin with the instructions straight away!</p>
+</section>
+<section id="instructions-100-xp-5" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-5">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Use grepl() to generate a vector of logicals that indicates whether these email addresses contain “edu”. Print the result to the output.</li>
+<li>Do the same thing with grep(), but this time save the resulting indexes in a variable hits.</li>
+<li>Use the variable hits to select from the emails vector only the emails that contain “edu”.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E6.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The emails vector has already been defined for you</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>emails <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"john.doe@ivyleague.edu"</span>, <span class="st">"education@world.gov"</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">"dalai.lama@peace.org"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"invalid.edu"</span>, <span class="st">"quant@bigdatacollege.edu"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cookie.monster@sesame.tv"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use grepl() to match for "edu"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>( <span class="st">"edu"</span>,  emails)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use grep() to match for "edu", save result to hits</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>hits <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"edu"</span>, emails)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset emails using hits</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>emails[hits]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="repl-grep-2" class="level2">
+<h2 class="anchored" data-anchor-id="repl-grep-2">repl &amp; grep (2)</h2>
+<p>You can use the caret, ^, and the dollar sign, $ to match the content located in the start and end of a string, respectively. This could take us one step closer to a correct pattern for matching only the “.edu” email addresses from our list of emails. But there’s more that can be added to make the pattern more robust:</p>
+<ul>
+<li>@, because a valid email must contain an at-sign.</li>
+<li>.<em>, which matches any character (.) zero or more times (</em>). Both the dot and the asterisk are metacharacters. You can use them to match any character between the at-sign and the “.edu” portion of an email address.</li>
+<li>\.edu$, to match the “.edu” part of the email at the end of the string. The \ part escapes the dot: it tells R that you want to use the . as an actual character.</li>
+</ul>
+</section>
+<section id="instructions-100-xp-6" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-6">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Use grepl() with the more advanced regular expression to return a logical vector. Simply print the result.</li>
+<li>Do a similar thing with grep() to create a vector of indices. Store the result in the variable hits.</li>
+<li>Use emails[hits] again to subset the emails vector.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E7.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The emails vector has already been defined for you</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>emails <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"john.doe@ivyleague.edu"</span>, <span class="st">"education@world.gov"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="st">"dalai.lama@peace.org"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"invalid.edu"</span>, <span class="st">"quant@bigdatacollege.edu"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cookie.monster@sesame.tv"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use grepl() to match for .edu addresses more robustly</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="at">pattern=</span><span class="st">"@.*</span><span class="sc">\\</span><span class="st">.edu$"</span>,emails)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Use grep() to match for .edu addresses more robustly, save result to hits</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>hits <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">"@.*</span><span class="sc">\\</span><span class="st">.edu$"</span>, emails)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset emails using hits</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>emails[hits]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sub-gsub" class="level2">
+<h2 class="anchored" data-anchor-id="sub-gsub">sub &amp; gsub</h2>
+<p>While grep() and grepl() were used to simply check whether a regular expression could be matched with a character vector, sub() and gsub() take it one step further: you can specify a replacement argument. If inside the character vector x, the regular expression pattern is found, the matching element(s) will be replaced with replacement. sub() only replaces the first match, whereas gsub() replaces all matches.</p>
+<p>Suppose that emails vector you’ve been working with is an excerpt of DataCamp’s email database. Why not offer the owners of the .edu email addresses a new email address on the datacamp.edu domain? This could be quite a powerful marketing stunt: Online education is taking over traditional learning institutions! Convert your email and be a part of the new generation!</p>
+</section>
+<section id="instructions-100-xp-7" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-7">Instructions <code class="unnumbered">100 XP</code></h2>
+<p>With the advanced regular expression “@.*\.edu$“, use sub() to replace the match with”<span class="citation" data-cites="datacamp.edu">@datacamp.edu</span>“. Since there will only be one match per character string, gsub() is not necessary here. Inspect the resulting output.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E8.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The emails vector has already been defined for you</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>emails <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"john.doe@ivyleague.edu"</span>, <span class="st">"education@world.gov"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">"global@peace.org"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"invalid.edu"</span>, <span class="st">"quant@bigdatacollege.edu"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cookie.monster@sesame.tv"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use sub() to convert the email domains to datacamp.edu</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sub</span>(<span class="st">"@.*</span><span class="sc">\\</span><span class="st">.edu$"</span>, <span class="st">"@datacamp.edu"</span>, emails)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sub-gsub-2" class="level2">
+<h2 class="anchored" data-anchor-id="sub-gsub-2">sub &amp; gsub (2)</h2>
+<p>Regular expressions are a typical concept that you’ll learn by doing and by seeing other examples. Before you rack your brains over the regular expression in this exercise, have a look at the new things that will be used:</p>
+<ul>
+<li>.*: A usual suspect! It can be read as “any character that is matched zero or more times”.</li>
+<li>\s: Match a space. The “s” is normally a character, escaping it (\) makes it a metacharacter.</li>
+<li>[0-9]+: Match the numbers 0 to 9, at least once (+).</li>
+<li>([0-9]+): The parentheses are used to make parts of the matching string available to define the replacement. The \1 in the replacement argument of sub() gets set to the string that is captured by the regular expression [0-9]+.</li>
+</ul>
+<blockquote class="blockquote">
+<p>awards &lt;- c(“Won 1 Oscar.”, “Won 1 Oscar. Another 9 wins &amp; 24 nominations.”, “1 win and 2 nominations.”, “2 wins &amp; 3 nominations.”, “Nominated for 2 Golden Globes. 1 more win &amp; 2 nominations.”, “4 wins &amp; 1 nomination.”)</p>
+</blockquote>
+<p>sub(“.<em>\s([0-9]+)\snomination.</em>$”, “\1”, awards) What does this code chunk return? awards is already defined in the workspace so you can start playing in the console straight away.</p>
+</section>
+<section id="instructions-50-xp" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-50-xp">Instructions <code>50 XP</code></h2>
+<p>Possible Answers</p>
+<ul>
+<li><p>A vector of integers containing: 1, 24, 2, 3, 2, 1.</p></li>
+<li><p>The vector awards gets returned as there isn’t a single element in awards that matches the regular expression.</p></li>
+<li><p>A vector of character strings containing “1”, “24”, “2”, “3”, “2”, “1”.</p></li>
+<li><p>A vector of character strings containing “Won 1 Oscar.”, “24”, “2”, “3”, “2”, “1”. Respuesta</p></li>
+</ul>
+</section>
+<section id="right-here-right-now" class="level2">
+<h2 class="anchored" data-anchor-id="right-here-right-now">Right here, right now</h2>
+<p>In R, dates are represented by Date objects, while times are represented by POSIXct objects. Under the hood, however, these dates and times are simple numerical values. Date objects store the number of days since the 1st of January in 1970. POSIXct objects on the other hand, store the number of seconds since the 1st of January in 1970.</p>
+<p>The 1st of January in 1970 is the common origin for representing times and dates in a wide range of programming languages. There is no particular reason for this; it is a simple convention. Of course, it’s also possible to create dates and times before 1970; the corresponding numerical values are simply negative in this case.</p>
+</section>
+<section id="instructions-100-xp-8" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-8">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Ask R for the current date, and store the result in a variable today.</li>
+<li>To see what today looks like under the hood, call unclass() on it.</li>
+<li>Ask R for the current time, and store the result in a variable, now.</li>
+<li>To see the numerical value that corresponds to now, call unclass() on it.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E9.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the current date: today</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>today <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>today</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># See what today looks like under the hood</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(today)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the current time: now</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>now <span class="ot">&lt;-</span> <span class="fu">Sys.Date</span>()</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>now</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># See what now looks like under the hood</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(now)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-and-format-dates" class="level2">
+<h2 class="anchored" data-anchor-id="create-and-format-dates">Create and format dates</h2>
+<p>To create a Date object from a simple character string in R, you can use the as.Date() function. The character string has to obey a format that can be defined using a set of symbols (the examples correspond to 13 January, 1982):</p>
+<ul>
+<li>%Y: 4-digit year (1982)</li>
+<li>%y: 2-digit year (82)</li>
+<li>%m: 2-digit month (01)</li>
+<li>%d: 2-digit day of the month (13)</li>
+<li>%A: weekday (Wednesday)</li>
+<li>%a: abbreviated weekday (Wed)</li>
+<li>%B: month (January)</li>
+<li>%b: abbreviated month (Jan)</li>
+</ul>
+<p>The following R commands will all create the same Date object for the 13th day in January of 1982:</p>
+<blockquote class="blockquote">
+<p>as.Date(“1982-01-13”) as.Date(“Jan-13-82”, format = “%b-%d-%y”) as.Date(“13 January, 1982”, format = “%d %B, %Y”)</p>
+</blockquote>
+<p>Notice that the first line here did not need a format argument, because by default R matches your character string to the formats “%Y-%m-%d” or “%Y/%m/%d”.</p>
+<p>In addition to creating dates, you can also convert dates to character strings that use a different date notation. For this, you use the format() function. Try the following lines of code:</p>
+<blockquote class="blockquote">
+<p>today &lt;- Sys.Date() format(Sys.Date(), format = “%d %B, %Y”) format(Sys.Date(), format = “Today is a %A!”)</p>
+</blockquote>
+</section>
+<section id="instructions-100-xp-9" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-9">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Three character strings representing dates have been created for you. Convert them to dates using as.Date(), and assign them to date1, date2, and date3 respectively. The code for date1 is already included.</li>
+<li>Extract useful information from the dates as character strings using format(). From the first date, select the weekday. From the second date, select the day of the month. From the third date, you should select the abbreviated month and the 4-digit year, separated by a space.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E10.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of character strings representing dates</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>str1 <span class="ot">&lt;-</span> <span class="st">"May 23, '96"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>str2 <span class="ot">&lt;-</span> <span class="st">"2012-03-15"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>str3 <span class="ot">&lt;-</span> <span class="st">"30/January/2006"</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the strings to dates: date1, date2, date3</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>date1 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(str1, <span class="at">format =</span> <span class="st">"%b %d, '%y"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>date2 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(str2) <span class="co">#, format = "%y %b, '%d")</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>date3 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(str3, <span class="at">format =</span> <span class="st">"%d/%B/%Y"</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert dates to formatted strings</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(date1, <span class="st">"%A"</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(date2, <span class="st">"%d"</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(date3, <span class="st">"%b %Y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-and-format-times" class="level2">
+<h2 class="anchored" data-anchor-id="create-and-format-times">Create and format times</h2>
+<p>Similar to working with dates, you can use as.POSIXct() to convert from a character string to a POSIXct object, and format() to convert from a POSIXct object to a character string. Again, you have a wide variety of symbols:</p>
+<ul>
+<li>%H: hours as a decimal number (00-23)</li>
+<li>%I: hours as a decimal number (01-12)</li>
+<li>%M: minutes as a decimal number</li>
+<li>%S: seconds as a decimal number</li>
+<li>%T: shorthand notation for the typical format %H:%M:%S</li>
+<li>%p: AM/PM indicator</li>
+</ul>
+<p>For a full list of conversion symbols, consult the strptime documentation in the console:</p>
+<blockquote class="blockquote">
+<p>?strptime</p>
+</blockquote>
+<p>Again,as.POSIXct() uses a default format to match character strings. In this case, it’s %Y-%m-%d %H:%M:%S. In this exercise, abstraction is made of different time zones.</p>
+</section>
+<section id="instructions-100-xp-10" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-10">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Convert two strings that represent timestamps, str1 and str2, to POSIXct objects called time1 and time2.</li>
+<li>Using format(), create a string from time1 containing only the minutes.</li>
+<li>From time2, extract the hours and minutes as “hours:minutes AM/PM”. Refer to the assignment text above to find the correct conversion symbols!</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E11.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definition of character strings representing times</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>str1 <span class="ot">&lt;-</span> <span class="st">"May 23, '96 hours:23 minutes:01 seconds:45"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>str2 <span class="ot">&lt;-</span> <span class="st">"2012-3-12 14:23:08"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the strings to POSIXct objects: time1, time2</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>time1 <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(str1, <span class="at">format =</span> <span class="st">"%B %d, '%y hours:%H minutes:%M seconds:%S"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>time2 <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(str2)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert times to formatted strings</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(time1, <span class="st">"%M"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(time2, <span class="st">"%I:%M %p"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculations-with-dates" class="level2">
+<h2 class="anchored" data-anchor-id="calculations-with-dates">Calculations with Dates</h2>
+<p>Both Date and POSIXct R objects are represented by simple numerical values under the hood. This makes calculation with time and date objects very straightforward: R performs the calculations using the underlying numerical values, and then converts the result back to human-readable time information again.</p>
+<p>You can increment and decrement Date objects, or do actual calculations with them:</p>
+<blockquote class="blockquote">
+<p>today &lt;- Sys.Date() today + 1 today - 1</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>as.Date(“2015-03-12”) - as.Date(“2015-02-27”)</p>
+</blockquote>
+<p>To control your eating habits, you decided to write down the dates of the last five days that you ate pizza. In the workspace, these dates are defined as five Date objects, day1 to day5. A vector pizza containing these 5 Date objects has been pre-defined for you.</p>
+</section>
+<section id="instructions-100-xp-11" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-11">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Calculate the number of days that passed between the last and the first day you ate pizza. Print the result.</li>
+<li>Use the function diff() on pizza to calculate the differences between consecutive pizza days. Store the result in a new variable day_diff.</li>
+<li>Calculate the average period between two consecutive pizza days. Print the result.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E12.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># day1, day2, day3, day4 and day5 are already available in the workspace</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Difference between last and first pizza day</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>day5 <span class="sc">-</span> day1</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector pizza</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>pizza <span class="ot">&lt;-</span> <span class="fu">c</span>(day1, day2, day3, day4, day5)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create differences between consecutive pizza days: day_diff</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>day_diff <span class="ot">&lt;-</span> <span class="fu">diff</span>(pizza, <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>day_diff</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Average period between two consecutive pizza days</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">mean</span>(day_diff))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculations-with-times" class="level2">
+<h2 class="anchored" data-anchor-id="calculations-with-times">Calculations with Times</h2>
+<p>Calculations using POSIXct objects are completely analogous to those using Date objects. Try to experiment with this code to increase or decrease POSIXct objects:</p>
+<blockquote class="blockquote">
+<p>now &lt;- Sys.time() now + 3600 # add an hour now - 3600 * 24 # subtract a day</p>
+</blockquote>
+<p>Adding or subtracting time objects is also straightforward:</p>
+<blockquote class="blockquote">
+<p>birth &lt;- as.POSIXct(“1879-03-14 14:37:23”) death &lt;- as.POSIXct(“1955-04-18 03:47:12”) einstein &lt;- death - birth einstein</p>
+</blockquote>
+<p>You’re developing a website that requires users to log in and out. You want to know what is the total and average amount of time a particular user spends on your website. This user has logged in 5 times and logged out 5 times as well. These times are gathered in the vectors login and logout, which are already defined in the workspace.</p>
+</section>
+<section id="instructions-100-xp-12" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-12">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Calculate the difference between the two vectors logout and login, i.e.&nbsp;the time the user was online in each independent session. Store the result in a variable time_online.</li>
+<li>Inspect the variable time_online by printing it.</li>
+<li>Calculate the total time that the user was online. Print the result.</li>
+<li>Calculate the average time the user was online. Print the result.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E13.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># login and logout are already defined in the workspace</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the difference between login and logout: time_online</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>time_online <span class="ot">&lt;-</span> logout<span class="sc">-</span> login</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the variable time_online</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>time_online</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the total time online</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(time_online)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the average time online</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(time_online)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="time-is-of-the-essence" class="level2">
+<h2 class="anchored" data-anchor-id="time-is-of-the-essence">Time is of the essence</h2>
+<p>The dates when a season begins and ends can vary depending on who you ask. People in Australia will tell you that spring starts on September 1st. The Irish people in the Northern hemisphere will swear that spring starts on February 1st, with the celebration of St.&nbsp;Brigid’s Day. Then there’s also the difference between astronomical and meteorological seasons: while astronomers are used to equinoxes and solstices, meteorologists divide the year into 4 fixed seasons that are each three months long. (source: www.timeanddate.com)</p>
+<p>A vector astro, which contains character strings representing the dates on which the 4 astronomical seasons start, has been defined on your workspace. Similarly, a vector meteo has already been created for you, with the meteorological beginnings of a season.</p>
+</section>
+<section id="instructions-100-xp-13" class="level2">
+<h2 class="anchored" data-anchor-id="instructions-100-xp-13">Instructions <code class="unnumbered">100 XP</code></h2>
+<ul>
+<li>Use as.Date() to convert the astro vector to a vector containing Date objects. You will need the %d, %b and %Y symbols to specify the format. Store the resulting vector as astro_dates.</li>
+<li>Use as.Date() to convert the meteo vector to a vector with Date objects. This time, you will need the %B, %d and %y symbols for the format argument. Store the resulting vector as meteo_dates.</li>
+<li>With a combination of max(), abs() and -, calculate the maximum absolute difference between the astronomical and the meteorological beginnings of a season, i.e.&nbsp;astro_dates and meteo_dates. Simply print this maximum difference to the console output.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E14.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert astro to vector of Date objects: astro_dates</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>astro_dates <span class="ot">&lt;-</span><span class="fu">as.Date</span>(astro, <span class="at">format =</span> <span class="st">"%d-%b-%Y"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert meteo to vector of Date objects: meteo_dates</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>meteo_dates <span class="ot">&lt;-</span><span class="fu">as.Date</span>(meteo, <span class="at">format =</span> <span class="st">"%B %d, %y"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the maximum absolute difference between astro_dates and meteo_dates</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(<span class="fu">abs</span>(astro_dates <span class="sc">-</span> meteo_dates))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

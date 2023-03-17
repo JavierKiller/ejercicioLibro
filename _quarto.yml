@@ -3,11 +3,33 @@ project:
 
 book:
   title: "libro"
-  author: "Jane Doe"
+  author: "Javier E"
   date: "15/3/2023"
   chapters:
     - index.qmd
     - intro.qmd
+  
+    - Introduction_to_R_C1.qmd
+    - Introduction_to_R_C2.qmd
+    - Introduction_to_R_C3.qmd
+    - Introduction_to_R_C4.qmd
+    - Introduction_to_R_C5.qmd
+    
+    - Intermedio_R_C1.qmd
+    - Intermedio_R_C2.qmd
+    - Intermedio_R_C3.qmd
+    - Intermedio_R_C4.qmd    
+    - Intermedio_R_C5.qmd
+    
+    - Introduction_to_Writing_Functions_in_R_C1.qmd    
+    - Introduction_to_Writing_Functions_in_R_C3.qmd   
+    - Introduction_to_Writing_Functions_in_R_C3.qmd   
+    - Introduction_to_Writing_Functions_in_R_C4.qmd       
+   
+    - Introduction_to_Importing_Data_in_R_C1.qmd 
+    - Introduction_to_Importing_Data_in_R_C2.qmd 
+    - Introduction_to_Importing_Data_in_R_C3.qmd 
+    - Introduction_to_Importing_Data_in_R_C4.qmd       
     - summary.qmd
     - references.qmd
 

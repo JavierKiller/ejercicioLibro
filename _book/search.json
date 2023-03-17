@@ -26,5 +26,992 @@
     "title": "References",
     "section": "",
     "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#calling-functions",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#calling-functions",
+    "title": "12  How to Write a Function",
+    "section": "12.1 Calling functions",
+    "text": "12.1 Calling functions\nOne way to make your code more readable is to be careful about the order you pass arguments when you call functions, and whether you pass the arguments by position or by name.\ngold_medals, a numeric vector of the number of gold medals won by each country in the 2016 Summer Olympics, is provided.\nFor convenience, the arguments of median() and rank() are displayed using args(). Setting rank()’s na.last argument to “keep” means “keep the rank of NA values as NA”.\nBest practice for calling functions is to include them in the order shown by args(), and to only name rare arguments."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp",
+    "title": "12  How to Write a Function",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nThe final line calculates the median number of gold medals each country won.\nRewrite the call to median(), following best practices.\n\n\n\nE1.R\n\n# Look at the gold medals data\ngold_medals\n\n# Note the arguments to median()\nargs(median)\n\n# Rewrite this function call, following best practices\nmedian(gold_medals, na.rm = TRUE)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#the-benefits-of-writing-functions",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#the-benefits-of-writing-functions",
+    "title": "12  How to Write a Function",
+    "section": "12.2 The benefits of writing functions",
+    "text": "12.2 The benefits of writing functions\nThere are lots of great reasons that you should write your own functions.\nWhich of these is not one of them?"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#answer-the-question-50xp",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#answer-the-question-50xp",
+    "title": "12  How to Write a Function",
+    "section": "Answer the question 50XP",
+    "text": "Answer the question 50XP\nPossible Answers\n\nYou can type less code, saving effort and making your analyses more readable. Respuesta\nYou make less “copy and paste”-related errors.\nYou can reuse your code from project to project.\nYou can make your code harder to read, potentially improving your job security because only you can maintain it."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#your-first-function-tossing-a-coin",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#your-first-function-tossing-a-coin",
+    "title": "12  How to Write a Function",
+    "section": "12.3 Your first function: tossing a coin",
+    "text": "12.3 Your first function: tossing a coin\nTime to write your first function! It’s a really good idea when writing functions to start simple. You can always make a function more complicated later if it’s really necessary, so let’s not worry about arguments for now."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-1",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-1",
+    "title": "12  How to Write a Function",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSimulate a single coin toss by using sample() to sample from coin_sides once.\nWrite a template for your function, naming it toss_coin. The function should take no arguments. Don’t include the body of the function yet.\nCopy your script, and paste it into the function body.\nCall your function.\n\n\n\nE2.R\n\ncoin_sides <- c(\"head\", \"tail\")\n\n# Sample from coin_sides once\nsample(coin_sides,1)\n\n# Write a template for your function, toss_coin()\ntoss_coin <- function() {\n  \n\n  # (Leave the contents of the body for later)\n# Add punctuation to finish the body\n}\n\n# Your script, from a previous step\ncoin_sides <- c(\"head\", \"tail\")\n\n# Paste your script into the function body\ntoss_coin <- function() {\n  sample(coin_sides, 1)\n  \n}\n\n# Your functions, from previous steps\ntoss_coin <- function() {\n  coin_sides <- c(\"head\", \"tail\")\n  sample(coin_sides, 1)\n}\n\n# Call your function\ntoss_coin()"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#inputs-to-functions",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#inputs-to-functions",
+    "title": "12  How to Write a Function",
+    "section": "12.4 Inputs to functions",
+    "text": "12.4 Inputs to functions\nMost functions require some sort of input to determine what to compute. The inputs to functions are called arguments. You specify them inside the parentheses after the word “function.”\nAs mentioned in the video, the following exercises assume that you are using sample() to do random sampling."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-2",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-2",
+    "title": "12  How to Write a Function",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSample from coin_sides n_flips times with replacement.\nUpdate the definition of toss_coin() to accept a single argument, n_flips. The function should sample coin_sides n_flips times with replacement. Remember to change the signature and the body.\nGenerate 10 coin flips.\n\n\n\nE3.R\n\ncoin_sides <- c(\"head\", \"tail\")\nn_flips <- 10\n\n# Sample from coin_sides n_flips times with replacement\nsample(coin_sides,n_flips,replace = TRUE)\n\n# Update the function to return n coin tosses\ntoss_coin <- function(n_flips) {\n  coin_sides <- c(\"head\", \"tail\")\n  sample(coin_sides, n_flips,replace = TRUE)\n}\n\n# Generate 10 coin tosses\ntoss_coin(10)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#multiple-inputs-to-functions",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#multiple-inputs-to-functions",
+    "title": "12  How to Write a Function",
+    "section": "12.5 Multiple inputs to functions",
+    "text": "12.5 Multiple inputs to functions\nIf a function should have more than one argument, list them in the function signature, separated by commas.\nTo solve this exercise, you need to know how to specify sampling weights to sample(). Set the prob argument to a numeric vector with the same length as x. Each value of prob is the probability of sampling the corresponding element of x, so their values add up to one. In the following example, each sample has a 20% chance of “bat”, a 30% chance of “cat” and a 50% chance of “rat”.\n\nsample(c(“bat”, “cat”, “rat”), 10, replace = TRUE, prob = c(0.2, 0.3, 0.5))\n\n##Instructions 100 XP {.unnumbered}\n\nBias the coin by weighting the sampling. Specify the prob argument so that heads are sampled with probability p_head (and tails are sampled with probability 1 - p_head).\nUpdate the definition of toss_coin() so it accepts an argument, p_head, and weights the samples using the code you wrote in the previous step.\nGenerate 10 coin tosses with an 80% chance of each head.\n\n\n\nE4.R\n\n\ncoin_sides <- c(\"head\", \"tail\")\nn_flips <- 10\np_head <- 0.8\n\n# Define a vector of weights\nweights <- c(p_head, 1 - p_head)\n\n# Update so that heads are sampled with prob p_head\nsample(coin_sides, n_flips, replace = TRUE, prob = weights)\n\n# Update the function so heads have probability p_head\ntoss_coin <- function(n_flips,p_head) {\n  coin_sides <- c(\"head\", \"tail\")\n  # Define a vector of weights\n  weights <- c(p_head,1-p_head)\n  # Modify the sampling to be weighted\n  sample(coin_sides, n_flips, replace = TRUE,prob=weights)\n}\n\n# Generate 10 coin tosses\ntoss_coin(10,0.8)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#renaming-glm",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#renaming-glm",
+    "title": "12  How to Write a Function",
+    "section": "12.6 Renaming GLM",
+    "text": "12.6 Renaming GLM\nR’s generalized linear regression function, glm(), suffers the same usability problems as lm(): its name is an acronym, and its formula and data arguments are in the wrong order.\nTo solve this exercise, you need to know two things about generalized linear regression:\nglm() formulas are specified like lm() formulas: response is on the left, and explanatory variables are added on the right. To model count data, set glm()’s family argument to poisson, making it a Poisson regression. Here you’ll use data on the number of yearly visits to Snake River at Jackson Hole, Wyoming, snake_river_visits."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-3",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-3",
+    "title": "12  How to Write a Function",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun a generalized linear regression by calling glm(). Model n_visits vs. gender, income, and travel on the snake_river_visits dataset, setting the family to poisson.\nDefine a function, run_poisson_regression(), to run a Poisson regression. This should take two arguments: data and formula, and call glm(), passing those arguments and setting family to poisson.\nRecreate the Poisson regression model from the first step, this time by calling your run_poisson_regression() function.\n\n\n\nE5.R\n\n# Run a generalized linear regression \nglm(\n  # Model no. of visits vs. gender, income, travel\n  n_visits ~ gender + income + travel, \n  # Use the snake_river_visits dataset\n  data = snake_river_visits, \n  # Make it a Poisson regression\n  family = poisson\n)\n\n# Write a function to run a Poisson regression\nrun_poisson_regression <- function(data, formula) {\n    glm(formula, data, family = poisson)\n}\n\n# From previous step\nrun_poisson_regression <- function(data, formula) {\n  glm(formula, data, family = poisson)\n}\n\n# Re-run the Poisson regression, using your function\nmodel <- snake_river_visits %>%\n  run_poisson_regression(n_visits ~ gender + income + travel)\n\n# Run this to see the predictions\nsnake_river_explanatory %>%\n  mutate(predicted_n_visits = predict(model, ., type = \"response\"))%>%\n  arrange(desc(predicted_n_visits))"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#numeric-defaults",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#numeric-defaults",
+    "title": "12  How to Write a Function",
+    "section": "12.7 Numeric defaults",
+    "text": "12.7 Numeric defaults\ncut_by_quantile() converts a numeric vector into a categorical variable where quantiles define the cut points. This is a useful function, but at the moment you have to specify five arguments to make it work. This is too much thinking and typing.\nBy specifying default arguments, you can make it easier to use. Let’s start with n, which specifies how many categories to cut x into.\nA numeric vector of the number of visits to Snake River is provided as n_visits."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-4",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-4",
+    "title": "12  How to Write a Function",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUpdate the definition of cut_by_quantile() so that the n argument defaults to 5. Remove the n argument from the call to cut_by_quantile().\n\n\nE6.R\n\n# Set the default for n to 5\ncut_by_quantile <- function(x, n=5, na.rm, labels, interval_type) {\n  probs <- seq(0, 1, length.out = n + 1)\n  qtiles <- quantile(x, probs, na.rm = na.rm, names = FALSE)\n  right <- switch(interval_type, \"(lo, hi]\" = TRUE, \"[lo, hi)\" = FALSE)\n  cut(x, qtiles, labels = labels, right = right, include.lowest = TRUE)\n}\n\n# Remove the n argument from the call\ncut_by_quantile(\n  n_visits, \n  na.rm = FALSE, \n  labels = c(\"very low\", \"low\", \"medium\", \"high\", \"very high\"),\n  interval_type = \"(lo, hi]\"\n)\nformals(cut_by_quantile)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#logical-defaults",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#logical-defaults",
+    "title": "12  How to Write a Function",
+    "section": "12.8 Logical defaults",
+    "text": "12.8 Logical defaults\ncut_by_quantile() is now slightly easier to use, but you still always have to specify the na.rm argument. This removes missing values—it behaves the same as the na.rm argument to mean() or sd().\nWhere functions have an argument for removing missing values, the best practice is to not remove them by default (in case you hadn’t spotted that you had missing values). That means that the default for na.rm should be FALSE."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-5",
+    "href": "Introduction_to_Writing_Functions_in_R_C1.html#instructions-100-xp-5",
+    "title": "12  How to Write a Function",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUpdate the definition of cut_by_quantile() so that the na.rm argument defaults to FALSE. Remove the na.rm argument from the call to cut_by_quantile().\n\n\nE7.R\n\n# Set the default for na.rm to FALSE\ncut_by_quantile <- function(x, n = 5, na.rm = FALSE, labels, interval_type) {\n  probs <- seq(0, 1, length.out = n + 1)\n  qtiles <- quantile(x, probs, na.rm = na.rm, names = FALSE)\n  right <- switch(interval_type, \"(lo, hi]\" = TRUE, \"[lo, hi)\" = FALSE)\n  cut(x, qtiles, labels = labels, right = right, include.lowest = TRUE)\n}\n\n# Remove the na.rm argument from the call\ncut_by_quantile(\n  n_visits, \n  labels = c(\"very low\", \"low\", \"medium\", \"high\", \"very high\"),\n  interval_type = \"(lo, hi]\"\n)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#returning-early",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#returning-early",
+    "title": "13  Return Values and Scope",
+    "section": "13.1 Returning early",
+    "text": "13.1 Returning early\nSometimes, you don’t need to run through the whole body of a function to get the answer. In that case you can return early from that function using return().\nTo check if x is divisible by n, you can use is_divisible_by(x, n) from assertive.\nAlternatively, use the modulo operator, %%. x %% n gives the remainder when dividing x by n, so x %% n == 0 determines whether x is divisible by n. Try 1:10 %% 3 == 0 in the console.\nTo solve this exercise, you need to know that a leap year is every 400th year (like the year 2000) or every 4th year that isn’t a century (like 1904 but not 1900 or 1905).\nassertive is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp",
+    "title": "13  Return Values and Scope",
+    "section": "13.2 Instructions 100 XP",
+    "text": "13.2 Instructions 100 XP\nComplete the definition of is_leap_year(), checking for the cases of year being divisible by 400, then 100, then 4, returning early from the function in each case.\n\n\nE1.R\n\nis_leap_year <- function(year) {\n  # If year is div. by 400 return TRUE\n  if(is_divisible_by(year,400)) {\n    return(TRUE)\n  }\n  # If year is div. by 100 return FALSE\n  if(is_divisible_by(year,100)) {\n    return(FALSE)\n  }  \n  # If year is div. by 4 return TRUE\n  if(is_divisible_by(year,4)) {\n    return(TRUE)\n  }\n  \n  # Otherwise return FALSE\n  FALSE\n}"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#returning-invisibly",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#returning-invisibly",
+    "title": "13  Return Values and Scope",
+    "section": "13.3 Returning invisibly",
+    "text": "13.3 Returning invisibly\nWhen the main purpose of a function is to generate output, like drawing a plot or printing something in the console, you may not want a return value to be rinted as well. In that case, the value should be invisibly returned.\nThe base R plot function returns NULL, since its main purpose is to draw a plot. This isn’t helpful if you want to use it in piped code: instead it should invisibly return the plot data to be piped on to the next step.\nRecall that plot() has a formula interface: instead of giving it vectors for x and y, you can specify a formula describing which columns of a data frame go on the x and y axes, and a data argument for the data frame. Note that just like lm(), the arguments are the wrong way round because the detail argument, formula, comes before the data argument.\n\nplot(y ~ x, data = data)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-1",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-1",
+    "title": "13  Return Values and Scope",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the cars dataset and the formula interface to plot(), draw a scatter plot of dist versus speed.\nGive pipeable_plot() data and formula arguments (in that order) and make it draw the plot, then invisibly return data.\nDraw the scatter plot of dist vs. speed again by calling pipeable_plot()\n\n\n\nE2.R\n\n# Using cars, draw a scatter plot of dist vs. speed\nplt_dist_vs_speed <- plot(dist ~ speed, data = cars)\n\n# Oh no! The plot object is NULL\nplt_dist_vs_speed\n\n# Define a pipeable plot fn with data and formula args\npipeable_plot <- function(data, formula) {\n  # Call plot() with the formula interface\n  plot(formula, data)\n  # Invisibly return the input dataset\n  invisible(data)\n}\n\n# Draw the scatter plot of dist vs. speed again\nplt_dist_vs_speed <- cars %>% \n  pipeable_plot(dist ~ speed)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#returning-many-things",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#returning-many-things",
+    "title": "13  Return Values and Scope",
+    "section": "13.4 Returning many things",
+    "text": "13.4 Returning many things\nFunctions can only return one value. If you want to return multiple things, then you can store them all in a list.\nIf users want to have the list items as separate variables, they can assign each list element to its own variable using zeallot’s multi-assignment operator, %<-%.\nglance(), tidy(), and augment() each take the model object as their only rgument.\nThe Poisson regression model of Snake River visits is available as model. broom and zeallot are loaded."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-2",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-2",
+    "title": "13  Return Values and Scope",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExamine the structure of model.\nUse broom functions on model to create a list containing the model-, coefficient-, and observation-level parts of model.\nWrap the code into a function, groom_model(), that accepts model as its only argument.\nCall groom_model() on model, multi-assigning the result to three variables at once: mdl, cff, and obs.\n\n\n\nE3.R\n\n# Look at the structure of model (it's a mess!)\nstr(model)\n\n# Use broom tools to get a list of 3 data frames\nlist(\n  # Get model-level values\n  model = glance(model),\n  # Get coefficient-level values\n  coefficients = tidy(model),\n  # Get observation-level values\n  observations = augment(model)\n)\n\n# Wrap this code into a function, groom_model\ngroom_model <- function(model){\n  list(\n    model = glance(model),\n    coefficients = tidy(model),\n    observations = augment(model)\n  )\n}\n\ngroom_model(model)\n\n# From previous step\ngroom_model <- function(model) {\n  list(\n    model = glance(model),\n    coefficients = tidy(model),\n    observations = augment(model)\n  )\n}\n\n# Call groom_model on model, assigning to 3 variables\nc(mdl, cff, obs) %<-% groom_model(model)\n#c(var1, var2, var3) %<-% fn(args)\n\n# See these individual variables\nmdl; cff; obs"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#returning-metadata",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#returning-metadata",
+    "title": "13  Return Values and Scope",
+    "section": "13.5 Returning metadata",
+    "text": "13.5 Returning metadata\nSometimes you want to return multiple things from a function, but you want the result to have a particular class (for example, a data frame or a numeric vector), so returning a list isn’t appropriate. This is common when you have a result plus metadata about the result. (Metadata is “data about the data”. For example, it could be the file a dataset was loaded from, or the username of the person who created the variable, or the number of iterations for an algorithm to converge.)\nIn that case, you can store the metadata in attributes. Recall the syntax for assigning attributes is as follows.\n\nattr(object, “attribute_name”) <- attribute_value"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-3",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-3",
+    "title": "13  Return Values and Scope",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate pipeable_plot() so the result has an attribute named “formula” with the value of formula.\nplt_dist_vs_speed, that you previously created, is shown. Examine its updated structure.\n\n\n\nE4.R\n\npipeable_plot <- function(data, formula) {\n  plot(formula, data)\n  # Add a \"formula\" attribute to data\n  attr(data, \"formula\") <- formula\n  invisible(data)\n}\n\n# From previous exercise\nplt_dist_vs_speed <- cars %>% \n  pipeable_plot(dist ~ speed)\n\n# Examine the structure of the result\nstr(plt_dist_vs_speed)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#creating-and-exploring-environments",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#creating-and-exploring-environments",
+    "title": "13  Return Values and Scope",
+    "section": "13.6 Creating and exploring environments",
+    "text": "13.6 Creating and exploring environments\nEnvironments are used to store other variables. Mostly, you can think of them as lists, but there’s an important extra property that is relevant to writing functions. Every environment has a parent environment (except the empty environment, at the root of the environment tree). This determines which variables R know about at different places in your code.\nFacts about the Republic of South Africa are contained in capitals, national_parks, and population."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-4",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-4",
+    "title": "13  Return Values and Scope",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate rsa_lst, a named list from capitals, national_parks, and population. Use those values as the names.\nList the structure of each element of rsa_lst using ls.str().\nConvert the list to an environment, rsa_env, using list2env().\nList the structure of each element of rsa_env\nFind the parent environment of rsa_env and print its name.\n\n\n\nE5.R\n\n# Add capitals, national_parks, & population to a named list\nrsa_lst <- list(\n  capitals = capitals,\n  national_parks = national_parks,\n  population = population\n)\n\n# List the structure of each element of rsa_lst\nls.str(rsa_lst)\n\n# From previous step\nrsa_lst <- list(\n  capitals = capitals,\n  national_parks = national_parks,\n  population = population\n)\n\n# Convert the list to an environment\nrsa_env <- list2env(rsa_lst)\n\n# List the structure of each variable\nls.str(rsa_env)\n\n# From previous steps\nrsa_lst <- list(\n  capitals = capitals,\n  national_parks = national_parks,\n  population = population\n)\nrsa_env <- list2env(rsa_lst)\n\n# Find the parent environment of rsa_env\nparent <- parent.env(rsa_env)\nenvironmentName(parent)\n\n# Print its name\nprint(environmentName)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#do-variables-exist",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#do-variables-exist",
+    "title": "13  Return Values and Scope",
+    "section": "13.7 Do variables exist?",
+    "text": "13.7 Do variables exist?\nIf R cannot find a variable in the current environment, it will look in the parent environment, then the grandparent environment, and so on until it finds it.\nrsa_env has been modified so it includes capitals and national_parks, but not population."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-5",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#instructions-100-xp-5",
+    "title": "13  Return Values and Scope",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCheck if population exists in rsa_env, using default inheritance rules.\nCheck if population exists in rsa_env, ignoring inheritance.\n\n\n\nE6.R\n\n# Compare the contents of the global environment and rsa_env\nls.str(globalenv())\nls.str(rsa_env)\n\n# Does population exist in rsa_env?\nexists(\"population\", envir = rsa_env)\n\n# Does population exist in rsa_env, ignoring inheritance?\nexists(\"population\", envir = rsa_env,inherits = FALSE)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#variable-precedence-1",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#variable-precedence-1",
+    "title": "13  Return Values and Scope",
+    "section": "13.8 Variable precedence 1",
+    "text": "13.8 Variable precedence 1\nConsider this code, run in a fresh R session.\n\nx_plus_y <- function(x) { y <- 3 x + y } y <- 7\n\nIf you now call x_plus_y(5), what is the result?"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#answer-the-question-50xp",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#answer-the-question-50xp",
+    "title": "13  Return Values and Scope",
+    "section": "13.9 Answer the question 50XP",
+    "text": "13.9 Answer the question 50XP\nPossible Answers\n\nRespuesta\n\n\n\nAn error is thrown."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#variable-precedence-2",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#variable-precedence-2",
+    "title": "13  Return Values and Scope",
+    "section": "13.10 Variable precedence 2",
+    "text": "13.10 Variable precedence 2\nConsider this (slightly different) code, run in a fresh R session.\nx_plus_y <- function(x) { x <- 6 y <- 3 x + y } y <- 7 If you now call x_plus_y(5), what is the result?"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C3.html#answer-the-question-50xp-1",
+    "href": "Introduction_to_Writing_Functions_in_R_C3.html#answer-the-question-50xp-1",
+    "title": "13  Return Values and Scope",
+    "section": "13.11 Answer the question 50XP",
+    "text": "13.11 Answer the question 50XP\nPossible Answers\n\n\nrespuesta\n\nAn error is thrown."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#converting-areas-to-metric-1",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#converting-areas-to-metric-1",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.1 Converting areas to metric 1",
+    "text": "15.1 Converting areas to metric 1\nIn this chapter, you’ll be working with grain yield data from the United States Department of Agriculture, National Agricultural Statistics Service. Unfortunately, they report all areas in acres. So, the first thing you need to do is write some utility functions to convert areas in acres to areas in hectares.\nTo solve this exercise, you need to know the following:\nThere are 4840 square yards in an acre. There are 36 inches in a yard and one inch is 0.0254 meters. There are 10000 square meters in a hectare."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.2 Instructions 100 XP",
+    "text": "15.2 Instructions 100 XP\n\nWrite a function, acres_to_sq_yards(), to convert areas in acres to areas in square yards. This should take a single argument, acres.\nWrite a function, yards_to_meters(), to convert distances in yards to distances in meters. This should take a single argument, yards.\nWrite a function, sq_meters_to_hectares(), to convert areas in square meters to areas in hectares. This should take a single argument, sq_meters.\n\n\n\nE1.R\n\n# Write a function to convert acres to sq. yards\nacres_to_sq_yards <- function(x) {\n  x * 4840\n}\n\n\n# Write a function to convert yards to meters\nyards_to_meters <- function(x) {\n  x * 36*0.0254\n}\n\n# Write a function to convert sq. meters to hectares\nsq_meters_to_hectares <- function(sq_meters) {\n  (sq_meters)/10000\n}"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#converting-areas-to-metric-2",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#converting-areas-to-metric-2",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.3 Converting areas to metric 2",
+    "text": "15.3 Converting areas to metric 2\nYou’re almost there with creating a function to convert acres to hectares. You need another utility function to deal with getting from square yards to square meters. Then, you can bring everything together to write the overall acres-to-hectares conversion function. Finally, in the next exercise you’ll be calculating area conversions in the denominator of a ratio, so you’ll need a harmonic acre-to-hectare conversion function.\nFree hints: magrittr’s raise_to_power() will be useful here. The last step is similar to Chapter 2’s Harmonic Mean.\nThe three utility functions from the last exercise (acres_to_sq_yards(), yards_to_meters(), and sq_meters_to_hectares()) are available, as is your get_reciprocal() from Chapter 2. magrittr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-1",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-1",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nWrite a function to convert distance in square yards to square meters. It should take the square root of the input, then convert yards to meters, then square the result.\nWrite a function to convert areas in acres to hectares. The function should convert the input from acres to square yards, then to square meters, then to hectares.\nWrite a function to harmonically convert areas in acres to hectares. The function should get the reciprocal of the input, then convert from acres to hectares, then get the reciprocal again.\n\n\n\nE2.R\n\n# Write a function to convert sq. yards to sq. meters\nsq_yards_to_sq_meters <- function(sq_yards) {\n  sq_yards %>%\n    # Take the square root\n    sqrt() %>%\n    # Convert yards to meters\n    yards_to_meters() %>%\n    # Square it\n    raise_to_power(2)\n     }\n     \n# Load the function from the previous step\nload_step2()\n\n# Write a function to convert acres to hectares\nacres_to_hectares <- function(acres) {\n  acres %>%\n    # Convert acres to sq yards\n    acres_to_sq_yards() %>%\n    # Convert sq yards to sq meters\n    sq_yards_to_sq_meters() %>%\n    # Convert sq meters to hectares\n    sq_meters_to_hectares()\n}\n\n# Load the functions from the previous steps\nload_step3()\n\n# Define a harmonic acres to hectares function\nharmonic_acres_to_hectares <- function(acres) {\n  acres %>% \n    # Get the reciprocal\n    get_reciprocal() %>%\n    # Convert acres to hectares\n    acres_to_hectares() %>% \n    # Get the reciprocal again\n    get_reciprocal()\n}"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#converting-yields-to-metric",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#converting-yields-to-metric",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.4 Converting yields to metric",
+    "text": "15.4 Converting yields to metric\nThe yields in the NASS corn data are also given in US units, namely bushels per acre. You’ll need to write some more utility functions to convert this unit to the metric unit of kg per hectare.\nBushels historically meant a volume of 8 gallons, but in the context of grain, they are now defined as masses. This mass differs for each grain! To solve this exercise, you need to know these facts.\nOne pound (lb) is 0.45359237 kilograms (kg). One bushel is 48 lbs of barley, 56 lbs of corn, or 60 lbs of wheat. magrittr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-2",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-2",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nWrite a function to convert masses in lb to kg. This should take a single argument, lbs.\nWrite a function to convert masses in bushels to lbs. This should take two arguments, bushels and crop. It should define a lookup vector of scale factors for each crop (barley, corn, wheat), extract the scale factor for the crop, then multiply this by the number of bushels.\nWrite a function to convert masses in bushels to kgs. This should take two arguments, bushels and crop. It should convert the mass in bushels to lbs then to kgs.\nWrite a function to convert yields in bushels/acre to kg/ha. The arguments should be bushels_per_acre and crop. Three choices of crop should be allowed: “barley”, “corn”, and “wheat”. It should match the crop argument, then convert bushels to kgs, then convert harmonic acres to hectares.\n\n\n\nE3.R\n\n# Write a function to convert lb to kg\nlbs_to_kgs <- function(lbs) {lbs * 0.45359237}\n\n# Write a function to convert bushels to lbs\nbushels_to_lbs <- function(bushels, crop) {\n  # Define a lookup table of scale factors\n  c(barley = 48, corn = 56, wheat = 60) %>%\n    # Extract the value for the crop\n    extract(crop) %>%\n    # Multiply by the no. of bushels\n    multiply_by(bushels)\n}\n\n# Load fns defined in previous steps\nload_step3()\n\n# Write a function to convert bushels to kg\nbushels_to_kgs <- function(bushels, crop) {\n  bushels %>%\n    # Convert bushels to lbs for this crop\n    bushels_to_lbs(crop) %>%\n    # Convert lbs to kgs\n    lbs_to_kgs()\n}\n\n# Load fns defined in previous steps\nload_step4()\n\n# Write a function to convert bushels/acre to kg/ha\nbushels_per_acre_to_kgs_per_hectare <- function(bushels_per_acre, \ncrop = c(\"barley\", \"corn\", \"wheat\")) {\n  # Match the crop argument\n  crop <- match.arg(crop)\n  bushels_per_acre %>%\n    # Convert bushels to kgs for this crop\n    bushels_to_kgs(crop) %>%\n    # Convert harmonic acres to ha\n    harmonic_acres_to_hectares()\n}"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#applying-the-unit-conversion",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#applying-the-unit-conversion",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.5 Applying the unit conversion",
+    "text": "15.5 Applying the unit conversion\nNow that you’ve written some functions, it’s time to apply them! The NASS corn dataset is available, and you can fortify it (jargon for “adding new columns”) with metrics areas and yields.\nThis fortification process can also be turned into a function, so you’ll define a function for this, and test it on the NASS wheat dataset."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-3",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-3",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nLook at the corn dataset. Add two columns: farmed_area_ha should be farmed_area_acres converted to hectares; yield_kg_per_ha should be yield_bushels_per_acre converted to kilograms per hectare.\nWrap the mutation code into a function called fortify_with_metric_units that takes two arguments, data and crop with no defaults. (In the function body, swap corn for the data argument and pass the function’s local crop variable to the crop argument.)\nUse fortify_with_metric_units() on the wheat dataset.\n\n\n\nE4.R\n\n# View the corn dataset\nglimpse(corn)\n\ncorn %>%\n  # Add some columns\n  mutate(\n    # Convert farmed area from acres to ha\n    farmed_area_ha = acres_to_hectares(farmed_area_acres),\n    # Convert yield from bushels/acre to kg/ha\n    yield_kg_per_ha = bushels_per_acre_to_kgs_per_hectare(\n      yield_bushels_per_acre,\n      crop = \"corn\"\n    )\n  )\n  \n# Wrap this code into a function\nfortify_with_metric_units <- function(data, crop) {\n  data %>%\n    mutate(\n      farmed_area_ha = acres_to_hectares(farmed_area_acres),\n      yield_kg_per_ha = bushels_per_acre_to_kgs_per_hectare(\n        yield_bushels_per_acre, \n        crop = crop\n      )\n    )\n}\n\n# Try it on the wheat dataset\nfortify_with_metric_units(wheat, crop = \"wheat\")"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#plotting-yields-over-time",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#plotting-yields-over-time",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.6 Plotting yields over time",
+    "text": "15.6 Plotting yields over time\nNow that the units have been dealt with, it’s time to explore the datasets. An obvious question to ask about each crop is, “how do the yields change over time in each US state?” Let’s draw a line plot to find out!\nggplot2 is loaded, and corn and wheat datasets are available with metric units."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-4",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-4",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the corn dataset, plot yield_kg_per_ha versus year. Add a line layer grouped by state and a smooth trend layer.\nTurn the plotting code into a function, plot_yield_vs_year(). This should accept a single argument, data.\n\n\n\nE5.R\n\n\n# Using corn, plot yield (kg/ha) vs. year\nggplot(corn, aes(year, yield_kg_per_ha)) +\n  # Add a line layer, grouped by state\n  geom_line(aes(group = state)) +\n  # Add a smooth trend layer\n  geom_smooth()\n  \n# Wrap this plotting code into a function\nplot_yield_vs_year <- function(data) {\n  ggplot(data, aes(year, yield_kg_per_ha)) +\n    geom_line(aes(group = state)) +\n    geom_smooth()\n}\n\n# Test it on the wheat dataset\nplot_yield_vs_year(wheat)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#a-nation-divided",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#a-nation-divided",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.7 A nation divided",
+    "text": "15.7 A nation divided\nThe USA has a varied climate, so we might expect yields to differ between states. Rather than trying to reason about 50 states separately, we can use the USA Census Regions to get 9 groups.\nThe “Corn Belt”, where most US corn is grown is in the “West North Central” and “East North Central” regions. The “Wheat Belt” is in the “West South Central” region.\ndplyr is loaded, the corn and wheat datasets are available, as is usa_census_regions."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-5",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-5",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nInner join corn to usa_census_regions by “state”.\nTurn the code into a function, fortify_with_census_region(). This should accept a single argument, data.\n\n\n\nE6.R\n\n# Inner join the corn dataset to usa_census_regions by state\ncorn %>%\n  inner_join(usa_census_regions, by = \"state\")\n  \n# Wrap this code into a function\nfortify_with_census_region <- function(data){\n  data %>%\n    inner_join(usa_census_regions, by = \"state\")\n}\n\n# Try it on the wheat dataset\nfortify_with_census_region(wheat)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#plotting-yields-over-time-by-region",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#plotting-yields-over-time-by-region",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.8 Plotting yields over time by region",
+    "text": "15.8 Plotting yields over time by region\nSo far, you have used a function to plot yields over time for each crop, and you’ve added a census_region column to the crop datasets. Now you are ready to look at how the yields change over time in each region of the USA.\nggplot2 is loaded. corn and wheat have been fortified with census regions. plot_yield_vs_year() is available."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-6",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-6",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the function you wrote to plot yield versus year for the corn dataset, then facet the plot, wrapped by census_region.\nTurn the code into a function, plot_yield_vs_year_by_region(), that should take a single argument, data.\n\n\n\nE7.R\n\n# Plot yield vs. year for the corn dataset\nplot_yield_vs_year(corn) +\n  # Facet, wrapped by census region\n  facet_wrap(vars(census_region))\n  \n# Wrap this code into a function\nplot_yield_vs_year_by_region <- function(data) {\n\n  plot_yield_vs_year(data) +\n    facet_wrap(vars(census_region))\n}\n\n# Try it on the wheat dataset\nplot_yield_vs_year_by_region(wheat)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#running-a-model",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#running-a-model",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.9 Running a model",
+    "text": "15.9 Running a model\nThe smooth trend line you saw in the plots of yield over time use a generalized additive model (GAM) to determine where the line should lie. This sort of model is ideal for fitting nonlinear curves. So we can make predictions about future yields, let’s explicitly run the model. The syntax for running this GAM takes the following form.\n\ngam(response ~ s(explanatory_var1) + explanatory_var2, data = dataset)\n\nHere, s() means “make the variable smooth”, where smooth very roughly means nonlinear.\nmgcv and dplyr are loaded; the corn and wheat datasets are available."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-7",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-7",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun a GAM of yield_kg_per_ha versus smoothed year and census region, using the corn dataset.\nWrap the modeling code into a function, run_gam_yield_vs_year_by_region. This should take a single argument, data, with no default.\n\n\n\nE8.R\n\n# Run a generalized additive model of yield vs. smoothed year and census region\n\ngam(yield_kg_per_ha ~ s(year) + census_region, data = corn)\n\n# Wrap the model code into a function\nrun_gam_yield_vs_year_by_region <- function(data){\n  gam(yield_kg_per_ha ~ s(year) + census_region, data = corn)\n}\n\n# Try it on the wheat dataset\nrun_gam_yield_vs_year_by_region(wheat)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#making-yield-predictions",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#making-yield-predictions",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.10 Making yield predictions",
+    "text": "15.10 Making yield predictions\nThe fun part of modeling is using the models to make predictions. You can do this using a call to predict(), in the following form.\npredict(model, cases_to_predict, type = “response”) mgcv and dplyr are loaded; GAMs of the corn and wheat datasets are available as corn_model and wheat_model. A character vector of census regions is stored as census_regions."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-8",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-8",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.11 Instructions 100 XP",
+    "text": "15.11 Instructions 100 XP\n\nIn predict_this, set the prediction year to 2050.\nPredict the yield using corn_model and the cases specified in predict_this.\nMutate predict_this to add the prediction vector as a new column named pred_yield_kg_per_ha.\nWrap the script into a function, predict_yields. It should take two arguments, model and year, with no defaults. Remember to update 2050 to the year argument. Try predict_yields() on wheat_model with year set to 2050.\n\n\n\nE9.R\n\n# Make predictions in 2050  \npredict_this <- data.frame(\n  year = 2050,\n  census_region = census_regions\n) \n\n# Predict the yield\npred_yield_kg_per_ha <- predict(corn_model, predict_this, type = \"response\")\n\npredict_this %>%\n  # Add the prediction as a column of predict_this \n    mutate(pred_yield_kg_per_ha = pred_yield_kg_per_ha)\n\n# Wrap this prediction code into a function\npredict_yields <- function(model, year) {\n  predict_this <- data.frame(\n    year = 2050,\n    census_region = census_regions\n  ) \n  pred_yield_kg_per_ha <- predict(model, predict_this, type = \"response\")\n  predict_this %>%\n    mutate(pred_yield_kg_per_ha = pred_yield_kg_per_ha)\n}\n\n# Try it on the wheat dataset\npredict_yields(wheat_model,2050)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#do-it-all-over-again",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#do-it-all-over-again",
+    "title": "15  Case Study on Grain Yields",
+    "section": "15.12 Do it all over again",
+    "text": "15.12 Do it all over again\nHopefully, by now, you’ve realized that the real benefit to writing functions is that you can reuse your code easily. Now you are going to rerun the whole analysis from this chapter on a new crop, barley. Since all the infrastructure is in place, that’s less effort than it sounds!\nBarley prefers a cooler climate compared to corn and wheat and is commonly grown in the US mountain states of Idaho and Montana.\ndplyr and ggplot2, and mgcv are loaded; fortify_with_metric_units(), fortify_with_census_region(), plot_yield_vs_year_by_region(), run_gam_yield_vs_year_by_region(), and predict_yields() are available."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-9",
+    "href": "Introduction_to_Writing_Functions_in_R_C4.html#instructions-100-xp-9",
+    "title": "15  Case Study on Grain Yields",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFortify the barley data with metric units, then with census regions.\nUsing the fortified barley data, plot the yield versus year by census region.\nUsing the fortified barley data, run a GAM of yield versus year by census region, then predict the yields in 2050.\n\n\n\nE10.R\n\nfortified_barley <- barley %>% \n  # Fortify with metric units\n    fortify_with_metric_units() %>%\n  # Fortify with census regions\n  fortify_with_census_region()\n\n# See the result\nglimpse(fortified_barley)\n\n# From previous step\nfortified_barley <- barley %>% \n  fortify_with_metric_units() %>%\n  fortify_with_census_region()\n\n# Plot yield vs. year by region\nplot_yield_vs_year_by_region(fortified_barley)\n\n# From previous step\nfortified_barley <- barley %>% \n  fortify_with_metric_units() %>%\n  fortify_with_census_region()\n\nfortified_barley %>% \n  # Run a GAM of yield vs. year by region\n  run_gam_yield_vs_year_by_region()  %>% \n  # Make predictions of yields in 2050\n  predict_yields(2050)"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html",
+    "href": "Introduction_to_R_C1.html",
+    "title": "2  Intro to basics",
+    "section": "",
+    "text": "Intro to basics"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#how-it-works",
+    "href": "Introduction_to_R_C1.html#how-it-works",
+    "title": "2  Intro to basics",
+    "section": "2.1 How it works",
+    "text": "2.1 How it works\nIn the editor on the right you should type R code to solve the exercises. When you hit the ‘Submit Answer’ button, every line of code is interpreted and executed by R and you get a message whether or not your code was correct. The output of your R code is shown in the console in the lower right corner.\nR makes use of the # sign to add comments, so that you and others can understand what the R code is about. Just like Twitter! Comments are not run as R code, so they will not influence your result. For example, Calculate 3 + 4 in the editor on the right is a comment.\nYou can also execute R commands straight in the console. This is a good way to experiment with R code, as your submission is not checked for correctness."
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#instructions-100-xp",
+    "href": "Introduction_to_R_C1.html#instructions-100-xp",
+    "title": "2  Intro to basics",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nIn the editor on the right there is already some sample code. Can you see which ines are actual R code and which are comments? Add a line of code that calculates the sum of 6 and 12, and hit the ‘Submit Answer’ button.\n\n\nE1.R\n\n# Calculate 3 + 4\n3 + 4\n\n# Calculate 6 + 12\n6 + 12"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#arithmetic-with-r",
+    "href": "Introduction_to_R_C1.html#arithmetic-with-r",
+    "title": "2  Intro to basics",
+    "section": "2.2 Arithmetic with R",
+    "text": "2.2 Arithmetic with R\nIn its most basic form, R can be used as a simple calculator. Consider the following arithmetic operators:\n\nAddition: +\nSubtraction: -\nMultiplication: *\nDivision: /\nExponentiation: ^\nModulo: %%\n\nThe last two might need some explaining:\nThe ^ operator raises the number to its left to the power of the number to its right: for example 3^2 is 9. The modulo returns the remainder of the division of the number to the left by the number on its right, for example 5 modulo 3 or 5 %% 3 is 2. With this knowledge, follow the instructions to complete the exercise.\n\nType 2^5 in the editor to calculate 2 to the power 5.\nType 28 %% 6 to calculate 28 modulo 6.\nSubmit the answer and have a look at the R output in the console.\nNote how the # symbol is used to add comments on the R code.\n\n\n\nE2.R\n\n# An addition\n5 + 5 \n\n# A subtraction\n5 - 5 \n\n# A multiplication\n3 * 5\n\n # A division\n(5 + 5) /2 \n\n# Exponentiation\n2 ^5\n\n# Modulo\n28 %% 6"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#variable-assignment",
+    "href": "Introduction_to_R_C1.html#variable-assignment",
+    "title": "2  Intro to basics",
+    "section": "2.3 Variable assignment",
+    "text": "2.3 Variable assignment\nA basic concept in (statistical) programming is called a variable.\nA variable allows you to store a value (e.g. 4) or an object (e.g. a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable.\nYou can assign a value 4 to a variable my_var with the command\n\nmy_var <- 4"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#instructions-100-xp-1",
+    "href": "Introduction_to_R_C1.html#instructions-100-xp-1",
+    "title": "2  Intro to basics",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nOver to you: complete the code in the editor such that it assigns the value 42 to the variable x in the editor. Submit the answer. Notice that when you ask R to print x, the value 42 appears.\n\n\nE3.R\n\n# Assign the value 42 to x\nx <- 42\n\n# Print out the value of the variable x\nx"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#variable-assignment-2",
+    "href": "Introduction_to_R_C1.html#variable-assignment-2",
+    "title": "2  Intro to basics",
+    "section": "2.4 Variable assignment (2)",
+    "text": "2.4 Variable assignment (2)\nSuppose you have a fruit basket with five apples. As a data analyst in training, you want to store the number of apples in a variable with the name my_apples."
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#instructions-100-xp-2",
+    "href": "Introduction_to_R_C1.html#instructions-100-xp-2",
+    "title": "2  Intro to basics",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nType the following code in the editor: my_apples <- 5. This will assign the value 5 to my_apples. Type: my_apples below the second comment. This will print out the value of my_apples. Submit your answer, and look at the output: you see that the number 5 is printed. So R now links the variable my_apples to the value 5.\n\n\nE4.R\n\n# Assign the value 5 to the variable my_apples\nmy_apples <- 5\n\n# Print out the value of the variable my_apples\nmy_apples"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#variable-assignment-3",
+    "href": "Introduction_to_R_C1.html#variable-assignment-3",
+    "title": "2  Intro to basics",
+    "section": "2.5 Variable assignment (3)",
+    "text": "2.5 Variable assignment (3)\nEvery tasty fruit basket needs oranges, so you decide to add six oranges. As a data analyst, your reflex is to immediately create the variable my_oranges and assign the value 6 to it. Next, you want to calculate how many pieces of fruit you have in total. Since you have given meaningful names to these values, you can now code this in a clear way:\n\nmy_apples + my_oranges\n\nInstructions 100 XP\n\nAssign to my_oranges the value 6.\nAdd the variables my_apples and my_oranges and have R simply print the result.\nAssign the result of adding my_apples and my_oranges to a new variable my_fruit.\n\n\n\nE5.R\n\n# Assign a value to the variables my_apples and my_oranges\nmy_apples <- 5\n\n\n# Add these two variables together\nmy_oranges<-6\n\nmy_apples\nmy_oranges\n\n# Create the variable my_fruit\nmy_fruit = my_apples + my_oranges\nmy_fruit"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#apples-and-oranges",
+    "href": "Introduction_to_R_C1.html#apples-and-oranges",
+    "title": "2  Intro to basics",
+    "section": "2.6 Apples and oranges",
+    "text": "2.6 Apples and oranges\nCommon knowledge tells you not to add apples and oranges. But hey, that is what you just did, no :-)? The my_apples and my_oranges variables both contained a number in the previous exercise. The + operator works with numeric variables in R. If you really tried to add “apples” and “oranges”, and assigned a text value to the variable my_oranges (see the editor), you would be trying to assign the addition of a numeric and a character variable to the variable my_fruit. This is not possible."
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#instructions-100-xp-3",
+    "href": "Introduction_to_R_C1.html#instructions-100-xp-3",
+    "title": "2  Intro to basics",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nSubmit the answer and read the error message. Make sure to understand why this did not work. Adjust the code so that R knows you have 6 oranges and thus a fruit basket with 11 pieces of fruit.\n\n\nE6.R\n\n# Assign a value to the variable my_apples\nmy_apples <- 5 \n\n# Fix the assignment of my_oranges\nmy_oranges <- 6\n\n# Create the variable my_fruit and print it out\nmy_fruit <- my_apples + my_oranges \nmy_fruit"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#basic-data-types-in-r",
+    "href": "Introduction_to_R_C1.html#basic-data-types-in-r",
+    "title": "2  Intro to basics",
+    "section": "2.7 Basic data types in R",
+    "text": "2.7 Basic data types in R\nR works with numerous data types. Some of the most basic types to get started are:\n\nDecimal values like 4.5 are called numerics.\nWhole numbers like 4 are called integers. Integers are also numerics.\nBoolean values (TRUE or FALSE) are called logical.\nText (or string) values are called characters.\nNote how the quotation marks in the editor indicate that “some text” is a string."
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#instructions-100-xp-4",
+    "href": "Introduction_to_R_C1.html#instructions-100-xp-4",
+    "title": "2  Intro to basics",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nChange the value of the:\n\nmy_numeric variable to 42.\nmy_character variable to “universe”. Note that the quotation marks indicate that “universe” is a character.\nmy_logical variable to FALSE.\nNote that R is case sensitive!\n\n\n\nE7.R\n\n# Change my_numeric to be 42\nmy_numeric <- 42\n\n# Change my_character to be \"universe\"\nmy_character <- \"universe\"\n\n# Change my_logical to be FALSE\nmy_logical <- FALSE"
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#whats-that-data-type",
+    "href": "Introduction_to_R_C1.html#whats-that-data-type",
+    "title": "2  Intro to basics",
+    "section": "2.8 What’s that data type?",
+    "text": "2.8 What’s that data type?\nDo you remember that when you added 5 + “six”, you got an error due to a mismatch in data types? You can avoid such embarrassing situations by checking the data type of a variable beforehand. You can do this with the class() function, as the code in the editor shows."
+  },
+  {
+    "objectID": "Introduction_to_R_C1.html#instructions-100-xp-5",
+    "href": "Introduction_to_R_C1.html#instructions-100-xp-5",
+    "title": "2  Intro to basics",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nComplete the code in the editor and also print out the classes of my_character and my_logical.\n\n\nE8.R\n\n# Declare variables of different types\nmy_numeric <- 42\nmy_character <- \"universe\"\nmy_logical <- FALSE \n\n# Check class of my_numeric\nclass(my_numeric)\n\n# Check class of my_character\nclass(my_character)\n\n# Check class of my_logical\nclass(my_logical)"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html",
+    "href": "Introduction_to_R_C2.html",
+    "title": "3  Vectors",
+    "section": "",
+    "text": "Vectors"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#create-a-vector",
+    "href": "Introduction_to_R_C2.html#create-a-vector",
+    "title": "3  Vectors",
+    "section": "3.1 Create a vector",
+    "text": "3.1 Create a vector\nFeeling lucky? You better, because this chapter takes you on a trip to the City of Sins, also known as Statisticians Paradise!\nThanks to R and your new data-analytical skills, you will learn how to uplift your performance at the tables and fire off your career as a professional gambler. This chapter will show how you can easily keep track of your betting progress and how you can do some simple analyses on past actions. Next stop, Vegas Baby… VEGAS!!"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nDo you still remember what you have learned in the first chapter? Assign the value “Go!” to the variable vegas. Remember: R is case sensitive!\n\n\nE1.R\n\n# Define the variable vegas\nvegas <- \"Go!\""
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#create-a-vector-2",
+    "href": "Introduction_to_R_C2.html#create-a-vector-2",
+    "title": "3  Vectors",
+    "section": "3.2 Create a vector (2)",
+    "text": "3.2 Create a vector (2)\nLet us focus first!\nOn your way from rags to riches, you will make extensive use of vectors. ectors are one-dimension arrays that can hold numeric data, character data, or logical data. In other words, a vector is a simple tool to store data. For example, you can store your daily gains and losses in the casinos.\nIn R, you create a vector with the combine function c(). You place the vector elements separated by a comma between the parentheses. For example:\n\nnumeric_vector <- c(1, 2, 3) character_vector <- c(“a”, “b”, “c”)\n\nOnce you have created these vectors in R, you can use them to do calculations."
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-1",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-1",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nComplete the code such that boolean_vector contains the three elements: TRUE, FALSE and TRUE (in that order).\n\n\nE2.R\n\nnumeric_vector <- c(1, 10, 49)\ncharacter_vector <- c(\"a\", \"b\", \"c\")\n\n# Complete the code for boolean_vector\nboolean_vector <-c(TRUE,FALSE,TRUE)\n\nCreate a vector (3) After one week in Las Vegas and still zero Ferraris in your garage, you decide that it is time to start using your data analytical superpowers.\nBefore doing a first analysis, you decide to first collect all the winnings and losses for the last week:\nFor poker_vector:\n\nOn Monday you won $140\nTuesday you lost $50\nWednesday you won $20\nThursday you lost $120\nFriday you won $240\n\nFor roulette_vector:\n\nOn Monday you lost $24\nTuesday you lost $50\nWednesday you won $100\nThursday you lost $350\nFriday you won $10\n\nYou only played poker and roulette, since there was a delegation of mediums that occupied the craps tables. To be able to use this data in R, you decide to create the variables poker_vector and roulette_vector.\nInstructions 100 XP {.unnumbered}\nAssign the winnings/losses for roulette to the variable roulette_vector. You lost $24, then lost $50, won $100, lost $350, and won $10.\n\n\nE3.R\n\n# Poker winnings from Monday to Friday\npoker_vector <- c(140, -50, 20, -120, 240)\n\n# Roulette winnings from Monday to Friday\nroulette_vector <- c(-24,-50,100,-350,10)"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#naming-a-vector",
+    "href": "Introduction_to_R_C2.html#naming-a-vector",
+    "title": "3  Vectors",
+    "section": "3.3 Naming a vector",
+    "text": "3.3 Naming a vector\nAs a data analyst, it is important to have a clear view on the data that you are using. Understanding what each element refers to is therefore essential.\nIn the previous exercise, we created a vector with your winnings over the week. Each vector element refers to a day of the week but it is hard to tell which element belongs to which day. It would be nice if you could show that in the vector itself.\nYou can give a name to the elements of a vector with the names() function. Have a look at this example:\n\nsome_vector <- c(“John Doe”, “poker player”) names(some_vector) <- c(“Name”, “Profession”)\n\nThis code first creates a vector some_vector and then gives the two elements a name. The first element is assigned the name Name, while the second element is labeled Profession. Printing the contents to the console yields following output:\n\n     Name     Profession \n“John Doe” “poker player”"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-2",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-2",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nThe code in the editor names the elements in poker_vector with the days of the week. Add code to do the same thing for roulette_vector\n\n\nE4.R\n\n# Poker winnings from Monday to Friday\npoker_vector <- c(140, -50, 20, -120, 240)\n\n# Roulette winnings from Monday to Friday\nroulette_vector <- c(-24, -50, 100, -350, 10)\n\n# Assign days as names of poker_vector\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\n\n# Assign days as names of roulette_vector\nnames(poker_vector) <-days_vector \n  names(roulette_vector) <-days_vector"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#naming-a-vector-2",
+    "href": "Introduction_to_R_C2.html#naming-a-vector-2",
+    "title": "3  Vectors",
+    "section": "3.4 Naming a vector (2)",
+    "text": "3.4 Naming a vector (2)\nIf you want to become a good statistician, you have to become lazy. (If you are already lazy, chances are high you are one of those exceptional, natural-born statistical talents.)\nIn the previous exercises you probably experienced that it is boring and frustrating to type and retype information such as the days of the week. However, when you look at it from a higher perspective, there is a more efficient way to do this, namely, to assign the days of the week vector to a variable!\nJust like you did with your poker and roulette returns, you can also create a variable that contains the days of the week. This way you can use and re-use it."
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-3",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-3",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nA variable days_vector that contains the days of the week has already been created for you.\nUse days_vector to set the names of poker_vector and roulette_vector.\n\n\n\nE5.R\n\n# Poker winnings from Monday to Friday\npoker_vector <- c(140, -50, 20, -120, 240)\n\n# Roulette winnings from Monday to Friday\nroulette_vector <- c(-24, -50, 100, -350, 10)\n\n# The variable days_vector\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\n \n# Assign the names of the day to roulette_vector and poker_vector\nnames(poker_vector) <-days_vector \n  names(roulette_vector) <-days_vector"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#calculating-total-winnings",
+    "href": "Introduction_to_R_C2.html#calculating-total-winnings",
+    "title": "3  Vectors",
+    "section": "3.5 Calculating total winnings",
+    "text": "3.5 Calculating total winnings\nNow that you have the poker and roulette winnings nicely as named vectors, you can start doing some data analytical magic.\nYou want to find out the following type of information:\nHow much has been your overall profit or loss per day of the week? Have you lost money over the week in total? Are you winning/losing money on poker or on roulette? To get the answers, you have to do arithmetic calculations on vectors.\nIt is important to know that if you sum two vectors in R, it takes the element-wise sum. For example, the following three statements are completely equivalent:\n\nc(1, 2, 3) + c(4, 5, 6) c(1 + 4, 2 + 5, 3 + 6) c(5, 7, 9)\n\nYou can also do the calculations with variables that represent vectors:\n\na <- c(1, 2, 3) b <- c(4, 5, 6) c <- a + b"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-4",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-4",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nTake the sum of the variables A_vector and B_vector and assign it to total_vector. Inspect the result by printing out total_vector.\n\n\nE6.R\n\nA_vector <- c(1, 2, 3)\nB_vector <- c(4, 5, 6)\n\n# Take the sum of A_vector and B_vector\ntotal_vector <- A_vector+B_vector\n  \n# Print out total_vector\ntotal_vector"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#calculating-total-winnings-2",
+    "href": "Introduction_to_R_C2.html#calculating-total-winnings-2",
+    "title": "3  Vectors",
+    "section": "3.6 Calculating total winnings (2)",
+    "text": "3.6 Calculating total winnings (2)\nNow you understand how R does arithmetic with vectors, it is time to get those Ferraris in your garage! First, you need to understand what the overall profit or loss per day of the week was. The total daily profit is the sum of the profit/loss you realized on poker per day, and the profit/loss you realized on roulette per day.\nIn R, this is just the sum of roulette_vector and poker_vector.\nInstructions 100 XP\nAssign to the variable total_daily how much you won or lost on each day in total (poker and roulette combined).\n\n\nE7.R\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Assign to total_daily how much you won/lost on each day\ntotal_daily <- roulette_vector+ poker_vector\ntotal_daily"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#calculating-total-winnings-3",
+    "href": "Introduction_to_R_C2.html#calculating-total-winnings-3",
+    "title": "3  Vectors",
+    "section": "3.7 Calculating total winnings (3)",
+    "text": "3.7 Calculating total winnings (3)\nBased on the previous analysis, it looks like you had a mix of good and bad days. This is not what your ego expected, and you wonder if there may be a very tiny chance you have lost money over the week in total?\nA function that helps you to answer this question is sum(). It calculates the sum of all elements of a vector. For example, to calculate the total amount of money you have lost/won with poker you do:\ntotal_poker <- sum(poker_vector)"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-5",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-5",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nCalculate the total amount of money that you have won/lost with roulette and assign to the variable total_roulette. Now that you have the totals for roulette and poker, you can easily calculate total_week (which is the sum of all gains and losses of the week). Print out total_week.\n\n\nE8.R\n\n# Total winnings with roulette\ntotal_roulette <-  sum (roulette_vector)\n\n# Total winnings overall\ntotal_week <-(total_roulette + total_poker)\n\n# Print out total_week\n  total_poker\n  total_roulette\n  total_week"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#comparing-total-winnings",
+    "href": "Introduction_to_R_C2.html#comparing-total-winnings",
+    "title": "3  Vectors",
+    "section": "3.8 Comparing total winnings",
+    "text": "3.8 Comparing total winnings\nOops, it seems like you are losing money. Time to rethink and adapt your strategy! This will require some deeper analysis…\nAfter a short brainstorm in your hotel’s jacuzzi, you realize that a possible explanation might be that your skills in roulette are not as well developed as your skills in poker. So maybe your total gains in poker are higher (or > ) than in roulette."
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-6",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-6",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate total_poker and total_roulette as in the previous exercise. Use the sum() function twice.\nCheck if your total gains in poker are higher than for roulette by using a comparison. Simply print out the result of this comparison. What do you conclude, should you focus on roulette or on poker?\n\n\n\nE9.R\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Calculate total gains for poker and roulette\ntotal_poker <- sum(poker_vector)\ntotal_roulette <- sum(roulette_vector)\n\n# Check if you realized higher total gains in poker than in roulette\ntotal_poker > total_roulette"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#vector-selection-the-good-times",
+    "href": "Introduction_to_R_C2.html#vector-selection-the-good-times",
+    "title": "3  Vectors",
+    "section": "3.9 Vector selection: the good times",
+    "text": "3.9 Vector selection: the good times\nYour hunch seemed to be right. It appears that the poker game is more your cup of tea than roulette.\nAnother possible route for investigation is your performance at the beginning of the working week compared to the end of it. You did have a couple of Margarita cocktails at the end of the week…\nTo answer that question, you only want to focus on a selection of the total_vector. In other words, our goal is to select specific elements of the vector. To select elements of a vector (and later matrices, data frames, …), you can use square brackets. Between the square brackets, you indicate what elements to select. For example, to select the first element of the vector, you type poker_vector[1]. To select the second element of the vector, you type poker_vector[2], etc. Notice that the first element in a vector has index 1, not 0 as in many other programming languages."
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-7",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-7",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nAssign the poker results of Wednesday to the variable poker_wednesday.\n\n\nE10.R\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Define a new variable based on a selection\npoker_wednesday <- poker_vector[3]"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#vector-selection-the-good-times-2",
+    "href": "Introduction_to_R_C2.html#vector-selection-the-good-times-2",
+    "title": "3  Vectors",
+    "section": "3.10 Vector selection: the good times (2)",
+    "text": "3.10 Vector selection: the good times (2)\nHow about analyzing your midweek results?\nTo select multiple elements from a vector, you can add square brackets at the end of it. You can indicate between the brackets what elements should be selected. For example: suppose you want to select the first and the fifth day of the week: use the vector c(1, 5) between the square brackets. For example, the code below selects the first and fifth element of poker_vector:\npoker_vector[c(1, 5)]"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-8",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-8",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nAssign the poker results of Tuesday, Wednesday and Thursday to the variable poker_midweek.\n\n\nE11.R\n\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Define a new variable based on a selection\npoker_midweek <- poker_vector[c(2, 3, 4)]"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#vector-selection-the-good-times-3",
+    "href": "Introduction_to_R_C2.html#vector-selection-the-good-times-3",
+    "title": "3  Vectors",
+    "section": "3.11 Vector selection: the good times (3)",
+    "text": "3.11 Vector selection: the good times (3)\nSelecting multiple elements of poker_vector with c(2, 3, 4) is not very convenient. Many statisticians are lazy people by nature, so they created an easier way to do this: c(2, 3, 4) can be abbreviated to2:4, which generates a vector with all natural numbers from 2 up to 4.\nSo, another way to find the mid-week results is poker_vector[2:4]. Notice how the vector 2:4 is placed between the square brackets to select element 2 up to 4."
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-9",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-9",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nAssign to roulette_selection_vector the roulette results from Tuesday up to Friday; make use of : if it makes things easier for you.\n\n\nE12.R\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Define a new variable based on a selection\nroulette_selection_vector <- roulette_vector[2:5]"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#vector-selection-the-good-times-4",
+    "href": "Introduction_to_R_C2.html#vector-selection-the-good-times-4",
+    "title": "3  Vectors",
+    "section": "3.12 Vector selection: the good times (4)",
+    "text": "3.12 Vector selection: the good times (4)\nAnother way to tackle the previous exercise is by using the names of the vector elements (Monday, Tuesday, …) instead of their numeric positions. For example,\npoker_vector[“Monday”] will select the first element of poker_vector since “Monday” is the name of that first element.\nJust like you did in the previous exercise with numerics, you can also use the element names to select multiple elements, for example:\npoker_vector[c(“Monday”,“Tuesday”)]"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-10",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-10",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nSelect the first three elements in poker_vector by using their names: “Monday”, “Tuesday” and “Wednesday”. Assign the result of the selection to poker_start. Calculate the average of the values in poker_start with the mean() function. Simply print out the result so you can inspect it.\n\n\nE13.R\n\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Select poker results for Monday, Tuesday and Wednesday\npoker_start <- poker_vector[c(\"Monday\",\"Tuesday\",\"Wednesday\" )]\n  \n# Calculate the average of the elements in poker_start\nmean(poker_start)"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#selection-by-comparison---step-1",
+    "href": "Introduction_to_R_C2.html#selection-by-comparison---step-1",
+    "title": "3  Vectors",
+    "section": "3.13 Selection by comparison - Step 1",
+    "text": "3.13 Selection by comparison - Step 1\nBy making use of comparison operators, we can approach the previous question in a more proactive way.\nThe (logical) comparison operators known to R are:\n\n< for less than\n\nfor greater than\n\n<= for less than or equal to\n\n= for greater than or equal to\n\n== for equal to each other\n!= not equal to each other\n\nAs seen in the previous chapter, stating 6 > 5 returns TRUE. The nice thing about R is that you can use these comparison operators also on vectors. For example:\n\nc(4, 5, 6) > 5 [1] FALSE FALSE TRUE\n\nThis command tests for every element of the vector if the condition stated by the comparison operator is TRUE or FALSE.\nInstructions 100 XP Check which elements in poker_vector are positive (i.e. > 0) and assign this to selection_vector. Print out selection_vector so you can inspect it. The printout tells you whether you won (TRUE) or lost (FALSE) any money for each day.\n\n\nE14.R\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Which days did you make money on poker?\nselection_vector <- poker_vector > 0\n  \n# Print out selection_vector\nselection_vector"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#selection-by-comparison---step-2",
+    "href": "Introduction_to_R_C2.html#selection-by-comparison---step-2",
+    "title": "3  Vectors",
+    "section": "3.14 Selection by comparison - Step 2",
+    "text": "3.14 Selection by comparison - Step 2\nWorking with comparisons will make your data analytical life easier. Instead of selecting a subset of days to investigate yourself (like before), you can simply ask R to return only those days where you realized a positive return for poker.\nIn the previous exercises you used selection_vector <- poker_vector > 0 to find the days on which you had a positive poker return. Now, you would like to know not only the days on which you won, but also how much you won on those days.\nYou can select the desired elements, by putting selection_vector between the square brackets that follow poker_vector:\n\npoker_vector[selection_vector]\n\nR knows what to do when you pass a logical vector in square brackets: it will only select the elements that correspond to TRUE in selection_vector."
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-11",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-11",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUse selection_vector in square brackets to assign the amounts that you won on the profitable days to the variable poker_winning_days.\n\n\nE15.R\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Which days did you make money on poker?\nselection_vector <- poker_vector > 0\n\n# Select from poker_vector these days\npoker_winning_days <- poker_vector[selection_vector]"
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#advanced-selection",
+    "href": "Introduction_to_R_C2.html#advanced-selection",
+    "title": "3  Vectors",
+    "section": "3.15 Advanced selection",
+    "text": "3.15 Advanced selection\nJust like you did for poker, you also want to know those days where you realized a positive return for roulette."
+  },
+  {
+    "objectID": "Introduction_to_R_C2.html#instructions-100-xp-12",
+    "href": "Introduction_to_R_C2.html#instructions-100-xp-12",
+    "title": "3  Vectors",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nCreate the variable selection_vector, this time to see if you made profit with roulette for different days. Assign the amounts that you made on the days that you ended positively for roulette to the variable roulette_winning_days. This vector thus contains the positive winnings of roulette_vector.\n\n\nE16.R\n\n# Poker and roulette winnings from Monday to Friday:\npoker_vector <- c(140, -50, 20, -120, 240)\nroulette_vector <- c(-24, -50, 100, -350, 10)\ndays_vector <- c(\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\")\nnames(poker_vector) <- days_vector\nnames(roulette_vector) <- days_vector\n\n# Which days did you make money on roulette?\nselection_vector <- roulette_vector > 0\n\n# Select from roulette_vector these days\nroulette_winning_days <- roulette_vector[selection_vector]"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#whats-a-matrix",
+    "href": "Introduction_to_R_C3.html#whats-a-matrix",
+    "title": "4  Matrices",
+    "section": "4.1 What’s a matrix?",
+    "text": "4.1 What’s a matrix?\nIn R, a matrix is a collection of elements of the same data type (numeric, character, or logical) arranged into a fixed number of rows and columns. Since you are only working with rows and columns, a matrix is called two-dimensional.\nYou can construct a matrix in R with the matrix() function. Consider the following example:\n\nmatrix(1:9, byrow = TRUE, nrow = 3)\n\nIn the matrix() function:\nThe first argument is the collection of elements that R will arrange into the rows and columns of the matrix. Here, we use 1:9 which is a shortcut for c(1, 2, 3, 4, 5, 6, 7, 8, 9). The argument byrow indicates that the matrix is filled by the rows. If we want the matrix to be filled by the columns, we just place byrow = FALSE. The third argument nrow indicates that the matrix should have three rows."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nConstruct a matrix with 3 rows containing the numbers 1 up to 9, filled row-wise.\n\n\nE1.R\n\n# Construct a matrix with 3 rows that contain the numbers 1 up to 9\nmatrix(1:9, byrow = TRUE, nrow = 3)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#analyze-matrices-you-shall",
+    "href": "Introduction_to_R_C3.html#analyze-matrices-you-shall",
+    "title": "4  Matrices",
+    "section": "4.2 Analyze matrices, you shall",
+    "text": "4.2 Analyze matrices, you shall\nIt is now time to get your hands dirty. In the following exercises you will analyze the box office numbers of the Star Wars franchise. May the force be with you!\nIn the editor, three vectors are defined. Each one represents the box office numbers from the first three Star Wars movies. The first element of each vector indicates the US box office revenue, the second element refers to the Non-US box office (source: Wikipedia).\nIn this exercise, you’ll combine all these figures into a single vector. Next, you’ll build a matrix from this vector."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-1",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-1",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUse c(new_hope, empire_strikes, return_jedi) to combine the three vectors into one vector. Call this vector box_office. Construct a matrix with 3 rows, where each row represents a movie. Use the matrix() function to do this. The first argument is the vector box_office, containing all box office figures. Next, you’ll have to specify nrow = 3 and byrow = TRUE. Name the resulting matrix star_wars_matrix.\n\n\nE2.R\n\n# Box office Star Wars (in millions!)\nnew_hope <- c(460.998, 314.4)\nempire_strikes <- c(290.475, 247.900)\nreturn_jedi <- c(309.306, 165.8)\n\n# Create box_office\nbox_office <- c(new_hope, empire_strikes, return_jedi)\n\n# Construct star_wars_matrix\nstar_wars_matrix <- matrix(box_office, nrow = 3, byrow = TRUE)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#naming-a-matrix",
+    "href": "Introduction_to_R_C3.html#naming-a-matrix",
+    "title": "4  Matrices",
+    "section": "4.3 Naming a matrix",
+    "text": "4.3 Naming a matrix\nTo help you remember what is stored in star_wars_matrix, you would like to add the names of the movies for the rows. Not only does this help you to read the data, but it is also useful to select certain elements from the matrix.\nSimilar to vectors, you can add names for the rows and the columns of a matrix\n\nrownames(my_matrix) <- row_names_vector colnames(my_matrix) <- col_names_vector\n\nWe went ahead and prepared two vectors for you: region, and titles. You will need these vectors to name the columns and rows of star_wars_matrix, respectively."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-2",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-2",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUse colnames() to name the columns of star_wars_matrix with the region vector. Use rownames() to name the rows of star_wars_matrix with the titles vector. Print out star_wars_matrix to see the result of your work.\n\n\nE3.R\n\n# Box office Star Wars (in millions!)\nnew_hope <- c(460.998, 314.4)\nempire_strikes <- c(290.475, 247.900)\nreturn_jedi <- c(309.306, 165.8)\n\n# Construct matrix\nstar_wars_matrix <- matrix(c(new_hope, empire_strikes, return_jedi), nrow = 3,\nbyrow = TRUE)\n\n# Vectors region and titles, used for naming\nregion <- c(\"US\", \"non-US\")\ntitles <- c(\"A New Hope\", \"The Empire Strikes Back\", \"Return of the Jedi\")\n\n# Name the columns with region\n\ncolnames(star_wars_matrix) <- region\n\n# Name the rows with titles\nrownames(star_wars_matrix) <- titles\n\n# Print out star_wars_matrix\nprint(star_wars_matrix)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#calculating-the-worldwide-box-office",
+    "href": "Introduction_to_R_C3.html#calculating-the-worldwide-box-office",
+    "title": "4  Matrices",
+    "section": "4.4 Calculating the worldwide box office",
+    "text": "4.4 Calculating the worldwide box office\nThe single most important thing for a movie in order to become an instant legend in Tinseltown is its worldwide box office figures.\nTo calculate the total box office revenue for the three Star Wars movies, you have to take the sum of the US revenue column and the non-US revenue column.\nIn R, the function rowSums() conveniently calculates the totals for each row of a matrix. This function creates a new vector:\n\nrowSums(my_matrix)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-3",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-3",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nCalculate the worldwide box office figures for the three movies and put these in the vector named worldwide_vector.\n\n\nE4.R\n\n# Construct star_wars_matrix\nbox_office <- c(460.998, 314.4, 290.475, 247.900, 309.306, 165.8)\nregion <- c(\"US\", \"non-US\")\ntitles <- c(\"A New Hope\", \n                 \"The Empire Strikes Back\", \n                 \"Return of the Jedi\")\n               \nstar_wars_matrix <- matrix(box_office, \n                      nrow = 3, byrow = TRUE,\n                      dimnames = list(titles, region))\n\n# Calculate worldwide box office figures\nworldwide_vector <- rowSums(star_wars_matrix)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#adding-a-column-for-the-worldwide-box-office",
+    "href": "Introduction_to_R_C3.html#adding-a-column-for-the-worldwide-box-office",
+    "title": "4  Matrices",
+    "section": "4.5 Adding a column for the Worldwide box office",
+    "text": "4.5 Adding a column for the Worldwide box office\nIn the previous exercise you calculated the vector that contained the worldwide box office receipt for each of the three Star Wars movies. However, this vector is not yet part of star_wars_matrix.\nYou can add a column or multiple columns to a matrix with the cbind() function, which merges matrices and/or vectors together by column. For example:\n\nbig_matrix <- cbind(matrix1, matrix2, vector1 …)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-4",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-4",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nAdd worldwide_vector as a new column to the star_wars_matrix and assign the result to all_wars_matrix. Use the cbind() function.\n\n\nE5.R\n\n# Construct star_wars_matrix\nbox_office <- c(460.998, 314.4, 290.475, 247.900, 309.306, 165.8)\nregion <- c(\"US\", \"non-US\")\ntitles <- c(\"A New Hope\", \n            \"The Empire Strikes Back\", \n            \"Return of the Jedi\")\n               \nstar_wars_matrix <- matrix(box_office, \n                      nrow = 3, byrow = TRUE,\n                      dimnames = list(titles, region))\n\n# The worldwide box office figures\nworldwide_vector <- rowSums(star_wars_matrix)\n\n# Bind the new variable worldwide_vector as a column to star_wars_matrix\nall_wars_matrix <- cbind(star_wars_matrix,worldwide_vector)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#adding-a-row",
+    "href": "Introduction_to_R_C3.html#adding-a-row",
+    "title": "4  Matrices",
+    "section": "4.6 Adding a row",
+    "text": "4.6 Adding a row\nJust like every action has a reaction, every cbind() has an rbind(). (We admit, we are pretty bad with metaphors.)\nYour R workspace, where all variables you defined ‘live’ (check out what a workspace is), has already been initialized and contains two matrices:\n\nstar_wars_matrix that we have used all along, with data on the original trilogy,\nstar_wars_matrix2, with similar data for the prequels trilogy.\n\nExplore these matrices in the console if you want to have a closer look. If you want to check out the contents of the workspace, you can type ls() in the console."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-5",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-5",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUse rbind() to paste together star_wars_matrix and star_wars_matrix2, in this order. Assign the resulting matrix to all_wars_matrix.\n\n\nE6.R\n\n# star_wars_matrix and star_wars_matrix2 are available in your workspace\nstar_wars_matrix  \nstar_wars_matrix2 \n\n# Combine both Star Wars trilogies in one matrix\nall_wars_matrix <- rbind(star_wars_matrix,star_wars_matrix2)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#the-total-box-office-revenue-for-the-entire-saga",
+    "href": "Introduction_to_R_C3.html#the-total-box-office-revenue-for-the-entire-saga",
+    "title": "4  Matrices",
+    "section": "4.7 The total box office revenue for the entire saga",
+    "text": "4.7 The total box office revenue for the entire saga\nJust like cbind() has rbind(), colSums() has rowSums(). Your R workspace already contains the all_wars_matrix that you constructed in the previous exercise; type all_wars_matrix to have another look. Let’s now calculate the total box office revenue for the entire saga."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-6",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-6",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nCalculate the total revenue for the US and the non-US region and assign total_revenue_vector. You can use the colSums() function. Print out total_revenue_vector to have a look at the results.\n\n\nE7.R\n\n# all_wars_matrix is available in your workspace\nall_wars_matrix\n\n# Total revenue for US and non-US\ntotal_revenue_vector <- colSums(all_wars_matrix)\n  \n# Print out total_revenue_vector\nprint(total_revenue_vector)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#selection-of-matrix-elements",
+    "href": "Introduction_to_R_C3.html#selection-of-matrix-elements",
+    "title": "4  Matrices",
+    "section": "4.8 Selection of matrix elements",
+    "text": "4.8 Selection of matrix elements\nSimilar to vectors, you can use the square brackets [ ] to select one or multiple elements from a matrix. Whereas vectors have one dimension, matrices have two dimensions. You should therefore use a comma to separate the rows you want to select from the columns. For example:\n\nmy_matrix[1,2] selects the element at the first row and second column. *my_matrix[1:3,2:4] results in a matrix with the data on the rows 1, 2, 3 and columns 2, 3, 4.\n\nIf you want to select all elements of a row or a column, no number is needed before or after the comma, respectively:\n\nmy_matrix[,1] selects all elements of the first column. *my_matrix[1,] selects all elements of the first row.\n\nBack to Star Wars with this newly acquired knowledge! As in the previous exercise, all_wars_matrix is already available in your workspace."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-7",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-7",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nSelect the non-US revenue for all movies (the entire second column of all_wars_matrix), store the result as non_us_all. Use mean() on non_us_all to calculate the average non-US revenue for all movies. Simply print out the result. This time, select the non-US revenue for the first two movies in all_wars_matrix. Store the result as non_us_some. Use mean() again to print out the average of the values in non_us_some.\n\n\nE8.R\n\n# all_wars_matrix is available in your workspace\nall_wars_matrix\n\n# Select the non-US revenue for all movies\nnon_us_all <- all_wars_matrix[,2] \n  \n# Average non-US revenue\nmean(all_wars_matrix[,2])\n  \n# Select the non-US revenue for first two movies\nnon_us_some <- all_wars_matrix[1:2,2] \n  \n# Average non-US revenue for first two movies\nmean(all_wars_matrix[1:2,2])"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#a-little-arithmetic-with-matrices",
+    "href": "Introduction_to_R_C3.html#a-little-arithmetic-with-matrices",
+    "title": "4  Matrices",
+    "section": "4.9 A little arithmetic with matrices",
+    "text": "4.9 A little arithmetic with matrices\nSimilar to what you have learned with vectors, the standard operators like +, -, /, *, etc. work in an element-wise way on matrices in R.\nFor example, 2 * my_matrix multiplies each element of my_matrix by two.\nAs a newly-hired data analyst for Lucasfilm, it is your job to find out how many visitors went to each movie for each geographical area. You already have the total revenue figures in all_wars_matrix. Assume that the price of a ticket was 5 dollars. Simply dividing the box office numbers by this ticket price gives you the number of visitors."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-8",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-8",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nDivide all_wars_matrix by 5, giving you the number of visitors in millions. Assign the resulting matrix to visitors. Print out visitors so you can have a look.\n\n\nE9.R\n\n# all_wars_matrix is available in your workspace\nall_wars_matrix\n\n# Estimate the visitors\nvisitors <- all_wars_matrix/5\n\n  \n# Print the estimate to the console\nprint(visitors)"
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#a-little-arithmetic-with-matrices-2",
+    "href": "Introduction_to_R_C3.html#a-little-arithmetic-with-matrices-2",
+    "title": "4  Matrices",
+    "section": "4.10 A little arithmetic with matrices (2)",
+    "text": "4.10 A little arithmetic with matrices (2)\nJust like 2 * my_matrix multiplied every element of my_matrix by two, my_matrix1 * my_matrix2 creates a matrix where each element is the product of the corresponding elements in my_matrix1 and my_matrix2.\nAfter looking at the result of the previous exercise, big boss Lucas points out that the ticket prices went up over time. He asks to redo the analysis based on the prices you can find in ticket_prices_matrix (source: imagination).\nThose who are familiar with matrices should note that this is not the standard matrix multiplication for which you should use %*% in R."
+  },
+  {
+    "objectID": "Introduction_to_R_C3.html#instructions-100-xp-9",
+    "href": "Introduction_to_R_C3.html#instructions-100-xp-9",
+    "title": "4  Matrices",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nDivide all_wars_matrix by ticket_prices_matrix to get the estimated number of US and non-US visitors for the six movies. Assign the result to visitors. From the visitors matrix, select the entire first column, representing the number of visitors in the US. Store this selection as us_visitors. Calculate the average number of US visitors; print out the result.\n\n\nE10.R\n\n# all_wars_matrix and ticket_prices_matrix are available in your workspace\nall_wars_matrix\nticket_prices_matrix\n\n# Estimated number of visitors\nvisitors <- all_wars_matrix/ticket_prices_matrix\n\n# US visitors\nus_visitors <- visitors[,1]\n\n# Average number of US visitors\nmean(us_visitors)"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#equality",
+    "href": "Intermedio_R_C1.html#equality",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.1 Equality",
+    "text": "7.1 Equality\nThe most basic form of comparison is equality. Let’s briefly recap its syntax. The following statements all evaluate to TRUE (feel free to try them out in the console).\n\n3 == (2 + 1) “intermediate” != “r” TRUE != FALSE “Rchitect” != “rchitect”\n\nNotice from the last expression that R is case sensitive: “R” is not equal to “r”. Keep this in mind when solving the exercises in this chapter!"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp",
+    "href": "Intermedio_R_C1.html#instructions-100-xp",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nIn the editor on the right, write R code to see if TRUE equals FALSE. Likewise, check if -6 * 14 is not equal to 17 - 101. Next up: comparison of character strings. Ask R whether the strings “useR” and “user” are equal. Finally, find out what happens if you compare logicals to numerics: are TRUE and 1 equal?\n\n\nE1.R\n\n# Comparison of logicals\nTRUE == FALSE\n# Comparison of numerics\n-6 * 14 != 17 - 101\n\n# Comparison of character strings\n\"useR\" == \"user\"\n\n# Compare a logical with a numeric\nTRUE == 1"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#greater-and-less-than",
+    "href": "Intermedio_R_C1.html#greater-and-less-than",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.2 Greater and less than",
+    "text": "7.2 Greater and less than\nApart from equality operators, Filip also introduced the less than and greater than operators: < and >. You can also add an equal sign to express less than or equal to or greater than or equal to, respectively. Have a look at the following R expressions, that all evaluate to FALSE:\n\n(1 + 2) > 4 “dog” < “Cats” TRUE <= FALSE\n\nRemember that for string comparison, R determines the greater than relationship based on alphabetical order. Also, keep in mind that TRUE is treated as 1 for arithmetic, and FALSE is treated as 0. Therefore, FALSE < TRUE is TRUE."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-1",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-1",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nWrite R expressions to check whether:\n\n-6 * 5 + 2 is greater than or equal to -10 + 1.\n“raining” is less than or equal to “raining dogs”.\nTRUE is greater than FALSE.\n\n\n\nE2.R\n\n# Comparison of numerics\n-6 * 5 + 2 >= -10 + 1\n\n# Comparison of character strings\n\n\"raining\" <= \"raining dogs\"\n# Comparison of logicals\nTRUE > FALSE"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#compare-vectors",
+    "href": "Intermedio_R_C1.html#compare-vectors",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.3 Compare vectors",
+    "text": "7.3 Compare vectors\nYou are already aware that R is very good with vectors. Without having to change anything about the syntax, R’s relational operators also work on vectors.\nLet’s go back to the example that was started in the video. You want to figure out whether your activity on social media platforms have paid off and decide to look at your results for LinkedIn and Facebook. The sample code in the editor initializes the vectors linkedin and facebook. Each of the vectors contains the number of profile views your LinkedIn and Facebook profiles had over the last seven days."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-2",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-2",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing relational operators, find a logical answer, i.e. TRUE or FALSE, for the following questions:\n\nOn which days did the number of LinkedIn profile views exceed 15?\nWhen was your LinkedIn profile viewed only 5 times or fewer?\nWhen was your LinkedIn profile visited more often than your Facebook profile?\n\n\n\nE3.R\n\n# The linkedin and facebook vectors have already been created for you\nlinkedin <- c(16, 9, 13, 5, 2, 17, 14)\nfacebook <- c(17, 7, 5, 16, 8, 13, 14)\n\n# Popular days\n\nlinkedin > 15\n# Quiet days\n\nlinkedin <= 5\n# LinkedIn more popular than Facebook\nlinkedin > facebook"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#compare-matrices",
+    "href": "Intermedio_R_C1.html#compare-matrices",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.4 Compare matrices",
+    "text": "7.4 Compare matrices\nR’s ability to deal with different data structures for comparisons does not stop at vectors. Matrices and relational operators also work together seamlessly!\nInstead of in vectors (as in the previous exercise), the LinkedIn and Facebook data is now stored in a matrix called views. The first row contains the LinkedIn information; the second row the Facebook information. The original vectors facebook and linkedin are still available as well."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-3",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-3",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the relational operators you’ve learned so far, try to discover the following:\nWhen were the views exactly equal to 13? Use the views matrix to return a logical matrix. For which days were the number of views less than or equal to 14? Again, have R return a logical matrix.\n\n\nE4.R\n\n# The social data has been created for you\nlinkedin <- c(16, 9, 13, 5, 2, 17, 14)\nfacebook <- c(17, 7, 5, 16, 8, 13, 14)\nviews <- matrix(c(linkedin, facebook), nrow = 2, byrow = TRUE)\n\n# When does views equal 13?\nviews == 13\n\n# When is views less than or equal to 14?\n\nviews <= 14"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#and",
+    "href": "Intermedio_R_C1.html#and",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.5 & and |",
+    "text": "7.5 & and |\nBefore you work your way through the next exercises, have a look at the following R expressions. All of them will evaluate to TRUE:\n\nTRUE & TRUE FALSE | TRUE 5 <= 5 & 2 < 3 3 < 4 | 7 < 6\n\nWatch out: 3 < x < 7 to check if x is between 3 and 7 will not work; you’ll need 3 < x & x < 7 for that.\nIn this exercise, you’ll be working with the last variable. This variable equals the last value of the linkedin vector that you’ve worked with previously. The linkedin vector represents the number of LinkedIn views your profile had in the last seven days, remember? Both the variables linkedin and last have been pre-defined for you."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-4",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-4",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nWrite R expressions to solve the following questions concerning the variable last:\n\nIs last under 5 or above 10?\nIs last between 15 and 20, excluding 15 but including 20?\n\n\n\nE5.R\n\n# The linkedin and last variable are already defined for you\nlinkedin <- c(16, 9, 13, 5, 2, 17, 14)\nlast <- tail(linkedin, 1)\n\n# Is last under 5 or above 10?\n5 < last | last < 10\n\n# Is last between 15 (exclusive) and 20 (inclusive)?\n15 <= last & last < 20"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#and-2",
+    "href": "Intermedio_R_C1.html#and-2",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.6 & and | (2)",
+    "text": "7.6 & and | (2)\nLike relational operators, logical operators work perfectly fine with vectors and matrices.\nBoth the vectors linkedin and facebook are available again. Also a matrix - views - has been defined; its first and second row correspond to the linkedin and facebook vectors, respectively. Ready for some advanced queries to gain more insights into your social outreach?"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-5",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-5",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nWhen did LinkedIn views exceed 10 and did Facebook views fail to reach 10 for a particular day? Use the linkedin and facebook vectors.\nWhen were one or both of your LinkedIn and Facebook profiles visited at least 12 times?\nWhen is the views matrix equal to a number between 11 and 14, excluding 11 and including 14?\n\n\n\nE6.R\n\n# The social data (linkedin, facebook, views) has been created for you\nlinkedin \nfacebook \n# linkedin exceeds 10 but facebook below 10\nlinkedin >10 & facebook < 10 \n\n# When were one or both visited at least 12 times?\nlinkedin >= 12 | facebook >= 12\n\n# When is views between 11 (exclusive) and 14 (inclusive)?\nviews > 11 & views <= 14"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#reverse-the-result",
+    "href": "Intermedio_R_C1.html#reverse-the-result",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.7 Reverse the result: !",
+    "text": "7.7 Reverse the result: !\nOn top of the & and | operators, you also learned about the ! operator, which negates a logical value. To refresh your memory, here are some R expressions that use !. They all evaluate to FALSE:\n\n!TRUE !(5 > 3) !!FALSE\n\nWhat would the following set of R expressions return?\n\nx <- 5 y <- 7 !(!(x < 4) & !!!(y > 12))"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#answer-the-question-50xp",
+    "href": "Intermedio_R_C1.html#answer-the-question-50xp",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Answer the question 50XP",
+    "text": "Answer the question 50XP\nPossible Answers\nTRUE press 1\nFALSE press 2\nRunning this piece of code would throw an error. press 3"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#blend-it-all-together",
+    "href": "Intermedio_R_C1.html#blend-it-all-together",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.8 Blend it all together",
+    "text": "7.8 Blend it all together\nWith the things you’ve learned by now, you’re able to solve pretty cool problems.\nInstead of recording the number of views for your own LinkedIn profile, suppose you conducted a survey inside the company you’re working for. You’ve asked every employee with a LinkedIn profile how many visits their profile has had over the past seven days. You stored the results in a data frame called li_df. This data frame is available in the workspace; type li_df in the console to check it out."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-6",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-6",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSelect the entire second column, named day2, from the li_df data frame as a vector and assign it to second.\nUse second to create a logical vector, that contains TRUE if the corresponding number of views is strictly greater than 25 or strictly lower than 5 and FALSE otherwise. Store this logical vector as extremes.\nUse sum() on the extremes vector to calculate the number of TRUEs in extremes (i.e. to calculate the number of employees that are either very popular or very low-profile). Simply print this number to the console.\n\n\n\nE7.R\n\n# li_df is pre-loaded in your workspace\nli_df\n# Select the second column, named day2, from li_df: second\nsecond <- li_df[,\"day2\"]\n\n# Build a logical vector, TRUE if value in second is extreme: extremes\nextremes<- c(second < 5 |second > 25)\n\n# Count the number of TRUEs in extremes\nsum(extremes)"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#the-if-statement",
+    "href": "Intermedio_R_C1.html#the-if-statement",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.9 The if statement",
+    "text": "7.9 The if statement\nBefore diving into some exercises on the if statement, have another look at its syntax:\n\nif (condition) { expr }\n\nRemember your vectors with social profile views? Let’s look at it from another angle. The medium variable gives information about the social website; the num_views variable denotes the actual number of views that particular medium had on the last day of your recordings. Both variables have been pre-defined for you."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-7",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-7",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nExamine the if statement that prints out “Showing LinkedIn information” if the medium variable equals “LinkedIn”. Code an if statement that prints “You are popular!” to the console if the num_views variable exceeds 15.\n\n\nE8.R\n\n# Variables related to your last day of recordings\nmedium <- \"LinkedIn\"\nnum_views <- 14\n\n# Examine the if statement for medium\nif (medium == \"LinkedIn\") {\n  print(\"Showing LinkedIn information\")\n}\n\n# Write the if statement for num_views\nif(num_views > 15) {\nprint(\"You are popular!\")\n}"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#add-an-else",
+    "href": "Intermedio_R_C1.html#add-an-else",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.10 Add an else",
+    "text": "7.10 Add an else\nYou can only use an else statement in combination with an if statement. The else statement does not require a condition; its corresponding code is simply run if all of the preceding conditions in the control structure are FALSE. Here’s a recipe for its usage:\n\nif (condition) { expr1 } else { expr2 }\n\nIt’s important that the else keyword comes on the same line as the closing bracket of the if part!\nBoth if statements that you coded in the previous exercises are already available to use. It’s now up to you to extend them with the appropriate else statements!"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-8",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-8",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nAdd an else statement to both control structures, such that\n“Unknown medium” gets printed out to the console when the if-condition on medium does not hold. R prints out “Try to be more visible!” when the if-condition on num_views is not met.\n\n\nE9.R\n\n  print(\"Showing LinkedIn information\")\n}else {\n  print(\"Unknown medium\")\n}\n\n\n# Control structure for num_views\nif (num_views > 15) {\n  print(\"You're popular!\")\n}else {\n  print(\"Try to be more visible!\")\n}"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#customize-further-else-if",
+    "href": "Intermedio_R_C1.html#customize-further-else-if",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.11 Customize further: else if",
+    "text": "7.11 Customize further: else if\nThe else if statement allows you to further customize your control structure. You can add as many else if statements as you like. Keep in mind that R ignores the remainder of the control structure once a condition has been found that is TRUE and the corresponding expressions have been executed. Here’s an overview of the syntax to freshen your memory:\n\nif (condition1) { expr1 } else if (condition2) { expr2 } else if (condition3) { expr3 } else { expr4 }\n\nAgain, It’s important that the else if keywords comes on the same line as the closing bracket of the previous part of the control construct!"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-9",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-9",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nAdd code to both control structures such that:\nR prints out “Showing Facebook information” if medium is equal to “Facebook”. Remember that R is case sensitive! “Your number of views is average” is printed if num_views is between 15 (inclusive) and 10 (exclusive). Feel free to change the variables medium and num_views to see how the control structure respond. In both cases, the existing code should be extended in the else if statement. No existing code should be modified.\n\n\nE10.R\n\n# Variables related to your last day of recordings\nmedium <- \"LinkedIn\"\nnum_views <- 14\n\n# Control structure for medium\nif (medium == \"LinkedIn\") {\n  print(\"Showing LinkedIn information\")\n} else if (medium == \"Facebook\") {print(\"Showing Facebook information\")\n  # Add code to print correct string when condition is TRUE\n\n} else {\n  print(\"Unknown medium\")\n}\n\n# Control structure for num_views\nif (num_views > 15) {\n  print(\"You're popular!\")\n} else if (num_views <= 15 & num_views > 10) {print(\"Your number of views is\n            average\")\n  # Add code to print correct string when condition is TRUE\n\n} else {\n  print(\"Try to be more visible!\")\n}"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#else-if-2.0",
+    "href": "Intermedio_R_C1.html#else-if-2.0",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.12 Else if 2.0",
+    "text": "7.12 Else if 2.0\nYou can do anything you want inside if-else constructs. You can even put in another set of conditional statements. Examine the following code chunk:\n\nif (number < 10) { if (number < 5) { result <- “extra small” } else { result <- “small” } } else if (number < 100) { result <- “medium” } else { result <- “large” }\n\nprint(result) Have a look at the following statements:\n\nIf number is set to 6, “small” gets printed to the console.\nIf number is set to 100, R prints out “medium”.\nIf number is set to 4, “extra small” gets printed out to the console.\nIf number is set to 2500, R will generate an error, as result will not be defined.\n\nSelect the option that lists all the true statements."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-50-xp",
+    "href": "Intermedio_R_C1.html#instructions-50-xp",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 50 XP",
+    "text": "Instructions 50 XP\nPossible Answers\n\n2 and 4\n1 and 4\n1 and 3 <- respuesta\n2 and 3"
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#take-control",
+    "href": "Intermedio_R_C1.html#take-control",
+    "title": "7  Conditionals and Control Flow",
+    "section": "7.13 Take control!",
+    "text": "7.13 Take control!\nIn this exercise, you will combine everything that you’ve learned so far: relational operators, logical operators and control constructs. You’ll need it all!\nWe’ve pre-defined two values for you: li and fb, denoting the number of profile views your LinkedIn and Facebook profile had on the last day of recordings. Go through the instructions to create R code that generates a ‘social media score’, sms, based on the values of li and fb."
+  },
+  {
+    "objectID": "Intermedio_R_C1.html#instructions-100-xp-10",
+    "href": "Intermedio_R_C1.html#instructions-100-xp-10",
+    "title": "7  Conditionals and Control Flow",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nFinish the control-flow construct with the following behavior:\nIf both li and fb are 15 or higher, set sms equal to double the sum of li and fb. If both li and fb are strictly below 10, set sms equal to half the sum of li and fb. In all other cases, set sms equal to li + fb. Finally, print the resulting sms variable.\n\n\nE11.R\n\n # Variables related to your last day of recordings\nli <- 15\nfb <- 9\n\n# Code the control-flow construct\nif (li>15 & fb>15) {\n  sms <- 2 * (li + fb)\n} else if (li<10 & fb<10){\n  sms <- 0.5 * (li + fb)\n} else {\n  sms <- li + fb\n}\n\n# Print the resulting sms to the console\nprint(sms)"
   }
 ]
