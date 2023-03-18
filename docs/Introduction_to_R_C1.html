@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>libro - 16&nbsp; Importing data from flat files with utils</title>
+<title>libro - 2&nbsp; Intro to basics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction_to_Importing_Data_in_R_C2.html" rel="next">
-<link href="./Introduction_to_Writing_Functions_in_R_C4.html" rel="prev">
+<link href="./Introduction_to_R_C2.html" rel="next">
+<link href="./intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to basics</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -177,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction_to_R_C1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to basics</span></a>
+  <a href="./Introduction_to_R_C1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction_to_Importing_Data_in_R_C1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></a>
+  <a href="./Introduction_to_Importing_Data_in_R_C1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -316,20 +316,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#read.csv" id="toc-read.csv" class="nav-link active" data-scroll-target="#read.csv"><span class="toc-section-number">16.1</span>  read.csv</a></li>
+  <li><a href="#intro-to-basics" id="toc-intro-to-basics" class="nav-link active" data-scroll-target="#intro-to-basics">Intro to basics</a>
+  <ul class="collapse">
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works"><span class="toc-section-number">2.1</span>  How it works</a></li>
   <li><a href="#instructions-100-xp" id="toc-instructions-100-xp" class="nav-link" data-scroll-target="#instructions-100-xp">Instructions <code>100 XP</code></a></li>
-  <li><a href="#stringsasfactors" id="toc-stringsasfactors" class="nav-link" data-scroll-target="#stringsasfactors"><span class="toc-section-number">16.2</span>  stringsAsFactors</a></li>
+  <li><a href="#arithmetic-with-r" id="toc-arithmetic-with-r" class="nav-link" data-scroll-target="#arithmetic-with-r"><span class="toc-section-number">2.2</span>  Arithmetic with R</a></li>
+  <li><a href="#variable-assignment" id="toc-variable-assignment" class="nav-link" data-scroll-target="#variable-assignment"><span class="toc-section-number">2.3</span>  Variable assignment</a></li>
   <li><a href="#instructions-100-xp-1" id="toc-instructions-100-xp-1" class="nav-link" data-scroll-target="#instructions-100-xp-1">Instructions <code>100 XP</code></a></li>
-  <li><a href="#any-changes" id="toc-any-changes" class="nav-link" data-scroll-target="#any-changes"><span class="toc-section-number">16.3</span>  Any changes?</a></li>
-  <li><a href="#instructions-50-xp" id="toc-instructions-50-xp" class="nav-link" data-scroll-target="#instructions-50-xp">Instructions <code>50 XP</code></a></li>
-  <li><a href="#read.delim" id="toc-read.delim" class="nav-link" data-scroll-target="#read.delim"><span class="toc-section-number">16.4</span>  read.delim</a></li>
+  <li><a href="#variable-assignment-2" id="toc-variable-assignment-2" class="nav-link" data-scroll-target="#variable-assignment-2"><span class="toc-section-number">2.4</span>  Variable assignment (2)</a></li>
   <li><a href="#instructions-100-xp-2" id="toc-instructions-100-xp-2" class="nav-link" data-scroll-target="#instructions-100-xp-2">Instructions <code>100 XP</code></a></li>
-  <li><a href="#read.table" id="toc-read.table" class="nav-link" data-scroll-target="#read.table"><span class="toc-section-number">16.5</span>  read.table</a></li>
+  <li><a href="#variable-assignment-3" id="toc-variable-assignment-3" class="nav-link" data-scroll-target="#variable-assignment-3"><span class="toc-section-number">2.5</span>  Variable assignment (3)</a></li>
+  <li><a href="#apples-and-oranges" id="toc-apples-and-oranges" class="nav-link" data-scroll-target="#apples-and-oranges"><span class="toc-section-number">2.6</span>  Apples and oranges</a></li>
   <li><a href="#instructions-100-xp-3" id="toc-instructions-100-xp-3" class="nav-link" data-scroll-target="#instructions-100-xp-3">Instructions <code>100 XP</code></a></li>
-  <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments"><span class="toc-section-number">16.6</span>  Arguments</a></li>
+  <li><a href="#basic-data-types-in-r" id="toc-basic-data-types-in-r" class="nav-link" data-scroll-target="#basic-data-types-in-r"><span class="toc-section-number">2.7</span>  Basic data types in R</a></li>
   <li><a href="#instructions-100-xp-4" id="toc-instructions-100-xp-4" class="nav-link" data-scroll-target="#instructions-100-xp-4">Instructions <code>100 XP</code></a></li>
-  <li><a href="#column-classes" id="toc-column-classes" class="nav-link" data-scroll-target="#column-classes"><span class="toc-section-number">16.7</span>  Column classes</a></li>
+  <li><a href="#whats-that-data-type" id="toc-whats-that-data-type" class="nav-link" data-scroll-target="#whats-that-data-type"><span class="toc-section-number">2.8</span>  What’s that data type?</a></li>
   <li><a href="#instructions-100-xp-5" id="toc-instructions-100-xp-5" class="nav-link" data-scroll-target="#instructions-100-xp-5">Instructions <code>100 XP</code></a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -338,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to basics</span></h1>
 </div>
 
 
@@ -353,190 +356,226 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="read.csv" class="level2" data-number="16.1">
-<h2 data-number="16.1" class="anchored" data-anchor-id="read.csv"><span class="header-section-number">16.1</span> read.csv</h2>
-<p>The utils package, which is automatically loaded in your R session on startup, can import CSV files with the read.csv() function.</p>
-<p>In this exercise, you’ll be working with swimming_pools.csv (view); it contains data on swimming pools in Brisbane, Australia (Source: data.gov.au). The file contains the column names in the first row. It uses a comma to separate values within rows.</p>
-<p>Type dir() in the console to list the files in your working directory. You’ll see that it contains swimming_pools.csv, so you can start straight away.</p>
+<section id="intro-to-basics" class="level1 unnumbered">
+<h1 class="unnumbered">Intro to basics</h1>
+<section id="how-it-works" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="how-it-works"><span class="header-section-number">2.1</span> How it works</h2>
+<p>In the editor on the right you should type R code to solve the exercises. When you hit the ‘Submit Answer’ button, every line of code is interpreted and executed by R and you get a message whether or not your code was correct. The output of your R code is shown in the console in the lower right corner.</p>
+<p>R makes use of the # sign to add comments, so that you and others can understand what the R code is about. Just like Twitter! Comments are not run as R code, so they will not influence your result. For example, Calculate 3 + 4 in the editor on the right is a comment.</p>
+<p>You can also execute R commands straight in the console. This is a good way to experiment with R code, as your submission is not checked for correctness.</p>
 </section>
 <section id="instructions-100-xp" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp">Instructions <code>100 XP</code></h2>
-<ul>
-<li>Use read.csv() to import “swimming_pools.csv” as a data frame with the name pools.</li>
-<li>Print the structure of pools using str().</li>
-</ul>
+<p>In the editor on the right there is already some sample code. Can you see which ines are actual R code and which are comments? Add a line of code that calculates the sum of 6 and 12, and hit the ‘Submit Answer’ button.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E1.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import swimming_pools.csv: pools</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pools <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"swimming_pools.csv"</span>)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate 3 + 4</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the structure of pools</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate 6 + 12</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">+</span> <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="stringsasfactors" class="level2" data-number="16.2">
-<h2 data-number="16.2" class="anchored" data-anchor-id="stringsasfactors"><span class="header-section-number">16.2</span> stringsAsFactors</h2>
-<p>With stringsAsFactors, you can tell R whether it should convert strings in the flat file to factors.</p>
-<p>For all importing functions in the utils package, this argument is TRUE, which means that you import strings as factors. This only makes sense if the strings you import represent categorical variables in R. If you set stringsAsFactors to FALSE, the data frame columns corresponding to strings in your text file will be character.</p>
-<p>You’ll again be working with the swimming_pools.csv (view) file. It contains two columns (Name and Address), which shouldn’t be factors.</p>
-</section>
-<section id="instructions-100-xp-1" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
+<section id="arithmetic-with-r" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="arithmetic-with-r"><span class="header-section-number">2.2</span> Arithmetic with R</h2>
+<p>In its most basic form, R can be used as a simple calculator. Consider the following arithmetic operators:</p>
 <ul>
-<li>Use read.csv() to import the data in “swimming_pools.csv” as a data frame called pools; make sure that strings are imported as characters, not as factors.</li>
-<li>Using str(), display the structure of the dataset and check that you indeed get character vectors instead of factors.</li>
+<li>Addition: <code>+</code></li>
+<li>Subtraction: <code>-</code></li>
+<li>Multiplication: <code>*</code></li>
+<li>Division: <code>/</code></li>
+<li>Exponentiation: <code>^</code></li>
+<li>Modulo: <code>%%</code></li>
+</ul>
+<p>The last two might need some explaining:</p>
+<p>The ^ operator raises the number to its left to the power of the number to its right: for example 3^2 is 9. The modulo returns the remainder of the division of the number to the left by the number on its right, for example 5 modulo 3 or 5 %% 3 is 2. With this knowledge, follow the instructions to complete the exercise.</p>
+<ul>
+<li>Type 2^5 in the editor to calculate 2 to the power 5.</li>
+<li>Type 28 %% 6 to calculate 28 modulo 6.</li>
+<li>Submit the answer and have a look at the R output in the console.</li>
+<li>Note how the # symbol is used to add comments on the R code.</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E2.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import swimming_pools.csv correctly: pools</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pools <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"swimming_pools.csv"</span>)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An addition</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the structure of pools</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(pools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A subtraction</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span> <span class="dv">5</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A multiplication</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> <span class="dv">5</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a> <span class="co"># A division</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>(<span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span>) <span class="sc">/</span><span class="dv">2</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Exponentiation</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">^</span><span class="dv">5</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Modulo</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="dv">28</span> <span class="sc">%%</span> <span class="dv">6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="any-changes" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="any-changes"><span class="header-section-number">16.3</span> Any changes?</h2>
-<p>Consider the code below that loads data from swimming_pools.csv in two distinct ways:</p>
+<section id="variable-assignment" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="variable-assignment"><span class="header-section-number">2.3</span> Variable assignment</h2>
+<p>A basic concept in (statistical) programming is called a variable.</p>
+<p>A variable allows you to store a value (e.g.&nbsp;4) or an object (e.g.&nbsp;a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable.</p>
+<p>You can assign a value 4 to a variable my_var with the command</p>
 <blockquote class="blockquote">
-<h4 id="option-a" class="unnumbered anchored">Option A</h4>
-<p>pools &lt;- read.csv(“swimming_pools.csv”, stringsAsFactors = TRUE)</p>
+<p>my_var &lt;- 4</p>
 </blockquote>
-<blockquote class="blockquote">
-<h4 id="option-b" class="unnumbered anchored">Option B</h4>
-<p>pools &lt;- read.csv(“swimming_pools.csv”, stringsAsFactors = FALSE)</p>
-</blockquote>
-<p>How many variables in the resulting pools data frame have different types if you specify the stringsAsFactors argument differently?</p>
-<p>The swimming_pools.csv (view) file is available in your current working directory so you can experiment in the console.</p>
 </section>
-<section id="instructions-50-xp" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-50-xp">Instructions <code>50 XP</code></h2>
-<p>Possible Answers</p>
-<p>Just one: Name.</p>
-<p>Two variables: Name and Address. Respuesta</p>
-<p>Three columns: all but Longitude.</p>
-<p>All four of them!</p>
-</section>
-<section id="read.delim" class="level2" data-number="16.4">
-<h2 data-number="16.4" class="anchored" data-anchor-id="read.delim"><span class="header-section-number">16.4</span> read.delim</h2>
-<p>Aside from .csv files, there are also the .txt files which are basically text files. You can import these functions with read.delim(). By default, it sets the sep argument to “ (fields in a record are delimited by tabs) and the header argument to TRUE (the first row contains the field names).</p>
-<p>In this exercise, you will import hotdogs.txt (view), containing information on sodium and calorie levels in different hotdogs (Source: UCLA). The dataset has 3 variables, but the variable names are not available in the first line of the file. The file uses tabs as field separators.</p>
-</section>
-<section id="instructions-100-xp-2" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
-<p>Import the data in “hotdogs.txt” with read.delim(). Call the resulting data frame hotdogs. The variable names are not on the first line, so make sure to set the header argument appropriately. Call summary() on hotdogs. This will print out some summary statistics about all variables in the data frame.</p>
+<section id="instructions-100-xp-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
+<p>Over to you: complete the code in the editor such that it assigns the value 42 to the variable x in the editor. Submit the answer. Notice that when you ask R to print x, the value 42 appears.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E3.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import hotdogs.txt: hotdogs</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>hotdogs <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"hotdogs.txt"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value 42 to x</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">42</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize hotdogs</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hotdogs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the value of the variable x</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="read.table" class="level2" data-number="16.5">
-<h2 data-number="16.5" class="anchored" data-anchor-id="read.table"><span class="header-section-number">16.5</span> read.table</h2>
-<p>If you’re dealing with more exotic flat file formats, you’ll want to use read.table(). It’s the most basic importing function; you can specify tons of different arguments in this function. Unlike read.csv() and read.delim(), the header argument defaults to FALSE and the sep argument is “” by default.</p>
-<p>Up to you again! The data is still hotdogs.txt (view). It has no column names in the first row, and the field separators are tabs. This time, though, the file is in the data folder inside your current working directory. A variable path with the location of this file is already coded for you.</p>
+<section id="variable-assignment-2" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="variable-assignment-2"><span class="header-section-number">2.4</span> Variable assignment (2)</h2>
+<p>Suppose you have a fruit basket with five apples. As a data analyst in training, you want to store the number of apples in a variable with the name my_apples.</p>
 </section>
-<section id="instructions-100-xp-3" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
-<p>Finish the read.table() call that’s been prepared for you. Use the path variable, and make sure to set sep correctly. Call head() on hotdogs; this will print the first 6 observations in the data frame.</p>
+<section id="instructions-100-xp-2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
+<p>Type the following code in the editor: my_apples &lt;- 5. This will assign the value 5 to my_apples. Type: my_apples below the second comment. This will print out the value of my_apples. Submit your answer, and look at the output: you see that the number 5 is printed. So R now links the variable my_apples to the value 5.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E4.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Path to the hotdogs.txt file: path</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"data"</span>, <span class="st">"hotdogs.txt"</span>)</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value 5 to the variable my_apples</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>my_apples <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the hotdogs.txt file: hotdogs</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>hotdogs <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"type"</span>, <span class="st">"calories"</span>, <span class="st">"sodium"</span>))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Call head() on hotdogs</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(hotdogs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the value of the variable my_apples</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>my_apples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="arguments" class="level2" data-number="16.6">
-<h2 data-number="16.6" class="anchored" data-anchor-id="arguments"><span class="header-section-number">16.6</span> Arguments</h2>
-<p>Lily and Tom are having an argument because they want to share a hot dog but they can’t seem to agree on which one to choose. After some time, they simply decide that they will have one each. Lily wants to have the one with the fewest calories while Tom wants to have the one with the most sodium.</p>
-<p>Next to calories and sodium, the hotdogs have one more variable: type. This can be one of three things: Beef, Meat, or Poultry, so a categorical variable: a factor is fine.</p>
-</section>
-<section id="instructions-100-xp-4" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
+<section id="variable-assignment-3" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="variable-assignment-3"><span class="header-section-number">2.5</span> Variable assignment (3)</h2>
+<p>Every tasty fruit basket needs oranges, so you decide to add six oranges. As a data analyst, your reflex is to immediately create the variable my_oranges and assign the value 6 to it. Next, you want to calculate how many pieces of fruit you have in total. Since you have given meaningful names to these values, you can now code this in a clear way:</p>
+<blockquote class="blockquote">
+<p>my_apples + my_oranges</p>
+</blockquote>
+<p>Instructions <code>100 XP</code></p>
 <ul>
-<li>Finish the read.delim() call to import the data in “hotdogs.txt”. It’s a tab-delimited file without names in the first row.</li>
-<li>The code that selects the observation with the lowest calorie count and stores it in the variable lily is already available. It uses the function which.min(), that returns the index the smallest value in a vector.</li>
-<li>Do a similar thing for Tom: select the observation with the most sodium and store it in tom. Use which.max() this time.</li>
-<li>Finally, print both the observations lily and tom.</li>
+<li>Assign to my_oranges the value 6.</li>
+<li>Add the variables my_apples and my_oranges and have R simply print the result.</li>
+<li>Assign the result of adding my_apples and my_oranges to a new variable my_fruit.</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E5.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finish the read.delim() call</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>hotdogs <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"hotdogs.txt"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"type"</span>, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">"calories"</span>, <span class="st">"sodium"</span>))</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign a value to the variables my_apples and my_oranges</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>my_apples <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the hot dog with the least calories: lily</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>lily <span class="ot">&lt;-</span> hotdogs[<span class="fu">which.min</span>(hotdogs<span class="sc">$</span>calories), ]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add these two variables together</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>my_oranges<span class="ot">&lt;-</span><span class="dv">6</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the observation with the most sodium: tom</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>tom <span class="ot">&lt;-</span> hotdogs[<span class="fu">which.max</span>(hotdogs<span class="sc">$</span>sodium), ]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>my_apples</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>my_oranges</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print lily and tom</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lily)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tom)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the variable my_fruit</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>my_fruit <span class="ot">=</span> my_apples <span class="sc">+</span> my_oranges</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>my_fruit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="column-classes" class="level2" data-number="16.7">
-<h2 data-number="16.7" class="anchored" data-anchor-id="column-classes"><span class="header-section-number">16.7</span> Column classes</h2>
-<p>Next to column names, you can also specify the column types or column classes of the resulting data frame. You can do this by setting the colClasses argument to a vector of strings representing classes:</p>
-<blockquote class="blockquote">
-<p>read.delim(“my_file.txt”, colClasses = c(“character”, “numeric”, “logical”))</p>
-</blockquote>
-<p>This approach can be useful if you have some columns that should be factors and others that should be characters. You don’t have to bother with stringsAsFactors anymore; just state for each column what the class should be.</p>
-<p>If a column is set to “NULL” in the colClasses vector, this column will be skipped and will not be loaded into the data frame.</p>
+<section id="apples-and-oranges" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="apples-and-oranges"><span class="header-section-number">2.6</span> Apples and oranges</h2>
+<p>Common knowledge tells you not to add apples and oranges. But hey, that is what you just did, no :-)? The my_apples and my_oranges variables both contained a number in the previous exercise. The + operator works with numeric variables in R. If you really tried to add “apples” and “oranges”, and assigned a text value to the variable my_oranges (see the editor), you would be trying to assign the addition of a numeric and a character variable to the variable my_fruit. This is not possible.</p>
 </section>
-<section id="instructions-100-xp-5" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
-<ul>
-<li>The read.delim() call from before is already included and creates the hotdogs data frame. Go ahead and display the structure of hotdogs.</li>
-<li>Edit the second read.delim() call. Assign the correct vector to the colClasses argument. NA should be replaced with a character vector: c(“factor”, “NULL”, “numeric”).</li>
-<li>Display the structure of hotdogs2 and look for the difference.</li>
-</ul>
+<section id="instructions-100-xp-3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
+<p>Submit the answer and read the error message. Make sure to understand why this did not work. Adjust the code so that R knows you have 6 oranges and thus a fruit basket with 11 pieces of fruit.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E6.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Previous call to import hotdogs.txt</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>hotdogs <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"hotdogs.txt"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"type"</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="st">"calories"</span>, <span class="st">"sodium"</span>))</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Display structure of hotdogs</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hotdogs)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit the colClasses argument to import the data correctly: hotdogs2</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>hotdogs2 <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"hotdogs.txt"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"type"</span>, <span class="st">"calories"</span>, <span class="st">"sodium"</span>),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">colClasses =</span> <span class="fu">c</span>(<span class="st">"factor"</span>, <span class="st">"NULL"</span>, <span class="st">"numeric"</span>))</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Display structure of hotdogs2</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(hotdogs2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign a value to the variable my_apples</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>my_apples <span class="ot">&lt;-</span> <span class="dv">5</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix the assignment of my_oranges</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>my_oranges <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the variable my_fruit and print it out</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>my_fruit <span class="ot">&lt;-</span> my_apples <span class="sc">+</span> my_oranges </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>my_fruit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="basic-data-types-in-r" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="basic-data-types-in-r"><span class="header-section-number">2.7</span> Basic data types in R</h2>
+<p>R works with numerous data types. Some of the most basic types to get started are:</p>
+<ul>
+<li>Decimal values like 4.5 are called numerics.</li>
+<li>Whole numbers like 4 are called integers. Integers are also numerics.</li>
+<li>Boolean values (TRUE or FALSE) are called logical.</li>
+<li>Text (or string) values are called characters.</li>
+<li>Note how the quotation marks in the editor indicate that “some text” is a string.</li>
+</ul>
+</section>
+<section id="instructions-100-xp-4" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
+<p>Change the value of the:</p>
+<ul>
+<li>my_numeric variable to 42.</li>
+<li>my_character variable to “universe”. Note that the quotation marks indicate that “universe” is a character.</li>
+<li>my_logical variable to FALSE.</li>
+<li>Note that R is case sensitive!</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E7.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change my_numeric to be 42</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>my_numeric <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Change my_character to be "universe"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>my_character <span class="ot">&lt;-</span> <span class="st">"universe"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Change my_logical to be FALSE</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>my_logical <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="whats-that-data-type" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="whats-that-data-type"><span class="header-section-number">2.8</span> What’s that data type?</h2>
+<p>Do you remember that when you added 5 + “six”, you got an error due to a mismatch in data types? You can avoid such embarrassing situations by checking the data type of a variable beforehand. You can do this with the class() function, as the code in the editor shows.</p>
+</section>
+<section id="instructions-100-xp-5" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
+<p>Complete the code in the editor and also print out the classes of my_character and my_logical.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E8.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare variables of different types</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>my_numeric <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>my_character <span class="ot">&lt;-</span> <span class="st">"universe"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>my_logical <span class="ot">&lt;-</span> <span class="cn">FALSE</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check class of my_numeric</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_numeric)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check class of my_character</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_character)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Check class of my_logical</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(my_logical)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -673,16 +712,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Introduction_to_Writing_Functions_in_R_C4.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Case Study on Grain Yields</span></span>
+      <a href="./intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction_to_Importing_Data_in_R_C2.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">readr &amp; data.table</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Introduction_to_R_C2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The apply family</title>
+<title>libro - 10&nbsp; The apply family</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,29 +86,273 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="Intermedio_R_C4_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Intermedio_R_C4_files/libs/quarto-html/quarto.js"></script>
-<script src="Intermedio_R_C4_files/libs/quarto-html/popper.min.js"></script>
-<script src="Intermedio_R_C4_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="Intermedio_R_C4_files/libs/quarto-html/anchor.min.js"></script>
-<link href="Intermedio_R_C4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Intermedio_R_C4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="Intermedio_R_C4_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="Intermedio_R_C4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Intermedio_R_C4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Intermedio_R_C5.html" rel="next">
+<link href="./Intermedio_R_C3.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The apply family</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">libro</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introduction to R</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Matrices</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Factors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lists</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Intermedio R</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conditionals and Control Flow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Loops</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C4.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The apply family</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Utilities</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Introduction to Writing Functions in R</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">How to Write a Function</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Return Values and Scope</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Return Values and Scope</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Case Study on Grain Yields</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Introduction to Importing Data in R</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">readr &amp; data.table</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Importing Excel data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reproducible Excel work with XLConnect</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#use-lapply-with-a-built-in-r-function" id="toc-use-lapply-with-a-built-in-r-function" class="nav-link active" data-scroll-target="#use-lapply-with-a-built-in-r-function"><span class="toc-section-number">10.1</span>  Use lapply with a built-in R function</a></li>
+  <li><a href="#instructions-100-xp" id="toc-instructions-100-xp" class="nav-link" data-scroll-target="#instructions-100-xp"><span class="toc-section-number">10.2</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#use-lapply-with-your-own-function" id="toc-use-lapply-with-your-own-function" class="nav-link" data-scroll-target="#use-lapply-with-your-own-function"><span class="toc-section-number">10.3</span>  Use lapply with your own function</a></li>
+  <li><a href="#instructions-100-xp-1" id="toc-instructions-100-xp-1" class="nav-link" data-scroll-target="#instructions-100-xp-1"><span class="toc-section-number">10.4</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#lapply-and-anonymous-functions" id="toc-lapply-and-anonymous-functions" class="nav-link" data-scroll-target="#lapply-and-anonymous-functions"><span class="toc-section-number">10.5</span>  lapply and anonymous functions</a></li>
+  <li><a href="#instructions-100-xp-2" id="toc-instructions-100-xp-2" class="nav-link" data-scroll-target="#instructions-100-xp-2"><span class="toc-section-number">10.6</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#use-lapply-with-additional-arguments" id="toc-use-lapply-with-additional-arguments" class="nav-link" data-scroll-target="#use-lapply-with-additional-arguments"><span class="toc-section-number">10.7</span>  Use lapply with additional arguments</a></li>
+  <li><a href="#instructions-100-xp-3" id="toc-instructions-100-xp-3" class="nav-link" data-scroll-target="#instructions-100-xp-3"><span class="toc-section-number">10.8</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#apply-functions-that-return-null" id="toc-apply-functions-that-return-null" class="nav-link" data-scroll-target="#apply-functions-that-return-null"><span class="toc-section-number">10.9</span>  Apply functions that return NULL</a></li>
+  <li><a href="#instructions-50-xp" id="toc-instructions-50-xp" class="nav-link" data-scroll-target="#instructions-50-xp">Instructions <code>50 XP</code></a></li>
+  <li><a href="#how-to-use-sapply" id="toc-how-to-use-sapply" class="nav-link" data-scroll-target="#how-to-use-sapply"><span class="toc-section-number">10.10</span>  How to use sapply</a></li>
+  <li><a href="#instructions-100-xp-4" id="toc-instructions-100-xp-4" class="nav-link" data-scroll-target="#instructions-100-xp-4"><span class="toc-section-number">10.11</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#sapply-with-your-own-function" id="toc-sapply-with-your-own-function" class="nav-link" data-scroll-target="#sapply-with-your-own-function"><span class="toc-section-number">10.12</span>  sapply with your own function</a></li>
+  <li><a href="#instructions-100-xp-5" id="toc-instructions-100-xp-5" class="nav-link" data-scroll-target="#instructions-100-xp-5"><span class="toc-section-number">10.13</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#apply-with-function-returning-vector" id="toc-apply-with-function-returning-vector" class="nav-link" data-scroll-target="#apply-with-function-returning-vector"><span class="toc-section-number">10.14</span>  apply with function returning vector</a></li>
+  <li><a href="#instructions-100-xp-6" id="toc-instructions-100-xp-6" class="nav-link" data-scroll-target="#instructions-100-xp-6"><span class="toc-section-number">10.15</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#sapply-cant-simplify-now-what" id="toc-sapply-cant-simplify-now-what" class="nav-link" data-scroll-target="#sapply-cant-simplify-now-what"><span class="toc-section-number">10.16</span>  sapply can’t simplify, now what?</a></li>
+  <li><a href="#instructions-100-xp-7" id="toc-instructions-100-xp-7" class="nav-link" data-scroll-target="#instructions-100-xp-7"><span class="toc-section-number">10.17</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#sapply-with-functions-that-return-null" id="toc-sapply-with-functions-that-return-null" class="nav-link" data-scroll-target="#sapply-with-functions-that-return-null"><span class="toc-section-number">10.18</span>  sapply with functions that return NULL</a></li>
+  <li><a href="#instructions-100-xp-8" id="toc-instructions-100-xp-8" class="nav-link" data-scroll-target="#instructions-100-xp-8"><span class="toc-section-number">10.19</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#reverse-engineering-sapply" id="toc-reverse-engineering-sapply" class="nav-link" data-scroll-target="#reverse-engineering-sapply"><span class="toc-section-number">10.20</span>  Reverse engineering sapply</a></li>
+  <li><a href="#instructions-50-xp-1" id="toc-instructions-50-xp-1" class="nav-link" data-scroll-target="#instructions-50-xp-1">Instructions <code>50 XP</code></a></li>
+  <li><a href="#use-vapply" id="toc-use-vapply" class="nav-link" data-scroll-target="#use-vapply"><span class="toc-section-number">10.21</span>  Use vapply</a></li>
+  <li><a href="#instructions-100-xp-9" id="toc-instructions-100-xp-9" class="nav-link" data-scroll-target="#instructions-100-xp-9"><span class="toc-section-number">10.22</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#use-vapply-2" id="toc-use-vapply-2" class="nav-link" data-scroll-target="#use-vapply-2"><span class="toc-section-number">10.23</span>  Use vapply (2)</a></li>
+  <li><a href="#instructions-100-xp-10" id="toc-instructions-100-xp-10" class="nav-link" data-scroll-target="#instructions-100-xp-10"><span class="toc-section-number">10.24</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  <li><a href="#from-sapply-to-vapply" id="toc-from-sapply-to-vapply" class="nav-link" data-scroll-target="#from-sapply-to-vapply"><span class="toc-section-number">10.25</span>  From sapply to vapply</a></li>
+  <li><a href="#instructions-100-xp-11" id="toc-instructions-100-xp-11" class="nav-link" data-scroll-target="#instructions-100-xp-11"><span class="toc-section-number">10.26</span>  Instructions <code class="unnumbered">100 XP</code></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The apply family</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The apply family</span></h1>
 </div>
 
 
@@ -123,8 +367,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="use-lapply-with-a-built-in-r-function" class="level2">
-<h2 class="anchored" data-anchor-id="use-lapply-with-a-built-in-r-function">Use lapply with a built-in R function</h2>
+<section id="use-lapply-with-a-built-in-r-function" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="use-lapply-with-a-built-in-r-function"><span class="header-section-number">10.1</span> Use lapply with a built-in R function</h2>
 <p>Before you go about solving the exercises below, have a look at the documentation of the lapply() function. The Usage section shows the following expression:</p>
 <blockquote class="blockquote">
 <p>lapply(X, FUN, …)</p>
@@ -132,8 +376,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To put it generally, lapply takes a vector or list X, and applies the function FUN to each of its members. If FUN requires additional arguments, you pass them after you’ve specified X and FUN (…). The output of lapply() is a list, the same length as X, where each element is the result of applying FUN on the corresponding element of X.</p>
 <p>Now that you are truly brushing up on your data science skills, let’s revisit some of the most relevant figures in data science history. We’ve compiled a vector of famous mathematicians/statisticians and the year they were born. Up to you to extract some information!</p>
 </section>
-<section id="instructions-100-xp" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="instructions-100-xp"><span class="header-section-number">10.2</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <ul>
 <li>Have a look at the strsplit() calls, that splits the strings in pioneers on the : sign. The result, split_math is a list of 4 character vectors: the first vector element represents the name, the second element the birth year.</li>
 <li>Use lapply() to convert the character vectors in split_math to lowercase letters: apply tolower() on each of the elements in split_math. Assign the result, which is a list, to a new variable split_low.</li>
@@ -156,14 +400,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(split_low)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="use-lapply-with-your-own-function" class="level2">
-<h2 class="anchored" data-anchor-id="use-lapply-with-your-own-function">Use lapply with your own function</h2>
+<section id="use-lapply-with-your-own-function" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="use-lapply-with-your-own-function"><span class="header-section-number">10.3</span> Use lapply with your own function</h2>
 <p>As Filip explained in the instructional video, you can use lapply() on your own functions as well. You just need to code a new function and make sure it is available in the workspace. After that, you can use the function inside lapply() just as you did with base R functions.</p>
 <p>In the previous exercise you already used lapply() once to convert the information about your favorite pioneering statisticians to a list of vectors composed of two character strings. Let’s write some code to select the names and the birth years separately.</p>
 <p>The sample code already includes code that defined select_first(), that takes a vector as input and returns the first element of this vector.</p>
 </section>
-<section id="instructions-100-xp-1" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-1">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-1" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="instructions-100-xp-1"><span class="header-section-number">10.4</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <ul>
 <li>Apply select_first() over the elements of split_low with lapply() and assign the result to a new variable names.</li>
 <li>Next, write a function select_second() that does the exact same thing for the second element of an inputted vector.</li>
@@ -195,8 +439,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">lapply</span>(split_low, select_second)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="lapply-and-anonymous-functions" class="level2">
-<h2 class="anchored" data-anchor-id="lapply-and-anonymous-functions">lapply and anonymous functions</h2>
+<section id="lapply-and-anonymous-functions" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="lapply-and-anonymous-functions"><span class="header-section-number">10.5</span> lapply and anonymous functions</h2>
 <p>Writing your own functions and then using them inside lapply() is quite an accomplishment! But defining functions to use them only once is kind of overkill, isn’t it? That’s why you can use so-called anonymous functions in R.</p>
 <p>Previously, you learned that functions in R are objects in their own right. This means that they aren’t automatically bound to a name. When you create a function, you can use the assignment operator to give the function a name. It’s perfectly possible, however, to not give the function a name. This is called an anonymous function:</p>
 <blockquote class="blockquote">
@@ -212,8 +456,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>lapply(list(1,2,3), function(x) { 3 * x }) split_low is defined for you.</p>
 </blockquote>
 </section>
-<section id="instructions-100-xp-2" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-2">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-2" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="instructions-100-xp-2"><span class="header-section-number">10.6</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <p>Transform the first call of lapply() such that it uses an anonymous function that does the same thing. In a similar fashion, convert the second call of lapply to use an anonymous version of the select_second() function. Remove both the definitions of select_first() and select_second(), as they are no longer useful.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -232,13 +476,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">lapply</span>(split_low, <span class="cf">function</span>(x) { x[<span class="dv">2</span>] })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="use-lapply-with-additional-arguments" class="level2">
-<h2 class="anchored" data-anchor-id="use-lapply-with-additional-arguments">Use lapply with additional arguments</h2>
+<section id="use-lapply-with-additional-arguments" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="use-lapply-with-additional-arguments"><span class="header-section-number">10.7</span> Use lapply with additional arguments</h2>
 <p>In the video, the triple() function was transformed to the multiply() function to allow for a more generic approach. lapply() provides a way to handle functions that require more than one argument, such as the multiply() function:</p>
 <p>multiply &lt;- function(x, factor) { x * factor } lapply(list(1,2,3), multiply, factor = 3) On the right we’ve included a generic version of the select functions that you’ve coded earlier: select_el(). It takes a vector as its first argument, and an index as its second argument. It returns the vector’s element at the specified index.</p>
 </section>
-<section id="instructions-100-xp-3" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-3">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-3" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="instructions-100-xp-3"><span class="header-section-number">10.8</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <p>Use lapply() twice to call select_el() over all elements in split_low: once with the index equal to 1 and a second time with the index equal to 2. Assign the result to names and years, respectively.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -259,8 +503,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">lapply</span>(split_low, select_el, <span class="at">index =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="apply-functions-that-return-null" class="level2">
-<h2 class="anchored" data-anchor-id="apply-functions-that-return-null">Apply functions that return NULL</h2>
+<section id="apply-functions-that-return-null" class="level2" data-number="10.9">
+<h2 data-number="10.9" class="anchored" data-anchor-id="apply-functions-that-return-null"><span class="header-section-number">10.9</span> Apply functions that return NULL</h2>
 <p>In all of the previous exercises, it was assumed that the functions that were applied over vectors and lists actually returned a meaningful result. For example, the tolower() function simply returns the strings with the characters in lowercase. This won’t always be the case. Suppose you want to display the structure of every element of a list. You could use the str() function for this, which returns NULL:</p>
 <blockquote class="blockquote">
 <p>lapply(list(1, “a”, TRUE), str)</p>
@@ -285,16 +529,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>list(“1777”, “1702”)</p></li>
 </ul>
 </section>
-<section id="how-to-use-sapply" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use-sapply">How to use sapply</h2>
+<section id="how-to-use-sapply" class="level2" data-number="10.10">
+<h2 data-number="10.10" class="anchored" data-anchor-id="how-to-use-sapply"><span class="header-section-number">10.10</span> How to use sapply</h2>
 <p>You can use sapply() similar to how you used lapply(). The first argument of sapply() is the list or vector X over which you want to apply a function, FUN. Potential additional arguments to this function are specified afterwards (…):</p>
 <blockquote class="blockquote">
 <p>sapply(X, FUN, …)</p>
 </blockquote>
 <p>In the next couple of exercises, you’ll be working with the variable temp, that contains temperature measurements for 7 days. temp is a list of length 7, where each element is a vector of length 5, representing 5 measurements on a given day. This variable has already been defined in the workspace: type str(temp) to see its structure.</p>
 </section>
-<section id="instructions-100-xp-4" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-4">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-4" class="level2" data-number="10.11">
+<h2 data-number="10.11" class="anchored" data-anchor-id="instructions-100-xp-4"><span class="header-section-number">10.11</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <p>Use lapply() to calculate the minimum (built-in function min()) of the temperature measurements for every day. Do the same thing but this time with sapply(). See how the output differs. Use lapply() to compute the the maximum (max()) temperature for each day. Again, use sapply() to solve the same question and see how lapply() and sapply() differ.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -315,16 +559,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(temp, max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sapply-with-your-own-function" class="level2">
-<h2 class="anchored" data-anchor-id="sapply-with-your-own-function">sapply with your own function</h2>
+<section id="sapply-with-your-own-function" class="level2" data-number="10.12">
+<h2 data-number="10.12" class="anchored" data-anchor-id="sapply-with-your-own-function"><span class="header-section-number">10.12</span> sapply with your own function</h2>
 <p>Like lapply(), sapply() allows you to use self-defined functions and apply them over a vector or a list:</p>
 <blockquote class="blockquote">
 <p>sapply(X, FUN, …)</p>
 </blockquote>
 <p>Here, FUN can be one of R’s built-in functions, but it can also be a function you wrote. This self-written function can be defined before hand, or can be inserted directly as an anonymous function.</p>
 </section>
-<section id="instructions-100-xp-5" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-5">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-5" class="level2" data-number="10.13">
+<h2 data-number="10.13" class="anchored" data-anchor-id="instructions-100-xp-5"><span class="header-section-number">10.13</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <ul>
 <li>Finish the definition of extremes_avg(): it takes a vector of temperatures and calculates the average of the minimum and maximum temperatures of the vector.</li>
 <li>Next, use this function inside sapply() to apply it over the vectors inside temp.</li>
@@ -348,12 +592,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(temp,extremes_avg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="apply-with-function-returning-vector" class="level2">
-<h2 class="anchored" data-anchor-id="apply-with-function-returning-vector">apply with function returning vector</h2>
+<section id="apply-with-function-returning-vector" class="level2" data-number="10.14">
+<h2 data-number="10.14" class="anchored" data-anchor-id="apply-with-function-returning-vector"><span class="header-section-number">10.14</span> apply with function returning vector</h2>
 <p>In the previous exercises, you’ve seen how sapply() simplifies the list that lapply() would return by turning it into a vector. But what if the function you’re applying over a list or a vector returns a vector of length greater than 1? If you don’t remember from the video, don’t waste more time in the valley of ignorance and head over to the instructions!</p>
 </section>
-<section id="instructions-100-xp-6" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-6">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-6" class="level2" data-number="10.15">
+<h2 data-number="10.15" class="anchored" data-anchor-id="instructions-100-xp-6"><span class="header-section-number">10.15</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <ul>
 <li>Finish the definition of the extremes() function. It takes a vector of numerical values and returns a vector containing the minimum and maximum values of a given vector, with the names “min” and “max”, respectively.</li>
 <li>Apply this function over the vector temp using sapply().</li>
@@ -377,13 +621,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(temp,extremes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sapply-cant-simplify-now-what" class="level2">
-<h2 class="anchored" data-anchor-id="sapply-cant-simplify-now-what">sapply can’t simplify, now what?</h2>
+<section id="sapply-cant-simplify-now-what" class="level2" data-number="10.16">
+<h2 data-number="10.16" class="anchored" data-anchor-id="sapply-cant-simplify-now-what"><span class="header-section-number">10.16</span> sapply can’t simplify, now what?</h2>
 <p>It seems like we’ve hit the jackpot with sapply(). On all of the examples so far, sapply() was able to nicely simplify the rather bulky output of lapply(). But, as with life, there are things you can’t simplify. How does sapply() react?</p>
 <p>We already created a function, below_zero(), that takes a vector of numerical values and returns a vector that only contains the values that are strictly below zero.</p>
 </section>
-<section id="instructions-100-xp-7" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-7">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-7" class="level2" data-number="10.17">
+<h2 data-number="10.17" class="anchored" data-anchor-id="instructions-100-xp-7"><span class="header-section-number">10.17</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <ul>
 <li>Apply below_zero() over temp using sapply() and store the result in freezing_s.</li>
 <li>Apply below_zero() over temp using lapply(). Save the resulting list in a variable freezing_l.</li>
@@ -410,13 +654,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(freezing_s,freezing_l)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sapply-with-functions-that-return-null" class="level2">
-<h2 class="anchored" data-anchor-id="sapply-with-functions-that-return-null">sapply with functions that return NULL</h2>
+<section id="sapply-with-functions-that-return-null" class="level2" data-number="10.18">
+<h2 data-number="10.18" class="anchored" data-anchor-id="sapply-with-functions-that-return-null"><span class="header-section-number">10.18</span> sapply with functions that return NULL</h2>
 <p>You already have some apply tricks under your sleeve, but you’re surely hungry for some more, aren’t you? In this exercise, you’ll see how sapply() reacts when it is used to apply a function that returns NULL over a vector or a list.</p>
 <p>A function print_info(), that takes a vector and prints the average of this vector, has already been created for you. It uses the cat() function.</p>
 </section>
-<section id="instructions-100-xp-8" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-8">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-8" class="level2" data-number="10.19">
+<h2 data-number="10.19" class="anchored" data-anchor-id="instructions-100-xp-8"><span class="header-section-number">10.19</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <p>Apply print_info() over the contents of temp with sapply(). Repeat this process with lapply(). Do you notice the difference?</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -436,8 +680,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(temp,print_info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="reverse-engineering-sapply" class="level2">
-<h2 class="anchored" data-anchor-id="reverse-engineering-sapply">Reverse engineering sapply</h2>
+<section id="reverse-engineering-sapply" class="level2" data-number="10.20">
+<h2 data-number="10.20" class="anchored" data-anchor-id="reverse-engineering-sapply"><span class="header-section-number">10.20</span> Reverse engineering sapply</h2>
 <blockquote class="blockquote">
 <p>sapply(list(runif (10), runif (10)), function(x) c(min = min(x), mean = mean(x), max = max(x)))</p>
 </blockquote>
@@ -466,8 +710,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>(2), (3) and (4)</li>
 </ul>
 </section>
-<section id="use-vapply" class="level2">
-<h2 class="anchored" data-anchor-id="use-vapply">Use vapply</h2>
+<section id="use-vapply" class="level2" data-number="10.21">
+<h2 data-number="10.21" class="anchored" data-anchor-id="use-vapply"><span class="header-section-number">10.21</span> Use vapply</h2>
 <p>Before you get your hands dirty with the third and last apply function that you’ll learn about in this intermediate R course, let’s take a look at its syntax. The function is called vapply(), and it has the following syntax:</p>
 <blockquote class="blockquote">
 <p>vapply(X, FUN, FUN.VALUE, …, USE.NAMES = TRUE)</p>
@@ -475,8 +719,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Over the elements inside X, the function FUN is applied. The FUN.VALUE argument expects a template for the return argument of this function FUN. USE.NAMES is TRUE by default; in this case vapply() tries to generate a named array, if possible.</p>
 <p>For the next set of exercises, you’ll be working on the temp list again, that contains 7 numerical vectors of length 5. We also coded a function basics() that takes a vector, and returns a named vector of length 3, containing the minimum, mean and maximum value of the vector respectively.</p>
 </section>
-<section id="instructions-100-xp-9" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-9">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-9" class="level2" data-number="10.22">
+<h2 data-number="10.22" class="anchored" data-anchor-id="instructions-100-xp-9"><span class="header-section-number">10.22</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <p>Apply the function basics() over the list of temperatures, temp, using vapply(). This time, you can use numeric(3) to specify the FUN.VALUE argument.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -493,13 +737,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">vapply</span>(temp, basics, <span class="fu">numeric</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="use-vapply-2" class="level2">
-<h2 class="anchored" data-anchor-id="use-vapply-2">Use vapply (2)</h2>
+<section id="use-vapply-2" class="level2" data-number="10.23">
+<h2 data-number="10.23" class="anchored" data-anchor-id="use-vapply-2"><span class="header-section-number">10.23</span> Use vapply (2)</h2>
 <p>So far you’ve seen that vapply() mimics the behavior of sapply() if everything goes according to plan. But what if it doesn’t?</p>
 <p>In the video, Filip showed you that there are cases where the structure of the output of the function you want to apply, FUN, does not correspond to the template you specify in FUN.VALUE. In that case, vapply() will throw an error that informs you about the misalignment between expected and actual output.</p>
 </section>
-<section id="instructions-100-xp-10" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-10">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-10" class="level2" data-number="10.24">
+<h2 data-number="10.24" class="anchored" data-anchor-id="instructions-100-xp-10"><span class="header-section-number">10.24</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <ul>
 <li>Inspect the pre-loaded code and try to run it. If you haven’t changed anything,an error should pop up. That’s because vapply() still expects basics() to return a vector of length 3. The error message gives you an indication of what’s wrong.</li>
 <li>Try to fix the error by editing the vapply() command.</li>
@@ -519,12 +763,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">vapply</span>(temp, basics, <span class="fu">numeric</span>(<span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="from-sapply-to-vapply" class="level2">
-<h2 class="anchored" data-anchor-id="from-sapply-to-vapply">From sapply to vapply</h2>
+<section id="from-sapply-to-vapply" class="level2" data-number="10.25">
+<h2 data-number="10.25" class="anchored" data-anchor-id="from-sapply-to-vapply"><span class="header-section-number">10.25</span> From sapply to vapply</h2>
 <p>As highlighted before, vapply() can be considered a more robust version of sapply(), because you explicitly restrict the output of the function you want to apply. Converting your sapply() expressions in your own R scripts to vapply() expressions is therefore a good practice (and also a breeze!).</p>
 </section>
-<section id="instructions-100-xp-11" class="level2">
-<h2 class="anchored" data-anchor-id="instructions-100-xp-11">Instructions <code class="unnumbered">100 XP</code></h2>
+<section id="instructions-100-xp-11" class="level2" data-number="10.26">
+<h2 data-number="10.26" class="anchored" data-anchor-id="instructions-100-xp-11"><span class="header-section-number">10.26</span> Instructions <code class="unnumbered">100 XP</code></h2>
 <p>Convert all the sapply() expressions on the right to their vapply() counterparts. Their results should be exactly the same; you’re only adding robustness. You’ll need the templates numeric(1) and logical(1).</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -538,10 +782,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to vapply() expression</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">vapply</span>(temp, <span class="cf">function</span>(x, y) { <span class="fu">mean</span>(x) <span class="sc">&gt;</span> y }, <span class="at">y =</span> <span class="dv">5</span>,<span class="fu">logical</span>(<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -675,6 +920,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Intermedio_R_C3.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Intermedio_R_C5.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Utilities</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
