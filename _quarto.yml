@@ -8,6 +8,10 @@ book:
   title: "libro"
   author: "Javier E"
   date: "15/03/2023"
+  site-url: https://javierkiller.github.io/ejercicioLibro/
+  repo-url: https://github.com/JavierKiller/ejercicioLibro.git
+  repo-branch: main
+  repo-actions: [edit, issue]
   chapters:
     - index.qmd
     - intro.qmd
@@ -51,4 +55,6 @@ format:
     documentclass: scrreprt
 
 editor: visual
+
+# https://javierkiller.github.io/ejercicioLibro/
 
