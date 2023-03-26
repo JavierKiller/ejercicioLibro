@@ -1,6 +1,7 @@
 ---
 title: "The apply family"
 ---
+
 ## Use lapply with a built-in R function
 
 Before you go about solving the exercises below, have a look at the 
@@ -10,25 +11,25 @@ expression:
 > lapply(X, FUN, ...)
 
 To put it generally, lapply takes a vector or list X, and applies the function
-FUN to each of its members. If FUN requires additional arguments, you pass them
-after you've specified X and FUN (...). The output of lapply() is a list, the 
-same length as X, where each element is the result of applying FUN on the 
+FUN to each of its members. If FUN requires additional arguments, you pass 
+them after you've specified X and FUN (...). The output of lapply() is a list,
+the same length as X, where each element is the result of applying FUN on the 
 corresponding element of X.
 
 Now that you are truly brushing up on your data science skills, let's revisit 
 some of the most relevant figures in data science history. We've compiled a 
-vector of famous mathematicians/statisticians and the year they were born. Up 
+vector of famous mathematicians/statisticians and the year they were born. Up
 to you to extract some information!
 
 ## Instructions `100 XP`{.unnumbered}
 
-* Have a look at the strsplit() calls, that splits the strings in pioneers on
-the : sign. The result, split_math is a list of 4 character vectors: the first 
-vector element represents the name, the second element the birth year.
-* Use lapply() to convert the character vectors in split_math to lowercase 
+-   Have a look at the strsplit() calls, that splits the strings in pioneers 
+on the : sign. The result, split_math is a list of 4 character vectors: the 
+first vector element represents the name, the second element the birth year.
+-   Use lapply() to convert the character vectors in split_math to lowercase
 letters: apply tolower() on each of the elements in split_math. Assign the 
 result, which is a list, to a new variable split_low.
-* Finally, inspect the contents of split_low with str().
+-   Finally, inspect the contents of split_low with str().
 
 ``` {.r filename="E1.R"}
 # The vector pioneers has already been created for you
@@ -42,31 +43,30 @@ split_low <- lapply(split_math, tolower)
 
 # Take a look at the structure of split_low
 str(split_low)
-
 ```
 
 ## Use lapply with your own function
 
-As Filip explained in the instructional video, you can use lapply() on your own
-functions as well. You just need to code a new function and make sure it is 
-available in the workspace. After that, you can use the function inside 
+As Filip explained in the instructional video, you can use lapply() on your 
+own functions as well. You just need to code a new function and make sure it 
+is available in the workspace. After that, you can use the function inside 
 lapply() just as you did with base R functions.
 
-In the previous exercise you already used lapply() once to convert the
-information about your favorite pioneering statisticians to a list of vectors 
-composed of two character strings. Let's write some code to select the names
+In the previous exercise you already used lapply() once to convert the 
+information about your favorite pioneering statisticians to a list of vectors
+composed of two character strings. Let's write some code to select the names 
 and the birth years separately.
 
-The sample code already includes code that defined select_first(), that takes a
-vector as input and returns the first element of this vector.
+The sample code already includes code that defined select_first(), that takes
+a vector as input and returns the first element of this vector.
 
 ## Instructions `100 XP`{.unnumbered}
 
-* Apply select_first() over the elements of split_low with lapply() and assign 
-the result to a new variable names.
-* Next, write a function select_second() that does the exact same thing for the 
-second element of an inputted vector.
-* Finally, apply the select_second() function over split_low and assign the 
+-   Apply select_first() over the elements of split_low with lapply() and 
+assign the result to a new variable names.
+-   Next, write a function select_second() that does the exact same thing for 
+the second element of an inputted vector.
+-   Finally, apply the select_second() function over split_low and assign the
 output to the variable years.
 
 ``` {.r filename="E2.R"}
@@ -90,39 +90,39 @@ select_second <- function(x) {
 
 # Apply select_second() over split_low: years
 years <- lapply(split_low, select_second)
-
 ```
 
 ## lapply and anonymous functions
 
-Writing your own functions and then using them inside lapply() is quite an 
+Writing your own functions and then using them inside lapply() is quite an
 accomplishment! But defining functions to use them only once is kind of 
 overkill, isn't it? That's why you can use so-called anonymous functions in R.
 
 Previously, you learned that functions in R are objects in their own right. 
 This means that they aren't automatically bound to a name. When you create a 
-function, you can use the assignment operator to give the function a name. It's
-perfectly possible, however, to not give the function a name. This is called an
-anonymous function:
+function, you can use the assignment operator to give the function a name. 
+It's perfectly possible, however, to not give the function a name. This is 
+called an anonymous function:
 
 > ### Named function {.unnumbered}
-> triple <- function(x) { 3 * x }
+>
+> triple \<- function(x) { 3 \* x }
 
 > ### Anonymous function with same implementation {.unnumbered}
-> function(x) { 3 * x }
+>
+> function(x) { 3 \* x }
 
 > ### Use anonymous function inside lapply() {.unnumbered}
-> lapply(list(1,2,3), function(x) { 3 * x })
-> split_low is defined for you.
+>
+> lapply(list(1,2,3), function(x) { 3 \* x }) split_low is defined for you.
 
 ## Instructions `100 XP`{.unnumbered}
 
 Transform the first call of lapply() such that it uses an anonymous function 
-that does the same thing.
-In a similar fashion, convert the second call of lapply to use an anonymous 
-version of the select_second() function.
-Remove both the definitions of select_first() and select_second(), as they are 
-no longer useful.
+that does the same thing. In a similar fashion, convert the second call of 
+lapply to use an anonymous version of the select_second() function. Remove 
+both the definitions of select_first() and select_second(), as they are no 
+longer useful.
 
 ``` {.r filename="E3.R"}
 # split_low has been created for you
@@ -140,23 +140,20 @@ years <- lapply(split_low, function(x) { x[2] })
 
 ## Use lapply with additional arguments
 
-In the video, the triple() function was transformed to the multiply() function 
+In the video, the triple() function was transformed to the multiply() function
 to allow for a more generic approach. lapply() provides a way to handle 
 functions that require more than one argument, such as the multiply() function:
 
-multiply <- function(x, factor) {
-  x * factor
-}
-lapply(list(1,2,3), multiply, factor = 3)
-On the right we've included a generic version of the select functions that 
-you've coded earlier: select_el(). It takes a vector as its first argument, and
-an index as its second argument. It returns the vector's element at the 
-specified index.
+multiply \<- function(x, factor) { x \* factor } lapply(list(1,2,3), multiply,
+factor = 3) On the right we've included a generic version of the select 
+functions that you've coded earlier: select_el(). It takes a vector as its 
+first argument, and an index as its second argument. It returns the vector's 
+element at the specified index.
 
 ## Instructions `100 XP`{.unnumbered}
 
-Use lapply() twice to call select_el() over all elements in split_low: once 
-with the index equal to 1 and a second time with the index equal to 2. Assign
+Use lapply() twice to call select_el() over all elements in split_low: once
+with the index equal to 1 and a second time with the index equal to 2. Assign 
 the result to names and years, respectively.
 
 ``` {.r filename="E4.R"}
@@ -177,10 +174,10 @@ years <- lapply(split_low, select_el, index = 2)
 
 ## Apply functions that return NULL
 
-In all of the previous exercises, it was assumed that the functions that were 
+In all of the previous exercises, it was assumed that the functions that were
 applied over vectors and lists actually returned a meaningful result. For 
-example, the tolower() function simply returns the strings with the characters 
-in lowercase. This won't always be the case. Suppose you want to display the
+example, the tolower() function simply returns the strings with the characters
+in lowercase. This won't always be the case. Suppose you want to display the 
 structure of every element of a list. You could use the str() function for 
 this, which returns NULL:
 
@@ -191,7 +188,7 @@ all NULL values. On the other hand calling
 
 > str(TRUE)
 
-on its own prints only the structure of the logical to the console, not NULL. 
+on its own prints only the structure of the logical to the console, not NULL.
 That's because str() uses invisible() behind the scenes, which returns an 
 invisible copy of the return value, NULL in this case. This prevents it from 
 being printed when the result of str() is not assigned.
@@ -200,27 +197,19 @@ What will the following code chunk return (split_low is already available in
 the workspace)? Try to reason about the result before simply executing it in 
 the console!
 
-> lapply(split_low, function(x) {
->   if (nchar(x[1]) > 5) {
->     return(NULL)
->   } else {
->     return(x[2])
->   }
-> })
+> lapply(split_low, function(x) { if (nchar(x\[1\]) \> 5) { return(NULL) } else { return(x\[2\]) } })
 
 ## Instructions `50 XP` {.unnumbered}
 
 Possible Answers
 
-* list(NULL, NULL, "1623", "1857")
+-   list(NULL, NULL, "1623", "1857")
 
-* list("gauss", "bayes", NULL, NULL)
+-   list("gauss", "bayes", NULL, NULL)
 
-* list("1777", "1702", NULL, NULL) Respuesta 
+-   list("1777", "1702", NULL, NULL) Respuesta
 
-* list("1777", "1702")
-
-
+-   list("1777", "1702")
 
 ## How to use sapply
 
@@ -230,20 +219,19 @@ Potential additional arguments to this function are specified afterwards (...):
 
 > sapply(X, FUN, ...)
 
-In the next couple of exercises, you'll be working with the variable temp, 
-that contains temperature measurements for 7 days. temp is a list of length 7, 
-where each element is a vector of length 5, representing 5 measurements on a
+In the next couple of exercises, you'll be working with the variable temp, that
+contains temperature measurements for 7 days. temp is a list of length 7, 
+where each element is a vector of length 5, representing 5 measurements on a 
 given day. This variable has already been defined in the workspace: type 
 str(temp) to see its structure.
 
 ## Instructions `100 XP`{.unnumbered}
 
 Use lapply() to calculate the minimum (built-in function min()) of the 
-temperature measurements for every day.
-Do the same thing but this time with sapply(). See how the output differs.
-Use lapply() to compute the the maximum (max()) temperature for each day.
-Again, use sapply() to solve the same question and see how lapply() and sapply()
-differ.
+temperature measurements for every day. Do the same thing but this time with 
+sapply(). See how the output differs. Use lapply() to compute the the maximum 
+(max()) temperature for each day. Again, use sapply() to solve the same 
+question and see how lapply() and sapply() differ.
 
 ``` {.r filename="E5.R"}
 # temp has already been defined in the workspace
@@ -263,22 +251,24 @@ sapply(temp, max)
 
 ## sapply with your own function
 
-Like lapply(), sapply() allows you to use self-defined functions and apply them
-over a vector or a list:
+Like lapply(), sapply() allows you to use self-defined functions and apply 
+them over a vector or a list:
 
 > sapply(X, FUN, ...)
 
-Here, FUN can be one of R's built-in functions, but it can also be a function 
+Here, FUN can be one of R's built-in functions, but it can also be a function
 you wrote. This self-written function can be defined before hand, or can be 
 inserted directly as an anonymous function.
 
 ## Instructions `100 XP`{.unnumbered}
 
-* Finish the definition of extremes_avg(): it takes a vector of temperatures and
-calculates the average of the minimum and maximum temperatures of the vector.
-* Next, use this function inside sapply() to apply it over the vectors inside 
-temp.
-* Use the same function over temp with lapply() and see how the outputs differ.
+-   Finish the definition of extremes_avg(): it takes a vector of temperatures
+and calculates the average of the minimum and maximum temperatures of the 
+vector.
+-   Next, use this function inside sapply() to apply it over the vectors 
+inside temp.
+-   Use the same function over temp with lapply() and see how the outputs 
+differ.
 
 ``` {.r filename="E6.R"}
 # temp is already defined in the workspace
@@ -297,7 +287,7 @@ lapply(temp,extremes_avg)
 
 ## apply with function returning vector
 
-In the previous exercises, you've seen how sapply() simplifies the list that 
+In the previous exercises, you've seen how sapply() simplifies the list that
 lapply() would return by turning it into a vector. But what if the function 
 you're applying over a list or a vector returns a vector of length greater 
 than 1? If you don't remember from the video, don't waste more time in the 
@@ -305,11 +295,11 @@ valley of ignorance and head over to the instructions!
 
 ## Instructions `100 XP`{.unnumbered}
 
-* Finish the definition of the extremes() function. It takes a vector of 
+-   Finish the definition of the extremes() function. It takes a vector of 
 numerical values and returns a vector containing the minimum and maximum 
 values of a given vector, with the names "min" and "max", respectively.
-* Apply this function over the vector temp using sapply().
-* Finally, apply this function over the vector temp using lapply() as well.
+-   Apply this function over the vector temp using sapply().
+-   Finally, apply this function over the vector temp using lapply() as well.
 
 ``` {.r filename="E7.R"}
 # temp is already available in the workspace
@@ -328,7 +318,7 @@ lapply(temp,extremes)
 
 ## sapply can't simplify, now what?
 
-It seems like we've hit the jackpot with sapply(). On all of the examples so 
+It seems like we've hit the jackpot with sapply(). On all of the examples so
 far, sapply() was able to nicely simplify the rather bulky output of lapply().
 But, as with life, there are things you can't simplify. How does sapply() 
 react?
@@ -339,11 +329,11 @@ below zero.
 
 ## Instructions `100 XP`{.unnumbered}
 
-* Apply below_zero() over temp using sapply() and store the result in 
+-   Apply below_zero() over temp using sapply() and store the result in 
 freezing_s.
-* Apply below_zero() over temp using lapply(). Save the resulting list in a 
+-   Apply below_zero() over temp using lapply(). Save the resulting list in a
 variable freezing_l.
-* Compare freezing_s to freezing_l using the identical() function.
+-   Compare freezing_s to freezing_l using the identical() function.
 
 ``` {.r filename="E8.R"}
 # temp is already prepared for you in the workspace
@@ -374,8 +364,8 @@ vector, has already been created for you. It uses the cat() function.
 
 ## Instructions `100 XP`{.unnumbered}
 
-Apply print_info() over the contents of temp with sapply().
-Repeat this process with lapply(). Do you notice the difference?
+Apply print_info() over the contents of temp with sapply(). Repeat this process
+with lapply(). Do you notice the difference?
 
 ``` {.r filename="E9.R"}
 # temp is already available in the workspace
@@ -390,13 +380,12 @@ sapply(temp,print_info)
 
 # Apply print_info() over temp using lapply()
 lapply(temp,print_info)
-
 ```
 
 ## Reverse engineering sapply
 
-> sapply(list(runif (10), runif (10)), 
->        function(x) c(min = min(x), mean = mean(x), max = max(x)))
+> sapply(list(runif (10), runif (10)), function(x) c(min = min(x), 
+> mean = mean(x), max = max(x)))
 
 Without going straight to the console to run the code, try to reason through 
 which of the following statements are correct and why.
@@ -413,14 +402,13 @@ Select the option that lists all correct statements.
 
 Possible Answers
 
-* (1) and (3)
+-   (1) and (3)
 
-* (2) and (3) Respuesta
+-   (2) and (3) Respuesta
 
-* (1) and (4)
+-   (1) and (4)
 
-* (2), (3) and (4)
-
+-   (2), (3) and (4)
 
 ## Use vapply
 
@@ -430,20 +418,20 @@ syntax. The function is called vapply(), and it has the following syntax:
 
 > vapply(X, FUN, FUN.VALUE, ..., USE.NAMES = TRUE)
 
-Over the elements inside X, the function FUN is applied. The FUN.VALUE argument
-expects a template for the return argument of this function FUN. USE.NAMES is 
-TRUE by default; in this case vapply() tries to generate a named array, if 
-possible.
+Over the elements inside X, the function FUN is applied. The FUN.VALUE 
+argument expects a template for the return argument of this function FUN. 
+USE.NAMES is TRUE by default; in this case vapply() tries to generate a named
+array, if possible.
 
-For the next set of exercises, you'll be working on the temp list again, that 
+For the next set of exercises, you'll be working on the temp list again, that
 contains 7 numerical vectors of length 5. We also coded a function basics() 
 that takes a vector, and returns a named vector of length 3, containing the 
 minimum, mean and maximum value of the vector respectively.
 
 ## Instructions `100 XP`{.unnumbered}
 
-Apply the function basics() over the list of temperatures, temp, using vapply().
-This time, you can use numeric(3) to specify the FUN.VALUE argument.
+Apply the function basics() over the list of temperatures, temp, using 
+vapply(). This time, you can use numeric(3) to specify the FUN.VALUE argument.
 
 ``` {.r filename="E10.R"}
 # temp is already available in the workspace
@@ -459,23 +447,18 @@ vapply(temp, basics, numeric(3))
 
 ## Use vapply (2)
 
-So far you've seen that vapply() mimics the behavior of sapply() if everything 
+So far you've seen that vapply() mimics the behavior of sapply() if everything
 goes according to plan. But what if it doesn't?
 
 In the video, Filip showed you that there are cases where the structure of the
 output of the function you want to apply, FUN, does not correspond to the 
-template you specify in FUN.VALUE. In that case, vapply() will throw an error
+template you specify in FUN.VALUE. In that case, vapply() will throw an error 
 that informs you about the misalignment between expected and actual output.
 
 ## Instructions `100 XP`{.unnumbered}
 
-* Inspect the pre-loaded code and try to run it. If you haven't changed 
-anything,an error should pop up. That's because vapply() still expects 
-basics() to return a vector of length 3. The error message gives you an 
-indication of what's
-wrong.
-* Try to fix the error by editing the vapply() command.
-
+-   Inspect the pre-loaded code and try to run it. If you haven't changed anything,an error should pop up. That's because vapply() still expects basics() to return a vector of length 3. The error message gives you an indication of what's wrong.
+-   Try to fix the error by editing the vapply() command.
 
 ``` {.r filename="E11.R"}
 # temp is already available in the workspace
@@ -487,21 +470,15 @@ basics <- function(x) {
 
 # Fix the error:
 vapply(temp, basics, numeric(4))
-
 ```
 
 ## From sapply to vapply
 
-As highlighted before, vapply() can be considered a more robust version of 
-sapply(), because you explicitly restrict the output of the function you want 
-to apply. Converting your sapply() expressions in your own R scripts to 
-vapply() expressions is therefore a good practice (and also a breeze!).
+As highlighted before, vapply() can be considered a more robust version of sapply(), because you explicitly restrict the output of the function you want to apply. Converting your sapply() expressions in your own R scripts to vapply() expressions is therefore a good practice (and also a breeze!).
 
 ## Instructions `100 XP`{.unnumbered}
 
-Convert all the sapply() expressions on the right to their vapply() 
-counterparts. Their results should be exactly the same; you're only adding 
-robustness. You'll need the templates numeric(1) and logical(1).
+Convert all the sapply() expressions on the right to their vapply() counterparts. Their results should be exactly the same; you're only adding robustness. You'll need the templates numeric(1) and logical(1).
 
 ``` {.r filename="E12.R"}
 # temp is already defined in the workspace
@@ -511,5 +488,4 @@ vapply(temp, max,numeric(1))
 
 # Convert to vapply() expression
 vapply(temp, function(x, y) { mean(x) > y }, y = 5,logical(1))
-
 ```

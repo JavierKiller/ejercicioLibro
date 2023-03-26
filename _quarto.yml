@@ -43,6 +43,14 @@ book:
         - Introduction_to_Importing_Data_in_R_C3.qmd 
         - Introduction_to_Importing_Data_in_R_C4.qmd       
 
+    - part: "Data Manipulation with dplyr"
+      chapters:
+        - Data_Manipulation_with_dplyr_C1.qmd 
+        - Data_Manipulation_with_dplyr_C2.qmd 
+        - Data_Manipulation_with_dplyr_C3.qmd 
+        - Data_Manipulation_with_dplyr_C4.qmd       
+
+
     - summary.qmd
     - references.qmd
 
@@ -50,11 +58,11 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: cyborg
   pdf:
     documentclass: scrreprt
 
 editor: visual
 
-# https://javierkiller.github.io/ejercicioLibro/
+# lux darkly cyborg vapor sketchy slate
 
