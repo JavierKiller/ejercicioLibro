@@ -2107,11 +2107,11 @@
     "text": "Instructions 100 XP\nUsing fread() and select or drop as arguments, only import the texture and moistness columns of the flat file. They correspond to the columns 6 and 8 in “potatoes.csv”. Store the result in a variable potatoes. plot() 2 columns of the potatoes data frame: texture on the x-axis, moistness on the y-axis. Use the dollar sign notation twice. Feel free to name your axes and plot.\n\n\nE8.R\n\n# fread is already loaded\n\n# Import columns 6 and 8 of potatoes.csv: potatoes\npotatoes<- fread(\"potatoes.csv\", select = c(6, 8))\n\n# Plot texture (x) and moistness (y) of potatoes\nplot(potatoes$texture, potatoes$moistness)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#list-the-sheets-of-an-excel-file",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#list-the-sheets-of-an-excel-file",
+    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#selecting-columns",
+    "href": "Introduction_to_Importing_Data_in_R_C3.html#selecting-columns",
     "title": "18  Importing Excel data",
-    "section": "18.1 List the sheets of an Excel file",
-    "text": "18.1 List the sheets of an Excel file\nBefore you can start importing from Excel, you should find out which sheets are available in the workbook. You can use the excel_sheets() function for this.\nYou will find the Excel file urbanpop.xlsx (view) in your working directory (type dir() to see it). This dataset contains urban population metrics for practically all countries in the world throughout time (Source: Gapminder). It contains three sheets for three different time periods. In each sheet, the first row contains the column names."
+    "section": "18.1 Selecting columns",
+    "text": "18.1 Selecting columns\nUsing the select() verb, we can answer interesting questions about our dataset by focusing in on related groups of verbs. The colon (:) is useful for getting many columns at a time."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp",
@@ -2121,11 +2121,11 @@
     "text": "Instructions 100 XP\n\nUse glimpse() to examine all the variables in the counties table.\nSelect the columns for state, county, population, and (using a colon) all five of those industry-related variables; there are five consecutive variables in the table related to the industry of people’s work: professional, service, office, construction, and production.\nArrange the table in descending order of service to find which counties have the highest rates of working in the service industry.\n\n\n\nE1.R\n\n# Glimpse the counties table\nglimpse(counties)\n\ncounties %>%\n  # Select state, county, population, and industry-related columns\n  select(state, county, population,professional:production) %>%\n  # Arrange service in descending order \n   arrange(desc(service))"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#import-an-excel-sheet",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#import-an-excel-sheet",
+    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#select-helpers",
+    "href": "Introduction_to_Importing_Data_in_R_C3.html#select-helpers",
     "title": "18  Importing Excel data",
-    "section": "18.2 Import an Excel sheet",
-    "text": "18.2 Import an Excel sheet\nNow that you know the names of the sheets in the Excel file you want to import, it is time to import those sheets into R. You can do this with the read_excel() function. Have a look at this recipe:\ndata <- read_excel(“data.xlsx”, sheet = “my_sheet”) This call simply imports the sheet with the name “my_sheet” from the “data.xlsx” file. You can also pass a number to the sheet argument; this will cause read_excel() to import the sheet with the given sheet number. sheet = 1 will import the first sheet, sheet = 2 will import the second sheet, and so on.\nIn this exercise, you’ll continue working with the urbanpop.xlsx (view) file."
+    "section": "18.2 Select helpers",
+    "text": "18.2 Select helpers\nIn the video you learned about the select helper starts_with(). Another select helper is ends_with(), which finds the columns that end with a particular string."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-1",
@@ -2135,11 +2135,11 @@
     "text": "Instructions 100 XP\n\nSelect the columns state, county, population, and all those that end with work.\nFilter just for the counties where at least 50% of the population is engaged in public work.\n\n\n\nE2.R\n\ncounties %>%\n  # Select the state, county, population, and those ending with \"work\"\n  select(state, county, population,ends_with(\"work\")) %>%\n  # Filter for counties that have at least 50% of people engaged in public work\n  filter(public_work  >= 50)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#reading-a-workbook",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#reading-a-workbook",
+    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-after-count",
+    "href": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-after-count",
     "title": "18  Importing Excel data",
-    "section": "18.3 Reading a workbook",
-    "text": "18.3 Reading a workbook\nIn the previous exercise you generated a list of three Excel sheets that you imported. However, loading in every sheet manually and then merging them in a list can be quite tedious. Luckily, you can automate this with lapply(). If you have no experience with lapply(), feel free to take Chapter 4 of the Intermediate R course.\nHave a look at the example code below:\n\nmy_workbook <- lapply(excel_sheets(“data.xlsx”), read_excel, path = “data.xlsx”)\n\nThe read_excel() function is called multiple times on the “data.xlsx” file and each sheet is loaded in one after the other. The result is a list of data frames, each data frame representing one of the sheets in data.xlsx.\nYou’re still working with the urbanpop.xlsx (view) file."
+    "section": "18.3 Renaming a column after count",
+    "text": "18.3 Renaming a column after count\nThe rename() verb is often useful for changing the name of a column that comes out of another verb, such as count(). In this exercise, you’ll rename the default n column generated from count() to something more descriptive."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-2",
@@ -2149,11 +2149,11 @@
     "text": "Instructions 100 XP\n\nUse count() to determine how many counties are in each state.\nNotice the n column in the output; use rename() to rename that to num_counties.\n\n\n\nE3.R\n\ncounties %>%\n  # Count the number of counties in each state\n  count(state)\n  \ncounties %>%\n  # Count the number of counties in each state\n  count(state) %>%\n  # Rename the n column to num_counties\n  rename(num_counties = n)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#the-col_names-argument",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#the-col_names-argument",
+    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-as-part-of-a-select",
+    "href": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-as-part-of-a-select",
     "title": "18  Importing Excel data",
-    "section": "18.4 The col_names argument",
-    "text": "18.4 The col_names argument\nApart from path and sheet, there are several other arguments you can specify in read_excel(). One of these arguments is called col_names.\nBy default it is TRUE, denoting whether the first row in the Excel sheets contains the column names. If this is not the case, you can set col_names to FALSE. In this case, R will choose column names for you. You can also choose to set col_names to a character vector with names for each column. It works exactly the same as in the readr package.\nYou’ll be working with the urbanpop_nonames.xlsx (view) file. It contains the same data as urbanpop.xlsx (view) but has no column names in the first row of the excel sheets."
+    "section": "18.4 Renaming a column as part of a select",
+    "text": "18.4 Renaming a column as part of a select\nrename() isn’t the only way you can choose a new name for a column; you can also choose a name as part of a select()."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-3",
@@ -2163,11 +2163,11 @@
     "text": "Instructions 100 XP\n\nSelect the columns state, county, and poverty from the counties dataset; in the same step, rename the poverty column to poverty_rate.\n\n\n\nE4.R\n\ncounties %>%\n  # Select state, county, and poverty as poverty_rate\n   select(state, county, poverty_rate = poverty)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#the-skip-argument",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#the-skip-argument",
+    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#using-transmute",
+    "href": "Introduction_to_Importing_Data_in_R_C3.html#using-transmute",
     "title": "18  Importing Excel data",
-    "section": "18.5 The skip argument",
-    "text": "18.5 The skip argument\nAnother argument that can be very useful when reading in Excel files that are less tidy, is skip. With skip, you can tell R to ignore a specified number of rows inside the Excel sheets you’re trying to pull data from. Have a look at this example:\nread_excel(“data.xlsx”, skip = 15) In this case, the first 15 rows in the first sheet of “data.xlsx” are ignored.\nIf the first row of this sheet contained the column names, this information will also be ignored by readxl. Make sure to set col_names to FALSE or manually specify column names in this case!\nThe file urbanpop.xlsx (view) is available in your directory; it has column names in the first rows."
+    "section": "18.5 Using transmute",
+    "text": "18.5 Using transmute\nAs you learned in the video, the transmute verb allows you to control which variables you keep, which variables you calculate, and which variables you drop."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-4",
@@ -2177,11 +2177,11 @@
     "text": "Instructions 100 XP\n\nKeep only the state, county, and population columns, and add a new column, density, that contains the population per land_area.\nFilter for only counties with a population greater than one million.\nSort the table in ascending order of density.\n\n\n\nE5.R\n\ncounties %>%\n  # Keep the state, county, and populations columns, and add a density column\n transmute(state, county, population, density = population / land_area) %>%\n  # Filter for counties with a population greater than one million \n  filter(population>1000000)%>%\n  # Sort density in ascending order \n  arrange(density)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#import-a-local-file",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#import-a-local-file",
+    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#choosing-among-the-four-verbs",
+    "href": "Introduction_to_Importing_Data_in_R_C3.html#choosing-among-the-four-verbs",
     "title": "18  Importing Excel data",
-    "section": "18.6 Import a local file",
-    "text": "18.6 Import a local file\nIn this part of the chapter you’ll learn how to import .xls files using the gdata package. Similar to the readxl package, you can import single Excel sheets from Excel sheets to start your analysis in R.\nYou’ll be working with the urbanpop.xls (view) dataset, the .xls version of the Excel file you’ve been working with before. It’s available in your current working directory."
+    "section": "18.6 Choosing among the four verbs",
+    "text": "18.6 Choosing among the four verbs\nIn this chapter you’ve learned about the four verbs: select, mutate, transmute, and rename. Here, you’ll choose the appropriate verb for each situation. You won’t need to change anything inside the parentheses."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-5",
@@ -2191,39 +2191,11 @@
     "text": "Instructions 100 XP\n\nChoose the right verb for changing the name of the unemployment column to unemployment_rate\nChoose the right verb for keeping only the columns state, county, and the ones containing poverty.\nCalculate a new column called fraction_women with the fraction of the population made up of women, without dropping any columns.\nKeep only three columns: the state, county, and employed / population, which you’ll call employment_rate.\n\n\n\nE6.R\n\n# Change the name of the unemployment column\ncounties %>%\n  rename(unemployment_rate = unemployment)\n\n# Keep the state and county columns, and the columns containing poverty\ncounties %>%\n  select(state, county, contains(\"poverty\"))\n\n# Calculate the fraction_women column without dropping the other columns\ncounties %>%\n  mutate(fraction_women = women / population)\n\n# Keep only the state, county, and employment_rate columns\ncounties %>%\n  transmute(state, county, employment_rate = employed / population)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#read.xls-wraps-around-read.table",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#read.xls-wraps-around-read.table",
-    "title": "18  Importing Excel data",
-    "section": "18.7 read.xls() wraps around read.table()",
-    "text": "18.7 read.xls() wraps around read.table()\nRemember how read.xls() actually works? It basically comes down to two steps: converting the Excel file to a .csv file using a Perl script, and then reading that .csv file with the read.csv() function that is loaded by default in R, through the utils package.\nThis means that all the options that you can specify in read.csv(), can also be specified in read.xls().\nThe urbanpop.xls (view) dataset is already available in your workspace. It’s\nstill comprised of three sheets, and has column names in the first row of each sheet."
-  },
-  {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-6",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-6",
-    "title": "18  Importing Excel data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\n\n\n\nE7.R"
-  },
-  {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#work-that-excel-data",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#work-that-excel-data",
-    "title": "18  Importing Excel data",
-    "section": "18.8 Work that Excel data!",
-    "text": "18.8 Work that Excel data!\nNow that you can read in Excel data, let’s try to clean and merge it. You already used the cbind() function some exercises ago. Let’s take it one step further now.\nThe urbanpop.xls (view) dataset is available in your working directory. The file still contains three sheets, and has column names in the first row of each sheet."
-  },
-  {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-7",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#instructions-100-xp-7",
-    "title": "18  Importing Excel data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE8.R"
-  },
-  {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#connect-to-a-workbook",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#connect-to-a-workbook",
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#filtering-and-arranging-for-one-year",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#filtering-and-arranging-for-one-year",
     "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.1 Connect to a workbook",
-    "text": "19.1 Connect to a workbook\nWhen working with XLConnect, the first step will be to load a workbook in your R session with loadWorkbook(); this function will build a “bridge” between your Excel file and your R session.\nIn this and the following exercises, you will continue to work with urbanpop.xlsx (view), containing urban population data throughout time. The Excel file is available in your current working directory."
+    "section": "19.1 Filtering and arranging for one year",
+    "text": "19.1 Filtering and arranging for one year\nThe dplyr verbs you’ve learned are useful for exploring data. For instance, you could find out the most common names in a particular year."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp",
@@ -2233,11 +2205,11 @@
     "text": "Instructions 100 XP\n\nFilter for only the year 1990.\nSort the table in descending order of the number of babies born.\n\n\n\nE1.R\n\nbabynames %>%\n  # Filter for the year 1990\n  filter(year == 1990) %>%\n  # Sort the number column in descending order \n  arrange(desc(number))"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#list-and-read-excel-sheets",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#list-and-read-excel-sheets",
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-most-popular-names-each-year",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-most-popular-names-each-year",
     "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.2 List and read Excel sheets",
-    "text": "19.2 List and read Excel sheets\nJust as readxl and gdata, you can use XLConnect to import data from Excel file into R.\nTo list the sheets in an Excel file, use getSheets(). To actually import data from a sheet, you can use readWorksheet(). Both functions require an XLConnect workbook object as the first argument.\nYou’ll again be working with urbanpop.xlsx (view). The my_book object that links to this Excel file has already been created."
+    "section": "19.2 Finding the most popular names each year",
+    "text": "19.2 Finding the most popular names each year\nYou saw that you could use filter() and arrange() to find the most common names in one year. However, you could also use group_by() and slice_max() to find the most common name in every year."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-1",
@@ -2247,11 +2219,11 @@
     "text": "Instructions 100 XP\n\nUse group_by() and slice_max() to find the most common name for US babies in each year.\n\n\n\nE2.R\n\nbabynames %>%\n  # Find the most common name in each year\n  group_by(year) %>%\n  slice_max(number, n = 1)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#customize-readworksheet",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#customize-readworksheet",
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-names-with-ggplot2",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-names-with-ggplot2",
     "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.3 Customize readWorksheet",
-    "text": "19.3 Customize readWorksheet\nTo get a clear overview about urbanpop.xlsx (view) without having to open up the Excel file, you can execute the following code:\n\nmy_book <- loadWorkbook(“urbanpop.xlsx”) sheets <- getSheets(my_book) all <- lapply(sheets, readWorksheet, object = my_book) str(all)\n\nSuppose we’re only interested in urban population data of the years 1968, 1969 and 1970. The data for these years is in the columns 3, 4, and 5 of the second sheet. Only selecting these columns will leave us in the dark about the actual countries the figures belong to."
+    "section": "19.3 Visualizing names with ggplot2",
+    "text": "19.3 Visualizing names with ggplot2\nThe dplyr package is very useful for exploring data, but it’s especially useful when combined with other tidyverse packages like ggplot2."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-2",
@@ -2261,11 +2233,11 @@
     "text": "Instructions 100 XP\n\nFilter for only the names Steven, Thomas, and Matthew, and assign it to an object called selected_names.\nVisualize those three names as a line plot over time, with each name represented by a different color.\n\n\n\nE3.R\n\nselected_names <- babynames %>%\n  # Filter for the names Steven, Thomas, and Matthew \n  filter(name %in% c(\"Steven\", \"Thomas\", \"Matthew\"))\n  \n\nselected_names <- babynames %>%\n  # Filter for the names Steven, Thomas, and Matthew \n  filter(name %in% c(\"Steven\", \"Thomas\", \"Matthew\"))\n\n# Plot the names using a different color for each name\nggplot(selected_names, aes(x = year, y = number, color = name)) +\n  geom_line()"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#add-worksheet",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#add-worksheet",
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-year-each-name-is-most-common",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-year-each-name-is-most-common",
     "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.4 Add worksheet",
-    "text": "19.4 Add worksheet\nWhere readxl and gdata were only able to import Excel data, XLConnect’s approach of providing an actual interface to an Excel file makes it able to edit your Excel files from inside R. In this exercise, you’ll create a new sheet. In the next exercise, you’ll populate the sheet with data, and save the results in a new Excel file.\nYou’ll continue to work with urbanpop.xlsx (view). The my_book object that links to this Excel file is already available."
+    "section": "19.4 Finding the year each name is most common",
+    "text": "19.4 Finding the year each name is most common\nIn an earlier video, you learned how to filter for a particular name to determine the frequency of that name over time. Now, you’re going to explore which year each name was the most common.\nTo do this, you’ll be combining the grouped mutate approach with a slice_max()."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-3",
@@ -2275,11 +2247,11 @@
     "text": "Instructions 100 XP\n\nFirst, calculate the total number of people born in that year in this dataset as year_total.\nNext, use year_total to calculate the fraction of people born in each year that have each name.\nNow use your newly calculated fraction column, in combination with slice_max(), to identify the year each name was most common.\n\n\n\nE4.R\n\n# Calculate the fraction of people born each year with the same name\nbabynames %>%\n  group_by(year) %>%\n  mutate(year_total = sum(number)) %>%\n  ungroup() %>%\n  mutate(fraction = number / year_total)\n  \n\n# Calculate the fraction of people born each year with the same name\nbabynames %>%\n  group_by(year) %>%\n  mutate(year_total = sum(number)) %>%\n  ungroup() %>%\n  mutate(fraction = number / year_total) %>%\n  # Find the year each name is most common\n  group_by(name) %>%\n  slice_max(fraction, n = 1)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#populate-worksheet",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#populate-worksheet",
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#adding-the-total-and-maximum-for-each-name",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#adding-the-total-and-maximum-for-each-name",
     "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.5 Populate worksheet",
-    "text": "19.5 Populate worksheet\nThe first step of creating a sheet is done; let’s populate it with some data now! summ, a data frame with some summary statistics on the two Excel sheets is already coded so you can take it from there."
+    "section": "19.5 Adding the total and maximum for each name",
+    "text": "19.5 Adding the total and maximum for each name\nIn the video, you learned how you could group by the year and use mutate() to add a total for that year.\nIn these exercises, you’ll learn to normalize by a different, but also interesting metric: you’ll divide each name by the maximum for that name. This means that every name will peak at 1.\nOnce you add new columns, the result will still be grouped by name. This splits it into 48,000 groups, which actually makes later steps like mutates slower."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-4",
@@ -2289,11 +2261,11 @@
     "text": "Instructions 100 XP\n\nUse a grouped mutate to add two columns:\nname_total: the sum of the number of babies born with that name in the entire dataset.\nname_max: the maximum number of babies born with that name in any year.\nAdd another step to ungroup the table.\nAdd a column called fraction_max containing the number in the year divided by name_max.\n\n\n\nE5.R\n\nbabynames %>%\n  # Add columns name_total and name_max for each name\n  group_by(name) %>%\n  mutate(name_total = sum(number),\n         name_max = max(number))\n         \n\nbabynames %>%\n  # Add columns name_total and name_max for each name\n  group_by(name) %>%\n  mutate(name_total = sum(number),\n         name_max = max(number)) %>%\n  # Ungroup the table \n  ungroup() %>%\n  # Add the fraction_max column containing the number by the name maximum \n  mutate(fraction_max = number / name_max)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#renaming-sheets",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#renaming-sheets",
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-the-normalized-change-in-popularity",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-the-normalized-change-in-popularity",
     "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.6 Renaming sheets",
-    "text": "19.6 Renaming sheets\nCome to think of it, “data_summary” is not an ideal name. As the summary of these excel sheets is always data-related, you simply want to name the sheet “summary”.\nThe code to build a connection to “urbanpop.xlsx” and create my_book is already provided for you. It refers to an Excel file with 4 sheets: the three data sheets, and the “data_summary” sheet."
+    "section": "19.6 Visualizing the normalized change in popularity",
+    "text": "19.6 Visualizing the normalized change in popularity\nYou picked a few names and calculated each of them as a fraction of their peak. This is a type of “normalizing” a name, where you’re focused on the relative change within each name rather than the overall popularity of the name.\nIn this exercise, you’ll visualize the normalized popularity of each name. Your work from the previous exercise, names_normalized, has been provided for you.\n\nnames_normalized <- babynames %>% group_by(name) %>% mutate(name_total = sum(number), name_max = max(number)) %>% ungroup() %>% mutate(fraction_max = number / name_max)"
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-5",
@@ -2303,11 +2275,11 @@
     "text": "Instructions 100 XP\n\nFilter the names_normalized table to limit it to the three names Steven, Thomas, and Matthew.\nCreate a line plot to visualize fraction_max over time, colored by name.\n\n\n\nE6.R\n\nnames_filtered <- names_normalized %>%\n  # Filter for the names Steven, Thomas, and Matthew\n  filter(name %in% c(\"Steven\", \"Thomas\", \"Matthew\"))\n\n# Visualize these names over time\nggplot(names_filtered, aes(x = year, y = fraction_max, color = name)) +\n  geom_line()"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#removing-sheets",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#removing-sheets",
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#using-ratios-to-describe-the-frequency-of-a-name",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#using-ratios-to-describe-the-frequency-of-a-name",
     "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.7 Removing sheets",
-    "text": "19.7 Removing sheets\nAfter presenting the new Excel sheet to your peers, it appears not everybody is a big fan. Why summarize sheets and store the info in Excel if all the information is implicitly available? To hell with it, just remove the entire fourth sheet!"
+    "section": "19.7 Using ratios to describe the frequency of a name",
+    "text": "19.7 Using ratios to describe the frequency of a name\nIn the video, you learned how to find the difference in the frequency of a baby name between consecutive years. What if instead of finding the difference, you wanted to find the ratio?\nYou’ll start with the babynames_fraction data already, so that you can consider the popularity of each name within each year."
   },
   {
     "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-6",
@@ -2317,18 +2289,18 @@
     "text": "Instructions 100 XP\n\nArrange the data in ascending order of name and then year.\nGroup by name so that your mutate works within each name.\nAdd a column ratio containing the ratio (not difference) of fraction between each year.\n\n\n\nE7.R\n\nbabynames_fraction %>%\n  # Arrange the data in order of name, then year \n  arrange(name, year) %>%\n  # Group the data by name\n  group_by(name) %>%\n  # Add a ratio column that contains the ratio of fraction between each year \n  mutate(ratio = fraction / lag(fraction))"
   },
   {
-    "objectID": "summary.html",
-    "href": "summary.html",
-    "title": "20  Summary",
-    "section": "",
-    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2"
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#biggest-jumps-in-a-name",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#biggest-jumps-in-a-name",
+    "title": "19  Reproducible Excel work with XLConnect",
+    "section": "19.8 Biggest jumps in a name",
+    "text": "19.8 Biggest jumps in a name\nPreviously, you added a ratio column to describe the ratio of the frequency of a baby name between consecutive years to describe the changes in the popularity of a name. Now, you’ll look at a subset of that data, called babynames_ratios_filtered, to look further into the names that experienced the biggest jumps in popularity in consecutive years.\n\nbabynames_ratios_filtered <- babynames_fraction %>% arrange(name, year) %>% group_by(name) %>% mutate(ratio = fraction / lag(fraction)) %>% filter(fraction >= 0.00001)"
   },
   {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "References",
-    "section": "",
-    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-7",
+    "href": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-7",
+    "title": "19  Reproducible Excel work with XLConnect",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFrom each name in the data, keep the observation (the year) with the largest ratio; note the data is already grouped by name.\nSort the ratio column in descending order.\nFilter the babynames_ratios_filtered data further by filtering the fraction column to only display results greater than or equal to 0.001.\n\n\n\nE8.R\n\nbabynames_ratios_filtered %>%\n  # Extract the largest ratio from each name \n  slice_max(ratio, n=1) %>%\n  # Sort the ratio column in descending order \n  arrange(desc(ratio)) %>%\n  # Filter for fractions greater than or equal to 0.001\n  filter(fraction >= 0.001)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C1.html#selecting-columns",
@@ -2415,11 +2387,11 @@
     "text": "Instructions 100 XP\n\nSelect only the columns state, county, population, men, and women.\nAdd a variable proportion_men with the fraction of the county’s population made up of men.\nFilter for counties with a population of at least ten thousand (10000).\nArrange counties in descending order of their proportion of men.\n\n\n\nE6.R\n\n\ncounties %>%\n  # Select the five columns \n  select(state, county, population, men, women) %>%\n  # Add the proportion_men variable\n  mutate(proportion_men = men / population) %>%\n  # Filter for population of at least 10,000\n  filter(population >= 10000) %>%\n  # Arrange proportion of men in descending order \n  arrange(desc(proportion_men))"
   },
   {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#section",
-    "href": "Data_Manipulation_with_dplyr_C2.html#section",
+    "objectID": "Data_Manipulation_with_dplyr_C2.html#counting-by-region",
+    "href": "Data_Manipulation_with_dplyr_C2.html#counting-by-region",
     "title": "21  Aggregating Data",
-    "section": "21.1 ",
-    "text": "21.1"
+    "section": "21.1 Counting by region",
+    "text": "21.1 Counting by region\nThe counties dataset contains columns for region, state, population, and the number of citizens, which we selected and saved as the counties_selected table. In this exercise, you’ll focus on the region column.\n\ncounties_selected <- counties %>% select(county, region, state, population, citizens)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C2.html#instructions-100-xp",
@@ -2429,11 +2401,11 @@
     "text": "Instructions 100 XP\n\nUse count() to find the number of counties in each region, using a second argument to sort in descending order.\n\n\n\nE1.R\n\n# Use count to find the number of counties in each region\ncounties_selected %>%\n  count(region, sort=TRUE)"
   },
   {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#section-1",
-    "href": "Data_Manipulation_with_dplyr_C2.html#section-1",
+    "objectID": "Data_Manipulation_with_dplyr_C2.html#counting-citizens-by-state",
+    "href": "Data_Manipulation_with_dplyr_C2.html#counting-citizens-by-state",
     "title": "21  Aggregating Data",
-    "section": "21.2 ",
-    "text": "21.2"
+    "section": "21.2 Counting citizens by state",
+    "text": "21.2 Counting citizens by state\nYou can weigh your count by particular variables rather than finding the number of counties. In this case, you’ll find the number of citizens in each state.\n\ncounties_selected <- counties %>% select(county, region, state, population, citizens)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C2.html#instructions-100-xp-1",
@@ -2443,11 +2415,11 @@
     "text": "Instructions 100 XP\n\nCount the number of counties in each state, weighted based on the citizens column, and sorted in descending order.\n\n\n\nE2.R\n\n# Find number of counties per state, weighted by citizens, sorted in descending order\ncounties_selected %>%\n    count(state, wt = citizens, sort = TRUE)"
   },
   {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#section-2",
-    "href": "Data_Manipulation_with_dplyr_C2.html#section-2",
+    "objectID": "Data_Manipulation_with_dplyr_C2.html#mutating-and-counting",
+    "href": "Data_Manipulation_with_dplyr_C2.html#mutating-and-counting",
     "title": "21  Aggregating Data",
-    "section": "21.3 ",
-    "text": "21.3"
+    "section": "21.3 Mutating and counting",
+    "text": "21.3 Mutating and counting\nYou can combine multiple verbs together to answer increasingly complicated questions of your data. For example: “What are the US states where the most people walk to work?”\nYou’ll use the walk column, which offers a percentage of people in each county that walk to work, to add a new column and count based on it.\n\ncounties_selected <- counties %>% select(county, region, state, population, walk)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C2.html#instructions-100-xp-2",
@@ -2457,11 +2429,11 @@
     "text": "Instructions 100 XP\n\nUse mutate() to calculate and add a column called population_walk, containing the total number of people who walk to work in a county.\nUse a (weighted and sorted) count() to find the total number of people who walk to work in each state.\n\n\n\nE3.R\n\ncounties_selected %>%\n  # Add population_walk containing the total number of people who walk to work \n    mutate(population_walk = population * walk / 100) %>%\n  # Count weighted by the new column, sort in descending order\n    count(state, wt = population_walk, sort = TRUE)"
   },
   {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#section-3",
-    "href": "Data_Manipulation_with_dplyr_C2.html#section-3",
+    "objectID": "Data_Manipulation_with_dplyr_C2.html#summarizing",
+    "href": "Data_Manipulation_with_dplyr_C2.html#summarizing",
     "title": "21  Aggregating Data",
-    "section": "21.4 ",
-    "text": "21.4"
+    "section": "21.4 Summarizing",
+    "text": "21.4 Summarizing\nThe summarize() verb is very useful for collapsing a large dataset into a single observation.\n\ncounties_selected <- counties %>% select(county, population, income, unemployment)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C2.html#instructions-100-xp-3",
@@ -2471,11 +2443,11 @@
     "text": "Instructions 100 XP\n\nSummarize the counties dataset to find the following columns: min_population (with the smallest population), max_unemployment (with the maximum unemployment), and average_income (with the mean of the income variable).\n\n\n\nE4.R\n\ncounties_selected %>%\n  # Summarize to find minimum population, maximum unemployment, and average income\n  summarize(min_population = min(population),\n            max_unemployment = max(unemployment),\n            average_income = mean(income))"
   },
   {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#section-4",
-    "href": "Data_Manipulation_with_dplyr_C2.html#section-4",
+    "objectID": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state",
+    "href": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state",
     "title": "21  Aggregating Data",
-    "section": "21.5 ",
-    "text": "21.5"
+    "section": "21.5 Summarizing by state",
+    "text": "21.5 Summarizing by state\nAnother interesting column is land_area, which shows the land area in square miles. Here, you’ll summarize both population and land area by state, with the purpose of finding the density (in people per square miles).\n\ncounties_selected <- counties %>% select(state, county, population, land_area)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C2.html#instructions-100-xp-4",
@@ -2485,11 +2457,11 @@
     "text": "Instructions 100 XP\n\nGroup the data by state, and summarize to create the columns total_area (with total area in square miles) and total_population (with total population).\nAdd a density column with the people per square mile, then arrange in descending order.\n\n\n\nE5.R\n\ncounties_selected %>%\n  # Group by state \n  group_by(state) %>%\n  # Find the total area and population\n  summarize(total_area = sum(land_area),\n            total_population = sum(population))\n            \n\ncounties_selected %>%\n  group_by(state) %>%\n  summarize(total_area = sum(land_area),\n            total_population = sum(population)) %>%\n  # Add a density column\n  mutate(density = total_population / total_area) %>%\n  # Sort by density in descending order\n  arrange(desc(density))"
   },
   {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#section-5",
-    "href": "Data_Manipulation_with_dplyr_C2.html#section-5",
+    "objectID": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state-and-region",
+    "href": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state-and-region",
     "title": "21  Aggregating Data",
-    "section": "21.6 ",
-    "text": "21.6"
+    "section": "21.6 Summarizing by state and region",
+    "text": "21.6 Summarizing by state and region\nYou can group by multiple columns instead of grouping by one. Here, you’ll practice aggregating by state and region, and notice how useful it is for performing multiple aggregations in a row.\n\ncounties_selected <- counties %>% select(region, state, county, population)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C2.html#instructions-100-xp-5",
@@ -2497,216 +2469,6 @@
     "title": "21  Aggregating Data",
     "section": "Instructions 100 XP",
     "text": "Instructions 100 XP\n\nSummarize to find the total population, as a column called total_pop, in each combination of region and state, grouped in that order.\nNotice the tibble is still grouped by region; use another summarize() step to calculate two new columns: the average state population in each region (average_pop) and the median state population in each region (median_pop).\n\n\n\nE6.R\n\ncounties_selected %>%\n  # Group and summarize to find the total population\n  group_by(region, state) %>%\n  summarize(total_pop = sum(population))\n  \ncounties_selected %>%\n  # Group and summarize to find the total population\n  group_by(region, state) %>%\n  summarize(total_pop = sum(population)) %>%\n  # Calculate the average_pop and median_pop columns \n  summarize(average_pop = mean(total_pop),\n            median_pop = median(total_pop))"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#section",
-    "href": "Data_Manipulation_with_dplyr_C3.html#section",
-    "title": "22  Selecting and Transforming Data",
-    "section": "22.1 ",
-    "text": "22.1"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp",
-    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp",
-    "title": "22  Selecting and Transforming Data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE1.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#section-1",
-    "href": "Data_Manipulation_with_dplyr_C3.html#section-1",
-    "title": "22  Selecting and Transforming Data",
-    "section": "22.2 ",
-    "text": "22.2"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-1",
-    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-1",
-    "title": "22  Selecting and Transforming Data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE2.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#section-2",
-    "href": "Data_Manipulation_with_dplyr_C3.html#section-2",
-    "title": "22  Selecting and Transforming Data",
-    "section": "22.3 ",
-    "text": "22.3"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-2",
-    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-2",
-    "title": "22  Selecting and Transforming Data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE3.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#section-3",
-    "href": "Data_Manipulation_with_dplyr_C3.html#section-3",
-    "title": "22  Selecting and Transforming Data",
-    "section": "22.4 ",
-    "text": "22.4"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-3",
-    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-3",
-    "title": "22  Selecting and Transforming Data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE4.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#section-4",
-    "href": "Data_Manipulation_with_dplyr_C3.html#section-4",
-    "title": "22  Selecting and Transforming Data",
-    "section": "22.5 ",
-    "text": "22.5"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-4",
-    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-4",
-    "title": "22  Selecting and Transforming Data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE5.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#section-5",
-    "href": "Data_Manipulation_with_dplyr_C3.html#section-5",
-    "title": "22  Selecting and Transforming Data",
-    "section": "22.6 ",
-    "text": "22.6"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-5",
-    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-5",
-    "title": "22  Selecting and Transforming Data",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE6.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#section",
-    "href": "Data_Manipulation_with_dplyr_C4.html#section",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "23.1 ",
-    "text": "23.1"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp",
-    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE1.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#section-1",
-    "href": "Data_Manipulation_with_dplyr_C4.html#section-1",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "23.2 ",
-    "text": "23.2"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-1",
-    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-1",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE2.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#section-2",
-    "href": "Data_Manipulation_with_dplyr_C4.html#section-2",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "23.3 ",
-    "text": "23.3"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-2",
-    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-2",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE3.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#section-3",
-    "href": "Data_Manipulation_with_dplyr_C4.html#section-3",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "23.4 ",
-    "text": "23.4"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-3",
-    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-3",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE4.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#section-4",
-    "href": "Data_Manipulation_with_dplyr_C4.html#section-4",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "23.5 ",
-    "text": "23.5"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-4",
-    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-4",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE5.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#section-5",
-    "href": "Data_Manipulation_with_dplyr_C4.html#section-5",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "23.6 ",
-    "text": "23.6"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-5",
-    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-5",
-    "title": "23  Case Study: The babynames Dataset",
-    "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\n\nE6.R"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#counting-by-region",
-    "href": "Data_Manipulation_with_dplyr_C2.html#counting-by-region",
-    "title": "21  Aggregating Data",
-    "section": "21.1 Counting by region",
-    "text": "21.1 Counting by region\nThe counties dataset contains columns for region, state, population, and the number of citizens, which we selected and saved as the counties_selected table. In this exercise, you’ll focus on the region column.\n\ncounties_selected <- counties %>% select(county, region, state, population, citizens)"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#counting-citizens-by-state",
-    "href": "Data_Manipulation_with_dplyr_C2.html#counting-citizens-by-state",
-    "title": "21  Aggregating Data",
-    "section": "21.2 Counting citizens by state",
-    "text": "21.2 Counting citizens by state\nYou can weigh your count by particular variables rather than finding the number of counties. In this case, you’ll find the number of citizens in each state.\n\ncounties_selected <- counties %>% select(county, region, state, population, citizens)"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#mutating-and-counting",
-    "href": "Data_Manipulation_with_dplyr_C2.html#mutating-and-counting",
-    "title": "21  Aggregating Data",
-    "section": "21.3 Mutating and counting",
-    "text": "21.3 Mutating and counting\nYou can combine multiple verbs together to answer increasingly complicated questions of your data. For example: “What are the US states where the most people walk to work?”\nYou’ll use the walk column, which offers a percentage of people in each county that walk to work, to add a new column and count based on it.\n\ncounties_selected <- counties %>% select(county, region, state, population, walk)"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#summarizing",
-    "href": "Data_Manipulation_with_dplyr_C2.html#summarizing",
-    "title": "21  Aggregating Data",
-    "section": "21.4 Summarizing",
-    "text": "21.4 Summarizing\nThe summarize() verb is very useful for collapsing a large dataset into a single observation.\n\ncounties_selected <- counties %>% select(county, population, income, unemployment)"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state",
-    "href": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state",
-    "title": "21  Aggregating Data",
-    "section": "21.5 Summarizing by state",
-    "text": "21.5 Summarizing by state\nAnother interesting column is land_area, which shows the land area in square miles. Here, you’ll summarize both population and land area by state, with the purpose of finding the density (in people per square miles).\n\ncounties_selected <- counties %>% select(state, county, population, land_area)"
-  },
-  {
-    "objectID": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state-and-region",
-    "href": "Data_Manipulation_with_dplyr_C2.html#summarizing-by-state-and-region",
-    "title": "21  Aggregating Data",
-    "section": "21.6 Summarizing by state and region",
-    "text": "21.6 Summarizing by state and region\nYou can group by multiple columns instead of grouping by one. Here, you’ll practice aggregating by state and region, and notice how useful it is for performing multiple aggregations in a row.\n\ncounties_selected <- counties %>% select(region, state, county, population)"
   },
   {
     "objectID": "Data_Manipulation_with_dplyr_C2.html#selecting-a-county-from-each-region",
@@ -2751,122 +2513,213 @@
     "text": "Instructions 100 XP\n\nFor each combination of state and metro, find the total population as total_pop.\nExtract the most populated row from each state, which will be either Metro or Nonmetro.\nUngroup, then count how often Metro or Nonmetro appears to see how many states have more people living in those areas.\n\n\n\nE9.R\n\ncounties_selected %>%\n  # Find the total population for each combination of state and metro\n  group_by(state, metro) %>%\n  summarize(total_pop = sum(population))\n  \ncounties_selected %>%\n  # Find the total population for each combination of state and metro\n  group_by(state, metro) %>%\n  summarize(total_pop = sum(population)) %>%\n  # Extract the most populated row for each state\n  slice_max(total_pop, n = 1)\n  \ncounties_selected %>%\n  # Find the total population for each combination of state and metro\n  group_by(state, metro) %>%\n  summarize(total_pop = sum(population)) %>%\n  # Extract the most populated row for each state\n  slice_max(total_pop, n = 1) %>%\n  # Count the states with more people in Metro or Nonmetro areas\n  ungroup() %>% \n  count(metro)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#selecting-columns",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#selecting-columns",
-    "title": "18  Importing Excel data",
-    "section": "18.1 Selecting columns",
-    "text": "18.1 Selecting columns\nUsing the select() verb, we can answer interesting questions about our dataset by focusing in on related groups of verbs. The colon (:) is useful for getting many columns at a time."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#selecting-columns",
+    "href": "Data_Manipulation_with_dplyr_C3.html#selecting-columns",
+    "title": "22  Selecting and Transforming Data",
+    "section": "22.1 Selecting columns",
+    "text": "22.1 Selecting columns\nUsing the select() verb, we can answer interesting questions about our dataset by focusing in on related groups of verbs. The colon (:) is useful for getting many columns at a time."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#select-helpers",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#select-helpers",
-    "title": "18  Importing Excel data",
-    "section": "18.2 Select helpers",
-    "text": "18.2 Select helpers\nIn the video you learned about the select helper starts_with(). Another select helper is ends_with(), which finds the columns that end with a particular string."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp",
+    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp",
+    "title": "22  Selecting and Transforming Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse glimpse() to examine all the variables in the counties table.\nSelect the columns for state, county, population, and (using a colon) all five of those industry-related variables; there are five consecutive variables in the table related to the industry of people’s work: professional, service, office, construction, and production.\nArrange the table in descending order of service to find which counties have the highest rates of working in the service industry.\n\n\n\nE1.R\n\n# Glimpse the counties table\nglimpse(counties)\n\ncounties %>%\n  # Select state, county, population, and industry-related columns\n  select(state, county, population,professional:production) %>%\n  # Arrange service in descending order \n   arrange(desc(service))"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-after-count",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-after-count",
-    "title": "18  Importing Excel data",
-    "section": "18.3 Renaming a column after count",
-    "text": "18.3 Renaming a column after count\nThe rename() verb is often useful for changing the name of a column that comes out of another verb, such as count(). In this exercise, you’ll rename the default n column generated from count() to something more descriptive."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#select-helpers",
+    "href": "Data_Manipulation_with_dplyr_C3.html#select-helpers",
+    "title": "22  Selecting and Transforming Data",
+    "section": "22.2 Select helpers",
+    "text": "22.2 Select helpers\nIn the video you learned about the select helper starts_with(). Another select helper is ends_with(), which finds the columns that end with a particular string."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-as-part-of-a-select",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#renaming-a-column-as-part-of-a-select",
-    "title": "18  Importing Excel data",
-    "section": "18.4 Renaming a column as part of a select",
-    "text": "18.4 Renaming a column as part of a select\nrename() isn’t the only way you can choose a new name for a column; you can also choose a name as part of a select()."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-1",
+    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-1",
+    "title": "22  Selecting and Transforming Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSelect the columns state, county, population, and all those that end with work.\nFilter just for the counties where at least 50% of the population is engaged in public work.\n\n\n\nE2.R\n\ncounties %>%\n  # Select the state, county, population, and those ending with \"work\"\n  select(state, county, population,ends_with(\"work\")) %>%\n  # Filter for counties that have at least 50% of people engaged in public work\n  filter(public_work  >= 50)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#using-transmute",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#using-transmute",
-    "title": "18  Importing Excel data",
-    "section": "18.5 Using transmute",
-    "text": "18.5 Using transmute\nAs you learned in the video, the transmute verb allows you to control which variables you keep, which variables you calculate, and which variables you drop."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#renaming-a-column-after-count",
+    "href": "Data_Manipulation_with_dplyr_C3.html#renaming-a-column-after-count",
+    "title": "22  Selecting and Transforming Data",
+    "section": "22.3 Renaming a column after count",
+    "text": "22.3 Renaming a column after count\nThe rename() verb is often useful for changing the name of a column that comes out of another verb, such as count(). In this exercise, you’ll rename the default n column generated from count() to something more descriptive."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#choosing-among-the-four-verbs",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#choosing-among-the-four-verbs",
-    "title": "18  Importing Excel data",
-    "section": "18.6 Choosing among the four verbs",
-    "text": "18.6 Choosing among the four verbs\nIn this chapter you’ve learned about the four verbs: select, mutate, transmute, and rename. Here, you’ll choose the appropriate verb for each situation. You won’t need to change anything inside the parentheses."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-2",
+    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-2",
+    "title": "22  Selecting and Transforming Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse count() to determine how many counties are in each state.\nNotice the n column in the output; use rename() to rename that to num_counties.\n\n\n\nE3.R\n\ncounties %>%\n  # Count the number of counties in each state\n  count(state)\n  \ncounties %>%\n  # Count the number of counties in each state\n  count(state) %>%\n  # Rename the n column to num_counties\n  rename(num_counties = n)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#section",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#section",
-    "title": "18  Importing Excel data",
-    "section": "18.7 ",
-    "text": "18.7"
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#renaming-a-column-as-part-of-a-select",
+    "href": "Data_Manipulation_with_dplyr_C3.html#renaming-a-column-as-part-of-a-select",
+    "title": "22  Selecting and Transforming Data",
+    "section": "22.4 Renaming a column as part of a select",
+    "text": "22.4 Renaming a column as part of a select\nrename() isn’t the only way you can choose a new name for a column; you can also choose a name as part of a select()."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C3.html#section-1",
-    "href": "Introduction_to_Importing_Data_in_R_C3.html#section-1",
-    "title": "18  Importing Excel data",
-    "section": "18.8 ",
-    "text": "18.8"
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-3",
+    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-3",
+    "title": "22  Selecting and Transforming Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSelect the columns state, county, and poverty from the counties dataset; in the same step, rename the poverty column to poverty_rate.\n\n\n\nE4.R\n\ncounties %>%\n  # Select state, county, and poverty as poverty_rate\n   select(state, county, poverty_rate = poverty)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#filtering-and-arranging-for-one-year",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#filtering-and-arranging-for-one-year",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.1 Filtering and arranging for one year",
-    "text": "19.1 Filtering and arranging for one year\nThe dplyr verbs you’ve learned are useful for exploring data. For instance, you could find out the most common names in a particular year."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#using-transmute",
+    "href": "Data_Manipulation_with_dplyr_C3.html#using-transmute",
+    "title": "22  Selecting and Transforming Data",
+    "section": "22.5 Using transmute",
+    "text": "22.5 Using transmute\nAs you learned in the video, the transmute verb allows you to control which variables you keep, which variables you calculate, and which variables you drop."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-most-popular-names-each-year",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-most-popular-names-each-year",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.2 Finding the most popular names each year",
-    "text": "19.2 Finding the most popular names each year\nYou saw that you could use filter() and arrange() to find the most common names in one year. However, you could also use group_by() and slice_max() to find the most common name in every year."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-4",
+    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-4",
+    "title": "22  Selecting and Transforming Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nKeep only the state, county, and population columns, and add a new column, density, that contains the population per land_area.\nFilter for only counties with a population greater than one million.\nSort the table in ascending order of density.\n\n\n\nE5.R\n\ncounties %>%\n  # Keep the state, county, and populations columns, and add a density column\n transmute(state, county, population, density = population / land_area) %>%\n  # Filter for counties with a population greater than one million \n  filter(population>1000000)%>%\n  # Sort density in ascending order \n  arrange(density)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-names-with-ggplot2",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-names-with-ggplot2",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.3 Visualizing names with ggplot2",
-    "text": "19.3 Visualizing names with ggplot2\nThe dplyr package is very useful for exploring data, but it’s especially useful when combined with other tidyverse packages like ggplot2."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#choosing-among-the-four-verbs",
+    "href": "Data_Manipulation_with_dplyr_C3.html#choosing-among-the-four-verbs",
+    "title": "22  Selecting and Transforming Data",
+    "section": "22.6 Choosing among the four verbs",
+    "text": "22.6 Choosing among the four verbs\nIn this chapter you’ve learned about the four verbs: select, mutate, transmute, and rename. Here, you’ll choose the appropriate verb for each situation. You won’t need to change anything inside the parentheses."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-year-each-name-is-most-common",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#finding-the-year-each-name-is-most-common",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.4 Finding the year each name is most common",
-    "text": "19.4 Finding the year each name is most common\nIn an earlier video, you learned how to filter for a particular name to determine the frequency of that name over time. Now, you’re going to explore which year each name was the most common.\nTo do this, you’ll be combining the grouped mutate approach with a slice_max()."
+    "objectID": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-5",
+    "href": "Data_Manipulation_with_dplyr_C3.html#instructions-100-xp-5",
+    "title": "22  Selecting and Transforming Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nChoose the right verb for changing the name of the unemployment column to unemployment_rate\nChoose the right verb for keeping only the columns state, county, and the ones containing poverty.\nCalculate a new column called fraction_women with the fraction of the population made up of women, without dropping any columns.\nKeep only three columns: the state, county, and employed / population, which you’ll call employment_rate.\n\n\n\nE6.R\n\n# Change the name of the unemployment column\ncounties %>%\n  rename(unemployment_rate = unemployment)\n\n# Keep the state and county columns, and the columns containing poverty\ncounties %>%\n  select(state, county, contains(\"poverty\"))\n\n# Calculate the fraction_women column without dropping the other columns\ncounties %>%\n  mutate(fraction_women = women / population)\n\n# Keep only the state, county, and employment_rate columns\ncounties %>%\n  transmute(state, county, employment_rate = employed / population)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#adding-the-total-and-maximum-for-each-name",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#adding-the-total-and-maximum-for-each-name",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.5 Adding the total and maximum for each name",
-    "text": "19.5 Adding the total and maximum for each name\nIn the video, you learned how you could group by the year and use mutate() to add a total for that year.\nIn these exercises, you’ll learn to normalize by a different, but also interesting metric: you’ll divide each name by the maximum for that name. This means that every name will peak at 1.\nOnce you add new columns, the result will still be grouped by name. This splits it into 48,000 groups, which actually makes later steps like mutates slower."
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#filtering-and-arranging-for-one-year",
+    "href": "Data_Manipulation_with_dplyr_C4.html#filtering-and-arranging-for-one-year",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.1 Filtering and arranging for one year",
+    "text": "23.1 Filtering and arranging for one year\nThe dplyr verbs you’ve learned are useful for exploring data. For instance, you could find out the most common names in a particular year."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-the-normalized-change-in-popularity",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#visualizing-the-normalized-change-in-popularity",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.6 Visualizing the normalized change in popularity",
-    "text": "19.6 Visualizing the normalized change in popularity\nYou picked a few names and calculated each of them as a fraction of their peak. This is a type of “normalizing” a name, where you’re focused on the relative change within each name rather than the overall popularity of the name.\nIn this exercise, you’ll visualize the normalized popularity of each name. Your work from the previous exercise, names_normalized, has been provided for you.\n\nnames_normalized <- babynames %>% group_by(name) %>% mutate(name_total = sum(number), name_max = max(number)) %>% ungroup() %>% mutate(fraction_max = number / name_max)"
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFilter for only the year 1990.\nSort the table in descending order of the number of babies born.\n\n\n\nE1.R\n\nbabynames %>%\n  # Filter for the year 1990\n  filter(year == 1990) %>%\n  # Sort the number column in descending order \n  arrange(desc(number))"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#using-ratios-to-describe-the-frequency-of-a-name",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#using-ratios-to-describe-the-frequency-of-a-name",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.7 Using ratios to describe the frequency of a name",
-    "text": "19.7 Using ratios to describe the frequency of a name\nIn the video, you learned how to find the difference in the frequency of a baby name between consecutive years. What if instead of finding the difference, you wanted to find the ratio?\nYou’ll start with the babynames_fraction data already, so that you can consider the popularity of each name within each year."
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#finding-the-most-popular-names-each-year",
+    "href": "Data_Manipulation_with_dplyr_C4.html#finding-the-most-popular-names-each-year",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.2 Finding the most popular names each year",
+    "text": "23.2 Finding the most popular names each year\nYou saw that you could use filter() and arrange() to find the most common names in one year. However, you could also use group_by() and slice_max() to find the most common name in every year."
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#biggest-jumps-in-a-name",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#biggest-jumps-in-a-name",
-    "title": "19  Reproducible Excel work with XLConnect",
-    "section": "19.8 Biggest jumps in a name",
-    "text": "19.8 Biggest jumps in a name\nPreviously, you added a ratio column to describe the ratio of the frequency of a baby name between consecutive years to describe the changes in the popularity of a name. Now, you’ll look at a subset of that data, called babynames_ratios_filtered, to look further into the names that experienced the biggest jumps in popularity in consecutive years.\n\nbabynames_ratios_filtered <- babynames_fraction %>% arrange(name, year) %>% group_by(name) %>% mutate(ratio = fraction / lag(fraction)) %>% filter(fraction >= 0.00001)"
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-1",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-1",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse group_by() and slice_max() to find the most common name for US babies in each year.\n\n\n\nE2.R\n\nbabynames %>%\n  # Find the most common name in each year\n  group_by(year) %>%\n  slice_max(number, n = 1)"
   },
   {
-    "objectID": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-7",
-    "href": "Introduction_to_Importing_Data_in_R_C4.html#instructions-100-xp-7",
-    "title": "19  Reproducible Excel work with XLConnect",
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#visualizing-names-with-ggplot2",
+    "href": "Data_Manipulation_with_dplyr_C4.html#visualizing-names-with-ggplot2",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.3 Visualizing names with ggplot2",
+    "text": "23.3 Visualizing names with ggplot2\nThe dplyr package is very useful for exploring data, but it’s especially useful when combined with other tidyverse packages like ggplot2."
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-2",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-2",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFilter for only the names Steven, Thomas, and Matthew, and assign it to an object called selected_names.\nVisualize those three names as a line plot over time, with each name represented by a different color.\n\n\n\nE3.R\n\nselected_names <- babynames %>%\n  # Filter for the names Steven, Thomas, and Matthew \n  filter(name %in% c(\"Steven\", \"Thomas\", \"Matthew\"))\n  \nselected_names <- babynames %>%\n  # Filter for the names Steven, Thomas, and Matthew \n  filter(name %in% c(\"Steven\", \"Thomas\", \"Matthew\"))\n\n# Plot the names using a different color for each name\nggplot(selected_names, aes(x = year, y = number, color = name)) +\n  geom_line()"
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#finding-the-year-each-name-is-most-common",
+    "href": "Data_Manipulation_with_dplyr_C4.html#finding-the-year-each-name-is-most-common",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.4 Finding the year each name is most common",
+    "text": "23.4 Finding the year each name is most common\nIn an earlier video, you learned how to filter for a particular name to determine the frequency of that name over time. Now, you’re going to explore which year each name was the most common.\nTo do this, you’ll be combining the grouped mutate approach with a slice_max()."
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-3",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-3",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFirst, calculate the total number of people born in that year in this dataset as year_total.\nNext, use year_total to calculate the fraction of people born in each year that have each name.\nNow use your newly calculated fraction column, in combination with slice_max(), to identify the year each name was most common.\n\n\n\nE4.R\n\n# Calculate the fraction of people born each year with the same name\nbabynames %>%\n  group_by(year) %>%\n  mutate(year_total = sum(number)) %>%\n  ungroup() %>%\n  mutate(fraction = number / year_total)\n\n# Calculate the fraction of people born each year with the same name\nbabynames %>%\n  group_by(year) %>%\n  mutate(year_total = sum(number)) %>%\n  ungroup() %>%\n  mutate(fraction = number / year_total) %>%\n  # Find the year each name is most common\n  group_by(name) %>%\n  slice_max(fraction, n = 1)"
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#adding-the-total-and-maximum-for-each-name",
+    "href": "Data_Manipulation_with_dplyr_C4.html#adding-the-total-and-maximum-for-each-name",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.5 Adding the total and maximum for each name",
+    "text": "23.5 Adding the total and maximum for each name\nIn the video, you learned how you could group by the year and use mutate() to add a total for that year.\nIn these exercises, you’ll learn to normalize by a different, but also interesting metric: you’ll divide each name by the maximum for that name. This means that every name will peak at 1.\nOnce you add new columns, the result will still be grouped by name. This splits it into 48,000 groups, which actually makes later steps like mutates slower."
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-4",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-4",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse a grouped mutate to add two columns:\nname_total: the sum of the number of babies born with that name in the entire dataset.\nname_max: the maximum number of babies born with that name in any year.\nAdd another step to ungroup the table.\nAdd a column called fraction_max containing the number in the year divided by name_max.\n\n\n\nE5.R\n\nbabynames %>%\n  # Add columns name_total and name_max for each name\n  group_by(name) %>%\n  mutate(name_total = sum(number),\n         name_max = max(number))\n         \nbabynames %>%\n  # Add columns name_total and name_max for each name\n  group_by(name) %>%\n  mutate(name_total = sum(number),\n         name_max = max(number)) %>%\n  # Ungroup the table \n  ungroup() %>%\n  # Add the fraction_max column containing the number by the name maximum \n  mutate(fraction_max = number / name_max)"
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#visualizing-the-normalized-change-in-popularity",
+    "href": "Data_Manipulation_with_dplyr_C4.html#visualizing-the-normalized-change-in-popularity",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.6 Visualizing the normalized change in popularity",
+    "text": "23.6 Visualizing the normalized change in popularity\nYou picked a few names and calculated each of them as a fraction of their peak. This is a type of “normalizing” a name, where you’re focused on the relative change within each name rather than the overall popularity of the name.\nIn this exercise, you’ll visualize the normalized popularity of each name. Your work from the previous exercise, names_normalized, has been provided for you.\n\nnames_normalized <- babynames %>% group_by(name) %>% mutate(name_total = sum(number), name_max = max(number)) %>% ungroup() %>% mutate(fraction_max = number / name_max)"
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-5",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-5",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFilter the names_normalized table to limit it to the three names Steven, Thomas, and Matthew.\nCreate a line plot to visualize fraction_max over time, colored by name.\n\n\n\nE6.R\n\nnames_filtered <- names_normalized %>%\n  # Filter for the names Steven, Thomas, and Matthew\n  filter(name %in% c(\"Steven\", \"Thomas\", \"Matthew\"))\n\n# Visualize these names over time\nggplot(names_filtered, aes(x = year, y = fraction_max, color = name)) +\n  geom_line()"
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#using-ratios-to-describe-the-frequency-of-a-name",
+    "href": "Data_Manipulation_with_dplyr_C4.html#using-ratios-to-describe-the-frequency-of-a-name",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.7 Using ratios to describe the frequency of a name",
+    "text": "23.7 Using ratios to describe the frequency of a name\nIn the video, you learned how to find the difference in the frequency of a baby name between consecutive years. What if instead of finding the difference, you wanted to find the ratio?\nYou’ll start with the babynames_fraction data already, so that you can consider the popularity of each name within each year."
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-6",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-6",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nArrange the data in ascending order of name and then year.\nGroup by name so that your mutate works within each name.\nAdd a column ratio containing the ratio (not difference) of fraction between each year.\n\n\n\nE7.R\n\nbabynames_fraction %>%\n  # Arrange the data in order of name, then year \n  arrange(name, year) %>%\n  # Group the data by name\n  group_by(name) %>%\n  # Add a ratio column that contains the ratio of fraction between each year \n  mutate(ratio = fraction / lag(fraction))"
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#biggest-jumps-in-a-name",
+    "href": "Data_Manipulation_with_dplyr_C4.html#biggest-jumps-in-a-name",
+    "title": "23  Case Study: The babynames Dataset",
+    "section": "23.8 Biggest jumps in a name",
+    "text": "23.8 Biggest jumps in a name\nPreviously, you added a ratio column to describe the ratio of the frequency of a baby name between consecutive years to describe the changes in the popularity of a name. Now, you’ll look at a subset of that data, called babynames_ratios_filtered, to look further into the names that experienced the biggest jumps in popularity in consecutive years.\n\nbabynames_ratios_filtered <- babynames_fraction %>% arrange(name, year) %>% group_by(name) %>% mutate(ratio = fraction / lag(fraction)) %>% filter(fraction >= 0.00001)"
+  },
+  {
+    "objectID": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-7",
+    "href": "Data_Manipulation_with_dplyr_C4.html#instructions-100-xp-7",
+    "title": "23  Case Study: The babynames Dataset",
     "section": "Instructions 100 XP",
     "text": "Instructions 100 XP\n\nFrom each name in the data, keep the observation (the year) with the largest ratio; note the data is already grouped by name.\nSort the ratio column in descending order.\nFilter the babynames_ratios_filtered data further by filtering the fraction column to only display results greater than or equal to 0.001.\n\n\n\nE8.R\n\nbabynames_ratios_filtered %>%\n  # Extract the largest ratio from each name \n  slice_max(ratio, n=1) %>%\n  # Sort the ratio column in descending order \n  arrange(desc(ratio)) %>%\n  # Filter for fractions greater than or equal to 0.001\n  filter(fraction >= 0.001)"
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "24  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
   }
 ]
