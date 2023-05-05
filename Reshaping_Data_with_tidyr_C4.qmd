@@ -1,0 +1,312 @@
+---
+title: "Rectangling Data"
+---
+
+## Rectangling Star Wars movies
+
+Let's pretend you're a big Star Wars fan and decided to scrape some data from the Star Wars API. You've already loaded the JSON-formatted response into R, and now have two lists of movies named movie_list and movie_planets_list. Your goal is to turn these into rectangular data frames with one row per movie so that you can start crunching those movie stats.
+
+The dplyr package has been pre-loaded for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Create a tibble with a single column called movie out of the input movie_list.
+
+* Widen the dataset by unnesting the movie column over multiple columns.
+
+* Re-create the tibble with a single column called movie out of movie_planets_list.
+
+* Unnest the planets column to a wider format.
+
+``` {.r filename="E1.R"}
+# Create a movie column from the movie_list
+tibble(movie = movie_list)
+
+
+
+# Create a movie column from the movie_list
+tibble(movie = movie_list) %>% 
+  # Unnest the movie column
+  unnest_wider(movie)
+
+
+
+# Create a tibble with a movie column
+tibble(movie = movie_planets_list) %>% 
+  # Unnest the movie column
+  unnest_wider(movie)
+  
+
+
+# Create a tibble with a movie column
+tibble(movie = movie_planets_list) %>% 
+  # Unnest the movie column
+  unnest_wider(movie) %>% 
+  # Unnest the planets column
+  unnest_wider(planets)
+```
+
+## Rectangling Star Wars planets
+
+Let's finish what we started in the last exercise of the previous lesson, exploring Star Wars planets! The movie_planets_list scraped from the Star Wars API has been pre-loaded for you. You'll need two specific unnesting operations to completely rectangle this data.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Create a tibble with a single column called movie out of movie_planets_list.
+
+* Unnest the movie list column which contains named lists of equal length.
+
+* Unnest the planets list column which contains unnamed lists of unequal length.
+
+``` {.r filename="E2.R"}
+# Create a tibble from movie_planets_list
+tibble(movie = movie_planets_list)
+
+
+# Create a tibble from movie_planets_list
+tibble(movie = movie_planets_list) %>% 
+  # Unnest the movie column in the correct direction
+  unnest_wider(movie)
+  
+
+# Create a tibble from movie_planets_list
+tibble(movie = movie_planets_list) %>% 
+  # Unnest the movie column in the correct direction
+  unnest_wider(movie) %>% 
+  # Unnest the planets column in the correct direction
+  unnest_longer(planets)
+
+```
+
+## The Solar System's biggest moons
+
+Most planets in our solar system are accompanied by at least one moon. You now wonder which planets are circled by the biggest moons and want to create a top five based on moon radius. However, you'll first have to unnest the devstronomy project data in planet_df using the unnest_longer() and unnest_wider() functions.
+
+The dplyr package has been pre-loaded for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Unnest the moons column so that each moon gets an observation.
+
+* Unnest the moons column so that its contents are split over columns.
+
+* Unnest the moon_data column so that its contents are split over columns.
+
+* Use dplyr's slice_max() function on moon radius to get a top 5 of biggest moons.
+
+``` {.r filename="E3.R"}
+planet_df %>% 
+  # Unnest the moons list column over observations
+  unnest_longer(moons)
+
+
+
+planet_df %>% 
+  # Unnest the moons list column over observations
+  unnest_longer(moons) %>% 
+  # Further unnest the moons column
+  unnest_wider(moons)
+
+
+planet_df %>% 
+  # Unnest the moons list column over observations
+  unnest_longer(moons) %>% 
+  # Further unnest the moons column
+  unnest_wider(moons) %>% 
+  # Unnest the moon_data column
+  unnest_wider(moon_data)
+
+
+
+planet_df %>% 
+  # Unnest the moons list column over observations
+  unnest_longer(moons) %>% 
+  # Further unnest the moons column
+  unnest_wider(moons) %>% 
+  # Unnest the moon_data column
+  unnest_wider(moon_data) %>% 
+  # Get the top five largest moons by radius
+  slice_max(radius, n = 5)
+
+```
+
+## Hoisting Star Wars films
+
+You've been given a nested data set on Star Wars characters (character_df) and want to explore the films in which they appeared. You'll first use the unnest_wider() and unnest_longer() functions to explore the data and will then switch to hoist() to select a specific element in the nested data structure directly.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Unnest the metadata column.
+
+* Unnest the films column.
+
+* As an alternative approach, use hoist() to select the first film from the films list nested in the metadata column.
+
+``` {.r filename="E4.R"}
+character_df %>%
+  # Unnest the metadata column
+  unnest_wider(metadata)
+
+
+
+character_df %>% 
+  # Unnest the metadata column
+  unnest_wider(metadata) %>% 
+  unnest_longer(films)
+
+
+
+character_df %>% 
+  hoist(metadata, first_film = list("films", 1))
+```
+
+## Hoisting movie ratings
+
+You've written a script to scrape data on your favorite movies from the Open Movie DataBase API. Now you want to process the JSON data to extract the Rotten Tomatoes rating for each movie. You've been given a data frame named movie_df which holds the JSON responses for five movies. You'll explore this data with unnest_wider() and unnest_longer() before switching to hoist().
+
+The dplyr package has been pre-loaded for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Unnest the movie column.
+
+* Unnest the Ratings column.
+
+* Use hoist() on the movie column to extract the Title, Year, and Rotten Tomatoes rating. Note that this rating is nested inside the Ratings column.
+
+``` {.r filename="E5.R"}
+movie_df %>% 
+  # Unnest the movie column
+    unnest_wider(movie)
+
+
+
+movie_df %>% 
+  # Unnest the movie column
+  unnest_wider(movie) %>% 
+  select(Title, Year, Ratings) %>% 
+  # Unnest the Ratings column
+  unnest_wider(Ratings)
+  
+movie_df %>% 
+  hoist(
+    movie,
+    title = "Title",
+    year = "Year",
+    rating = list("Ratings", "Rotten Tomatoes")
+  )
+
+```
+
+## Tidy model outputs with broom
+
+You're trying to predict a person's weight based on their waist circumference and stature (height). To do so you're using the US army body measurement dataset ANSUR II. The model has already been trained for you using this code:
+
+> model <- lm(weight_kg ~ waist_circum_m 
+>             + stature_m, data = ansur_df)
+
+You will use the broom package's glance() and tidy() functions in the console to inspect model outputs in a tidy format.
+
+## Question {.unnumbered}
+
+What is the R2 value?
+
+Possible Answers
+
+* 0
+
+* 0.894 Respuesta 
+
+* 5.09
+
+## Question {.unnumbered}
+
+What is the standard error on the intercept?
+
+Possible Answers
+
+* -128.
+
+* 0.615
+
+* 1.25 Respuesta 
+
+## Nesting tibbles
+
+You're pre-processing the US army body measurement dataset ANSUR II to train multiple models in a single pipeline. You'll experiment with the nest() function to create a list column with nested tibbles containing sub-sets of the data.
+
+the dplyr package has been pre-loaded for you.
+
+## Question {.unnumbered}
+
+What is the shape of the Combat Arms branch nested dataset?
+
+Possible Answers
+
+* 1,312 × 5
+
+* 1,582 × 5 Respuesta 
+
+* 3,174 × 5
+
+## Question {.unnumbered}
+
+What is the nested tibble shape for females in the Combat Arms branch?
+
+Possible Answers
+
+* 43 × 4 Respuesta 
+
+* 687 × 4
+
+* 1,539 × 4
+
+
+## Instructions `100 XP` {.unnumbered}
+
+* Group the data by army branch and then nest it.
+
+* Group the data by both branch and sex, then nest it.
+
+
+``` {.r filename="E6.R"}
+ansur_df %>% 
+  # Group the data by branch, then nest
+  group_by(branch) %>% 
+  nest()
+
+
+
+ansur_df %>% 
+  # Group the data by branch and sex, then nest
+   group_by(branch,sex) %>% 
+  nest()
+```
+
+## Modeling on nested data frames
+
+You'll be working on the US Army ANSUR II body measurement dataset, which has been pre-loaded as ansur_df. The goal is to nest the data for both sexes so that you can simultaneously train two linear models, one for each sex. These models will derive a person's weight from their stature (height) and waist circumference. You'll then unnest the data to inspect the model's statistics produced by the glance() function from the broom package.
+
+The dplyr, broom, and purrr packages have been pre-loaded for you.
+
+Side note: In the provided code, the purrr package's map() function applies functions on each nested data frame. Check out this package if you like using functions inside pipes!
+
+## Instructions `100 XP` {.unnumbered}
+
+* Group the data by sex.
+* Nest the data.
+* Unnest the glanced column.
+
+``` {.r filename="E7.R"}
+ansur_df %>%
+  # Group the data by sex
+  group_by(sex) %>% 
+  # Nest the data
+  nest() %>%
+  mutate(
+    fit = map(data, function(df) lm(weight_kg ~ waist_circum_m + stature_m, data = df)),
+    glanced = map(fit, glance)
+  ) %>% 
+  # Unnest the glanced column
+  unnest(glanced)
+```

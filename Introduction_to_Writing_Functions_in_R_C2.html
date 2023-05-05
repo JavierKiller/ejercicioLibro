@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -152,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="categorical-defaults" class="level2">
 <h2 class="anchored" data-anchor-id="categorical-defaults">Categorical defaults</h2>
-<p>When cutting up a numeric vector, you need to worry about what happens if a value lands exactly on a boundary. You can either put this value into a category of the lower interval or the higher interval. That is, you can choose your intervals to include values at the top boundary but not the bottom (in mathematical terminology, “open on the left, closed on the right”, or (lo, hi]). Or you can choose the opposite (“closed on the left, open on the right”, or &nbsp;[lo, hi)). cut_by_quantile() should allow these two choices.</p>
+<p>When cutting up a numeric vector, you need to worry about what happens if a value lands exactly on a boundary. You can either put this value into a category of the lower interval or the higher interval. That is, you can choose your intervals to include values at the top boundary but not the bottom (in mathematical terminology, “open on the left, closed on the right”, or (lo, hi]). Or you can choose the opposite (“closed on the left, open on the right”, or &nbsp;&nbsp;[lo, hi)). cut_by_quantile() should allow these two choices.</p>
 <p>The pattern for categorical defaults is:</p>
 <blockquote class="blockquote">
 <p>function(cat_arg = c(“choice1”, “choice2”)) { cat_arg &lt;- match.arg(cat_arg)}</p>
@@ -161,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="instructions-100-xp-1" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
-<p>Update the signature of cut_by_quantile() so that the interval_type argument can be “(lo, hi&nbsp;]” or “&nbsp;[lo, hi)”. Note the space after each comma. Update the body of cut_by_quantile() to match the interval_type argument. Remove the interval_type argument from the call to cut_by_quantile().</p>
+<p>Update the signature of cut_by_quantile() so that the interval_type argument can be “(lo, hi&nbsp; &nbsp;]” or “&nbsp;&nbsp;[lo, hi)”. Note the space after each comma. Update the body of cut_by_quantile() to match the interval_type argument. Remove the interval_type argument from the call to cut_by_quantile().</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E2.R</strong></pre>

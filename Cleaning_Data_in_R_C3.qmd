@@ -1,5 +1,5 @@
 ---
-title: "Categorical and Text Data"
+title: "Advanced Data Problems"
 ---
 
 ## Date uniformity
@@ -10,21 +10,22 @@ dplyr and lubridate are loaded and accounts is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Take a look at the head of accounts to get a sense of the data you're working with.
+-   Take a look at the head of accounts to get a sense of the data you're working with.
 
-* Convert the dates in the date_opened column to the same format using the formats vector and store this as a new column called date_opened_clean.
+-   Convert the dates in the date_opened column to the same format using the formats vector and store this as a new column called date_opened_clean.
 
-## Question{.unnumbered}
+## Question {.unnumbered}
 
-Try running as.Date(accounts$date_opened) in the console and examine the output. Notice that you end up with a lot of NAs. Why is this?
+Try running as.Date(accounts\$date_opened) in the console and examine the output. Notice that you end up with a lot of NAs. Why is this?
 
 Possible Answers
 
-* as.Date() needs to be explicitly told the formats of every single date, including which dates are in which format.
+-   as.Date() needs to be explicitly told the formats of every single date, including which dates are in which format.
 
-* By default, as.Date() can't convert "Month DD, YYYY" formats. Respuesta
+-   By default, as.Date() can't convert "Month DD, YYYY" formats. Respuesta
 
-* as.Date() can't convert characters to Dates.
+-   as.Date() can't convert characters to Dates.
+
 ``` {.r filename="E1.R"}
 # Check out the accounts data frame
 head(accounts)
@@ -51,13 +52,14 @@ dplyr and ggplot2 are loaded and the accounts and account_offices data frames ar
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a scatter plot with date_opened on the x-axis and total on the y-axis.
+-   Create a scatter plot with date_opened on the x-axis and total on the y-axis.
 
-* Left join accounts and account_offices by their id columns.
+-   Left join accounts and account_offices by their id columns.
 
-* Convert the totals from the Tokyo office from yen to dollars, and keep the total from the New York office in dollars. Store this as a new column called total_usd.
+-   Convert the totals from the Tokyo office from yen to dollars, and keep the total from the New York office in dollars. Store this as a new column called total_usd.
 
-* Create a scatter plot of your new uniform data using date_opened on the x-axis and total_usd on the y-axis.
+-   Create a scatter plot of your new uniform data using date_opened on the x-axis and total_usd on the y-axis.
+
 ``` {.r filename="E2.R"}
 # Scatter plot of opening date and total amount
 accounts %>%
@@ -110,8 +112,8 @@ dplyr is loaded and accounts is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a new column called theoretical_total that contains the sum of the amounts in each fund.
-* Find the accounts where the total doesn't match the theoretical_total.
+-   Create a new column called theoretical_total that contains the sum of the amounts in each fund.
+-   Find the accounts where the total doesn't match the theoretical_total.
 
 ``` {.r filename="E3.R"}
 # Find invalid totals
@@ -131,8 +133,9 @@ dplyr and lubridate are loaded, and accounts is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a new column called theoretical_age that contains the age of each account based on the date_opened.
-* Find the accounts where the acct_age doesn't match the theoretical_age.
+-   Create a new column called theoretical_age that contains the age of each account based on the date_opened.
+-   Find the accounts where the acct_age doesn't match the theoretical_age.
+
 ``` {.r filename="E4.R"}
 # Find invalid acct_age
 accounts %>%
@@ -151,15 +154,18 @@ You just received a new version of the accounts data frame containing data on th
 You know for a fact that most customers below 25 do not have investment accounts yet, and suspect it could be driving the missingness. The dplyr and visdat packages have been loaded and accounts is available.
 
 ## Instructions `100 XP` {.unnumbered}
-* Visualize the missing values in accounts by column using a function from the visdat package.
 
-* Add a logical column to accounts called missing_inv that indicates whether each row is missing the inv_amount or not.
-* Group by missing_inv.
-* Calculate the mean age for each group of missing_inv.
+-   Visualize the missing values in accounts by column using a function from the visdat package.
 
+-   Add a logical column to accounts called missing_inv that indicates whether each row is missing the inv_amount or not.
 
-* Sort accounts by age.
-* Visualize missing data by column.
+-   Group by missing_inv.
+
+-   Calculate the mean age for each group of missing_inv.
+
+-   Sort accounts by age.
+
+-   Visualize missing data by column.
 
 ## Question {.unnumbered}
 
@@ -169,7 +175,7 @@ Possible Answers
 
 The data is missing completely at random and there are no drivers behind the missingness.
 
-Since the average age for TRUE missing_inv is 22 and the average age for FALSE missing_inv is 44, it is likely that the inv_amount variable is missing mostly in young customers. Respuesta 
+Since the average age for TRUE missing_inv is 22 and the average age for FALSE missing_inv is 44, it is likely that the inv_amount variable is missing mostly in young customers. Respuesta
 
 Since the average age for FALSE missing_inv is 22 and the average age for TRUE missing_inv is 44, it is likely that the inv_amount variable is missing mostly in older customers.
 
@@ -217,14 +223,13 @@ In this exercise, you will drop rows of accounts with missing cust_ids, and impu
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Filter accounts to remove rows with missing cust_ids and save as accounts_clean.
+-   Filter accounts to remove rows with missing cust_ids and save as accounts_clean.
 
-* Create a new column called acct_amount_filled, which contains the values of acct_amount, except all NA values should be replaced with 5 times the amount in inv_amount.
+-   Create a new column called acct_amount_filled, which contains the values of acct_amount, except all NA values should be replaced with 5 times the amount in inv_amount.
 
-* Assert that there are no missing values in the cust_id column of accounts_clean.
+-   Assert that there are no missing values in the cust_id column of accounts_clean.
 
-* Assert that there are no missing values in the acct_amount_filled column of accounts_clean.
-
+-   Assert that there are no missing values in the acct_amount_filled column of accounts_clean.
 
 ``` {.r filename="E6.R"}
 # Create accounts_clean

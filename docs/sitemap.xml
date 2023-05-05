@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/index.html</loc>
-    <lastmod>2023-04-28T04:16:40.751Z</lastmod>
+    <lastmod>2023-05-05T19:41:34.776Z</lastmod>
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/intro.html</loc>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Intermedio_R_C4.html</loc>
-    <lastmod>2023-03-28T00:37:06.693Z</lastmod>
+    <lastmod>2023-05-05T03:20:48.315Z</lastmod>
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Intermedio_R_C5.html</loc>
@@ -99,5 +99,33 @@
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/references.html</loc>
     <lastmod>2023-03-28T00:37:15.528Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Reshaping_Data_with_tidyr_C1.html</loc>
+    <lastmod>2023-05-05T03:18:52.239Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Cleaning_Data_in_R_C1.html</loc>
+    <lastmod>2023-05-05T19:31:16.298Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Reshaping_Data_with_tidyr_C2.html</loc>
+    <lastmod>2023-05-05T20:25:07.948Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Reshaping_Data_with_tidyr_C3.html</loc>
+    <lastmod>2023-05-05T21:39:10.646Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Reshaping_Data_with_tidyr_C4.html</loc>
+    <lastmod>2023-05-05T22:00:39.787Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Cleaning_Data_in_R_C3.html</loc>
+    <lastmod>2023-05-05T22:00:05.036Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Cleaning_Data_in_R_C4.html</loc>
+    <lastmod>2023-05-05T22:00:38.188Z</lastmod>
   </url>
 </urlset>

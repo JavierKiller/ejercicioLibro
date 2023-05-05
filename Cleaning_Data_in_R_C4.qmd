@@ -1,5 +1,5 @@
 ---
-title: "Categorical and Text Data"
+title: "Record Linkage"
 ---
 
 ## Small distance, small difference
@@ -10,12 +10,11 @@ The stringdist package has been loaded for you.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Calculate the Damerau-Levenshtein distance between "las angelos" and "los angeles".
+-   Calculate the Damerau-Levenshtein distance between "las angelos" and "los angeles".
 
-* Calculate the Longest Common Substring (LCS) distance between "las angelos" and "los angeles".
+-   Calculate the Longest Common Substring (LCS) distance between "las angelos" and "los angeles".
 
-* Calculate the Jaccard distance between "las angelos" and "los angeles".
-
+-   Calculate the Jaccard distance between "las angelos" and "los angeles".
 
 ## Question {.unnumbered}
 
@@ -29,7 +28,6 @@ LCS distance only uses insertion and deletion, so it takes more operations to ch
 
 LCS distance only uses insertion, deletion, and substitution, so it takes more operations to change a string to another
 
-
 ``` {.r filename="E1.R"}
 # Calculate Damerau-Levenshtein distance
 stringdist("las angelos", "los angeles", method = "dl")
@@ -39,7 +37,6 @@ stringdist("las angelos", "los angeles", method="lcs")
 
 # Calculate Jaccard distance
 stringdist("las angelos", "los angeles", method="jaccard")
-
 
 ```
 
@@ -53,10 +50,12 @@ dplyr and fuzzyjoin are loaded, and zagat and cities are available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Count the number of each variation of city name in zagat
+-   Count the number of each variation of city name in zagat
 
-* Left join zagat and cities based on string distance using the city and city_actual columns.
-* Select the name, city, and city_actual columns.
+-   Left join zagat and cities based on string distance using the city and city_actual columns.
+
+-   Select the name, city, and city_actual columns.
+
 ``` {.r filename="E2.R"}
 # Count the number of each city variation
 zagat %>%
@@ -84,10 +83,11 @@ zagat and fodors are available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Load the reclin package.
-* Generate all possible pairs of records between the zagat and fodors datasets.
+-   Load the reclin package.
 
-* Use pair blocking to generate only pairs that have matching values in the city column.
+-   Generate all possible pairs of records between the zagat and fodors datasets.
+
+-   Use pair blocking to generate only pairs that have matching values in the city column.
 
 ``` {.r filename="E3.R"}
 # Load reclin
@@ -112,9 +112,9 @@ dplyr and reclin are loaded and zagat and fodors are available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Compare pairs by name using lcs() distance.
+-   Compare pairs by name using lcs() distance.
 
-* Compare pairs by name, phone, and addr using jaro_winkler().
+-   Compare pairs by name, phone, and addr using jaro_winkler().
 
 ``` {.r filename="E4.R"}
 # Generate pairs
@@ -139,11 +139,12 @@ reclin and dplyr are loaded and zagat and fodors are available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Score the pairs of records probabilistically.
+-   Score the pairs of records probabilistically.
 
-* Select the pairs that are considered matches.
+-   Select the pairs that are considered matches.
 
-* Link the two data frames together.
+-   Link the two data frames together.
+
 ``` {.r filename="E5.R"}
 # Create pairs
 pair_blocking(zagat, fodors, blocking_var = "city") %>%

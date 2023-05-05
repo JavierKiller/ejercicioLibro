@@ -42,17 +42,24 @@ book:
         - Introduction_to_Importing_Data_in_R_C2.qmd 
         - Introduction_to_Importing_Data_in_R_C3.qmd 
         - Introduction_to_Importing_Data_in_R_C4.qmd       
-
     - part: "Data Manipulation with dplyr"
       chapters:
         - Data_Manipulation_with_dplyr_C1.qmd 
         - Data_Manipulation_with_dplyr_C2.qmd 
         - Data_Manipulation_with_dplyr_C3.qmd 
         - Data_Manipulation_with_dplyr_C4.qmd       
-
-
-    - summary.qmd
-    - references.qmd
+    - part: "Cleaning Data in R"
+      chapters:
+        - Cleaning_Data_in_R_C1.qmd 
+        - Cleaning_Data_in_R_C2.qmd 
+        - Cleaning_Data_in_R_C3.qmd 
+        - Cleaning_Data_in_R_C4.qmd       
+    - part: "Reshaping Data with tidyr"
+      chapters:
+        - Reshaping_Data_with_tidyr_C1.qmd 
+        - Reshaping_Data_with_tidyr_C2.qmd 
+        - Reshaping_Data_with_tidyr_C3.qmd 
+        - Reshaping_Data_with_tidyr_C4.qmd   
 
 bibliography: references.bib
 
