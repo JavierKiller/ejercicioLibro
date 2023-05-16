@@ -3792,5 +3792,621 @@
     "title": "27  Record Linkage",
     "section": "Instructions 100 XP",
     "text": "Instructions 100 XP\n\nScore the pairs of records probabilistically.\nSelect the pairs that are considered matches.\nLink the two data frames together.\n\n\n\nE5.R\n\n# Create pairs\npair_blocking(zagat, fodors, blocking_var = \"city\") %>%\n  # Compare pairs\n  compare_pairs(by = c(\"name\", \"addr\"), default_comparator = jaro_winkler()) %>%\n  # Score pairs\n  score_problink()\n  \n  \n# Create pairs\npair_blocking(zagat, fodors, blocking_var = \"city\") %>%\n  # Compare pairs\n  compare_pairs(by = c(\"name\", \"addr\"), default_comparator = jaro_winkler()) %>%\n  # Score pairs\n  score_problink() %>%\n  # Select pairs\n  select_n_to_m()\n  \n# Create pairs\npair_blocking(zagat, fodors, blocking_var = \"city\") %>%\n  # Compare pairs\n  compare_pairs(by = c(\"name\", \"addr\"), default_comparator = jaro_winkler()) %>%\n  # Score pairs\n  score_problink() %>%\n  # Select pairs\n  select_n_to_m() %>%\n  # Link data \n  link()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#using-and-finding-missing-values",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#using-and-finding-missing-values",
+    "title": "32  Why care about missing data?",
+    "section": "32.1 Using and finding missing values",
+    "text": "32.1 Using and finding missing values\nWhen working with missing data, there are a couple of commands that you should be familiar with - firstly, you should be able to identify if there are any missing values, and where these are.\nUsing the any_na() and are_na() tools, identify which values are missing."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a vector, x, which has the values NA, NaN, Inf, “.”, and “missing”.\nPass a vector x to any_na() and are_na() to find and explore which ones are missing.\n\n\n\nE1.R\n\n# Create x, a vector, with values NA, NaN, Inf, \".\", and \"missing\"\nx <- c(NA, NaN, Inf, \".\", \"missing\")\n\n# Use any_na() and are_na() on to explore the missings\nany_na(x)\nare_na(x)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#how-many-missing-values-are-there",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#how-many-missing-values-are-there",
+    "title": "32  Why care about missing data?",
+    "section": "32.2 How many missing values are there?",
+    "text": "32.2 How many missing values are there?\nOne of the first things that you will want to check with a new dataset is if there are any missing missing values, and how many there are.\nYou could use are_na() to and count up the missing values, but the most efficient way to count missings is to use the n_miss() function. This will tell you the total number of missing values in the data.\nYou can then find the percent of missing values in the data with the pct_miss function. This will tell you the percentage of missing values in the data.\nYou can also find the complement to these - how many complete values there are - using n_complete and pct_complete."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-1",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-1",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the example dataframe of heights and weights dat_hw:\n\nUse n_miss() on the dataframe dat_hw to count the total number of missing values the dataframe.\nUse n_miss() on the variable dat_hw$weight to count the total number of missing values it.\nSimilarly, use prop_miss(), n_complete(), and prop_complete() to get the proportion of missings, and the number and proportion of complete values for the dataframe and the variables.\n\n\n\nE2.R\n\n# Use n_miss() to count the total number of missing values in dat_hw\nn_miss(dat_hw)\n\n# Use n_miss() on dat_hw$weight to count the total number of missing values\nn_miss(dat_hw$weight)\n\n# Use n_complete() on dat_hw to count the total number of complete values\nn_complete(dat_hw)\n\n# Use n_complete() on dat_hw$weight to count the total number of complete values\nn_complete(dat_hw$weight)\n\n# Use prop_miss() and prop_complete() on dat_hw to count the total number of missing values in each of the variables\nprop_miss(dat_hw)\nprop_complete(dat_hw)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#summarizing-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#summarizing-missingness",
+    "title": "32  Why care about missing data?",
+    "section": "32.3 Summarizing missingness",
+    "text": "32.3 Summarizing missingness\nNow that you understand the behavior of missing values in R, and how to count them, let’s scale up our summaries for cases (rows) and variables, using miss_var_summary() and miss_case_summary(), and also explore how they can be applied for groups in a dataframe, using the group_by function from dplyr."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-2",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-2",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate summaries of missingness in the airquality dataset for variables using the miss_var_summary() function.\nCalculate summaries of missingness in the airquality dataset for the cases using the miss_case_summary() function.\nUsing the airquality dataset, use group_by() to create summaries for each variable and case, by each Month.\n\n\n\nE3.R\n\n# Summarize missingness in each variable of the `airquality` dataset\nmiss_var_summary(airquality)\n\n\n# Summarize missingness in each case of the `airquality` dataset\nmiss_case_summary(airquality)\n\n\n# Return the summary of missingness in each variable, \n# grouped by Month, in the `airquality` dataset\nairquality %>% group_by(Month) %>% miss_var_summary()\n\n# Return the summary of missingness in each case, \n# grouped by Month, in the `airquality` dataset\nairquality %>% group_by(Month) %>% miss_case_summary()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#tabulating-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#tabulating-missingness",
+    "title": "32  Why care about missing data?",
+    "section": "32.4 Tabulating Missingness",
+    "text": "32.4 Tabulating Missingness\nThe summaries of missingness we just calculated give us the number and percentage of missing observations for the cases and variables.\nAnother way to summarize missingness is by tabulating the number of times that there are 0, 1, 2, 3, missings in a variable, or in a case.\nIn this exercise we are going to tabulate the number of missings in each case and variable using miss_var_table() and miss_case_table(), and also combine these summaries with the the group_by operator from dplyr. to explore the summaries over a grouping variable in the dataset."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-3",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-3",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nFor the airquality dataset:\n\nTabulate missingness for each variable using miss_var_table().\nTabulate missingness for every case using miss_case_table().\nCombine previous tabulations with dplyr’s group_by() function to create tabulations for each variable and case, by each Month.\n\n\n\nE4.R\n\n# Tabulate missingness in each variable and case of the `airquality` dataset\nmiss_var_table(airquality)\nmiss_case_table(airquality)\n\n# Tabulate the missingness in each variable, grouped by Month, in the `airquality` dataset\nairquality %>% group_by(Month) %>% miss_var_table()\n\n# Tabulate of missingness in each case, grouped by Month, in the `airquality` dataset\nairquality %>% group_by() %>% miss_case_table()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#other-summaries-of-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#other-summaries-of-missingness",
+    "title": "32  Why care about missing data?",
+    "section": "32.5 Other summaries of missingness",
+    "text": "32.5 Other summaries of missingness\nSome summaries of missingness are particularly useful for different types of data. For example, miss_var_span() and miss_var_run().\nmiss_var_span() calculates the number of missing values in a specified variable for a repeating span. This is really useful in time series data, to look for weekly (7 day) patterns of missingness.\nmiss_var_run() calculates the number of “runs” or “streaks” of missingness. This is useful to find unusual patterns of missingness, for example, you might find a repeating pattern of 5 complete and 5 missings.\nBoth miss_var_span() and miss_var_run() work with the group_by operator from dplyr."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-4",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-4",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the pedestrian dataset from naniar:\n\nCalculate summaries of missingness for the variables in datasets using miss_var_span(), for a span of 4000.\nCalculate summaries of missingness for the cases in datasets using miss_var_run().\nCombine with dplyr’s group_by operator for month.\n\n\n\nE5.R\n\n# Calculate the summaries for each run of missingness for the variable, hourly_counts\nmiss_var_run(pedestrian, var = hourly_counts)\n\n# Calculate the summaries for each span of missingness, \n# for a span of 4000, for the variable hourly_counts\nmiss_var_span(pedestrian, var = hourly_counts, span_every = 4000)\n\n# For each `month` variable, calculate the run of missingness for hourly_counts\npedestrian %>% group_by(month) %>% miss_var_run(var = hourly_counts)\n\n# For each `month` variable, calculate the span of missingness \n# of a span of 2000, for the variable hourly_counts\npedestrian %>% group_by(month) %>% miss_var_span(var = hourly_counts, span_every = 2000)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#your-first-missing-data-visualizations",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#your-first-missing-data-visualizations",
+    "title": "32  Why care about missing data?",
+    "section": "32.6 Your first missing data visualizations",
+    "text": "32.6 Your first missing data visualizations\nIt can be difficult to get a handle on where the missing values are in your data, and here is where visualization can really help.\nThe function vis_miss() creates an overview visualization of the missingness in the data. It also has options to cluster rows based on missingness, using cluster = TRUE; as well as options for sorting the columns, from most missing to least missing (sort_miss = TRUE)."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-5",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-5",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the riskfactors dataset from naniar:\n\nUse vis_miss() to visualize the missingness in the data.\nUse vis_miss() with cluster = TRUE to explore some clusters of missingness.\nUse vis_miss() and sort the missings with sort_miss to arrange the columns by missingness.\n\n\n\nE6.R\n\n# Visualize all of the missingness in the `riskfactors`  dataset\nvis_miss(riskfactors)\n\n# Visualize and cluster all of the missingness in the `riskfactors` dataset\nvis_miss(riskfactors, cluster = TRUE)\n\n# Visualize and sort the columns by missingness in the `riskfactors` dataset\nvis_miss(riskfactors, sort_miss = TRUE)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#visualizing-missing-cases-and-variables",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#visualizing-missing-cases-and-variables",
+    "title": "32  Why care about missing data?",
+    "section": "32.7 Visualizing missing cases and variables",
+    "text": "32.7 Visualizing missing cases and variables\nTo get a clear picture of the missingness across variables and cases, use gg_miss_var() and gg_miss_case(). These are the visual counterpart to miss_var_summary() and miss_case_summary().\nThese can be split up into multiple plots with one for each category by choosing a variable to facet by."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-6",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-6",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the riskfactors dataset:\n\nVisualize the number of missings in cases using gg_miss_case().\nExplore the number of missings in cases using gg_miss_case() and facet by the variable education.\nVisualize the number of missings in variables using gg_miss_var().\nExplore the number of missings in variables using gg_miss_var() and facet by the variable education.\nWhat do you notice in the visualizations of the whole data compared to the faceting?\n\n\n\nE7.R\n\n# Visualize the number of missings in cases using `gg_miss_case()`\ngg_miss_case(riskfactors)\n\n# Explore the number of missings in cases using `gg_miss_case()` \n# and facet by the variable `education`\ngg_miss_case(riskfactors, facet = education)\n\n# Visualize the number of missings in variables using `gg_miss_var()`\ngg_miss_var(riskfactors)\n\n# Explore the number of missings in variables using `gg_miss_var()` \n# and facet by the variable `education`\ngg_miss_var(riskfactors, facet = education)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#visualizing-missingness-patterns",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#visualizing-missingness-patterns",
+    "title": "32  Why care about missing data?",
+    "section": "32.8 Visualizing missingness patterns",
+    "text": "32.8 Visualizing missingness patterns\nLet’s practice a few different ways to visualize patterns of missingness using:\n\n\ngg_miss_upset() to give an overall pattern of missingness.\ngg_miss_fct() for a dataset that has a factor of interest: marriage.\nand gg_miss_span() to explore the missingness in a time series dataset.\n\n\nWhat do you notice with the missingness and the faceting in the data?"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-7",
+    "href": "Dealing_With_Missing_Data_in_R_C1.html#instructions-100-xp-7",
+    "title": "32  Why care about missing data?",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExplore missingness pattern of the airquality dataset with gg_miss_upset().\nExplore how the missingness changes in the riskfactors dataset across the marital variable using gg_miss_fct()\nExplore how the missingness changes in the pedestrian dataset across the hourly_counts variable over a span of 3000 (you can also try different spans from 2000-5000).\nExplore the impact of month on hourly_counts by including it in the facet argument, with a span of 1000.\n\n\n\nE8.R\n\n# Using the airquality dataset, explore the missingness pattern using gg_miss_upset()\ngg_miss_upset(airquality)\n\n# With the riskfactors dataset, explore how the missingness changes across the marital variable using gg_miss_fct()\ngg_miss_fct(x = riskfactors, fct = marital)\n\n# Using the pedestrian dataset, explore how the missingness of hourly_counts changes over a span of 3000 \ngg_miss_span(pedestrian, var = hourly_counts, span_every = 3000)\n\n# Using the pedestrian dataset, explore the impact of month by faceting by month\n# and explore how missingness changes for a span of 1000\ngg_miss_span(pedestrian, var = hourly_counts, span_every = 1000, facet = month)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#r",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#r",
+    "title": "33  Importing data from flat files with utils",
+    "section": "33.1 r",
+    "text": "33.1 r"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nFor the pacman dataset, use miss_scan_count() to search for strange missing values:\n\n“N/A”, “missing”, “na”, and ” ” (a single space).\nTo search for strange missing values all at once.\n\n\n\nE1.R\n\n# Explore the strange missing values \"N/A\"\nmiss_scan_count(data = pacman, search = list(\"N/A\"))\n\n# Explore the strange missing values \"missing\"\nmiss_scan_count(data = pacman, search = list(\"missing\"))\n\n# Explore the strange missing values \"na\"\nmiss_scan_count(data = pacman, search = list(\"na\"))\n\n# Explore the strange missing values \" \" (a single space)\nmiss_scan_count(data = pacman, search = list(\" \"))\n\n# Explore all of the strange missing values, \"N/A\", \"missing\", \"na\", \" \"\nmiss_scan_count(data = pacman, search = list(\"N/A\", \"missing\",\"na\", \" \"))"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#section",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#section",
+    "title": "33  Importing data from flat files with utils",
+    "section": "33.2 ",
+    "text": "33.2"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-1",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-1",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nFor the pacman dataset:\n\nUsing replace_with_na(), replace missing values “N/A”, “na”, and “missing” with NA for the year, and score variables.\nTest to see if you have removed all the missing values using miss_scan_count() at the end.\n\n\n\nE2.R\n\n# Print the top of the pacman data using `head()`\nhead(pacman)\n\n# Replace the strange missing values \"N/A\", \"na\", and \n# \"missing\" with `NA` for the variables, year, and score\npacman_clean <- replace_with_na(pacman, replace = list(year = c(\"N/A\", \"na\", \"missing\"),\n                                score = c(\"N/A\", \"na\", \"missing\")))\n                                        \n# Test if `pacman_clean` still has these values in it?\nmiss_scan_count(pacman_clean, search = list(\"N/A\", \"na\", \"missing\"))"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#section-1",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#section-1",
+    "title": "33  Importing data from flat files with utils",
+    "section": "33.3 ",
+    "text": "33.3"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-2",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-2",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nFor the dataset pacman replace the same special missing values, “N/A”, “missing”, “na”, and ” “:\n\nyear, month, and day, using replace_with_na_at().\nOnly character variables using replace_with_na_if().\nAll variables using replace_with_na_all().\n\n\n\nE3.R\n\n# Use `replace_with_na_at()` to replace with NA\nreplace_with_na_at(pacman,\n                   .vars = c(\"year\", \"month\", \"day\"), \n                   ~.x %in% c(\"N/A\", \"missing\", \"na\", \" \"))\n\n# Use `replace_with_na_if()` to replace with NA the character values using `is.character`\nreplace_with_na_if(pacman,\n                   .predicate = is.character, \n                   ~.x %in% c(\"N/A\", \"missing\", \"na\", \" \"))\n\n# Use `replace_with_na_all()` to replace with NA\nreplace_with_na_all(pacman, ~.x %in% c(\"N/A\", \"missing\", \"na\", \" \"))"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#section-2",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#section-2",
+    "title": "33  Importing data from flat files with utils",
+    "section": "33.4 ",
+    "text": "33.4"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-3",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-3",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nFor the frogger dataset:\n\nUse complete() from tidyr on the time and name variables to make implicit missing values explicit.\n\n\n\nE4.R\n\n# Print the frogger data to have a look at it\nfrogger\n\n# Use `complete()` on the `time` and `name` variables to  \n# make implicit missing values explicit\nfrogger_tidy <- frogger %>% complete(time, name)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#section-3",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#section-3",
+    "title": "33  Importing data from flat files with utils",
+    "section": "33.5 ",
+    "text": "33.5"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-4",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-4",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUse fill() to fill down the “name” observations in the frogger dataset.\n\n\nE5.R\n\n# Print the frogger data to have a look at it\nfrogger\n\n# Use `fill()` to fill down the name variable in the frogger dataset\nfrogger %>% fill(name)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#section-4",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#section-4",
+    "title": "33  Importing data from flat files with utils",
+    "section": "33.6 ",
+    "text": "33.6"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-5",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-5",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUse fill() and complete() to correctly fill and complete the values in the data so we went up with a dataset that has 5 names, all completed, each with 4 times filled in.\n\n\nE6.R\n\n# Print the frogger data to have a look at it\nfrogger\n\n# Correctly fill() and complete() missing values so that our dataset becomes sensible\nfrogger %>%\n  fill(name) %>%\n  complete(name, time)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#r",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#r",
+    "title": "34  Importing data from flat files with utils",
+    "section": "34.1 r",
+    "text": "34.1 r"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the oceanbuoys dataset:\n\nCreate shadow matrix data with as_shadow()\nCreate nabular data by binding the shadow to the data with bind_shadow()\nBind only the variables with missing values by using bind_shadow(only_miss = TRUE)\n\n\n\nE1.R\n\n# Create shadow matrix data with `as_shadow()`\nas_shadow(oceanbuoys)\n\n# Create nabular data by binding the shadow to the data with `bind_shadow()`\nbind_shadow(oceanbuoys)\n\n# Bind only the variables with missing values by using bind_shadow(only_miss = TRUE)\n\nbind_shadow(oceanbuoys, only_miss = TRUE)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#section",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#section",
+    "title": "34  Importing data from flat files with utils",
+    "section": "34.2 ",
+    "text": "34.2"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-1",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-1",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFor the oceanbuoys dataset:\nbind_shadow(), then group_by() for the missingness of humidity (humidity_NA) and calculate the means and standard deviations for wind east west (wind_ew) using summarize() from dplyr.\nRepeat this, but calculating summaries for wind north south (wind_ns).\n\n\n\nE2.R\n\n# `bind_shadow()` and `group_by()` humidity missingness (`humidity_NA`)\noceanbuoys %>%\n  bind_shadow() %>%\n  group_by(humidity_NA) %>%\n  summarize(wind_ew_mean = mean(wind_ew), # calculate mean of wind_ew\n            wind_ew_sd = sd(wind_ew)) # calculate standard deviation of wind_ew\n  \n# Repeat this, but calculating summaries for wind north south (`wind_ns`)\noceanbuoys %>%\n  bind_shadow() %>%\n  group_by(humidity_NA) %>%\n  summarize(wind_ns_mean = mean(wind_ns),\n            wind_ns_sd = sd(wind_ns))"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#section-1",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#section-1",
+    "title": "34  Importing data from flat files with utils",
+    "section": "34.3 ",
+    "text": "34.3"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-2",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-2",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing group_by() and summarize() on wind_ew: * Summarize by the missingness of air_temp_c_NA. * Summarize by missingness of air_temp_c_NA and humidity_NA.\n\n\nE3.R\n\n# Summarize wind_ew by the missingness of `air_temp_c_NA`\noceanbuoys %>% \n  bind_shadow() %>%\n  group_by(air_temp_c_NA) %>%\n  summarize(wind_ew_mean = mean(wind_ew),\n            wind_ew_sd = sd(wind_ew),\n            n_obs = n())\n\n# Summarize wind_ew by missingness of `air_temp_c_NA` and `humidity_NA`\noceanbuoys %>% \n  bind_shadow() %>%\n  group_by(air_temp_c_NA, humidity_NA) %>%\n  summarize(wind_ew_mean = mean(wind_ew),\n            wind_ew_sd = sd(wind_ew),\n            n_obs = n())"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#section-2",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#section-2",
+    "title": "34  Importing data from flat files with utils",
+    "section": "34.4 ",
+    "text": "34.4"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-3",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-3",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFirst explore the missingness structure of oceanbuoys using vis_miss().\nExplore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_density().\nExplore the distribution of sea temperature for the missingness of humidity using geom_density().\n\n\n\nE4.R\n\n# First explore the missingness structure of `oceanbuoys` using `vis_miss()`\nvis_miss(oceanbuoys)\n\n# Explore the distribution of `wind_ew` for the missingness  \n# of `air_temp_c_NA` using  `geom_density()`\nbind_shadow(oceanbuoys) %>%\n  ggplot(aes(x = wind_ew, \n             color = air_temp_c_NA)) + \n  geom_density()\n\n# Explore the distribution of sea temperature for the  \n# missingness of humidity (humidity_NA) using  `geom_density()`\nbind_shadow(oceanbuoys) %>%\n  ggplot(aes(x = sea_temp_c,\n             color = humidity_NA)) + \n  geom_density()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#section-3",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#section-3",
+    "title": "34  Importing data from flat files with utils",
+    "section": "34.5 ",
+    "text": "34.5"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-4",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-4",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExplore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_density() and faceting by the missingness of air temperature (air_temp_c_NA).\nBuild upon this visualization by filling by the missingness of humidity (humidity_NA).\n\n\n\nE5.R\n\n# Explore the distribution of wind east west (wind_ew) for the missingness of air temperature \n# using geom_density() and faceting by the missingness of air temperature (air_temp_c_NA).\noceanbuoys %>%\n  bind_shadow() %>%\n  ggplot(aes(x = wind_ew)) + \n  geom_density() + \n  facet_wrap(~air_temp_c_NA)\n\n# Build upon this visualization by filling by the missingness of humidity (humidity_NA).\noceanbuoys %>%\n  bind_shadow() %>%\n  ggplot(aes(x = wind_ew,\n             color = humidity_NA)) + \n  geom_density() + \n  facet_wrap(~air_temp_c_NA)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#section-4",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#section-4",
+    "title": "34  Importing data from flat files with utils",
+    "section": "34.6 ",
+    "text": "34.6"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-5",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-5",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExplore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_boxplot()\nBuild upon this visualization by faceting by the missingness of humidity (humidity_NA).\n\n\n\nE6.R\n\n# Explore the distribution of wind east west (`wind_ew`) for  \n# the missingness of air temperature using  `geom_boxplot()`\noceanbuoys %>%\n  bind_shadow() %>%\n  ggplot(aes(x = air_temp_c_NA,\n             y = wind_ew)) + \n  geom_boxplot()\n\n# Build upon this visualization by faceting by the missingness of humidity (`humidity_NA`).\noceanbuoys %>%\n  bind_shadow() %>%\n  ggplot(aes(x = air_temp_c_NA,\n             y = wind_ew)) + \n  geom_boxplot() + \n  facet_wrap(~humidity_NA)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#r",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#r",
+    "title": "35  Importing data from flat files with utils",
+    "section": "35.1 r",
+    "text": "35.1 r"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the oceanbuoys data:\n\nImpute below the range using impute_below_all().\nVisualize the new missing values for wind_ew on the x-axis and air_temp_c on the y-axis.\nImpute and track data with bind_shadow(), impute_below_all(), and add_label_shadow().\nShow the plot and inspect the imputed values.\n\n\n\nE1.R\n\n# Impute the data below the range using `impute_below`.\nocean_imp <- impute_below_all(oceanbuoys)\n\n# Visualize the new missing values\nggplot(ocean_imp,\n       aes(x = wind_ew, y = air_temp_c)) + \n  geom_point()\n\n# Impute and track data with `bind_shadow`, `impute_below`, and `add_label_shadow`\nocean_imp_track <- bind_shadow(oceanbuoys) %>% \n  impute_below_all() %>%\n  add_label_shadow()\n\n# Look at the imputed values\nocean_imp_track"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#section",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#section",
+    "title": "35  Importing data from flat files with utils",
+    "section": "35.2 ",
+    "text": "35.2"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-1",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-1",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the oceanbuoys data:\n\nImpute and track the missing values using bind_shadow() and impute_below_all(), and add_label_shadow().\nVisualize the missingness in wind and air temperature on the x and y-axis respectively, coloring missing air temp values with air_temp_c_NA.\nVisualize humidity and air temp on the x and y-axis respectively, coloring any missing cases using the variable any_missing.\n\n\n\nE2.R\n\n# Impute and track the missing values\nocean_imp_track <- bind_shadow(oceanbuoys) %>% \n  impute_below_all() %>%\n  add_label_shadow()\n\n# Visualize the missingness in wind and air temperature,  \n# coloring missing air temp values with air_temp_c_NA\nggplot(ocean_imp_track,\n       aes(x = wind_ew, y = air_temp_c, color = air_temp_c_NA)) + \n  geom_point()\n\n# Visualize humidity and air temp, coloring any missing cases using the variable any_missing\nggplot(ocean_imp_track,\n       aes(x = humidity, y = air_temp_c, color = any_missing)) + \n  geom_point()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#section-1",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#section-1",
+    "title": "35  Importing data from flat files with utils",
+    "section": "35.3 ",
+    "text": "35.3"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-2",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-2",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the imputed and tracked data, ocean_imp_track:\n\nExplore the values of air_temp_c, visualizing the amount of missings with air_temp_c_NA.\nExplore the missings in humidity using humidity_NA.\nExplore the missings in air_temp_c according to year, using facet_wrap(~year).\nexplore the missings in humidity according to year, using facet_wrap(~year).\n\n\n\nE3.R\n\n# Explore the values of air_temp_c, visualizing the amount of missings with `air_temp_c_NA`.\np <- ggplot(ocean_imp_track, aes(x = air_temp_c, fill = air_temp_c_NA)) + geom_histogram()\n\n# Expore the missings in humidity using humidity_NA\np2 <- ggplot(ocean_imp_track, aes(x = humidity, fill = humidity_NA)) + geom_histogram()\n\n# Explore the missings in air_temp_c according to year, using `facet_wrap(~year)`.\np + facet_wrap(~year)\n\n# Explore the missings in humidity according to year, using `facet_wrap(~year)`.\np2 + facet_wrap(~year)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#section-2",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#section-2",
+    "title": "35  Importing data from flat files with utils",
+    "section": "35.4 ",
+    "text": "35.4"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-3",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-3",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nFor the oceanbuoys dataset:\n\nImpute the mean value with impute_mean_all(), and track these imputations with add_label_shadow().\nExplore the imputed values in humidity (humidity) using a box plot.\nExplore the imputed values in air temperature (air_temp_c) using a box plot.\n\n\n\nE4.R\n\n# Impute the mean value and track the imputations \nocean_imp_mean <- bind_shadow(oceanbuoys) %>% \n  impute_mean_all() %>% \n  add_label_shadow()\n\n# Explore the mean values in humidity in the imputed dataset\nggplot(ocean_imp_mean, \n       aes(x = humidity_NA, y = humidity)) + \n  geom_boxplot()\n\n# Explore the values in air temperature in the imputed dataset\nggplot(ocean_imp_mean, \n       aes(x = air_temp_c_NA, y = air_temp_c)) + \n  geom_boxplot()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#section-3",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#section-3",
+    "title": "35  Importing data from flat files with utils",
+    "section": "35.5 ",
+    "text": "35.5"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-4",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-4",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the data with already imputed values, ocean_imp_mean:\n\nExplore imputations in air temperature (on the x-axis) and humidity (on the y-axis) using a scatter plot, remembering to use color = any_missing.\nBuild upon this previous visualization by faceting by year.\n\n\n\nE5.R\n\n# Explore imputations in air temperature and humidity,  \n# coloring by the variable, any_missing\nggplot(ocean_imp_mean, \n       aes(x = air_temp_c, y = humidity, color = any_missing)) + \n  geom_point()\n\n# Explore imputations in air temperature and humidity,  \n# coloring by the variable, any_missing, and faceting by year\nggplot(ocean_imp_mean, \n       aes(x = air_temp_c, y = humidity, color = any_missing)) +\n  geom_point() + \n  facet_wrap(~year)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#section-4",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#section-4",
+    "title": "35  Importing data from flat files with utils",
+    "section": "35.6 ",
+    "text": "35.6"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-5",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-5",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the shadow_long() to gather the imputed data ocean_imp_mean, focussing on humidity and air_temp_c.\nPrint the data and inspect it.\nExplore the imputations in a histogram using geom_histogram(), placing the values on the x-axis, filling by their missingness and faceting by variable\n\n\n\nE6.R\n\n# Gather the imputed data \nocean_imp_mean_gather <- shadow_long(ocean_imp_mean,\n                                     humidity,\n                                     air_temp_c)\n# Inspect the data\nocean_imp_mean_gather\n\n# Explore the imputations in a histogram \nggplot(ocean_imp_mean_gather, \n       aes(x = value, fill = value_NA)) + \n  geom_histogram() + \n  facet_wrap(~variable)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#using-miss_scan_count",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#using-miss_scan_count",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "33.1 Using miss_scan_count",
+    "text": "33.1 Using miss_scan_count\nYou have a dataset with missing values coded as “N/A”, “missing”, and “na”. But before we go ahead and start replacing these with NA, we should get an idea of how big the problem is.\nUse miss_scan_count to count the possible missings in the dataset, pacman, a dataset of pacman scores, containing three columns:\n\nyear: the year that person made that score. initial: the initials of the person. *score: the scores of that person."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#using-replace_with_na",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#using-replace_with_na",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "33.2 Using replace_with_na",
+    "text": "33.2 Using replace_with_na\nFollowing on from the previous dataset, we now know that we have a few strange missing values.\nNow, we are going to do something about it, and replace these values with missings (e.g. NA) using the function replace_with_na()."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#using-replace_with_na-scoped-variants",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#using-replace_with_na-scoped-variants",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "33.3 Using replace_with_na scoped variants",
+    "text": "33.3 Using replace_with_na scoped variants\nTo reduce code repetition when replacing values with NA, use the “scoped variants” of replace_with_na():\n\n\nreplace_with_na_at()\nreplace_with_na_if()\nreplace_with_na_all()\n\n\nThe syntax of replacement looks like this:\n\n~.x == “N/A”\n\nThis replaces all cases that are equal to “N/A”.\n\n~.x %in% c(“N/A”, “missing”, “na”, ” “)\n\nReplaces all cases that have “N/A”, “missing”, “na”, or ” “."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#fix-implicit-missings-using-complete",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#fix-implicit-missings-using-complete",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "33.4 Fix implicit missings using complete()",
+    "text": "33.4 Fix implicit missings using complete()\nWe are going to explore a new dataset, frogger.\nThis dataset contains 4 scores per player recorded at different times: morning, afternoon, evening, and late_night.\nEvery player should have played 4 games, one at each of these times, but it looks like not every player completed all of these games.\nUse the complete() function to make these implicit missing values explicit"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#fix-explicit-missings-using-fill",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#fix-explicit-missings-using-fill",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "33.5 Fix explicit missings using fill()",
+    "text": "33.5 Fix explicit missings using fill()\nOne type of missing value that can be obvious to deal with is where the first entry of a group is given, but subsequent entries are marked NA.\nThese missing values often result from empty values in spreadsheets to avoid entering multiple names multiple times; as well as for “human readability”.\nThis type of problem can be solved by using the fill() function from the tidyr package."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#using-complete-and-fill-together",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#using-complete-and-fill-together",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "33.6 Using complete() and fill() together",
+    "text": "33.6 Using complete() and fill() together\nNow let’s put it together!\nUse complete() and fill() together to fix explicit and implicitly missing values in the frogger dataset."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#exploring-missingness-dependence",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#exploring-missingness-dependence",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "33.7 Exploring missingness dependence",
+    "text": "33.7 Exploring missingness dependence\nTo learn about the structure of the missingness in data, you can explore how sorting changes how missingness is presented.\nFor the oceanbuoys dataset, explore the missingness with vis_miss(), and then arrange by a few different variables\nThis is not a definitive process, but it will get you started to ask the right questions of your data. We explore more powerful techniques in the next chapter."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-6",
+    "href": "Dealing_With_Missing_Data_in_R_C2.html#instructions-100-xp-6",
+    "title": "33  Wrangling and tidying up missing values",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the dataset, oceanbuoys:\n\nArrange by the variables, year, latitude, and wind_ew using vis_miss().\n\n\n\nE6.R\n\n# Arrange by year\noceanbuoys %>% arrange(year) %>% vis_miss()\n\n# Arrange by latitude\noceanbuoys %>% arrange(latitude) %>% vis_miss()\n\n# Arrange by wind_ew (wind east west)\noceanbuoys %>% arrange(wind_ew) %>% vis_miss()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#creating-shadow-matrix-data",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#creating-shadow-matrix-data",
+    "title": "34  Testing missing relationships",
+    "section": "34.1 Creating shadow matrix data",
+    "text": "34.1 Creating shadow matrix data\nMissing data can be tricky to think about, as they don’t usually proclaim themselves for you, and instead hide amongst the weeds of the data.\nOne way to help expose missing values is to change the way we think about the data - by thinking about every single data value being missing or not missing.\nThe as_shadow() function in R transforms a dataframe into a shadow matrix, a special data format where the values are either missing (NA), or Not Missing (!NA).\nThe column names of a shadow matrix are the same as the data, but have a suffix added _NA.\nTo keep track of and compare data values to their missingness state, use the bind_shadow() function. Having data in this format, with the shadow matrix column bound to the regular data is called nabular data."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#performing-grouped-summaries-of-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#performing-grouped-summaries-of-missingness",
+    "title": "34  Testing missing relationships",
+    "section": "34.2 Performing grouped summaries of missingness",
+    "text": "34.2 Performing grouped summaries of missingness\nNow that you can create nabular data, let’s use it to explore the data. Let’s calculate summary statistics based on the missingness of another variable.\nTo do this we are going to use the following steps:\nFirst, bind_shadow() turns the data into nabular data.\nNext, perform some summaries on the data using group_by() and summarize() to calculate the mean and standard deviation, using the mean() and sd() functions."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#further-exploring-more-combinations-of-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#further-exploring-more-combinations-of-missingness",
+    "title": "34  Testing missing relationships",
+    "section": "34.3 Further exploring more combinations of missingness",
+    "text": "34.3 Further exploring more combinations of missingness\nIt can be useful to get a bit of extra information about the number of cases in each missing condition.\nIn this exercise, we are going to add information about the number of observed cases using n() inside the summarize() function.\nWe will then add an additional level of grouping by looking at the combination of humidity being missing (humidity_NA) and air temperature being missing (air_temp_c_NA)."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#nabular-data-and-filling-by-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#nabular-data-and-filling-by-missingness",
+    "title": "34  Testing missing relationships",
+    "section": "34.4 Nabular data and filling by missingness",
+    "text": "34.4 Nabular data and filling by missingness\nSummary statistics are useful to calculate, but as they say, a picture tells you a thousand words.\nIn this exercise, we are going to explore how you can use nabular data to explore the variation in a variable by the missingness of another.\nWe are going to use the oceanbuoys dataset from naniar."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#nabular-data-and-summarising-by-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#nabular-data-and-summarising-by-missingness",
+    "title": "34  Testing missing relationships",
+    "section": "34.5 Nabular data and summarising by missingness",
+    "text": "34.5 Nabular data and summarising by missingness\nIn this exercise, we are going to explore how to use nabular data to explore the variation in a variable by the missingness of another.\nWe are going to use the oceanbuoys dataset from naniar, and then create multiple plots of the data using facets.\nThis allows you to explore different layers of missingness."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#explore-variation-by-missingness-box-plots",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#explore-variation-by-missingness-box-plots",
+    "title": "34  Testing missing relationships",
+    "section": "34.6 Explore variation by missingness: box plots",
+    "text": "34.6 Explore variation by missingness: box plots\nPrevious exercises use nabular data along with density plots to explore the variation in a variable by the missingness of another.\nWe are going to use the oceanbuoys dataset from naniar, using box plots instead of facets or others to explore different layers of missingness."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#exploring-missing-data-with-scatter-plots",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#exploring-missing-data-with-scatter-plots",
+    "title": "34  Testing missing relationships",
+    "section": "34.7 Exploring missing data with scatter plots",
+    "text": "34.7 Exploring missing data with scatter plots\nMissing values in a scatter plot in ggplot2 are removed by default, with a warning.\nWe can display missing values in a scatter plot, using geom_miss_point() - a special ggplot2 geom that shifts the missing values into the plot, displaying them 10% below the minimum of the variable.\nLet’s practice using this visualization with the oceanbuoys dataset."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-6",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-6",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExplore the missingness in wind east west (wind_ew) and air temperature, and display the missingness using geom_miss_point().\nExplore the missingness in humidity and air temperature, and display the missingness using geom_miss_point().\n\n\n\nE7.R\n\n# Explore the missingness in wind and air temperature, and  \n# display the missingness using `geom_miss_point()`\nggplot(oceanbuoys,\n       aes(x = wind_ew,\n           y = air_temp_c)) + \n  geom_miss_point()\n\n# Explore the missingness in humidity and air temperature,  \n# and display the missingness using `geom_miss_point()`\nggplot(oceanbuoys,\n       aes(x = humidity,\n           y = air_temp_c)) + \n  geom_miss_point()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#using-facets-to-explore-missingness",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#using-facets-to-explore-missingness",
+    "title": "34  Testing missing relationships",
+    "section": "34.8 Using facets to explore missingness",
+    "text": "34.8 Using facets to explore missingness\nBecause geom_miss_point() is a ggplot geom, you can use it with ggplot2 features like faceting.\nThis means we can rapidly explore the missingness and stay within the familiar bounds of ggplot2."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-7",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-7",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExplore the missingness in wind and air temperature, and display the missingness using geom_miss_point(). Facet by year to explore this further.\nExplore the missingness in humidity and air temperature, and display the missingness using geom_miss_point(). Facet by year to explore this further.\n\n\n\nE8.R\n\n# Explore the missingness in wind and air temperature, and display the \n# missingness using `geom_miss_point()`. Facet by year to explore this further.\nggplot(oceanbuoys,\n       aes(x = wind_ew,\n           y = air_temp_c)) + \n  geom_miss_point() + \n  facet_wrap(~year)\n\n# Explore the missingness in humidity and air temperature, and display the \n# missingness using `geom_miss_point()` Facet by year to explore this further.\nggplot(oceanbuoys,\n       aes(x = humidity,\n           y = air_temp_c)) + \n  geom_miss_point() + \n  facet_wrap(~year)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#faceting-to-explore-missingness-multiple-plots",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#faceting-to-explore-missingness-multiple-plots",
+    "title": "34  Testing missing relationships",
+    "section": "34.9 Faceting to explore missingness (multiple plots)",
+    "text": "34.9 Faceting to explore missingness (multiple plots)\nAnother useful technique with geommisspoint() is to explore the missingness by creating multiple plots.\nJust as we have done in the previous exercises, we can use the nabular data to help us create additional faceted plots.\nWe can even create multiple faceted plots according to values in the data, such as year, and features of the data, such as missingness."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-8",
+    "href": "Dealing_With_Missing_Data_in_R_C3.html#instructions-100-xp-8",
+    "title": "34  Testing missing relationships",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse geom_miss_point() and facet_wrap() to explore how the missingness in wind_ew and air_temp_c is different for missingness of humidity.\nUse geom_miss_point() and facet_grid() to explore how the missingness in wind_ew and air_temp_c is different for missingness of humidity and by year.\n\n\n\nE9.R\n\n# Use geom_miss_point() and facet_wrap to explore how the missingness \n# in wind_ew and air_temp_c is different for missingness of humidity\nbind_shadow(oceanbuoys) %>%\n  ggplot(aes(x = wind_ew,\n           y = air_temp_c)) + \n  geom_miss_point() + \n  facet_wrap(~humidity_NA)\n\n# Use geom_miss_point() and facet_grid to explore how the missingness in wind_ew and air_temp_c \n# is different for missingness of humidity AND by year - by using `facet_grid(humidity_NA ~ year)`\nbind_shadow(oceanbuoys) %>%\n  ggplot(aes(x = wind_ew,\n             y = air_temp_c)) + \n  geom_miss_point() + \n  facet_grid(humidity_NA~year)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#impute-data-below-range-with-nabular-data",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#impute-data-below-range-with-nabular-data",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.1 Impute data below range with nabular data",
+    "text": "35.1 Impute data below range with nabular data\nWe want to keep track of values we imputed. If we don’t, it is very difficult to assess how good the imputed values are.\nWe are going to practice imputing data and recreate visualizations in the previous set of exercises by imputing values below the range of the data.\nThis is a very useful way to help further explore missingness, and also provides the framework for imputing missing values.\nFirst, we are going to impute the data below the range using impute_below_all(), and then visualize the data. We notice that although we can see where the missing values are in this instance, we need some way to track them. The track missing data programming pattern can help with this."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#visualize-imputed-values-in-a-scatter-plot",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#visualize-imputed-values-in-a-scatter-plot",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.2 Visualize imputed values in a scatter plot",
+    "text": "35.2 Visualize imputed values in a scatter plot\nNow, let’s recreate one of the previous plots we saw in chapter three that used geom_miss_point().\nTo do this, we need to impute the data below the range of the data. This is a special kind of imputation to explore the data. This imputation will illustrate what we need to practice: how to track missing values. To impute the data below the range of the data, we use the function impute_below_all()."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#create-histogram-of-imputed-data",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#create-histogram-of-imputed-data",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.3 Create histogram of imputed data",
+    "text": "35.3 Create histogram of imputed data\nNow that we can recreate the first visualization of geom_miss_point(), let’s explore how we can apply this to other exploratory tasks.\nOne useful task is to evaluate the number of missings in a given variable using a histogram. We can do this using the ocean_imp_track dataset we created in the last exercise, which is loaded into this session."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-bad-imputations",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-bad-imputations",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.4 Evaluating bad imputations",
+    "text": "35.4 Evaluating bad imputations\nIn order to evaluate imputations, it helps to know what something bad looks like. To explore this, let’s look at a typically bad imputation method: imputing using the mean value.\nIn this exercise we are going to explore how the mean imputation method works using a box plot, using the oceanbuoys dataset."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-imputations-the-scale",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-imputations-the-scale",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.5 Evaluating imputations: The scale",
+    "text": "35.5 Evaluating imputations: The scale\nWhile the mean imputation might not look so bad when we compare it using a box plot, it is important to get a sense of the variation in the data. This is why it is important to explore how the scale and spread of imputed values changes compared to the data.\nOne way to evaluate the appropriateness of the scale of the imputations is to use a scatter plot to explore whether or not the values are appropriate."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-imputations-across-many-variables",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-imputations-across-many-variables",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.6 Evaluating imputations: Across many variables",
+    "text": "35.6 Evaluating imputations: Across many variables\nSo far, we have covered ways to look at individual variables or pairs of variables and their imputed values. However, sometimes you want to look at imputations for many variables. To do this, you need to perform some data munging and re-arranging. This lesson covers how to perform this data wrangling, which can get a little bit hairy when considering its usage in nabular data. The function, shadow_long() gets the data into the right shape for these kinds of visualizations."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#using-simputation-to-impute-data",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#using-simputation-to-impute-data",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.7 Using simputation to impute data",
+    "text": "35.7 Using simputation to impute data\nThere are many imputation packages in R. We are going to focus on using the simputation package, which provides a simple, powerful interface into performing imputations.\nBuilding a good imputation model is super important, but it is a complex topic - there is as much to building a good imputation model as there is for building a good statistical model. In this course, we are going to focus on how to evaluate imputations.\nFirst, we are going to look at using impute_lm() function, which imputes values according to a specified linear model.\nIn this exercise, we are going to apply the previous assessment techniques to data with impute_lm(), and then build upon this imputation method in subsequent lessons."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-6",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-6",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the oceanbuoys dataset:\n\nImpute humidity using wind_ew and wind_ns, and track missing values using add_label_shadow().\nPlot the imputed values for air_temp_c and humidity, putting them on the x and y-axis, respectively, and coloring by any_missing().\n\n\n\nE7.R\n\n# Impute humidity and air temperature using wind_ew and wind_ns, and track missing values\nocean_imp_lm_wind <- oceanbuoys %>% \n    bind_shadow() %>%\n    impute_lm(air_temp_c ~ wind_ew + wind_ns) %>% \n    impute_lm(humidity ~ wind_ew + wind_ns) %>%\n    add_label_shadow()\n    \n# Plot the imputed values for air_temp_c and humidity, colored by missingness\nggplot(ocean_imp_lm_wind, \n       aes(x = air_temp_c, y = humidity, color = any_missing)) +\n  geom_point()"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-and-comparing-imputations",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-and-comparing-imputations",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.8 Evaluating and comparing imputations",
+    "text": "35.8 Evaluating and comparing imputations\nWhen you build up an imputation model, it’s a good idea to compare it to another method. In this lesson, we are going to compare the previously imputed dataset created using impute_lm() to the mean imputed dataset. Both of these datasets are included in this exercise as ocean_imp_lm_wind and ocean_imp_mean respectively."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-7",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-7",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nBind the models together using bind_rows(), placing the ocean_imp_mean model into mean, and ocean_imp_lm_wind into lm_wind.\nLook at the values of air_temp and humidity as a scatter plot, placing air_temp_c on the x-axis, humidity on the y-axis, color by any missings, and faceting by imputation model used (imp_model).\n\n\n\nE8.R\n\n# Bind the models together \nbound_models <- bind_rows(mean = ocean_imp_mean,\n                          lm_wind = ocean_imp_lm_wind,\n                          .id = \"imp_model\")\n\n# Inspect the values of air_temp and humidity as a scatter plot\nggplot(bound_models,\n       aes(x = air_temp_c,\n           y = humidity,\n           color = any_missing)) +\n  geom_point() + \n  facet_wrap(~imp_model)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-imputations-many-models-variables",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-imputations-many-models-variables",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.9 Evaluating imputations (many models & variables)",
+    "text": "35.9 Evaluating imputations (many models & variables)\nWhen you build up an imputation model, it’s a good idea to compare it to another method.\nIn this lesson, we are going to get you to add a final imputation model that contains an extra useful piece of information that helps explain some of the variation in the data. You are then going to compare the values, as previously done in the last lesson."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-8",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-8",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUsing the oceanbuoys dataset:\n\nImpute data using impute_lm(), adding year to the model.\nBind the imputation methods together, placing ocean_imp_mean into mean, ocean_imp_lm_wind into lm_wind, and ocean_imp_lm_wind_year into lm_wind_year.\nLook at the values of air_temp_c (on the x-axis) and humidity (on the y-axis), coloring by any missings, and faceting by imputation model.\n\n\n\nE9.R\n\n# Build a model adding year to the outcome\nocean_imp_lm_wind_year <- bind_shadow(oceanbuoys) %>%\n  impute_lm(air_temp_c ~ wind_ew + wind_ns + year) %>%\n  impute_lm(humidity ~ wind_ew + wind_ns + year) %>%\n  add_label_shadow()\n\n# Bind the mean, lm_wind, and lm_wind_year models together\nbound_models <- bind_rows(mean = ocean_imp_mean,\n                          lm_wind = ocean_imp_lm_wind,\n                          lm_wind_year = ocean_imp_lm_wind_year,\n                          .id = \"imp_model\")\n\n# Explore air_temp and humidity, coloring by any missings, and faceting by imputation model\nggplot(bound_models, aes(x = air_temp_c, y = humidity, color = any_missing)) +\n  geom_point() + facet_wrap(~imp_model)"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#combining-and-comparing-many-imputation-models",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#combining-and-comparing-many-imputation-models",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.10 Combining and comparing many imputation models",
+    "text": "35.10 Combining and comparing many imputation models\nTo evaluate the different imputation methods, we need to put them into a single dataframe. Next, you will compare three different approaches to handling missing data using the dataset, oceanbuoys.\nThe first method is using only the completed cases and is loaded as ocean_cc. The second method is imputing values using a linear model with predictions made using wind and is loaded as ocean_imp_lm_wind. You will create the third imputed dataset, ocean_imp_lm_all, using a linear model and impute the variables sea_temp_c, air_temp_c, and humidity using the variables wind_ew, wind_ns, year, latitude, longitude.\nYou will then bind all of the datasets together (ocean_cc, ocean_imp_lm_wind, and ocean_imp_lm_all), calling it bound_models."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-9",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-9",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate an imputed dataset named ocean_imp_lm_all using a linear model and impute the variables sea_temp_c, air_temp_c, and humidity using the variables wind_ew, wind_ns, year, latitude, longitude.\nBind all of the datasets together into the same object, calling it bound_models.\n\n\n\nE10.R\n\n# Create an imputed dataset using a linear models\nocean_imp_lm_all <- bind_shadow(oceanbuoys) %>%\n  add_label_shadow() %>%\n  impute_lm(sea_temp_c ~ wind_ew + wind_ns + year + latitude + longitude) %>%\n  impute_lm(air_temp_c ~ wind_ew + wind_ns + year + latitude + longitude) %>%\n  impute_lm(humidity ~ wind_ew + wind_ns + year + latitude + longitude)\n\n# Bind the datasets\nbound_models <- bind_rows(cc = ocean_cc,\n                          imp_lm_wind = ocean_imp_lm_wind,\n                          imp_lm_all = ocean_imp_lm_all,\n                          .id = \"imp_model\")\n\n# Look at the models\nbound_models"
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-the-different-parameters-in-the-model",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#evaluating-the-different-parameters-in-the-model",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "35.11 Evaluating the different parameters in the model",
+    "text": "35.11 Evaluating the different parameters in the model\nWe are imputing our data for a reason - we want to analyze the data!\nIn this example, we are interested in predicting sea temperature, so we will build a linear model predicting sea temperature.\nWe will fit this model to each of the datasets we created and then explore the coefficients in the data.\nThe objects from the previous lesson (ocean_cc, ocean_imp_lm_wind, ocean_imp_lm_all, and bound_models) are loaded into the workspace."
+  },
+  {
+    "objectID": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-10",
+    "href": "Dealing_With_Missing_Data_in_R_C4.html#instructions-100-xp-10",
+    "title": "35  Connecting the dots (Imputation)",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate the model summary for each dataset with columns for residuals using residuals, predict, and tidy.\nExplore the coefficients in the model and put the model with the highest estimate for air_temp_c in the object best_model\n\n\n\nE11.R\n\n# Create the model summary for each dataset\nmodel_summary <- bound_models %>% \n  group_by(imp_model) %>%\n  nest() %>%\n  mutate(mod = map(data, ~lm(sea_temp_c ~ air_temp_c + humidity + year, data = .)),\n         res = map(mod, residuals),\n         pred = map(mod, predict),\n         tidy = map(mod, tidy))\n\n# Explore the coefficients in the model\nmodel_summary %>% \n    select(imp_model,tidy) %>%\n    unnest()\nbest_model <- \"imp_lm_all\""
   }
 ]

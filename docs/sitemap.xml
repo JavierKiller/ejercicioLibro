@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/index.html</loc>
-    <lastmod>2023-05-05T19:41:34.776Z</lastmod>
+    <lastmod>2023-05-16T02:43:15.049Z</lastmod>
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/intro.html</loc>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_R_C1.html</loc>
-    <lastmod>2023-03-28T00:37:06.646Z</lastmod>
+    <lastmod>2023-05-16T01:27:55.004Z</lastmod>
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_R_C2.html</loc>
@@ -127,5 +127,21 @@
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Cleaning_Data_in_R_C4.html</loc>
     <lastmod>2023-05-05T22:00:38.188Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Dealing_With_Missing_Data_in_R_C1.html</loc>
+    <lastmod>2023-05-16T01:27:57.601Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Dealing_With_Missing_Data_in_R_C2.html</loc>
+    <lastmod>2023-05-16T01:43:30.392Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Dealing_With_Missing_Data_in_R_C3.html</loc>
+    <lastmod>2023-05-16T02:20:34.921Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Dealing_With_Missing_Data_in_R_C4.html</loc>
+    <lastmod>2023-05-16T02:42:04.755Z</lastmod>
   </url>
 </urlset>

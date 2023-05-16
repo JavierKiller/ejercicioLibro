@@ -60,6 +60,12 @@ book:
         - Reshaping_Data_with_tidyr_C2.qmd 
         - Reshaping_Data_with_tidyr_C3.qmd 
         - Reshaping_Data_with_tidyr_C4.qmd   
+    - part: "Dealing With Missing Data in R"
+      chapters:
+        - Dealing_With_Missing_Data_in_R_C1.qmd 
+        - Dealing_With_Missing_Data_in_R_C2.qmd 
+        - Dealing_With_Missing_Data_in_R_C3.qmd 
+        - Dealing_With_Missing_Data_in_R_C4.qmd   
 
 bibliography: references.bib
 

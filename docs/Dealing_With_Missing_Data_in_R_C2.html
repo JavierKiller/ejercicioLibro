@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Javier E">
-<meta name="dcterms.date" content="2024-03-03">
 
-<title>libro</title>
+<title>libro - 33&nbsp; Wrangling and tidying up missing values</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,7 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./Dealing_With_Missing_Data_in_R_C3.html" rel="next">
+<link href="./Dealing_With_Missing_Data_in_R_C1.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">libro</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Wrangling and tidying up missing values</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -163,7 +162,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -406,17 +405,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Dealing_With_Missing_Data_in_R_C2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Wrangling and tidying up missing values</span></a>
+  <a href="./Dealing_With_Missing_Data_in_R_C2.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Wrangling and tidying up missing values</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Dealing_With_Missing_Data_in_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Testing missing relationships</span></a>
+  <a href="./Dealing_With_Missing_Data_in_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Dealing_With_Missing_Data_in_R_C4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Connecting the dots (Imputation)</span></a>
+  <a href="./Dealing_With_Missing_Data_in_R_C4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></a>
   </div>
 </li>
       </ul>
@@ -430,35 +429,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#using-miss_scan_count" id="toc-using-miss_scan_count" class="nav-link active" data-scroll-target="#using-miss_scan_count"><span class="toc-section-number">33.1</span>  Using miss_scan_count</a></li>
+  <li><a href="#instructions-100-xp" id="toc-instructions-100-xp" class="nav-link" data-scroll-target="#instructions-100-xp">Instructions <code>100 XP</code></a></li>
+  <li><a href="#using-replace_with_na" id="toc-using-replace_with_na" class="nav-link" data-scroll-target="#using-replace_with_na"><span class="toc-section-number">33.2</span>  Using replace_with_na</a></li>
+  <li><a href="#instructions-100-xp-1" id="toc-instructions-100-xp-1" class="nav-link" data-scroll-target="#instructions-100-xp-1">Instructions <code>100 XP</code></a></li>
+  <li><a href="#using-replace_with_na-scoped-variants" id="toc-using-replace_with_na-scoped-variants" class="nav-link" data-scroll-target="#using-replace_with_na-scoped-variants"><span class="toc-section-number">33.3</span>  Using replace_with_na scoped variants</a></li>
+  <li><a href="#instructions-100-xp-2" id="toc-instructions-100-xp-2" class="nav-link" data-scroll-target="#instructions-100-xp-2">Instructions <code>100 XP</code></a></li>
+  <li><a href="#fix-implicit-missings-using-complete" id="toc-fix-implicit-missings-using-complete" class="nav-link" data-scroll-target="#fix-implicit-missings-using-complete"><span class="toc-section-number">33.4</span>  Fix implicit missings using complete()</a></li>
+  <li><a href="#instructions-100-xp-3" id="toc-instructions-100-xp-3" class="nav-link" data-scroll-target="#instructions-100-xp-3">Instructions <code>100 XP</code></a></li>
+  <li><a href="#fix-explicit-missings-using-fill" id="toc-fix-explicit-missings-using-fill" class="nav-link" data-scroll-target="#fix-explicit-missings-using-fill"><span class="toc-section-number">33.5</span>  Fix explicit missings using fill()</a></li>
+  <li><a href="#instructions-100-xp-4" id="toc-instructions-100-xp-4" class="nav-link" data-scroll-target="#instructions-100-xp-4">Instructions <code>100 XP</code></a></li>
+  <li><a href="#using-complete-and-fill-together" id="toc-using-complete-and-fill-together" class="nav-link" data-scroll-target="#using-complete-and-fill-together"><span class="toc-section-number">33.6</span>  Using complete() and fill() together</a></li>
+  <li><a href="#instructions-100-xp-5" id="toc-instructions-100-xp-5" class="nav-link" data-scroll-target="#instructions-100-xp-5">Instructions <code>100 XP</code></a></li>
+  <li><a href="#exploring-missingness-dependence" id="toc-exploring-missingness-dependence" class="nav-link" data-scroll-target="#exploring-missingness-dependence"><span class="toc-section-number">33.7</span>  Exploring missingness dependence</a></li>
+  <li><a href="#instructions-100-xp-6" id="toc-instructions-100-xp-6" class="nav-link" data-scroll-target="#instructions-100-xp-6">Instructions <code>100 XP</code></a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Dealing_With_Missing_Data_in_R_C2.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">libro</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Wrangling and tidying up missing values</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Javier E </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">March 3, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -466,15 +466,205 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This is a Quarto book.</p>
-<p>To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="using-miss_scan_count" class="level2" data-number="33.1">
+<h2 data-number="33.1" class="anchored" data-anchor-id="using-miss_scan_count"><span class="header-section-number">33.1</span> Using miss_scan_count</h2>
+<p>You have a dataset with missing values coded as “N/A”, “missing”, and “na”. But before we go ahead and start replacing these with NA, we should get an idea of how big the problem is.</p>
+<p>Use miss_scan_count to count the possible missings in the dataset, pacman, a dataset of pacman scores, containing three columns:</p>
+<blockquote class="blockquote">
+<p><em>year: the year that person made that score. </em>initial: the initials of the person. *score: the scores of that person.</p>
+</blockquote>
+</section>
+<section id="instructions-100-xp" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp">Instructions <code>100 XP</code></h2>
+<p>For the pacman dataset, use miss_scan_count() to search for strange missing values:</p>
+<ul>
+<li>“N/A”, “missing”, “na”, and ” ” (a single space).</li>
+<li>To search for strange missing values all at once.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E1.R</strong></pre>
 </div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore the strange missing values "N/A"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">miss_scan_count</span>(<span class="at">data =</span> pacman, <span class="at">search =</span> <span class="fu">list</span>(<span class="st">"N/A"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore the strange missing values "missing"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">miss_scan_count</span>(<span class="at">data =</span> pacman, <span class="at">search =</span> <span class="fu">list</span>(<span class="st">"missing"</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore the strange missing values "na"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">miss_scan_count</span>(<span class="at">data =</span> pacman, <span class="at">search =</span> <span class="fu">list</span>(<span class="st">"na"</span>))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore the strange missing values " " (a single space)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">miss_scan_count</span>(<span class="at">data =</span> pacman, <span class="at">search =</span> <span class="fu">list</span>(<span class="st">" "</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore all of the strange missing values, "N/A", "missing", "na", " "</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">miss_scan_count</span>(<span class="at">data =</span> pacman, <span class="at">search =</span> <span class="fu">list</span>(<span class="st">"N/A"</span>, <span class="st">"missing"</span>,<span class="st">"na"</span>, <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-replace_with_na" class="level2" data-number="33.2">
+<h2 data-number="33.2" class="anchored" data-anchor-id="using-replace_with_na"><span class="header-section-number">33.2</span> Using replace_with_na</h2>
+<p>Following on from the previous dataset, we now know that we have a few strange missing values.</p>
+<p>Now, we are going to do something about it, and replace these values with missings (e.g.&nbsp;NA) using the function replace_with_na().</p>
+</section>
+<section id="instructions-100-xp-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
+<p>For the pacman dataset:</p>
+<ul>
+<li>Using replace_with_na(), replace missing values “N/A”, “na”, and “missing” with NA for the year, and score variables.</li>
+<li>Test to see if you have removed all the missing values using miss_scan_count() at the end.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E2.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the top of the pacman data using `head()`</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pacman)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace the strange missing values "N/A", "na", and </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># "missing" with `NA` for the variables, year, and score</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>pacman_clean <span class="ot">&lt;-</span> <span class="fu">replace_with_na</span>(pacman, <span class="at">replace =</span> <span class="fu">list</span>(<span class="at">year =</span> <span class="fu">c</span>(<span class="st">"N/A"</span>, <span class="st">"na"</span>, <span class="st">"missing"</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">score =</span> <span class="fu">c</span>(<span class="st">"N/A"</span>, <span class="st">"na"</span>, <span class="st">"missing"</span>)))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                                        </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Test if `pacman_clean` still has these values in it?</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">miss_scan_count</span>(pacman_clean, <span class="at">search =</span> <span class="fu">list</span>(<span class="st">"N/A"</span>, <span class="st">"na"</span>, <span class="st">"missing"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-replace_with_na-scoped-variants" class="level2" data-number="33.3">
+<h2 data-number="33.3" class="anchored" data-anchor-id="using-replace_with_na-scoped-variants"><span class="header-section-number">33.3</span> Using replace_with_na scoped variants</h2>
+<p>To reduce code repetition when replacing values with NA, use the “scoped variants” of replace_with_na():</p>
+<blockquote class="blockquote">
+<ul>
+<li>replace_with_na_at()</li>
+<li>replace_with_na_if()</li>
+<li>replace_with_na_all()</li>
+</ul>
+</blockquote>
+<p>The syntax of replacement looks like this:</p>
+<blockquote class="blockquote">
+<p>~.x == “N/A”</p>
+</blockquote>
+<p>This replaces all cases that are equal to “N/A”.</p>
+<blockquote class="blockquote">
+<p>~.x %in% c(“N/A”, “missing”, “na”, ” “)</p>
+</blockquote>
+<p>Replaces all cases that have “N/A”, “missing”, “na”, or ” “.</p>
+</section>
+<section id="instructions-100-xp-2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
+<p>For the dataset pacman replace the same special missing values, “N/A”, “missing”, “na”, and ” “:</p>
+<ul>
+<li>year, month, and day, using replace_with_na_at().</li>
+<li>Only character variables using replace_with_na_if().</li>
+<li>All variables using replace_with_na_all().</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E3.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `replace_with_na_at()` to replace with NA</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_with_na_at</span>(pacman,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.vars =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span>), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                   <span class="sc">~</span>.x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"N/A"</span>, <span class="st">"missing"</span>, <span class="st">"na"</span>, <span class="st">" "</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `replace_with_na_if()` to replace with NA the character values using `is.character`</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_with_na_if</span>(pacman,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.predicate =</span> is.character, </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                   <span class="sc">~</span>.x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"N/A"</span>, <span class="st">"missing"</span>, <span class="st">"na"</span>, <span class="st">" "</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `replace_with_na_all()` to replace with NA</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">replace_with_na_all</span>(pacman, <span class="sc">~</span>.x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"N/A"</span>, <span class="st">"missing"</span>, <span class="st">"na"</span>, <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fix-implicit-missings-using-complete" class="level2" data-number="33.4">
+<h2 data-number="33.4" class="anchored" data-anchor-id="fix-implicit-missings-using-complete"><span class="header-section-number">33.4</span> Fix implicit missings using complete()</h2>
+<p>We are going to explore a new dataset, frogger.</p>
+<p>This dataset contains 4 scores per player recorded at different times: morning, afternoon, evening, and late_night.</p>
+<p>Every player should have played 4 games, one at each of these times, but it looks like not every player completed all of these games.</p>
+<p>Use the complete() function to make these implicit missing values explicit</p>
+</section>
+<section id="instructions-100-xp-3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
+<p>For the frogger dataset:</p>
+<ul>
+<li>Use complete() from tidyr on the time and name variables to make implicit missing values explicit.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E4.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the frogger data to have a look at it</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>frogger</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `complete()` on the `time` and `name` variables to  </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># make implicit missing values explicit</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>frogger_tidy <span class="ot">&lt;-</span> frogger <span class="sc">%&gt;%</span> <span class="fu">complete</span>(time, name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fix-explicit-missings-using-fill" class="level2" data-number="33.5">
+<h2 data-number="33.5" class="anchored" data-anchor-id="fix-explicit-missings-using-fill"><span class="header-section-number">33.5</span> Fix explicit missings using fill()</h2>
+<p>One type of missing value that can be obvious to deal with is where the first entry of a group is given, but subsequent entries are marked NA.</p>
+<p>These missing values often result from empty values in spreadsheets to avoid entering multiple names multiple times; as well as for “human readability”.</p>
+<p>This type of problem can be solved by using the fill() function from the tidyr package.</p>
+</section>
+<section id="instructions-100-xp-4" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
+<p>Use fill() to fill down the “name” observations in the frogger dataset.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E5.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the frogger data to have a look at it</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>frogger</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `fill()` to fill down the name variable in the frogger dataset</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>frogger <span class="sc">%&gt;%</span> <span class="fu">fill</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-complete-and-fill-together" class="level2" data-number="33.6">
+<h2 data-number="33.6" class="anchored" data-anchor-id="using-complete-and-fill-together"><span class="header-section-number">33.6</span> Using complete() and fill() together</h2>
+<p>Now let’s put it together!</p>
+<p>Use complete() and fill() together to fix explicit and implicitly missing values in the frogger dataset.</p>
+</section>
+<section id="instructions-100-xp-5" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
+<p>Use fill() and complete() to correctly fill and complete the values in the data so we went up with a dataset that has 5 names, all completed, each with 4 times filled in.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E6.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the frogger data to have a look at it</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>frogger</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Correctly fill() and complete() missing values so that our dataset becomes sensible</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>frogger <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fill</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">complete</span>(name, time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exploring-missingness-dependence" class="level2" data-number="33.7">
+<h2 data-number="33.7" class="anchored" data-anchor-id="exploring-missingness-dependence"><span class="header-section-number">33.7</span> Exploring missingness dependence</h2>
+<p>To learn about the structure of the missingness in data, you can explore how sorting changes how missingness is presented.</p>
+<p>For the oceanbuoys dataset, explore the missingness with vis_miss(), and then arrange by a few different variables</p>
+<p>This is not a definitive process, but it will get you started to ask the right questions of your data. We explore more powerful techniques in the next chapter.</p>
+</section>
+<section id="instructions-100-xp-6" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-6">Instructions <code>100 XP</code></h2>
+<p>Using the dataset, oceanbuoys:</p>
+<ul>
+<li>Arrange by the variables, year, latitude, and wind_ew using vis_miss().</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E6.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange by year</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>oceanbuoys <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(year) <span class="sc">%&gt;%</span> <span class="fu">vis_miss</span>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange by latitude</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>oceanbuoys <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(latitude) <span class="sc">%&gt;%</span> <span class="fu">vis_miss</span>()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Arrange by wind_ew (wind east west)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>oceanbuoys <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(wind_ew) <span class="sc">%&gt;%</span> <span class="fu">vis_miss</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -616,10 +806,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./Dealing_With_Missing_Data_in_R_C1.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Why care about missing data?</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Dealing_With_Missing_Data_in_R_C3.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
