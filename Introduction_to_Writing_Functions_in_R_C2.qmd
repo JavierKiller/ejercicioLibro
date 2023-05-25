@@ -29,7 +29,7 @@ cut_by_quantile(
 
 ## Categorical defaults
 
-When cutting up a numeric vector, you need to worry about what happens if a value lands exactly on a boundary. You can either put this value into a category of the lower interval or the higher interval. That is, you can choose your intervals to include values at the top boundary but not the bottom (in mathematical terminology, "open on the left, closed on the right", or (lo, hi\]). Or you can choose the opposite ("closed on the left, open on the right", or  \ [lo, hi)). cut_by_quantile() should allow these two choices.
+When cutting up a numeric vector, you need to worry about what happens if a value lands exactly on a boundary. You can either put this value into a category of the lower interval or the higher interval. That is, you can choose your intervals to include values at the top boundary but not the bottom (in mathematical terminology, "open on the left, closed on the right", or (lo, hi\]). Or you can choose the opposite ("closed on the left, open on the right", or   \[lo, hi)). cut_by_quantile() should allow these two choices.
 
 The pattern for categorical defaults is:
 
@@ -39,7 +39,7 @@ Free hint: In the console, type head(rank) to see the start of rank()'s definiti
 
 ## Instructions `100 XP` {.unnumbered}
 
-Update the signature of cut_by_quantile() so that the interval_type argument can be "(lo, hi  \ ]" or " \ [lo, hi)". Note the space after each comma. Update the body of cut_by_quantile() to match the interval_type argument. Remove the interval_type argument from the call to cut_by_quantile().
+Update the signature of cut_by_quantile() so that the interval_type argument can be "(lo, hi   \]" or "  \[lo, hi)". Note the space after each comma. Update the body of cut_by_quantile() to match the interval_type argument. Remove the interval_type argument from the call to cut_by_quantile().
 
 ``` {.r filename="E2.R"}
 # Set the categories for interval_type to "(lo, hi]" and "[lo, hi)"

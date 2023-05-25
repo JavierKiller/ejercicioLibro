@@ -10,9 +10,8 @@ Using the any_na() and are_na() tools, identify which values are missing.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a vector, x, which has the values NA, NaN, Inf, ".", and "missing".
-* Pass a vector x to any_na() and are_na() to find and explore which ones are missing.
-
+-   Create a vector, x, which has the values NA, NaN, Inf, ".", and "missing".
+-   Pass a vector x to any_na() and are_na() to find and explore which ones are missing.
 
 ``` {.r filename="E1.R"}
 # Create x, a vector, with values NA, NaN, Inf, ".", and "missing"
@@ -37,10 +36,9 @@ You can also find the complement to these - how many complete values there are -
 
 Using the example dataframe of heights and weights dat_hw:
 
-* Use n_miss() on the dataframe dat_hw to count the total number of missing values the dataframe.
-* Use n_miss() on the variable dat_hw$weight to count the total number of missing values it.
-* Similarly, use prop_miss(), n_complete(), and prop_complete() to get the proportion of missings, and the number and proportion of complete values for the dataframe and the variables.
-
+-   Use n_miss() on the dataframe dat_hw to count the total number of missing values the dataframe.
+-   Use n_miss() on the variable dat_hw\$weight to count the total number of missing values it.
+-   Similarly, use prop_miss(), n_complete(), and prop_complete() to get the proportion of missings, and the number and proportion of complete values for the dataframe and the variables.
 
 ``` {.r filename="E2.R"}
 # Use n_miss() to count the total number of missing values in dat_hw
@@ -66,12 +64,11 @@ Now that you understand the behavior of missing values in R, and how to count th
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Calculate summaries of missingness in the airquality dataset for variables using the miss_var_summary() function.
+-   Calculate summaries of missingness in the airquality dataset for variables using the miss_var_summary() function.
 
-* Calculate summaries of missingness in the airquality dataset for the cases using the miss_case_summary() function.
+-   Calculate summaries of missingness in the airquality dataset for the cases using the miss_case_summary() function.
 
-* Using the airquality dataset, use group_by() to create summaries for each variable and case, by each Month.
-
+-   Using the airquality dataset, use group_by() to create summaries for each variable and case, by each Month.
 
 ``` {.r filename="E3.R"}
 # Summarize missingness in each variable of the `airquality` dataset
@@ -103,9 +100,9 @@ In this exercise we are going to tabulate the number of missings in each case an
 
 For the airquality dataset:
 
- * Tabulate missingness for each variable using miss_var_table().
- * Tabulate missingness for every case using miss_case_table().
- * Combine previous tabulations with dplyr's group_by() function to create tabulations for each variable and case, by each Month.
+-   Tabulate missingness for each variable using miss_var_table().
+-   Tabulate missingness for every case using miss_case_table().
+-   Combine previous tabulations with dplyr's group_by() function to create tabulations for each variable and case, by each Month.
 
 ``` {.r filename="E4.R"}
 # Tabulate missingness in each variable and case of the `airquality` dataset
@@ -133,9 +130,9 @@ Both miss_var_span() and miss_var_run() work with the group_by operator from dpl
 
 Using the pedestrian dataset from naniar:
 
- * Calculate summaries of missingness for the variables in datasets using miss_var_span(), for a span of 4000.
- * Calculate summaries of missingness for the cases in datasets using miss_var_run().
- * Combine with dplyr's group_by operator for month.
+-   Calculate summaries of missingness for the variables in datasets using miss_var_span(), for a span of 4000.
+-   Calculate summaries of missingness for the cases in datasets using miss_var_run().
+-   Combine with dplyr's group_by operator for month.
 
 ``` {.r filename="E5.R"}
 # Calculate the summaries for each run of missingness for the variable, hourly_counts
@@ -163,10 +160,9 @@ The function vis_miss() creates an overview visualization of the missingness in 
 
 Using the riskfactors dataset from naniar:
 
- * Use vis_miss() to visualize the missingness in the data.
- * Use vis_miss() with cluster = TRUE to explore some clusters of missingness.
- * Use vis_miss() and sort the missings with sort_miss to arrange the columns by missingness.
-
+-   Use vis_miss() to visualize the missingness in the data.
+-   Use vis_miss() with cluster = TRUE to explore some clusters of missingness.
+-   Use vis_miss() and sort the missings with sort_miss to arrange the columns by missingness.
 
 ``` {.r filename="E6.R"}
 # Visualize all of the missingness in the `riskfactors`  dataset
@@ -189,12 +185,11 @@ These can be split up into multiple plots with one for each category by choosing
 
 Using the riskfactors dataset:
 
- * Visualize the number of missings in cases using gg_miss_case().
- * Explore the number of missings in cases using gg_miss_case() and facet by the variable education.
- * Visualize the number of missings in variables using gg_miss_var().
- * Explore the number of missings in variables using gg_miss_var() and facet by the variable education.
- * What do you notice in the visualizations of the whole data compared to the faceting?
-
+-   Visualize the number of missings in cases using gg_miss_case().
+-   Explore the number of missings in cases using gg_miss_case() and facet by the variable education.
+-   Visualize the number of missings in variables using gg_miss_var().
+-   Explore the number of missings in variables using gg_miss_var() and facet by the variable education.
+-   What do you notice in the visualizations of the whole data compared to the faceting?
 
 ``` {.r filename="E7.R"}
 # Visualize the number of missings in cases using `gg_miss_case()`
@@ -212,23 +207,22 @@ gg_miss_var(riskfactors)
 gg_miss_var(riskfactors, facet = education)
 ```
 
-
 ## Visualizing missingness patterns
 
 Let's practice a few different ways to visualize patterns of missingness using:
 
-> * gg_miss_upset() to give an overall pattern of missingness.
-> * gg_miss_fct() for a dataset that has a factor of interest: marriage.
-> * and gg_miss_span() to explore the missingness in a time series dataset.
+> -   gg_miss_upset() to give an overall pattern of missingness.
+> -   gg_miss_fct() for a dataset that has a factor of interest: marriage.
+> -   and gg_miss_span() to explore the missingness in a time series dataset.
 
 What do you notice with the missingness and the faceting in the data?
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Explore missingness pattern of the airquality dataset with gg_miss_upset().
-* Explore how the missingness changes in the riskfactors dataset across the marital variable using gg_miss_fct()
-* Explore how the missingness changes in the pedestrian dataset across the hourly_counts variable over a span of 3000 (you can also try different spans from 2000-5000).
-* Explore the impact of month on hourly_counts by including it in the facet argument, with a span of 1000.
+-   Explore missingness pattern of the airquality dataset with gg_miss_upset().
+-   Explore how the missingness changes in the riskfactors dataset across the marital variable using gg_miss_fct()
+-   Explore how the missingness changes in the pedestrian dataset across the hourly_counts variable over a span of 3000 (you can also try different spans from 2000-5000).
+-   Explore the impact of month on hourly_counts by including it in the facet argument, with a span of 1000.
 
 ``` {.r filename="E8.R"}
 # Using the airquality dataset, explore the missingness pattern using gg_miss_upset()
@@ -244,4 +238,3 @@ gg_miss_span(pedestrian, var = hourly_counts, span_every = 3000)
 # and explore how missingness changes for a span of 1000
 gg_miss_span(pedestrian, var = hourly_counts, span_every = 1000, facet = month)
 ```
-

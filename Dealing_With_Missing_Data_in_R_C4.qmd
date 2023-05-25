@@ -16,10 +16,10 @@ First, we are going to impute the data below the range using impute_below_all(),
 
 Using the oceanbuoys data:
 
-* Impute below the range using impute_below_all().
-* Visualize the new missing values for wind_ew on the x-axis and air_temp_c on the y-axis.
-* Impute and track data with bind_shadow(), impute_below_all(), and add_label_shadow().
-* Show the plot and inspect the imputed values.
+-   Impute below the range using impute_below_all().
+-   Visualize the new missing values for wind_ew on the x-axis and air_temp_c on the y-axis.
+-   Impute and track data with bind_shadow(), impute_below_all(), and add_label_shadow().
+-   Show the plot and inspect the imputed values.
 
 ``` {.r filename="E1.R"}
 # Impute the data below the range using `impute_below`.
@@ -49,9 +49,9 @@ To do this, we need to impute the data below the range of the data. This is a sp
 
 Using the oceanbuoys data:
 
- * Impute and track the missing values using bind_shadow() and impute_below_all(), and add_label_shadow().
- * Visualize the missingness in wind and air temperature on the x and y-axis respectively, coloring missing air temp values with air_temp_c_NA.
- * Visualize humidity and air temp on the x and y-axis respectively, coloring any missing cases using the variable any_missing.
+-   Impute and track the missing values using bind_shadow() and impute_below_all(), and add_label_shadow().
+-   Visualize the missingness in wind and air temperature on the x and y-axis respectively, coloring missing air temp values with air_temp_c\_NA.
+-   Visualize humidity and air temp on the x and y-axis respectively, coloring any missing cases using the variable any_missing.
 
 ``` {.r filename="E2.R"}
 # Impute and track the missing values
@@ -81,11 +81,11 @@ One useful task is to evaluate the number of missings in a given variable using 
 
 Using the imputed and tracked data, ocean_imp_track:
 
- * Explore the values of air_temp_c, visualizing the amount of missings with air_temp_c_NA.
- * Explore the missings in humidity using humidity_NA.
- * Explore the missings in air_temp_c according to year, using facet_wrap(~year).
- * explore the missings in humidity according to year, using facet_wrap(~year).
- 
+-   Explore the values of air_temp_c, visualizing the amount of missings with air_temp_c\_NA.
+-   Explore the missings in humidity using humidity_NA.
+-   Explore the missings in air_temp_c according to year, using facet_wrap(\~year).
+-   explore the missings in humidity according to year, using facet_wrap(\~year).
+
 ``` {.r filename="E3.R"}
 # Explore the values of air_temp_c, visualizing the amount of missings with `air_temp_c_NA`.
 p <- ggplot(ocean_imp_track, aes(x = air_temp_c, fill = air_temp_c_NA)) + geom_histogram()
@@ -110,10 +110,10 @@ In this exercise we are going to explore how the mean imputation method works us
 
 For the oceanbuoys dataset:
 
- * Impute the mean value with impute_mean_all(), and track these imputations with add_label_shadow().
- * Explore the imputed values in humidity (humidity) using a box plot.
- * Explore the imputed values in air temperature (air_temp_c) using a box plot.
- 
+-   Impute the mean value with impute_mean_all(), and track these imputations with add_label_shadow().
+-   Explore the imputed values in humidity (humidity) using a box plot.
+-   Explore the imputed values in air temperature (air_temp_c) using a box plot.
+
 ``` {.r filename="E4.R"}
 # Impute the mean value and track the imputations 
 ocean_imp_mean <- bind_shadow(oceanbuoys) %>% 
@@ -141,9 +141,9 @@ One way to evaluate the appropriateness of the scale of the imputations is to us
 
 Using the data with already imputed values, ocean_imp_mean:
 
- * Explore imputations in air temperature (on the x-axis) and humidity (on the y-axis) using a scatter plot, remembering to use color = any_missing.
- * Build upon this previous visualization by faceting by year.
- 
+-   Explore imputations in air temperature (on the x-axis) and humidity (on the y-axis) using a scatter plot, remembering to use color = any_missing.
+-   Build upon this previous visualization by faceting by year.
+
 ``` {.r filename="E5.R"}
 # Explore imputations in air temperature and humidity,  
 # coloring by the variable, any_missing
@@ -165,9 +165,9 @@ So far, we have covered ways to look at individual variables or pairs of variabl
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Use the shadow_long() to gather the imputed data ocean_imp_mean, focussing on humidity and air_temp_c.
-* Print the data and inspect it.
-* Explore the imputations in a histogram using geom_histogram(), placing the values on the x-axis, filling by their missingness and faceting by variable
+-   Use the shadow_long() to gather the imputed data ocean_imp_mean, focussing on humidity and air_temp_c.
+-   Print the data and inspect it.
+-   Explore the imputations in a histogram using geom_histogram(), placing the values on the x-axis, filling by their missingness and faceting by variable
 
 ``` {.r filename="E6.R"}
 # Gather the imputed data 
@@ -194,13 +194,12 @@ First, we are going to look at using impute_lm() function, which imputes values 
 
 In this exercise, we are going to apply the previous assessment techniques to data with impute_lm(), and then build upon this imputation method in subsequent lessons.
 
-
 ## Instructions `100 XP` {.unnumbered}
 
 Using the oceanbuoys dataset:
 
- * Impute humidity using wind_ew and wind_ns, and track missing values using add_label_shadow().
- * Plot the imputed values for air_temp_c and humidity, putting them on the x and y-axis, respectively, and coloring by any_missing().
+-   Impute humidity using wind_ew and wind_ns, and track missing values using add_label_shadow().
+-   Plot the imputed values for air_temp_c and humidity, putting them on the x and y-axis, respectively, and coloring by any_missing().
 
 ``` {.r filename="E7.R"}
 # Impute humidity and air temperature using wind_ew and wind_ns, and track missing values
@@ -220,11 +219,10 @@ ggplot(ocean_imp_lm_wind,
 
 When you build up an imputation model, it's a good idea to compare it to another method. In this lesson, we are going to compare the previously imputed dataset created using impute_lm() to the mean imputed dataset. Both of these datasets are included in this exercise as ocean_imp_lm_wind and ocean_imp_mean respectively.
 
-
 ## Instructions `100 XP` {.unnumbered}
 
-* Bind the models together using bind_rows(), placing the ocean_imp_mean model into mean, and ocean_imp_lm_wind into lm_wind.
-* Look at the values of air_temp and humidity as a scatter plot, placing air_temp_c on the x-axis, humidity on the y-axis, color by any missings, and faceting by imputation model used (imp_model).
+-   Bind the models together using bind_rows(), placing the ocean_imp_mean model into mean, and ocean_imp_lm_wind into lm_wind.
+-   Look at the values of air_temp and humidity as a scatter plot, placing air_temp_c on the x-axis, humidity on the y-axis, color by any missings, and faceting by imputation model used (imp_model).
 
 ``` {.r filename="E8.R"}
 # Bind the models together 
@@ -247,14 +245,13 @@ When you build up an imputation model, it's a good idea to compare it to another
 
 In this lesson, we are going to get you to add a final imputation model that contains an extra useful piece of information that helps explain some of the variation in the data. You are then going to compare the values, as previously done in the last lesson.
 
-
 ## Instructions `100 XP` {.unnumbered}
 
 Using the oceanbuoys dataset:
 
- * Impute data using impute_lm(), adding year to the model.
- * Bind the imputation methods together, placing ocean_imp_mean into mean, ocean_imp_lm_wind into lm_wind, and ocean_imp_lm_wind_year into lm_wind_year.
- * Look at the values of air_temp_c (on the x-axis) and humidity (on the y-axis), coloring by any missings, and faceting by imputation model.
+-   Impute data using impute_lm(), adding year to the model.
+-   Bind the imputation methods together, placing ocean_imp_mean into mean, ocean_imp_lm_wind into lm_wind, and ocean_imp_lm_wind_year into lm_wind_year.
+-   Look at the values of air_temp_c (on the x-axis) and humidity (on the y-axis), coloring by any missings, and faceting by imputation model.
 
 ``` {.r filename="E9.R"}
 # Build a model adding year to the outcome
@@ -278,17 +275,14 @@ ggplot(bound_models, aes(x = air_temp_c, y = humidity, color = any_missing)) +
 
 To evaluate the different imputation methods, we need to put them into a single dataframe. Next, you will compare three different approaches to handling missing data using the dataset, oceanbuoys.
 
-The first method is using only the completed cases and is loaded as ocean_cc.
-The second method is imputing values using a linear model with predictions made using wind and is loaded as ocean_imp_lm_wind.
-You will create the third imputed dataset, ocean_imp_lm_all, using a linear model and impute the variables sea_temp_c, air_temp_c, and humidity using the variables wind_ew, wind_ns, year, latitude, longitude.
+The first method is using only the completed cases and is loaded as ocean_cc. The second method is imputing values using a linear model with predictions made using wind and is loaded as ocean_imp_lm_wind. You will create the third imputed dataset, ocean_imp_lm_all, using a linear model and impute the variables sea_temp_c, air_temp_c, and humidity using the variables wind_ew, wind_ns, year, latitude, longitude.
 
 You will then bind all of the datasets together (ocean_cc, ocean_imp_lm_wind, and ocean_imp_lm_all), calling it bound_models.
 
-
 ## Instructions `100 XP` {.unnumbered}
 
-* Create an imputed dataset named ocean_imp_lm_all using a linear model and impute the variables sea_temp_c, air_temp_c, and humidity using the variables wind_ew, wind_ns, year, latitude, longitude.
-* Bind all of the datasets together into the same object, calling it bound_models.
+-   Create an imputed dataset named ocean_imp_lm_all using a linear model and impute the variables sea_temp_c, air_temp_c, and humidity using the variables wind_ew, wind_ns, year, latitude, longitude.
+-   Bind all of the datasets together into the same object, calling it bound_models.
 
 ``` {.r filename="E10.R"}
 # Create an imputed dataset using a linear models
@@ -318,11 +312,10 @@ We will fit this model to each of the datasets we created and then explore the c
 
 The objects from the previous lesson (ocean_cc, ocean_imp_lm_wind, ocean_imp_lm_all, and bound_models) are loaded into the workspace.
 
-
 ## Instructions `100 XP` {.unnumbered}
 
-* Create the model summary for each dataset with columns for residuals using residuals, predict, and tidy.
-* Explore the coefficients in the model and put the model with the highest estimate for air_temp_c in the object best_model
+-   Create the model summary for each dataset with columns for residuals using residuals, predict, and tidy.
+-   Explore the coefficients in the model and put the model with the highest estimate for air_temp_c in the object best_model
 
 ``` {.r filename="E11.R"}
 # Create the model summary for each dataset
@@ -337,7 +330,6 @@ model_summary <- bound_models %>%
 # Explore the coefficients in the model
 model_summary %>% 
     select(imp_model,tidy) %>%
-	unnest()
+    unnest()
 best_model <- "imp_lm_all"
 ```
-

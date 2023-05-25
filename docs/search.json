@@ -4408,5 +4408,1293 @@
     "title": "35  Connecting the dots (Imputation)",
     "section": "Instructions 100 XP",
     "text": "Instructions 100 XP\n\nCreate the model summary for each dataset with columns for residuals using residuals, predict, and tidy.\nExplore the coefficients in the model and put the model with the highest estimate for air_temp_c in the object best_model\n\n\n\nE11.R\n\n# Create the model summary for each dataset\nmodel_summary <- bound_models %>% \n  group_by(imp_model) %>%\n  nest() %>%\n  mutate(mod = map(data, ~lm(sea_temp_c ~ air_temp_c + humidity + year, data = .)),\n         res = map(mod, residuals),\n         pred = map(mod, predict),\n         tidy = map(mod, tidy))\n\n# Explore the coefficients in the model\nmodel_summary %>% \n    select(imp_model,tidy) %>%\n    unnest()\nbest_model <- \"imp_lm_all\""
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#r",
+    "href": "Cluster_Analysis_in_R_C4.html#r",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "39.1 r",
+    "text": "39.1 r"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#instructions-100-xp",
+    "href": "Cluster_Analysis_in_R_C4.html#instructions-100-xp",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE1.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#section",
+    "href": "Cluster_Analysis_in_R_C4.html#section",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "39.2 ",
+    "text": "39.2"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-1",
+    "href": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-1",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE2.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#section-1",
+    "href": "Cluster_Analysis_in_R_C4.html#section-1",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "39.3 ",
+    "text": "39.3"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-2",
+    "href": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-2",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE3.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#section-2",
+    "href": "Cluster_Analysis_in_R_C4.html#section-2",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "39.4 ",
+    "text": "39.4"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-3",
+    "href": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-3",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE4.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#section-3",
+    "href": "Cluster_Analysis_in_R_C4.html#section-3",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "39.5 ",
+    "text": "39.5"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-4",
+    "href": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-4",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE5.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#section-4",
+    "href": "Cluster_Analysis_in_R_C4.html#section-4",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "39.6 ",
+    "text": "39.6"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-5",
+    "href": "Cluster_Analysis_in_R_C4.html#instructions-100-xp-5",
+    "title": "39  Case Study: National Occupational Mean Wage",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#r",
+    "href": "Cluster_Analysis_in_R_C1.html#r",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "36.1 r",
+    "text": "36.1 r"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#instructions-100-xp",
+    "href": "Cluster_Analysis_in_R_C1.html#instructions-100-xp",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE1.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#section",
+    "href": "Cluster_Analysis_in_R_C1.html#section",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "36.2 ",
+    "text": "36.2"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-1",
+    "href": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-1",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE2.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#section-1",
+    "href": "Cluster_Analysis_in_R_C1.html#section-1",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "36.3 ",
+    "text": "36.3"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-2",
+    "href": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-2",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE3.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#section-2",
+    "href": "Cluster_Analysis_in_R_C1.html#section-2",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "36.4 ",
+    "text": "36.4"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-3",
+    "href": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-3",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE4.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#section-3",
+    "href": "Cluster_Analysis_in_R_C1.html#section-3",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "36.5 ",
+    "text": "36.5"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-4",
+    "href": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-4",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE5.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#section-4",
+    "href": "Cluster_Analysis_in_R_C1.html#section-4",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "36.6 ",
+    "text": "36.6"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-5",
+    "href": "Cluster_Analysis_in_R_C1.html#instructions-100-xp-5",
+    "title": "36  Calculating Distance Between Observations",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#r",
+    "href": "Cluster_Analysis_in_R_C2.html#r",
+    "title": "37  Hierarchical Clustering",
+    "section": "37.1 r",
+    "text": "37.1 r"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#instructions-100-xp",
+    "href": "Cluster_Analysis_in_R_C2.html#instructions-100-xp",
+    "title": "37  Hierarchical Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE1.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#section",
+    "href": "Cluster_Analysis_in_R_C2.html#section",
+    "title": "37  Hierarchical Clustering",
+    "section": "37.2 ",
+    "text": "37.2"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-1",
+    "href": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-1",
+    "title": "37  Hierarchical Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE2.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#section-1",
+    "href": "Cluster_Analysis_in_R_C2.html#section-1",
+    "title": "37  Hierarchical Clustering",
+    "section": "37.3 ",
+    "text": "37.3"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-2",
+    "href": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-2",
+    "title": "37  Hierarchical Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE3.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#section-2",
+    "href": "Cluster_Analysis_in_R_C2.html#section-2",
+    "title": "37  Hierarchical Clustering",
+    "section": "37.4 ",
+    "text": "37.4"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-3",
+    "href": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-3",
+    "title": "37  Hierarchical Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE4.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#section-3",
+    "href": "Cluster_Analysis_in_R_C2.html#section-3",
+    "title": "37  Hierarchical Clustering",
+    "section": "37.5 ",
+    "text": "37.5"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-4",
+    "href": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-4",
+    "title": "37  Hierarchical Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE5.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#section-4",
+    "href": "Cluster_Analysis_in_R_C2.html#section-4",
+    "title": "37  Hierarchical Clustering",
+    "section": "37.6 ",
+    "text": "37.6"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-5",
+    "href": "Cluster_Analysis_in_R_C2.html#instructions-100-xp-5",
+    "title": "37  Hierarchical Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#r",
+    "href": "Cluster_Analysis_in_R_C3.html#r",
+    "title": "38  K-means Clustering",
+    "section": "38.1 r",
+    "text": "38.1 r"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#instructions-100-xp",
+    "href": "Cluster_Analysis_in_R_C3.html#instructions-100-xp",
+    "title": "38  K-means Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE1.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#section",
+    "href": "Cluster_Analysis_in_R_C3.html#section",
+    "title": "38  K-means Clustering",
+    "section": "38.2 ",
+    "text": "38.2"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-1",
+    "href": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-1",
+    "title": "38  K-means Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE2.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#section-1",
+    "href": "Cluster_Analysis_in_R_C3.html#section-1",
+    "title": "38  K-means Clustering",
+    "section": "38.3 ",
+    "text": "38.3"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-2",
+    "href": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-2",
+    "title": "38  K-means Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE3.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#section-2",
+    "href": "Cluster_Analysis_in_R_C3.html#section-2",
+    "title": "38  K-means Clustering",
+    "section": "38.4 ",
+    "text": "38.4"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-3",
+    "href": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-3",
+    "title": "38  K-means Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE4.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#section-3",
+    "href": "Cluster_Analysis_in_R_C3.html#section-3",
+    "title": "38  K-means Clustering",
+    "section": "38.5 ",
+    "text": "38.5"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-4",
+    "href": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-4",
+    "title": "38  K-means Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE5.R"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#section-4",
+    "href": "Cluster_Analysis_in_R_C3.html#section-4",
+    "title": "38  K-means Clustering",
+    "section": "38.6 ",
+    "text": "38.6"
+  },
+  {
+    "objectID": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-5",
+    "href": "Cluster_Analysis_in_R_C3.html#instructions-100-xp-5",
+    "title": "38  K-means Clustering",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#null-defaults",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#null-defaults",
+    "title": "13  All About Arguments",
+    "section": "13.1 NULL defaults",
+    "text": "13.1 NULL defaults\nThe cut() function used by cut_by_quantile() can automatically provide sensible labels for each category. The code to generate these labels is pretty complicated, so rather than appearing in the function signature directly, its labels argument defaults to NULL, and the calculation details are shown on the ?cut help page."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp",
+    "title": "13  All About Arguments",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUpdate the definition of cut_by_quantile() so that the labels argument defaults to NULL. Remove the labels argument from the call to cut_by_quantile().\n\n\nE1.R\n\n# Set the default for labels to NULL\ncut_by_quantile <- function(x, n = 5, na.rm = FALSE, labels=NULL, \ninterval_type) {\n  probs <- seq(0, 1, length.out = n + 1)\n  qtiles <- quantile(x, probs, na.rm = na.rm, names = FALSE)\n  right <- switch(interval_type, \"(lo, hi]\" = TRUE, \"[lo, hi)\" = FALSE)\n  cut(x, qtiles, labels = labels, right = right, include.lowest = TRUE)\n}\n\n# Remove the labels argument from the call\ncut_by_quantile(\n  n_visits,\n  interval_type = \"(lo, hi]\"\n)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#categorical-defaults",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#categorical-defaults",
+    "title": "13  All About Arguments",
+    "section": "13.2 Categorical defaults",
+    "text": "13.2 Categorical defaults\nWhen cutting up a numeric vector, you need to worry about what happens if a value lands exactly on a boundary. You can either put this value into a category of the lower interval or the higher interval. That is, you can choose your intervals to include values at the top boundary but not the bottom (in mathematical terminology, “open on the left, closed on the right”, or (lo, hi]). Or you can choose the opposite (“closed on the left, open on the right”, or   [lo, hi)). cut_by_quantile() should allow these two choices.\nThe pattern for categorical defaults is:\n\nfunction(cat_arg = c(“choice1”, “choice2”)) { cat_arg <- match.arg(cat_arg)}\n\nFree hint: In the console, type head(rank) to see the start of rank()’s definition, and look at the ties.method argument."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-1",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-1",
+    "title": "13  All About Arguments",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nUpdate the signature of cut_by_quantile() so that the interval_type argument can be “(lo, hi   ]” or “  [lo, hi)”. Note the space after each comma. Update the body of cut_by_quantile() to match the interval_type argument. Remove the interval_type argument from the call to cut_by_quantile().\n\n\nE2.R\n\n# Set the categories for interval_type to \"(lo, hi]\" and \"[lo, hi)\"\ncut_by_quantile <- function(x, n = 5, na.rm = FALSE, labels = NULL, \ninterval_type=  c(\"(lo, hi]\", \"[lo, hi)\")) {\n  # Match the interval_type argument\n  interval_type <- match.arg(interval_type)\n  probs <- seq(0, 1, length.out = n + 1)\n  qtiles <- quantile(x, probs, na.rm = na.rm, names = FALSE)\n  right <- switch(interval_type, \"(lo, hi]\" = TRUE, \"[lo, hi)\" = FALSE)\n  cut(x, qtiles, labels = labels, right = right, include.lowest = TRUE)\n}\n# Remove the interval_type argument from the call\ncut_by_quantile(n_visits)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#harmonic-mean",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#harmonic-mean",
+    "title": "13  All About Arguments",
+    "section": "13.3 Harmonic mean",
+    "text": "13.3 Harmonic mean\nThe harmonic mean is the reciprocal of the arithmetic mean of the reciprocal of the data. That is\nThe harmonic mean is often used to average ratio data. You’ll be using it on the price/earnings ratio of stocks in the Standard and Poor’s 500 index, provided as std_and_poor500. Price/earnings ratio is a measure of how expensive a stock is.\nThe dplyr package is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-2",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-2",
+    "title": "13  All About Arguments",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nLook at std_and_poor500 (you’ll need this later). Write a function, get_reciprocal, to get the reciprocal of an input x. Its only argument should be x, and it should return one over x.\nWrite a function, calc_harmonic_mean(), that calculates the harmonic mean of its only input, x.\nUsing std_and_poor500, group by sector, and summarize to calculate the harmonic mean of the price/earning ratios in the pe_ratio column.\n\n\n\nE3.R\n\n# Look at the Standard and Poor 500 data\nglimpse(std_and_poor500)\n\n# Write a function to calculate the reciprocal\nget_reciprocal <- function(x){\n  1/x \n}\n\n# From previous step\nget_reciprocal <- function(x) {\n  1 / x\n}\n\n# Write a function to calculate the harmonic mean\ncalc_harmonic_mean <- function(x) {\n  x %>%\n    get_reciprocal() %>%\n    mean() %>%\n    get_reciprocal()\n}\n\n# From previous steps\nget_reciprocal <- function(x) {\n  1 / x\n}\ncalc_harmonic_mean <- function(x) {\n  x %>%\n    get_reciprocal() %>%\n    mean() %>%\n    get_reciprocal()\n}\n\nstd_and_poor500 %>% \n  # Group by sector\n  group_by(sector) %>% \n  # Summarize, calculating harmonic mean of P/E ratio\n  summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio))"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#dealing-with-missing-values",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#dealing-with-missing-values",
+    "title": "13  All About Arguments",
+    "section": "13.4 Dealing with missing values",
+    "text": "13.4 Dealing with missing values\nIn the last exercise, many sectors had an NA value for the harmonic mean. It would be useful for your function to be able to remove missing values before calculating.\nRather than writing your own code for this, you can outsource this functionality to mean().\nThe dplyr package is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-3",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-3",
+    "title": "13  All About Arguments",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nModify the signature and body of calc_harmonic_mean() so it has an na.rm argument, defaulting to false, that gets passed to mean().\nUsing std_and_poor500, group by sector, and summarize to calculate the harmonic mean of the price/earning ratios in the pe_ratio column, removing missing values.\n\n\n\nE4.R\n\n# Add an na.rm arg with a default, and pass it to mean()\ncalc_harmonic_mean <- function(x,na.rm = FALSE) {\n  x %>%\n    get_reciprocal() %>%\n    mean(na.rm =na.rm) %>%\n    get_reciprocal()\n}\n\n# From previous step\ncalc_harmonic_mean <- function(x, na.rm = FALSE) {\n  x %>%\n    get_reciprocal() %>%\n    mean(na.rm = na.rm) %>%\n    get_reciprocal()\n}\n\nstd_and_poor500 %>% \n  # Group by sector\n  group_by(sector) %>% \n  # Summarize, calculating harmonic mean of P/E ratio\n  summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio,\n   na.rm = TRUE))"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#passing-arguments-with",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#passing-arguments-with",
+    "title": "13  All About Arguments",
+    "section": "13.5 Passing arguments with …",
+    "text": "13.5 Passing arguments with …\nRather than explicitly giving calc_harmonic_mean() and na.rm argument, you can use … to simply “pass other arguments” to mean().\nThe dplyr package is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-4",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-4",
+    "title": "13  All About Arguments",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nReplace the na.rm argument with … in the signature and body of calc_harmonic_mean().\nUsing std_and_poor500, group by sector, and summarize to calculate the harmonic mean of the price/earning ratios in the pe_ratio column, removing missing values.\n\n\n\nE5.R\n\n# Swap na.rm arg for ... in signature and body\ncalc_harmonic_mean <- function(x, ...) {\n  x %>%\n    get_reciprocal() %>%\n    mean(...) %>%\n    get_reciprocal()\n}\ncalc_harmonic_mean(x = c(1, NA, 3, NA, 5))\n\ncalc_harmonic_mean <- function(x, ...) {\n  x %>%\n    get_reciprocal() %>%\n    mean(...) %>%\n    get_reciprocal()\n}\n\nstd_and_poor500 %>% \n  # Group by sector\n  group_by(sector) %>% \n  # Summarize, calculating harmonic mean of P/E ratio\n  summarize(hmean_pe_ratio = calc_harmonic_mean(pe_ratio,\n   na.rm = TRUE))"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#throwing-errors-with-bad-arguments",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#throwing-errors-with-bad-arguments",
+    "title": "13  All About Arguments",
+    "section": "13.6 Throwing errors with bad arguments",
+    "text": "13.6 Throwing errors with bad arguments\nIf a user provides a bad input to a function, the best course of action is to throw an error letting them know. The two rules are\nThrow the error message as soon as you realize there is a problem (typically at the start of the function). Make the error message easily understandable. You can use the assert_*() functions from assertive to check inputs and throw errors when they fail."
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-5",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-5",
+    "title": "13  All About Arguments",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd a line to the body of calc_harmonic_mean() to assert that x is numeric.\nLook at what happens when you pass a character argument to calc_harmonic_mean().\n\n\n\nE6.R\n\nalc_harmonic_mean <- function(x, na.rm = FALSE) {\n  # Assert that x is numeric\n  assert_is_numeric(x)\n  x %>%\n    get_reciprocal() %>%\n    mean(na.rm = na.rm) %>%\n    get_reciprocal()\n}\n\n# See what happens when you pass it strings\ncalc_harmonic_mean(std_and_poor500$sector)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#custom-error-logic",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#custom-error-logic",
+    "title": "13  All About Arguments",
+    "section": "13.7 Custom error logic",
+    "text": "13.7 Custom error logic\nSometimes the assert_*() functions in assertive don’t give the most informative error message. For example, the assertions that check if a number is in a numeric range will tell the user that a value is out of range, but the won’t say why that’s a problem. In that case, you can use the is_*() functions in conjunction with messages, warnings, or errors to define custom feedback.\nThe harmonic mean only makes sense when x has all positive values. (Try calculating the harmonic mean of one and minus one to see why.) Make sure your users know this!"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-6",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#instructions-100-xp-6",
+    "title": "13  All About Arguments",
+    "section": "13.8 Instructions 100 XP",
+    "text": "13.8 Instructions 100 XP\n\nIf any values of x are non-positive (ignoring NAs) then throw an error.\nLook at what happens when you pass a character argument to calc_harmonic_mean().\n\n\n\nE7.R\n\ncalc_harmonic_mean <- function(x, na.rm = FALSE) {\n  assert_is_numeric(x)\n  # Check if any values of x are non-positive\n  if(any(is_non_positive(x), na.rm = TRUE)) {\n    # Throw an error\n    stop(\"x contains non-positive values, so the harmonic mean makes no sense.\")\n  }\n  x %>%\n    get_reciprocal() %>%\n    mean(na.rm = na.rm) %>%\n    get_reciprocal()\n}\n\n# See what happens when you pass it negative numbers\ncalc_harmonic_mean(std_and_poor500$pe_ratio - 20)"
+  },
+  {
+    "objectID": "Introduction_to_Writing_Functions_in_R_C2.html#fixing-function-arguments",
+    "href": "Introduction_to_Writing_Functions_in_R_C2.html#fixing-function-arguments",
+    "title": "13  All About Arguments",
+    "section": "13.9 Fixing function arguments",
+    "text": "13.9 Fixing function arguments\nThe harmonic mean function is almost complete. However, you still need to provide some checks on the na.rm argument. This time, rather than throwing errors when the input is in an incorrect form, you are going to try to fix it.\nna.rm should be a logical vector with one element (that is, TRUE, or FALSE).\nThe assertive package is loaded for you.\nInstructions 100 XP\n\nUpdate calc_harmonic_mean() to fix the na.rm argument by using use_first() to select the * first na.rm element, and coerce_to() to change it to logical.\n\n\n\nE8.R\n\n# Update the function definition to fix the na.rm argument\ncalc_harmonic_mean <- function(x, na.rm = FALSE) {\n  assert_is_numeric(x)\n  if(any(is_non_positive(x), na.rm = TRUE)) {\n    stop(\"x contains non-positive values, so the harmonic mean makes no sense.\")\n  }\n  # Use the first value of na.rm, and coerce to logical\n  na.rm <- coerce_to(use_first(na.rm), target_class  = \"logical\")\n  x %>%\n    get_reciprocal() %>%\n    mean(na.rm = na.rm) %>%\n    get_reciprocal()\n}\n\n# See what happens when you pass it malformed na.rm\ncalc_harmonic_mean(std_and_poor500$pe_ratio, na.rm = 1:5)"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#not-a-member",
+    "href": "Cleaning_Data_in_R_C2.html#not-a-member",
+    "title": "25  Categorical and Text Data",
+    "section": "25.1 Not a member",
+    "text": "25.1 Not a member\nNow that you’ve practiced identifying membership constraint problems, it’s time to fix these problems in a new dataset. Throughout this chapter, you’ll be working with a dataset called sfo_survey, containing survey responses from passengers taking flights from San Francisco International Airport (SFO). Participants were asked questions about the airport’s cleanliness, wait times, safety, and their overall satisfaction.\nThere were a few issues during data collection that resulted in some inconsistencies in the dataset. In this exercise, you’ll be working with the dest_size column, which categorizes the size of the destination airport that the passengers were flying to. A data frame called dest_sizes is available that contains all the possible destination sizes. Your mission is to find rows with invalid dest_sizes and remove them from the data frame.\ndplyr has been loaded and sfo_survey and dest_sizes are available."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#instructions-100-xp",
+    "href": "Cleaning_Data_in_R_C2.html#instructions-100-xp",
+    "title": "25  Categorical and Text Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCount the number of occurrences of each dest_size in sfo_survey.\nUse the correct type of filtering join on the sfo_survey data frame and the dest_sizes data frame to get the rows of sfo_survey with invalid dest_size values.\nGet the id, airline, destination, and dest_size columns.\nUse the correct filtering join on sfo_survey and dest_sizes to get the rows of sfo_survey that have a valid dest_size.\nCount the number of times that each dest_size occurs to make sure there are no invalid values left behind."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#question",
+    "href": "Cleaning_Data_in_R_C2.html#question",
+    "title": "25  Categorical and Text Data",
+    "section": "Question",
+    "text": "Question\nTake a closer look at your output. Which dest_size values appear to violate membership constraints?\nPossible Answers\n“huge”, “Small”, “Large”, and “Hub”.\n“huge”, ” Small “,”Large “, and” Hub”. Respuesta\n“Small”, “Medium”, “Large”, and “Hub”.\n\n\nE1.R\n\n# Count the number of occurrences of dest_size\nsfo_survey %>%\n  count(dest_size)\n  \n\n# Find bad dest_size rows\nsfo_survey %>% \n  # Join with dest_sizes data frame to get bad dest_size rows\n  anti_join(dest_sizes, by = \"dest_size\") %>%\n  # Select id, airline, destination, and dest_size cols\n  select(id, airline, destination, dest_size)\n  \n# Remove bad dest_size rows\nsfo_survey %>% \n  # Join with dest_sizes\n  semi_join(dest_sizes, by = \"dest_size\") %>%\n  # Count the number of each dest_size\n  count(dest_size)"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#identifying-inconsistency",
+    "href": "Cleaning_Data_in_R_C2.html#identifying-inconsistency",
+    "title": "25  Categorical and Text Data",
+    "section": "25.2 Identifying inconsistency",
+    "text": "25.2 Identifying inconsistency\nIn the video exercise, you learned about different kinds of inconsistencies that can occur within categories, making it look like a variable has more categories than it should.\nIn this exercise, you’ll continue working with the sfo_survey dataset. You’ll examine the dest_size column again as well as the cleanliness column and determine what kind of issues, if any, these two categorical variables face.\ndplyr and is loaded and sfo_survey is available."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#instructions-100-xp-1",
+    "href": "Cleaning_Data_in_R_C2.html#instructions-100-xp-1",
+    "title": "25  Categorical and Text Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCount the number of occurrences of each category of the dest_size variable of sfo_survey.\nCount the number of occurrences of each category of the cleanliness variable of sfo_survey."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#question-1",
+    "href": "Cleaning_Data_in_R_C2.html#question-1",
+    "title": "25  Categorical and Text Data",
+    "section": "Question",
+    "text": "Question\nSelect the statement that most accurately describes the categories in the dest_size variable of sfo_survey.\nPossible Answers\nThe categories in dest_size have no inconsistencies.\nThe categories in dest_size have inconsistent capitalization.\nThe categories in dest_size have inconsistent white space.\nThe categories in dest_size have inconsistent capitalization and white space. Respuesta"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#question-2",
+    "href": "Cleaning_Data_in_R_C2.html#question-2",
+    "title": "25  Categorical and Text Data",
+    "section": "Question",
+    "text": "Question\nSelect the statement that most accurately describes the categories in the cleanliness variable of sfo_survey.\nPossible Answers\nThe categories in cleanliness have no inconsistencies.\nThe categories in cleanliness have inconsistent capitalization. Respuesta\nThe categories in cleanliness have inconsistent white space.\nThe categories in cleanliness have inconsistent capitalization and white space.\n\n\nE2.R\n\n# Count dest_size\nsfo_survey %>%\n  count(dest_size)\n\n\n# Count dest_size\nsfo_survey %>%\n  count(dest_size)\n\n# Count cleanliness\nsfo_survey %>%\n  count(cleanliness)"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#correcting-inconsistency",
+    "href": "Cleaning_Data_in_R_C2.html#correcting-inconsistency",
+    "title": "25  Categorical and Text Data",
+    "section": "25.3 Correcting inconsistency",
+    "text": "25.3 Correcting inconsistency\nNow that you’ve identified that dest_size has whitespace inconsistencies and cleanliness has capitalization inconsistencies, you’ll use the new tools at your disposal to fix the inconsistent values in sfo_survey instead of removing the data points entirely, which could add bias to your dataset if more than 5% of the data points need to be dropped.\ndplyr and stringr are loaded and sfo_survey is available."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#instructions-100-xp-2",
+    "href": "Cleaning_Data_in_R_C2.html#instructions-100-xp-2",
+    "title": "25  Categorical and Text Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd a column to sfo_survey called dest_size_trimmed that contains the values in the dest_size column with all leading and trailing whitespace removed.\nAdd another column called cleanliness_lower that contains the values in the cleanliness column converted to all lowercase.\nCount the number of occurrences of each category in dest_size_trimmed.\nCount the number of occurrences of each category in cleanliness_lower.\n\n\n\nE3.R\n\n# Add new columns to sfo_survey\nsfo_survey <- sfo_survey %>%\n  # dest_size_trimmed: dest_size without whitespace\n  mutate(dest_size_trimmed = str_trim(dest_size),\n         # cleanliness_lower: cleanliness converted to lowercase\n         cleanliness_lower = str_to_lower(cleanliness))\n\n# Count values of dest_size_trimmed\nsfo_survey %>%\n  count(dest_size_trimmed)\n\n# Count values of cleanliness_lower\nsfo_survey %>%\n  count(cleanliness_lower)"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#collapsing-categories",
+    "href": "Cleaning_Data_in_R_C2.html#collapsing-categories",
+    "title": "25  Categorical and Text Data",
+    "section": "25.4 Collapsing categories",
+    "text": "25.4 Collapsing categories\nOne of the tablets that participants filled out the sfo_survey on was not properly configured, allowing the response for dest_region to be free text instead of a dropdown menu. This resulted in some inconsistencies in the dest_region variable that you’ll need to correct in this exercise to ensure that the numbers you report to your boss are as accurate as possible.\ndplyr and forcats are loaded and sfo_survey is available."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#instructions-100-xp-3",
+    "href": "Cleaning_Data_in_R_C2.html#instructions-100-xp-3",
+    "title": "25  Categorical and Text Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCount the categories of dest_region\nCreate a vector called europe_categories containing the three values of dest_region that need to be collapsed.\nAdd a new column to sfo_survey called dest_region_collapsed that contains the values from the dest_region column, except the categories stored in europe_categories should be collapsed to Europe.\nCount the categories of dest_region_collapsed."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#question-3",
+    "href": "Cleaning_Data_in_R_C2.html#question-3",
+    "title": "25  Categorical and Text Data",
+    "section": "Question",
+    "text": "Question\nFrom your output from step 1, which categories need to be collapsed?\nPossible Answers\n“EU” and “Europ” need to be collapsed to “Europe”.\n“EU”, “eur”, and “Europ” need to be collapsed to “Europe”. Respuesta\n“East US”, “Midwest US”, and “West US” need to be collapsed to “US”.\n“Asia” and “Central/South America” should be collapsed to “Asia and Central/South America”.\n\n\nE4.R\n\n# Count categories of dest_region\nsfo_survey %>%\n  count(dest_region)\n\n\n \n  \n# Count categories of dest_region\nsfo_survey %>%\n  count(dest_region)\n\n# Categories to map to Europe\neurope_categories <- c(\"EU\", \"eur\", \"Europ\")\n\n# Add a new col dest_region_collapsed\nsfo_survey %>%\n  # Map all categories in europe_categories to Europe\n  mutate(dest_region_collapsed = fct_collapse(dest_region, \n                                              Europe = europe_categories)) %>%\n  # Count categories of dest_region_collapsed\n  count(dest_region_collapsed)"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#detecting-inconsistent-text-data",
+    "href": "Cleaning_Data_in_R_C2.html#detecting-inconsistent-text-data",
+    "title": "25  Categorical and Text Data",
+    "section": "25.5 Detecting inconsistent text data",
+    "text": "25.5 Detecting inconsistent text data\nYou’ve recently received some news that the customer support team wants to ask the SFO survey participants some follow-up questions. However, the auto-dialer that the call center uses isn’t able to parse all of the phone numbers since they’re all in different formats. After some investigation, you found that some phone numbers are written with hyphens (-) and some are written with parentheses ((,)). In this exercise, you’ll figure out which phone numbers have these issues so that you know which ones need fixing.\ndplyr and stringr are loaded, and sfo_survey is available."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#instructions-100-xp-4",
+    "href": "Cleaning_Data_in_R_C2.html#instructions-100-xp-4",
+    "title": "25  Categorical and Text Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFilter for rows with phone numbers that contain “-”s.\nFilter for rows with phone numbers that contain “(”, or “)”. Remember to use fixed() when searching for parentheses.\n\n\n\nE5.R\n\n# Filter for rows with \"-\" in the phone column\nsfo_survey %>%\n  filter(str_detect(phone, \"-\"))\n  \n  \n# Filter for rows with \"(\" or \")\" in the phone column\nsfo_survey %>%\n  filter(str_detect(phone, fixed(\"(\")) | str_detect(phone, fixed(\")\")))"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#replacing-and-removing",
+    "href": "Cleaning_Data_in_R_C2.html#replacing-and-removing",
+    "title": "25  Categorical and Text Data",
+    "section": "25.6 Replacing and removing",
+    "text": "25.6 Replacing and removing\nIn the last exercise, you saw that the phone column of sfo_survey is plagued with unnecessary parentheses and hyphens. The customer support team has requested that all phone numbers be in the format “123 456 7890”. In this exercise, you’ll use your new stringr skills to fulfill this request.\ndplyr and stringr are loaded and sfo_survey is available."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#instructions-100-xp-5",
+    "href": "Cleaning_Data_in_R_C2.html#instructions-100-xp-5",
+    "title": "25  Categorical and Text Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRemove opening and closing parentheses from the phone column. Store this as a variable called phone_no_parens. Remember to use fixed()!\nAdd a new column to sfo_survey called phone_no_parens that contains the contents of phone_no_parens.\nCreate a new column of sfo_survey called phone_clean containing the values of phone_no_parens with all hyphens replaced with spaces.\n\n\n\nE6.R\n\n# Remove parentheses from phone column\nphone_no_parens <- sfo_survey$phone %>%\n  # Remove \"(\"s\n  str_replace_all(\"\\\\(\", \"\") %>%\n  # Remove \")\"s\n  str_replace_all(\"\\\\)\", \"\")\n  \n\n# Remove parentheses from phone column\nphone_no_parens <- sfo_survey$phone %>%\n  # Remove \"(\"s\n  str_remove_all(fixed(\"(\")) %>%\n  # Remove \")\"s\n  str_remove_all(fixed(\")\"))\n\n# Add phone_no_parens as column\nsfo_survey %>%\n  mutate(phone_no_parens = phone_no_parens)\n  \n  \n\n# Remove parentheses from phone column\nphone_no_parens <- sfo_survey$phone %>%\n  # Remove \"(\"s\n  str_remove_all(fixed(\"(\")) %>%\n  # Remove \")\"s\n  str_remove_all(fixed(\")\"))\n\n# Add phone_no_parens as column\nsfo_survey %>%\n  mutate(phone_no_parens = phone_no_parens,\n  # Replace all hyphens in phone_no_parens with spaces\n         phone_clean = str_replace_all(phone_no_parens,\"-\",\" \"))"
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#invalid-phone-numbers",
+    "href": "Cleaning_Data_in_R_C2.html#invalid-phone-numbers",
+    "title": "25  Categorical and Text Data",
+    "section": "25.7 Invalid phone numbers",
+    "text": "25.7 Invalid phone numbers\nThe customer support team is grateful for your work so far, but during their first day of calling participants, they ran into some phone numbers that were invalid. In this exercise, you’ll remove any rows with invalid phone numbers so that these faulty numbers don’t keep slowing the team down.\ndplyr and stringr are loaded and sfo_survey is available."
+  },
+  {
+    "objectID": "Cleaning_Data_in_R_C2.html#instructions-100-xp-6",
+    "href": "Cleaning_Data_in_R_C2.html#instructions-100-xp-6",
+    "title": "25  Categorical and Text Data",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExamine the invalid phone numbers by filtering for numbers whose length is not equal to 12.\nRemove the rows with invalid numbers by filtering for numbers with a length of exactly 12.\n\n\n\nE7.R\n\n# Check out the invalid numbers\nsfo_survey %>%\n  filter(str_length(phone) != 12)\n\n# Remove rows with invalid numbers\nsfo_survey %>%\n  filter(str_length(phone) == 12)"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#r",
+    "href": "Developing_R_Packages_C1.html#r",
+    "title": "36  The R Package Structure",
+    "section": "36.1 r",
+    "text": "36.1 r"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#instructions-100-xp",
+    "href": "Developing_R_Packages_C1.html#instructions-100-xp",
+    "title": "36  The R Package Structure",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the create() function to create a new R package called datasummary.\nUse the dir() function to see what files and directories are created in your package.\n\n\n\nE1.R\n\n# Use the create function to set up your first package\ncreate(\"datasummary\")\n\n# Take a look at the files and folders in your package\ndir(\"datasummary\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#section",
+    "href": "Developing_R_Packages_C1.html#section",
+    "title": "36  The R Package Structure",
+    "section": "36.2 ",
+    "text": "36.2"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#instructions-100-xp-1",
+    "href": "Developing_R_Packages_C1.html#instructions-100-xp-1",
+    "title": "36  The R Package Structure",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nWrite a function, numeric_summary(), that takes two arguments, a vector x and the logical na.rm.\nInclude a check to your function so it fails with an error message if the vector x is not numeric.\nThe function should return a data.frame containing the minimum, median, standard deviation and maximum values.\nCheck that your function works using the Ozone column of the airquality data and removing missing values.\n\n\n\nE2.R\n\n# Create numeric_summary() function\nnumeric_summary <- function(x, na.rm) {\n\n    # Include an error if x is not numeric\n    if(!is.numeric(x)){\n        stop(\"Data must be numeric\")\n    }\n    \n    # Create data frame\n    data.frame( min = min(x, na.rm = na.rm),\n                median = median(x, na.rm = na.rm),\n                sd = sd(x, na.rm = na.rm),\n                max = max(x, na.rm = na.rm))\n}\n\n# Test numeric_summary() function\nnumeric_summary(airquality$Ozone, na.rm=TRUE)"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#section-1",
+    "href": "Developing_R_Packages_C1.html#section-1",
+    "title": "36  The R Package Structure",
+    "section": "36.3 ",
+    "text": "36.3"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#instructions-100-xp-2",
+    "href": "Developing_R_Packages_C1.html#instructions-100-xp-2",
+    "title": "36  The R Package Structure",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the dir() function again to see what is currently available in the R directory of datasummary.\nUsing the dump() function, write the numeric_summary() function to the R directory, saving the file as numeric_summary.R.\nPrint the contents of the R directory again.\n\n\n\nE3.R\n\n# What is in the R directory before adding a function?\ndir(\"datasummary/R\")\n\n# Use the dump() function to write the numeric_summary function\ndump(\"numeric_summary\", file = \"datasummary/R/numeric_summary.R\")\n\n# Verify that the file is in the correct directory\ndir(\"datasummary/R\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#section-2",
+    "href": "Developing_R_Packages_C1.html#section-2",
+    "title": "36  The R Package Structure",
+    "section": "36.4 ",
+    "text": "36.4"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#instructions-100-xp-3",
+    "href": "Developing_R_Packages_C1.html#instructions-100-xp-3",
+    "title": "36  The R Package Structure",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the dir() function, check what directories are currently in the package?\nThe weather dataset has been created for you. Add it to your package.\nAdd a vignette titled “Generating_Summaries_with_Data_Summary”.\n\n\n\nE4.R\n\n# What is in the package at the moment?\ndir(\"datasummary\")\n\n# Add the weather data\nuse_data(weather, pkg = \"datasummary\", overwrite = TRUE)\n\n# Add a vignette called \"Generating Summaries with Data Summary\"\nuse_vignette(\"Generating_Summaries_with_Data_Summary\", pkg = \"datasummary\")\n\n# What directories do you now have in your package now?\ndir(\"datasummary\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#section-3",
+    "href": "Developing_R_Packages_C1.html#section-3",
+    "title": "36  The R Package Structure",
+    "section": "36.5 ",
+    "text": "36.5"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#instructions-100-xp-4",
+    "href": "Developing_R_Packages_C1.html#instructions-100-xp-4",
+    "title": "36  The R Package Structure",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSend the new data_summary() function to a new file taking the same name as the function (You should use the dump() function here).\n\n\n\nE5.R\n\ndata_summary <- function(x, na.rm = TRUE){\n  \n  num_data <- select_if(x, .predicate = is.numeric) \n  \n  map_df(num_data, .f = numeric_summary, na.rm = TRUE, .id = \"ID\")\n  \n}\n\n# Write the function to the R directory\ndump(\"data_summary\", file = \"datasummary/R/data_summary.R\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#section-4",
+    "href": "Developing_R_Packages_C1.html#section-4",
+    "title": "36  The R Package Structure",
+    "section": "36.6 ",
+    "text": "36.6"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#instructions-100-xp-5",
+    "href": "Developing_R_Packages_C1.html#instructions-100-xp-5",
+    "title": "36  The R Package Structure",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#r",
+    "href": "Developing_R_Packages_C2.html#r",
+    "title": "37  Documenting Packages",
+    "section": "37.1 r",
+    "text": "37.1 r"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd the title “Numeric Summaries” to your header.\nAdd the following short description of the function: “Summarises numeric data and returns a data frame containing the minimum value, median, standard deviation, and maximum value.”\n\n\n\nE1.R\n\n# Add a title and description\n#' Numeric Summaries\n#'\n#' Summarises numeric data and returns a data frame containing the minimum value, median, standard deviation, and maximum value.\nnumeric_summary <- function(x, na.rm){\n\n    if(!is.numeric(x)){\n        stop(\"Data must be numeric\")\n    }\n    \n    data.frame( min = min(x, na.rm = na.rm),\n                median = median(x, na.rm = na.rm),\n                sd = sd(x, na.rm = na.rm),\n                max = max(x, na.rm = na.rm))\n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#section",
+    "href": "Developing_R_Packages_C2.html#section",
+    "title": "37  Documenting Packages",
+    "section": "37.2 ",
+    "text": "37.2"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-1",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-1",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd an appropriate tag to document the first argument of the numeric_summary() function.\nAdd the following details to this tag: “a numeric vector containing the values to summarize.”\n\n\n\nE2.R\n\n#' Numeric Summaries\n#'\n#' Summarises numeric data and returns a data frame containing the minimum value, median, standard deviation, and maximum value.\n#'\n# Add appropriate tag and details to document the first argument\n#' @param x a numeric vector containing the values to summarize.\nnumeric_summary <- function(x, na.rm){\n\n    if(!is.numeric(x)){\n        stop(\"data must be numeric\")\n    }\n    \n    data.frame( min = min(x, na.rm = na.rm),\n                median = median(x, na.rm = na.rm),\n                sd = sd(x, na.rm = na.rm),\n                max = max(x, na.rm = na.rm))\n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#section-1",
+    "href": "Developing_R_Packages_C2.html#section-1",
+    "title": "37  Documenting Packages",
+    "section": "37.3 ",
+    "text": "37.3"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-2",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-2",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate the data_summary() function to import packages purrr and dplyr.\n\n\n\nE3.R\n\n#' Summary of Numeric Columns\n#'\n#' Generate specific summaries of numeric columns in a data frame\n#' \n#' @param x A data frame. Non-numeric columns will be removed\n#' @param na.rm A logical indicating whether missing values should be removed\n#' @import dplyr\n#' @import purrr\n#' @importFrom tidyr gather\ndata_summary <- function(x, na.rm = TRUE){\n  \n  num_data <- select_if(x, .predicate = is.numeric) \n  \n  map_df(num_data, .f = numeric_summary, na.rm = na.rm, .id = \"ID\")\n  \n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#section-2",
+    "href": "Developing_R_Packages_C2.html#section-2",
+    "title": "37  Documenting Packages",
+    "section": "37.4 ",
+    "text": "37.4"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-3",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-3",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd an export tag to the data_summary() function.\n\n\n\nE4.R\n\n#' Summary of Numeric Columns\n#'\n#' Generate specific summaries of numeric columns in a data frame\n#' \n#' @param x A data frame. Non-numeric columns will be removed\n#' @param na.rm A logical indicating whether missing values should be removed\n#' @import dplyr\n#' @import purrr\n#' @importFrom tidyr gather\n#' @export\ndata_summary <- function(x, na.rm = TRUE){\n  \n  num_data <- select_if(x, .predicate = is.numeric) \n  \n  map_df(num_data, .f = numeric_summary, na.rm = na.rm, .id = \"ID\")\n  \n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#section-3",
+    "href": "Developing_R_Packages_C2.html#section-3",
+    "title": "37  Documenting Packages",
+    "section": "37.5 ",
+    "text": "37.5"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-4",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-4",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd an examples tag to the data_summary() function header.\nAdd an example of running the function using the iris data.\nAdd a second example of running the function with the airquality data, not removing missing values.\n\n\n\nE5.R\n\n#' Data Summary for Numeric Columns\n#'\n#' Custom summaries of numeric data in a provided data frame\n#'\n#' @param x A data.frame containing at least one numeric column\n#' @param na.rm A logical indicating whether missing values should be removed\n#' @import dplyr\n#' @import purrr\n#' @importFrom tidyr gather\n#' @export\n#' @examples\n#' data_summary(iris)\n#' data_summary(airquality, na.rm = FALSE)\ndata_summary <- function(x, na.rm = TRUE){\n  \n  num_data <- select_if(x, .predicate = is.numeric) \n  \n  map_df(num_data, .f = numeric_summary, na.rm = na.rm, .id = \"ID\")\n  \n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#section-4",
+    "href": "Developing_R_Packages_C2.html#section-4",
+    "title": "37  Documenting Packages",
+    "section": "37.6 ",
+    "text": "37.6"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-5",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-5",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nDocument the return value with the following description: “This function returns a data.frame including columns:”. Format the word data.frame as code.\nAdd 5 bullets for each of the 5 column names in the order they are returned (the function is loaded if you want to run it).\n\n\n\nE6.R\n\n#' Data Summary for Numeric Columns\n#'\n#' Custom summaries of numeric data in a provided data frame\n#'\n#' @param x A data.frame containing at least one numeric column\n#' @param na.rm A logical indicating whether missing values should be removed\n#' @import dplyr\n#' @import purrr\n#' @importFrom tidyr gather\n#' @export\n#' @examples\n#' data_summary(iris)\n#' data_summary(airquality, na.rm = FALSE)\n#'\n## Update the details for the return value\n#' @return This function returns a \\code{data.frame} including columns: \n#' \\itemize{\n#'  \\item ID\n#'  \\item min\n#'  \\item median\n#'  \\item sd\n#'  \\item max\n#' }\n#'\n#' @export\ndata_summary <- function(x, na.rm = TRUE){\n  \n  num_data <- select_if(x, .predicate = is.numeric) \n  \n  map_df(num_data, .f = numeric_summary, na.rm = na.rm, .id = \"ID\")\n  \n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#r",
+    "href": "Developing_R_Packages_C3.html#r",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.1 r",
+    "text": "38.1 r"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#instructions-100-xp",
+    "href": "Developing_R_Packages_C3.html#instructions-100-xp",
+    "title": "38  Checking and Building R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the check() function to check the datasummary package.\n\n\n\nE1.R\n\n# Check your package\ncheck(\"datasummary\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#section",
+    "href": "Developing_R_Packages_C3.html#section",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.2 ",
+    "text": "38.2"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#instructions-100-xp-1",
+    "href": "Developing_R_Packages_C3.html#instructions-100-xp-1",
+    "title": "38  Checking and Building R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate the roxygen header for the function “numeric_summary” to document the missing parameter (na.rm).\nInclude the following description for the parameter “a logical value indicating whether NA values should be stripped before the computation proceeds.”\n\n\n\nE2.R\n\n#' Numeric Summaries\n#' Summarises numeric data and returns a data frame containing the minimum value, median, standard deviation, and maximum value.\n#'\n#' @param x a numeric vector containing the values to summarize.\n#' @param na.rm \"a logical value indicating whether NA values should be stripped before the computation proceeds.\"\n  \nnumeric_summary <- function(x, na.rm){\n\n  if(!is.numeric(x)){\n    stop(\"data must be numeric\")\n  }\n\n  data.frame( min = min(x, na.rm = na.rm),\n              median = median(x, na.rm = na.rm),\n              sd = sd(x, na.rm = na.rm),\n              max = max(x, na.rm = na.rm))\n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#section-1",
+    "href": "Developing_R_Packages_C3.html#section-1",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.3 ",
+    "text": "38.3"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#instructions-100-xp-2",
+    "href": "Developing_R_Packages_C3.html#instructions-100-xp-2",
+    "title": "38  Checking and Building R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nA new function, get_mean_temp(), is available in your workspace. Take a look at what it does by running get_mean_temp (with no brackets) in the console. Update the package-level documentation so this function can be successfully added to your package without causing check() to fail because of “undefined global variables”.\n\n\nE3.R\n\n#' datasummary: Custom Data Summaries\n#'\n#' Easily generate custom data frame summaries\n#'\n#' @docType package\n#' @name datasummary\n\"_PACKAGE\"\n\n# Update this function call\nutils::globalVariables(c(\"weather\", \"Temp\"))\n\nget_mean_temp"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#section-2",
+    "href": "Developing_R_Packages_C3.html#section-2",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.4 ",
+    "text": "38.4"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#instructions-100-xp-3",
+    "href": "Developing_R_Packages_C3.html#instructions-100-xp-3",
+    "title": "38  Checking and Building R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE4.R\n\n# Add dplyr as an imported dependency to the DESCRIPTION file\nuse_package(\"dplyr\", pkg = \"datasummary\")\n\n# Add purrr as an imported dependency to the DESCRIPTION file\nuse_package(\"purrr\", pkg = \"datasummary\")\n\n# Add tidyr as an imported dependency to the DESCRIPTION file\nuse_package(\"tidyr\", pkg = \"datasummary\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#section-3",
+    "href": "Developing_R_Packages_C3.html#section-3",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.5 ",
+    "text": "38.5"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#instructions-100-xp-4",
+    "href": "Developing_R_Packages_C3.html#instructions-100-xp-4",
+    "title": "38  Checking and Building R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nBuild the source version of the datasummary package.\nLook at the contents of the current directory using dir() to see the built version of your package.\n\n\n\nE5.R\n\n# Build the package\nbuild(\"datasummary\")\n\n# Examine the contents of the current directory\ndir()"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#section-4",
+    "href": "Developing_R_Packages_C3.html#section-4",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.6 ",
+    "text": "38.6"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#instructions-100-xp-5",
+    "href": "Developing_R_Packages_C3.html#instructions-100-xp-5",
+    "title": "38  Checking and Building R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#r",
+    "href": "Developing_R_Packages_C4.html#r",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.1 r",
+    "text": "39.1 r"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSet up the test framework for your datasummary package.\nLook at the contents of the package root directory.\nLook at the contents of the new folder which has been created.\n\n\n\nE1.R\n\n# Set up the test framework\nuse_testthat(\"datasummary\")\n\n# Look at the contents of the package root directory\ndir(\"datasummary\")\n\n# Look at the contents of the new folder which has been created \ndir(\"datasummary/tests\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#section",
+    "href": "Developing_R_Packages_C4.html#section",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.2 ",
+    "text": "39.2"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp-1",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp-1",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCall data_summary() on iris and assign the result to iris_summary.\nAssign the number of rows in iris_summary to summary_rows.\nUse the function expect_equal() to test whether the result of calling data_summary() on the iris dataset returns 4 rows.\n\n\n\nE2.R\n\n# Create a summary of the iris dataset using your data_summary() function\niris_summary <- data_summary(iris)\n\n# Count how many rows are returned\nsummary_rows <- nrow(iris_summary) \n\n# Use expect_equal to test that calling data_summary() on iris returns 4 rows\nexpect_equal(summary_rows, 4)"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#section-1",
+    "href": "Developing_R_Packages_C4.html#section-1",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.3 ",
+    "text": "39.3"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp-2",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp-2",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate the first test below so that the test passes; do this by adjusting the tolerance parameter.\nWrite a test comparing expected_result and result which does not produce an error.\n\n\n\nE3.R\n\nresult <- data_summary(weather)\n\n# Update this test so it passes\nexpect_equal(result$sd, c(2.1, 3.6), tolerance = 0.1)\n\nexpected_result <- list(\n    ID = c(\"Day\", \"Temp\"),\n    min = c(1L, 14L),\n    median = c(4L, 19L),\n    sd = c(2.16024689946929, 3.65148371670111),\n    max = c(7L, 24L)\n)\n\n# Write a passing test that compares expected_result to result\nexpect_equivalent(result, expected_result)"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#section-2",
+    "href": "Developing_R_Packages_C4.html#section-2",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.4 ",
+    "text": "39.4"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp-3",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp-3",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCall data_summary() on my_vector.\nPick an appropriate expect_*() function such that when you call data_summary() on my_vector again, the test passes.\n\n\n\nE4.R\n\n# Create a vector containing the numbers 1 through 10\nmy_vector <- 1:10\n\n# Look at what happens when we apply this vector as an argument to data_summary()\ndata_summary(my_vector)\n\n# Test if running data_summary() on this vector returns an error\nexpect_error(data_summary(my_vector))"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#section-3",
+    "href": "Developing_R_Packages_C4.html#section-3",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.5 ",
+    "text": "39.5"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp-4",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp-4",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCall data_summary() on airquality dataset with na.rm set to FALSE and see what happens.\nPick an appropriate expect_*() function such that when you call data_summary() on airquality with na.rm set to FALSE again, the test passes.\n\n\n\nE5.R\n\n# Run data_summary on the airquality dataset with na.rm set to FALSE\ndata_summary(airquality, na.rm = FALSE)\n\n# Use expect_warning to formally test this\nexpect_warning(data_summary(airquality, na.rm = FALSE))"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#section-4",
+    "href": "Developing_R_Packages_C4.html#section-4",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.6 ",
+    "text": "39.6"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp-5",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp-5",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCall the non-exported function numeric_summary() on the Temp column of the weather dataset and assign it to result.\nPick an appropriate expect_*() function which tests expected and result are exactly equal.\n\n\n\nE6.R\n\n# Expected result\nexpected <- data.frame(min = 14L, median = 19L, sd = 3.65148371670111, max = 24L)\n\n# Create variable result by calling numeric summary on the temp column of the weather dataset\nresult <- datasummary:::numeric_summary(weather$Temp, na.rm = TRUE)\n\n# Test that the value returned matches the expected value\nexpect_equal(result, expected)"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#the-structure-of-an-r-package",
+    "href": "Developing_R_Packages_C1.html#the-structure-of-an-r-package",
+    "title": "36  The R Package Structure",
+    "section": "36.1 The structure of an R package",
+    "text": "36.1 The structure of an R package\nYou can use devtools to create the basic structure of an R package by using the create() function.\nThere are some optional arguments to this function but the main one that you will use is the path argument. You use this to specify where your package will be created and the name that your package will take.\nIf you want to create the package in your current working directory, as you often will, you just need to supply the name for the package. When naming your package remember to think about:\nIf the name is already taken by another package. Whether the name makes it clear what the package does. devtools is loaded in your workspace."
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#contents-of-an-r-package",
+    "href": "Developing_R_Packages_C1.html#contents-of-an-r-package",
+    "title": "36  The R Package Structure",
+    "section": "36.2 Contents of an R package",
+    "text": "36.2 Contents of an R package\nWhen you create an R package there are a number of files and folders that it can contain. This can include folders to store data, user guides (known as vignettes), tests (more on these later in the course) and demos among others. As a minimum there are only two directories that must be included along with two additional files – the DESCRIPTION and the NAMESPACE.\nOf the two compulsory directories one contains all of the user guides for your functions. As you will see later in the course this is created in a special way for you. The other is included by the create() function. Which of the following is the second compulsory directory?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#answers-question-50-xp",
+    "href": "Developing_R_Packages_C1.html#answers-question-50-xp",
+    "title": "36  The R Package Structure",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\nPossible Answers\n\ndata\ntests\ninst\nR Respuesta"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#writing-a-simple-function",
+    "href": "Developing_R_Packages_C1.html#writing-a-simple-function",
+    "title": "36  The R Package Structure",
+    "section": "36.3 Writing a simple function",
+    "text": "36.3 Writing a simple function\nWhilst there are packages that contain only data, typically packages are created to collect together functions for performing a specific task. If you need a refresher on writing functions you might want to review the course Writing Functions in R.\nFor your package you are going to keep the functions simple. You are going to create a package that produces custom summary output for your data."
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#including-functions-in-a-package",
+    "href": "Developing_R_Packages_C1.html#including-functions-in-a-package",
+    "title": "36  The R Package Structure",
+    "section": "36.4 Including functions in a package",
+    "text": "36.4 Including functions in a package\nOnce you have written your function code you need to save it in the R directory of your package. Typically you can do that by saving an R script in the usual manner (i.e. “Save As”).\nIn the instance that you already have objects created, as you did in the last exercise, that you want to write to the R directory you can do this programmatically. You can use the function dump() to send a named R function to a particular file. The two arguments that you need to pass to this function are the name of the R object, as a character string, and the path to the file that you want to create, including the extension .R.\nThe package datasummary has already been created, along with the function numeric_summary() and is available in your workspace."
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#package-names",
+    "href": "Developing_R_Packages_C1.html#package-names",
+    "title": "36  The R Package Structure",
+    "section": "36.5 Package names",
+    "text": "36.5 Package names\nWhen you name your package you have to consider a number of things, from whether the name is already taken to if it makes it clear to users what the package might do. You also have to consider naming conventions. Regardless of whether you are putting your package on CRAN or not you should take the same care when you name your packages.\nSuppose you were to create a new package that takes some data and tidies it into a format that you can work with further. Which of the following names would be recommended?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#answers-question-50-xp-1",
+    "href": "Developing_R_Packages_C1.html#answers-question-50-xp-1",
+    "title": "36  The R Package Structure",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\ntidyr\ntidy-data\ntidy_data\ntidydata Respuesta"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#writing-a-description-file",
+    "href": "Developing_R_Packages_C1.html#writing-a-description-file",
+    "title": "36  The R Package Structure",
+    "section": "36.6 Writing a DESCRIPTION file",
+    "text": "36.6 Writing a DESCRIPTION file\nThe DESCRIPTION file is used to provide information about the package. A template file is created for you by devtools that you can edit appropriately for your package. Which of the following items are NOT included in the DESCRIPTION file?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#answers-question-50-xp-2",
+    "href": "Developing_R_Packages_C1.html#answers-question-50-xp-2",
+    "title": "36  The R Package Structure",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nAuthor and maintainer details\nFunctions that the package contains Respuesta\nPackage dependencies\nLicense"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#detailing-authors-maintainers-and-contributors",
+    "href": "Developing_R_Packages_C1.html#detailing-authors-maintainers-and-contributors",
+    "title": "36  The R Package Structure",
+    "section": "36.7 Detailing authors, maintainers and contributors",
+    "text": "36.7 Detailing authors, maintainers and contributors\nOften a package is not the work of just one person but contributions from a number of people. This could be fellow authors, someone who has contributed elements of code to the package such as a bug fix, a thesis advisor or many, many more!\nWhich of the following roles would you include in the Authors@R field to describe the package maintainer?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#answers-question-50-xp-3",
+    "href": "Developing_R_Packages_C1.html#answers-question-50-xp-3",
+    "title": "36  The R Package Structure",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\ncph\nctb\ncre Respuesta\naut"
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#the-use_-functions",
+    "href": "Developing_R_Packages_C1.html#the-use_-functions",
+    "title": "36  The R Package Structure",
+    "section": "36.8 The use_* functions",
+    "text": "36.8 The use_* functions\nBeyond the required structure you can include a number of additional directories containing elements such as vignettes (user guides), data and unit tests. The devtools package makes it really simple for you to add to the package structure by providing a series of use_* functions. For example, use_data() and use_vignette(). Note that when adding vignettes, it’s best not to include any spaces in the vignette name.\nWhen you are adding data you need to provide the name of the data object along with the argument pkg, giving the path to the package that you want to put your data in.\ndevtools is loaded in your workspace."
+  },
+  {
+    "objectID": "Developing_R_Packages_C1.html#best-practice-for-structuring-code",
+    "href": "Developing_R_Packages_C1.html#best-practice-for-structuring-code",
+    "title": "36  The R Package Structure",
+    "section": "36.9 Best practice for structuring code",
+    "text": "36.9 Best practice for structuring code\nA typical R package contains a number of functions that you need to maintain. Whilst there are no strict rules around how you should structure code in a package you generally want to avoid having all of your code in a single script. As you can’t have sub-directories you also need to think carefully about how you name the file so that you can find your code again in the future.\nSuppose you were to write another function for your package that takes all numeric columns in your data and returns a data frame of all of their summary statistics. What would be the best way to structure this code?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#a-simple-function-header",
+    "href": "Developing_R_Packages_C2.html#a-simple-function-header",
+    "title": "37  Documenting Packages",
+    "section": "37.1 A simple function header",
+    "text": "37.1 A simple function header\nThe roxygen headers are included in the same script as the function code. You use roxygen comments #’ to identify a line as part of the roxygen header. You can include regular R comments in the header if you wish, using the usual comment character, #.\nThe first three lines of the header have special meaning and you don’t need to use tags to identify them. The first three lines are:\ntitle description details Since you don’t mention any tags to identify the first three lines, it is necessary that you seperate each one of them by a new line. For example:\n\n#’ Title goes here #’ #’ Description goes here #’ #’ Details go here"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#documenting-function-arguments",
+    "href": "Developing_R_Packages_C2.html#documenting-function-arguments",
+    "title": "37  Documenting Packages",
+    "section": "37.2 Documenting function arguments",
+    "text": "37.2 Documenting function arguments\nOne of the most important aspects of a function to document are the arguments.\nWith roxygen you do this with the (param?) tag. You follow the tag with the argument name and then any details the user needs to know.\nIf there is a lot of information that you need to provide about an argument you might want to consider putting this in the details section instead.\nNormally you must document every argument of your function, but in this exercise you’ll just document the first argument and come back to the second one later!"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#importing-other-packages",
+    "href": "Developing_R_Packages_C2.html#importing-other-packages",
+    "title": "37  Documenting Packages",
+    "section": "37.3 Importing other packages",
+    "text": "37.3 Importing other packages\nIf you wish to use functions from other packages, you should import them in your roxygen header. You can use (import?) to import an entire package, or (importFrom?) to import a single function. To show you how (importFrom?) works, we have imported the gather() function from the tidyr package for you (although it’s not needed in this case)."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#export-best-practice",
+    "href": "Developing_R_Packages_C2.html#export-best-practice",
+    "title": "37  Documenting Packages",
+    "section": "37.4 Export best practice",
+    "text": "37.4 Export best practice\nExporting a function makes it available for the end users of your package. Functions that are not exported are not directly available to your end users. It’s a really useful way to hide low level functions that you write to break up the main functionality.\nIt can often be tricky to decide which functions should be exported. Take a look at the descriptions below. Which one would you export?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#answers-question-50-xp",
+    "href": "Developing_R_Packages_C2.html#answers-question-50-xp",
+    "title": "37  Documenting Packages",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nUtility function to calculate the median absolute deviation.\nHigh level function for calculating all summaries of supplied data. Respuesta\nNot intended for end users."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#exporting-functions",
+    "href": "Developing_R_Packages_C2.html#exporting-functions",
+    "title": "37  Documenting Packages",
+    "section": "37.5 Exporting functions",
+    "text": "37.5 Exporting functions\nAlthough the NAMESPACE file is used to identify functions that are exported you use roxygen tags to create this file. This makes it really easy to see, right next to the function, if your users will be able to work with it or not.\nWe mark a function for exporting using the tag (export?)."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#adding-examples",
+    "href": "Developing_R_Packages_C2.html#adding-examples",
+    "title": "37  Documenting Packages",
+    "section": "37.6 Adding examples",
+    "text": "37.6 Adding examples\nExamples are the way that your end users will learn how to work with your code. You should provide at least one example for any function that is exported. If there are any tricky arguments to your function you might also want to consider examples for those.\nExamples should ideally be easily reproducible and should not cause an error. If you are going to publish your package to CRAN then examples should also run in a reasonable time, CRAN sets this to around 15 minutes but it’s worth double checking the recommendations at the time of submission.\nYou add examples using the (examples?) tag. Examples will typically span multiple lines. This is fine as roxygen will assume that everything is part of the examples until it finds another tag."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#documenting-function-return-values",
+    "href": "Developing_R_Packages_C2.html#documenting-function-return-values",
+    "title": "37  Documenting Packages",
+    "section": "37.7 Documenting function return values",
+    "text": "37.7 Documenting function return values\nYou document the return value of a function using the tag (return?). This is where you can tell users what they can expect to get from the function, be that data, a graphic or any other output.\nWhen you write documentation you may want to format the text to look like code, link to other functions or, particularly for return objects, format as a bulleted list. You can do this using special formatting:\nFor code you use To link to other functions you use , although note the package name is only required if the function is not in your package To include an unordered list you use . Inside the brackets you mark new items with\nfollowed by the item text."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#additional-documentation",
+    "href": "Developing_R_Packages_C2.html#additional-documentation",
+    "title": "37  Documenting Packages",
+    "section": "37.8 Additional documentation",
+    "text": "37.8 Additional documentation\nBeyond the functions arguments and return values there are many additional items that can be provided in function help files. From who wrote that function to other functions that you might be interested in using. We will also see later how we can identify dependencies using the roxygen header.\nOther tags that we can use include:\n(author?) to identify who wrote the function. (seealso?) to list other functions that may be of interest to users. (notes?) to add any other notes relating to the function (e.g. if its experimental, likely to change etc.)"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-6",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-6",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd in the author of the data_summary() function as “My Name myemail@example.com”.\nList the summary() function (from the base package) after adding the author.\n\n\n\nE7.R\n\n#' Summary of Numeric Columns\n#' Generate specific summaries of numeric columns in a data frame\n#'\n#' @param x A data frame. Non-numeric columns will be removed\n#' @param na.rm A logical indicating whether missing values should be removed\n#' @import dplyr\n#' @import purrr\n#' @importFrom tidyr gather\n#' @export\n#' @examples\n#' data_summary(iris)\n#' data_summary(airquality, na.rm = FALSE)\n#' \n#' @return This function returns a \\code{data.frame} including columns: \n#' \\itemize{\n#'  \\item ID\n#'  \\item min\n#'  \\item median\n#'  \\item sd\n#'  \\item max\n#' }\n#'\n## Add in the author of the `data_summary()` function\n#' @author My Name <myemail@example.com>\n## List the `summary()` function (from the `base` package)\n#' @seealso \\link[base]{summary}\ndata_summary <- function(x, na.rm = TRUE){\n  \n  num_data <- select_if(x, .predicate = is.numeric) \n  \n  map_df(num_data, .f = numeric_summary, na.rm = na.rm, .id = \"ID\")\n  \n}"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#minimum-level-of-documentation",
+    "href": "Developing_R_Packages_C2.html#minimum-level-of-documentation",
+    "title": "37  Documenting Packages",
+    "section": "37.9 Minimum level of documentation",
+    "text": "37.9 Minimum level of documentation\nWhen producing documentation for a function there are certain things that you MUST provide. Which of the following is not required?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#answers-question-50-xp-1",
+    "href": "Developing_R_Packages_C2.html#answers-question-50-xp-1",
+    "title": "37  Documenting Packages",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nFunction title\nDocumentation of all function arguments\nDocumentation of the return value Respuesta"
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#adding-package-documentation",
+    "href": "Developing_R_Packages_C2.html#adding-package-documentation",
+    "title": "37  Documenting Packages",
+    "section": "37.10 Adding package documentation",
+    "text": "37.10 Adding package documentation\nIn addition to the individual functions you can also document the whole package.\nWhen you document a package you can use all of the same tags as for functions but the problem that you have is that there is no R code to document. Instead you put the keyword “_PACKAGE” underneath your package header.\nYou should also use the (docType?) and (name?) tags to indicate that this is package level documentation, and specify your package name.\nYou should then save the package documentation in the R directory in a file ending with .R with the same name as the package."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-7",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-7",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nWrite a package header for your datasummary package with the title “Custom Data Summaries”.\nInclude the description “Easily generate custom data frame summaries”.\nAdd the relevant tags required for package level documentation.\nEnsure that the “_PACKAGE” keyword is added in the appropriate location.\n\n\n\nE8.R\n\n#' datasummary: Custom Data Summaries\n#'\n#' Easily generate custom data frame summaries\n#'\n#' @docType package\n#' @name datasummary\n\"_PACKAGE\""
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#documenting-data-objects",
+    "href": "Developing_R_Packages_C2.html#documenting-data-objects",
+    "title": "37  Documenting Packages",
+    "section": "37.11 Documenting data objects",
+    "text": "37.11 Documenting data objects\nIf you include a data set in your package you must also provide documentation for it. As with package level documentation, you should include a title and description.\nWith a data set, once again, there is no function object to document. You instead give the name of the dataset as a character string, for instance “airquality”. Additionally there are two tags that you need to use:\n\n(format?) to describe the format of the data. This is often used with the describe format.\n(source?) to identify where the data came from.\n\nYou should then save the package documentation in the R directory with a suitable name (in the above case, either airquality.R or data.R).\nThe weather dataset is available in your workspace. Run print(weather) to view it."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-8",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-8",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate the (format?) tag to include the correct number of rows and columns in weather.\nAdd descriptions of all columns in the weather dataset that you added to your package in the last chapter.\nAdd a (source?) tag to and describe the data as “Randomly generated data”.\n\n\n\nE9.R\n\n#' Random Weather Data\n#'\n#' A dataset containing randomly generated weather data.\n#'\n#' @format A data frame of 7 rows and 3 columns\n#' \\describe{\n#'  \\item{Day}{Numeric values giving day of the week, 1 = Monday, 7 = Sunday}\n#'  \\item{Temp}{Numeric values giving temperature in degrees Celsius}\n#'  \\item{Weather}{Character values describing the weather on that day}\n#' }\n#' @source Randomly generated data\n\"weather\""
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#creating-man-files",
+    "href": "Developing_R_Packages_C2.html#creating-man-files",
+    "title": "37  Documenting Packages",
+    "section": "37.12 Creating man files",
+    "text": "37.12 Creating man files\nOnce you’ve created your documentation using roxygen headers, you need to build your documentation. You can use the document() function from the devtools package to generate your documentation, supplying the path to the package as the first argument. The generated documentation will appear in the man directory. Once you’ve documented your package, you can view the help files just like you can with any of your existing packages."
+  },
+  {
+    "objectID": "Developing_R_Packages_C2.html#instructions-100-xp-9",
+    "href": "Developing_R_Packages_C2.html#instructions-100-xp-9",
+    "title": "37  Documenting Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGenerate documentation for your package.\nLook at the contents of the man directory.\nView the documentation for the data_summary() function.\nView the documentation for the weather dataset.\n\n\n\nE10.R\n\n# Generate package documentation\ndocument(\"datasummary\")\n\n# Examine the contents of the man directory\ndir(\"datasummary/man\")\n\n# View the documentation for the data_summary function\nhelp(\"data_summary\")\n\n# View the documentation for the weather dataset\nhelp(\"weather\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#what-does-a-check-check",
+    "href": "Developing_R_Packages_C3.html#what-does-a-check-check",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.1 What does a “check” check?",
+    "text": "38.1 What does a “check” check?\nIn the video, we talked about a number of things that running a check tests for, but which of the following does a check not test:"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#answers-question-50-xp",
+    "href": "Developing_R_Packages_C3.html#answers-question-50-xp",
+    "title": "38  Checking and Building R Packages",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nAny vignettes can be built\nAny unit tests in the package pass\nCode runs as expected Respuesta\nYou have documented all your function arguments"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#running-a-check",
+    "href": "Developing_R_Packages_C3.html#running-a-check",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.2 Running a check",
+    "text": "38.2 Running a check\nBefore a package can be made available on CRAN it is required to pass a series of checks that can be run from the command line using R CMD check. Even if you don’t intend to make a package available on CRAN, it is good practice to run this and ensure that your package passes all of the checks. Just like all other build features this is simplified in devtools with the function check().\nWhen you run check(), if the argument cran is set to TRUE, you run exactly the same checks which are run when you submit a package to CRAN. As the cran argument has a default value of TRUE, you do not need to do change it unless you do not wish to run all of the CRAN checks."
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#undocumented-parameters",
+    "href": "Developing_R_Packages_C3.html#undocumented-parameters",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.3 Undocumented parameters",
+    "text": "38.3 Undocumented parameters\nIf you’ve forgotten to document any of the parameters, when you run the check() function, you’ll get a WARNING message that looks a bit like this:\n\nUndocumented arguments in documentation object ‘numeric_summary’ ‘na.rm’\n\nNote: you wouldn’t normally get this error for non-exported functions\nTo remove this warning, you’ll need to update the documentation for the parameter in the function’s .R file, and then run check() again. You might think you need to run the document() function again. However, there’s no need to do this, as check() automatically runs document() for you before completing its checks."
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#undefined-global-variables",
+    "href": "Developing_R_Packages_C3.html#undefined-global-variables",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.4 Undefined global variables",
+    "text": "38.4 Undefined global variables\nThe way in which you define variables in tidyverse package functions can cause confusion for the R CMD check, which sees column names and the name of your dataset, and flags them as “undefined global variables”.\nTo get around this, you can manually specify the data and its columns as a vector to utils::globalVariables(), by including a line of code similar to the following in your package-level documentation:\n\nutils::globalVariables(c(“dataset_name”, “col_name_1”, “col_name_2”))\n\nThis defines dataset_name, col_name_1, and col_name_2 as global variables, and now you shouldn’t get the undefined global variables error."
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#depends-or-imports",
+    "href": "Developing_R_Packages_C3.html#depends-or-imports",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.5 Depends or imports?",
+    "text": "38.5 Depends or imports?\nThe Depends and Imports fields in the DESCRIPTION file can cause a lot of confusion to those new to package building! Both of these fields contain package dependencies which are installed when you install the package. However, the difference between them is that the packages listed in depends are attached when the package is loaded, whereas the packages listed in imports are not.\nThis distinction is important because if two different packages have an identically named function, the version of the function from the package which has been loaded most recently will be used. Therefore, to make sure you are using the correct function, it is best practice to use imports to list your dependencies and then in your code explicitly name the package and function it’s from in the form package::function(), e.g. dplyr::select().\nIn the majority of cases, you should only list the version of R required in the Depends field and the package in the Imports field.\nWhich of the following should you add to the Imports field in your description file for the datasummary package?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#answers-question-50-xp-1",
+    "href": "Developing_R_Packages_C3.html#answers-question-50-xp-1",
+    "title": "38  Checking and Building R Packages",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nR (>= 3.4.3)\ndplyr Respuesta\nstats::filter\ndplyr::filter"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#adding-a-dependency",
+    "href": "Developing_R_Packages_C3.html#adding-a-dependency",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.6 Adding a dependency",
+    "text": "38.6 Adding a dependency\nIn which field is it recommended that you list all of the packages that your package relies on, so they are also installed when your package is installed?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#answers-question-50-xp-2",
+    "href": "Developing_R_Packages_C3.html#answers-question-50-xp-2",
+    "title": "38  Checking and Building R Packages",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nDepends\nSuggests\nPackages\nImports Respuesta"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#building-an-r-package",
+    "href": "Developing_R_Packages_C3.html#building-an-r-package",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.7 Building an R package",
+    "text": "38.7 Building an R package\nOnce you have created the correct structure, included all of your functions, created the package documentation and ensured that the checks pass you can then build your package so that it is in a shareable format.\nYou can build your package using the build() function from devtools. You can use this function to build either a source version of the package, or a Windows/Mac specific binary version. The source version of the package will have a file ending of “.tar.gz” and the binary will take the ending “.zip” (Windows) or “.tgz” (Mac). You can only build binaries for the current platform that you’re using. The build() function builds the source version of the package by default."
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#setting-a-package-up-for-using-travis",
+    "href": "Developing_R_Packages_C3.html#setting-a-package-up-for-using-travis",
+    "title": "38  Checking and Building R Packages",
+    "section": "38.8 Setting a package up for using Travis",
+    "text": "38.8 Setting a package up for using Travis\nYou can run use_github() and use_travis() to set up your package for use with GitHub and Travis CI. GitHub is a popular website used for storing code and version control, and Travis CI is used for continuous integration, but what actually is continuous integration?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C3.html#answers-question-50-xp-3",
+    "href": "Developing_R_Packages_C3.html#answers-question-50-xp-3",
+    "title": "38  Checking and Building R Packages",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nAnother way of storing your code\nA way of maintaining multiple versions of your code\nA way of writing tests for your code\nA way of running checks every time you update your code Respuesta"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#setting-up-the-test-structure",
+    "href": "Developing_R_Packages_C4.html#setting-up-the-test-structure",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.1 Setting up the test structure",
+    "text": "39.1 Setting up the test structure\nYou can set up a test framework in a package using the function use_testthat().\nThis will create a tests directory that contains:\n\n\nA script testthat.R.\nA directory testthat.\n\n\nYou save your tests in the tests/testthat/ directory in files with filenames beginning with test-. So, for example, the simutils package has tests named:\n\n\ntest-na_counter.R\ntest-sample_from_data.R\n\n\nThere are no other strict rules governing the filenames, but you may find it easier to keep track of which functions you are testing if you name your tests after the functions like in the examples above. Alternatively, you can name your tests after areas of package functionality, for example, putting tests for multiple summary functions in test-summaries.R."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#writing-an-individual-test",
+    "href": "Developing_R_Packages_C4.html#writing-an-individual-test",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.2 Writing an individual test",
+    "text": "39.2 Writing an individual test\nYou create individual tests within your test files using functions named with the pattern expect_* . To make your code easier to read, you may want to create the object to be tested (and/or the expected value, if there is one) before you call the expect_* function.\nHere is one of the tests from the simutils package.\n\nair_expected <- c(Ozone = 37, Solar.R = 7, Wind = 0, Temp = 0, Month = 0, Day = 0)\n\n\nexpect_equal(na_counter(airquality), air_expected)\n\nThe expect_* functions differ in the number of parameters, but the first parameter is always the object being tested.\nWhen you run your tests, you might notice that there is no output. You will only see an output message if the test has failed."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#testing-for-equality",
+    "href": "Developing_R_Packages_C4.html#testing-for-equality",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.3 Testing for equality",
+    "text": "39.3 Testing for equality\nYou can use expect_equal(), expect_equivalent() and expect_identical() in order to test whether the output of a function is as expected.\nThese three functions all have slightly different functionality:\nexpect_identical() checks that the values, attributes, and type of both objects are the same. expect_equal() checks that the values, and attributes of both objects are the same. You can adjust how strict expect_equal() is by adjusting the tolerance parameter. expect_equivalent() checks that the values, of both objects are the same."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#testing-errors",
+    "href": "Developing_R_Packages_C4.html#testing-errors",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.4 Testing errors",
+    "text": "39.4 Testing errors\nYou can use expect_error() to test if running a function returns an error. If the function returns an error, the test will pass, otherwise, it will fail. You can optionally define the error message that should be returned to ensure that you are testing for the correct error."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#testing-warnings",
+    "href": "Developing_R_Packages_C4.html#testing-warnings",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.5 Testing warnings",
+    "text": "39.5 Testing warnings\nYou can use expect_warning() to test if the output of a function also returns a warning. If the function returns a warning, the test will pass, otherwise, it will fail. You can optionally define the warning message that should be returned to ensure that you are testing for the correct warning.\nYour data_summary() function has been updated to issue a warning if na.rm is set to FALSE and if the data contains missing values."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#testing-non-exported-functions",
+    "href": "Developing_R_Packages_C4.html#testing-non-exported-functions",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.6 Testing non-exported functions",
+    "text": "39.6 Testing non-exported functions\nAs only exported functions are loaded when tests are being run, you can test non-exported functions by referring to them using the package name, followed by three colons, and then the function name."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#grouping-tests",
+    "href": "Developing_R_Packages_C4.html#grouping-tests",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.7 Grouping tests",
+    "text": "39.7 Grouping tests\nSo far, you’ve been using expect_*() functions to create individual tests. To run tests in packages you need to group these individual tests together. You do this using a function test_that(). You can use this to group together expectations that test specific functionality.\nYou can use context() to collect these groups together. You usually have one context per file. An advantage of doing this is that it makes it easier to work out where failing tests are located."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp-6",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp-6",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse context() to set the context to “Test data_summary()”.\nUse test_that() to group the tests below together, giving them the description “data_summary() handles errors correctly”.\n\n\n\nE7.R\n\n# Use context() and test_that() to group the tests below together\ncontext(\"Test data_summary()\")\n\ntest_that(\"data_summary() handles errors correctly\", {\n\n  # Create a vector\n  my_vector <- 1:10\n\n  # Use expect_error()\n  expect_error(data_summary(my_vector))\n\n  # Use expect_warning()\n  expect_warning(data_summary(airquality, na.rm = FALSE))\n\n})"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#executing-unit-tests",
+    "href": "Developing_R_Packages_C4.html#executing-unit-tests",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.8 Executing unit tests",
+    "text": "39.8 Executing unit tests\nWith your tests scripts saved in the package structure you can always easily re-run your tests using the test() function in devtools. This function looks for all tests located in the tests/testhat or inst/tests directory with filenames beginning with test- and ending in .R, and executes each of them. As with the other devtools functions, you supply the path to the package as the first argument to the test() function."
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#instructions-100-xp-7",
+    "href": "Developing_R_Packages_C4.html#instructions-100-xp-7",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nRun the tests on the datasummary package.\n\n\nE7.R\n\n# Run the tests on the datasummary package\ntest(\"datasummary\")"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#understanding-a-test-failure",
+    "href": "Developing_R_Packages_C4.html#understanding-a-test-failure",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "39.9 Understanding a test failure",
+    "text": "39.9 Understanding a test failure\nIn the video, we talked about a number of things you can do if you find a failing test, such as updating the test or changing the function. But, what’s the first thing you should do if you find a failing test?"
+  },
+  {
+    "objectID": "Developing_R_Packages_C4.html#answers-question-50-xp",
+    "href": "Developing_R_Packages_C4.html#answers-question-50-xp",
+    "title": "39  Adding Unit Tests to R Packages",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP\n\nUpdate the test so it passes\nUpdate the R code so the test passes\nWork out the source of the test failure Respuesta\nBang your head against your desk"
   }
 ]

@@ -10,7 +10,7 @@ One way to help expose missing values is to change the way we think about the da
 
 The as_shadow() function in R transforms a dataframe into a shadow matrix, a special data format where the values are either missing (NA), or Not Missing (!NA).
 
-The column names of a shadow matrix are the same as the data, but have a suffix added _NA.
+The column names of a shadow matrix are the same as the data, but have a suffix added \_NA.
 
 To keep track of and compare data values to their missingness state, use the bind_shadow() function. Having data in this format, with the shadow matrix column bound to the regular data is called nabular data.
 
@@ -18,9 +18,9 @@ To keep track of and compare data values to their missingness state, use the bin
 
 Using the oceanbuoys dataset:
 
-* Create shadow matrix data with as_shadow()
-* Create nabular data by binding the shadow to the data with bind_shadow()
-* Bind only the variables with missing values by using bind_shadow(only_miss = TRUE)
+-   Create shadow matrix data with as_shadow()
+-   Create nabular data by binding the shadow to the data with bind_shadow()
+-   Bind only the variables with missing values by using bind_shadow(only_miss = TRUE)
 
 ``` {.r filename="E1.R"}
 # Create shadow matrix data with `as_shadow()`
@@ -46,9 +46,9 @@ Next, perform some summaries on the data using group_by() and summarize() to cal
 
 ## Instructions `100 XP` {.unnumbered}
 
-* For the oceanbuoys dataset:
-* bind_shadow(), then group_by() for the missingness of humidity (humidity_NA) and calculate the means and standard deviations for wind east west (wind_ew) using summarize() from dplyr.
-* Repeat this, but calculating summaries for wind north south (wind_ns).
+-   For the oceanbuoys dataset:
+-   bind_shadow(), then group_by() for the missingness of humidity (humidity_NA) and calculate the means and standard deviations for wind east west (wind_ew) using summarize() from dplyr.
+-   Repeat this, but calculating summaries for wind north south (wind_ns).
 
 ``` {.r filename="E2.R"}
 # `bind_shadow()` and `group_by()` humidity missingness (`humidity_NA`)
@@ -72,14 +72,12 @@ It can be useful to get a bit of extra information about the number of cases in 
 
 In this exercise, we are going to add information about the number of observed cases using n() inside the summarize() function.
 
-We will then add an additional level of grouping by looking at the combination of humidity being missing (humidity_NA) and air temperature being missing (air_temp_c_NA).
+We will then add an additional level of grouping by looking at the combination of humidity being missing (humidity_NA) and air temperature being missing (air_temp_c\_NA).
 
 ## Instructions `100 XP` {.unnumbered}
 
-Using group_by() and summarize() on wind_ew:
- * Summarize by the missingness of air_temp_c_NA.
- * Summarize by missingness of air_temp_c_NA and humidity_NA.
- 
+Using group_by() and summarize() on wind_ew: \* Summarize by the missingness of air_temp_c\_NA. \* Summarize by missingness of air_temp_c\_NA and humidity_NA.
+
 ``` {.r filename="E3.R"}
 # Summarize wind_ew by the missingness of `air_temp_c_NA`
 oceanbuoys %>% 
@@ -108,9 +106,9 @@ We are going to use the oceanbuoys dataset from naniar.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* First explore the missingness structure of oceanbuoys using vis_miss().
-* Explore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_density().
-* Explore the distribution of sea temperature for the missingness of humidity using geom_density().
+-   First explore the missingness structure of oceanbuoys using vis_miss().
+-   Explore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_density().
+-   Explore the distribution of sea temperature for the missingness of humidity using geom_density().
 
 ``` {.r filename="E4.R"}
 # First explore the missingness structure of `oceanbuoys` using `vis_miss()`
@@ -141,8 +139,9 @@ This allows you to explore different layers of missingness.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Explore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_density() and faceting by the missingness of air temperature (air_temp_c_NA).
-* Build upon this visualization by filling by the missingness of humidity (humidity_NA).
+-   Explore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_density() and faceting by the missingness of air temperature (air_temp_c\_NA).
+-   Build upon this visualization by filling by the missingness of humidity (humidity_NA).
+
 ``` {.r filename="E5.R"}
 # Explore the distribution of wind east west (wind_ew) for the missingness of air temperature 
 # using geom_density() and faceting by the missingness of air temperature (air_temp_c_NA).
@@ -169,8 +168,8 @@ We are going to use the oceanbuoys dataset from naniar, using box plots instead 
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Explore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_boxplot()
-* Build upon this visualization by faceting by the missingness of humidity (humidity_NA).
+-   Explore the distribution of wind east west (wind_ew) for the missingness of air temperature using geom_boxplot()
+-   Build upon this visualization by faceting by the missingness of humidity (humidity_NA).
 
 ``` {.r filename="E6.R"}
 # Explore the distribution of wind east west (`wind_ew`) for  
@@ -200,8 +199,8 @@ Let's practice using this visualization with the oceanbuoys dataset.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Explore the missingness in wind east west (wind_ew) and air temperature, and display the missingness using geom_miss_point().
-* Explore the missingness in humidity and air temperature, and display the missingness using geom_miss_point().
+-   Explore the missingness in wind east west (wind_ew) and air temperature, and display the missingness using geom_miss_point().
+-   Explore the missingness in humidity and air temperature, and display the missingness using geom_miss_point().
 
 ``` {.r filename="E7.R"}
 # Explore the missingness in wind and air temperature, and  
@@ -227,8 +226,8 @@ This means we can rapidly explore the missingness and stay within the familiar b
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Explore the missingness in wind and air temperature, and display the missingness using geom_miss_point(). Facet by year to explore this further.
-* Explore the missingness in humidity and air temperature, and display the missingness using geom_miss_point(). Facet by year to explore this further.
+-   Explore the missingness in wind and air temperature, and display the missingness using geom_miss_point(). Facet by year to explore this further.
+-   Explore the missingness in humidity and air temperature, and display the missingness using geom_miss_point(). Facet by year to explore this further.
 
 ``` {.r filename="E8.R"}
 # Explore the missingness in wind and air temperature, and display the 
@@ -258,8 +257,8 @@ We can even create multiple faceted plots according to values in the data, such 
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Use geom_miss_point() and facet_wrap() to explore how the missingness in wind_ew and air_temp_c is different for missingness of humidity.
-* Use geom_miss_point() and facet_grid() to explore how the missingness in wind_ew and air_temp_c is different for missingness of humidity and by year.
+-   Use geom_miss_point() and facet_wrap() to explore how the missingness in wind_ew and air_temp_c is different for missingness of humidity.
+-   Use geom_miss_point() and facet_grid() to explore how the missingness in wind_ew and air_temp_c is different for missingness of humidity and by year.
 
 ``` {.r filename="E9.R"}
 # Use geom_miss_point() and facet_wrap to explore how the missingness 

@@ -8,16 +8,14 @@ You have a dataset with missing values coded as "N/A", "missing", and "na". But 
 
 Use miss_scan_count to count the possible missings in the dataset, pacman, a dataset of pacman scores, containing three columns:
 
-> *year: the year that person made that score.
-> *initial: the initials of the person.
-> *score: the scores of that person.
+> *year: the year that person made that score.* initial: the initials of the person. \*score: the scores of that person.
 
 ## Instructions `100 XP` {.unnumbered}
 
 For the pacman dataset, use miss_scan_count() to search for strange missing values:
 
-* "N/A", "missing", "na", and " " (a single space).
-* To search for strange missing values all at once.
+-   "N/A", "missing", "na", and " " (a single space).
+-   To search for strange missing values all at once.
 
 ``` {.r filename="E1.R"}
 # Explore the strange missing values "N/A"
@@ -46,8 +44,8 @@ Now, we are going to do something about it, and replace these values with missin
 
 For the pacman dataset:
 
-* Using replace_with_na(), replace missing values "N/A", "na", and "missing" with NA for the year, and score variables.
-* Test to see if you have removed all the missing values using miss_scan_count() at the end.
+-   Using replace_with_na(), replace missing values "N/A", "na", and "missing" with NA for the year, and score variables.
+-   Test to see if you have removed all the missing values using miss_scan_count() at the end.
 
 ``` {.r filename="E2.R"}
 # Print the top of the pacman data using `head()`
@@ -66,17 +64,17 @@ miss_scan_count(pacman_clean, search = list("N/A", "na", "missing"))
 
 To reduce code repetition when replacing values with NA, use the "scoped variants" of replace_with_na():
 
-> * replace_with_na_at()
-> * replace_with_na_if()
-> * replace_with_na_all()
+> -   replace_with_na_at()
+> -   replace_with_na_if()
+> -   replace_with_na_all()
 
 The syntax of replacement looks like this:
 
->~.x == "N/A"
+> \~.x == "N/A"
 
 This replaces all cases that are equal to "N/A".
 
->~.x %in% c("N/A", "missing", "na", " ")
+> \~.x %in% c("N/A", "missing", "na", " ")
 
 Replaces all cases that have "N/A", "missing", "na", or " ".
 
@@ -84,9 +82,9 @@ Replaces all cases that have "N/A", "missing", "na", or " ".
 
 For the dataset pacman replace the same special missing values, "N/A", "missing", "na", and " ":
 
-* year, month, and day, using replace_with_na_at().
-* Only character variables using replace_with_na_if().
-* All variables using replace_with_na_all().
+-   year, month, and day, using replace_with_na_at().
+-   Only character variables using replace_with_na_if().
+-   All variables using replace_with_na_all().
 
 ``` {.r filename="E3.R"}
 # Use `replace_with_na_at()` to replace with NA
@@ -117,7 +115,7 @@ Use the complete() function to make these implicit missing values explicit
 
 For the frogger dataset:
 
-* Use complete() from tidyr on the time and name variables to make implicit missing values explicit.
+-   Use complete() from tidyr on the time and name variables to make implicit missing values explicit.
 
 ``` {.r filename="E4.R"}
 # Print the frogger data to have a look at it
@@ -139,6 +137,7 @@ This type of problem can be solved by using the fill() function from the tidyr p
 ## Instructions `100 XP` {.unnumbered}
 
 Use fill() to fill down the "name" observations in the frogger dataset.
+
 ``` {.r filename="E5.R"}
 # Print the frogger data to have a look at it
 frogger
@@ -175,12 +174,11 @@ For the oceanbuoys dataset, explore the missingness with vis_miss(), and then ar
 
 This is not a definitive process, but it will get you started to ask the right questions of your data. We explore more powerful techniques in the next chapter.
 
-
 ## Instructions `100 XP` {.unnumbered}
 
 Using the dataset, oceanbuoys:
 
-* Arrange by the variables, year, latitude, and wind_ew using vis_miss().
+-   Arrange by the variables, year, latitude, and wind_ew using vis_miss().
 
 ``` {.r filename="E6.R"}
 # Arrange by year

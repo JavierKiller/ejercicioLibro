@@ -1,0 +1,213 @@
+---
+title: "Adding Unit Tests to R Packages"
+---
+
+## Setting up the test structure
+
+You can set up a test framework in a package using the function use_testthat().
+
+This will create a tests directory that contains:
+
+> -   A script testthat.R.
+> -   A directory testthat.
+
+You save your tests in the tests/testthat/ directory in files with filenames beginning with test-. So, for example, the simutils package has tests named:
+
+> -   test-na_counter.R
+> -   test-sample_from_data.R
+
+There are no other strict rules governing the filenames, but you may find it easier to keep track of which functions you are testing if you name your tests after the functions like in the examples above. Alternatively, you can name your tests after areas of package functionality, for example, putting tests for multiple summary functions in test-summaries.R.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Set up the test framework for your datasummary package.
+-   Look at the contents of the package root directory.
+-   Look at the contents of the new folder which has been created.
+
+``` {.r filename="E1.R"}
+# Set up the test framework
+use_testthat("datasummary")
+
+# Look at the contents of the package root directory
+dir("datasummary")
+
+# Look at the contents of the new folder which has been created 
+dir("datasummary/tests")
+```
+
+## Writing an individual test
+
+You create individual tests within your test files using functions named with the pattern expect\_\* . To make your code easier to read, you may want to create the object to be tested (and/or the expected value, if there is one) before you call the expect\_\* function.
+
+Here is one of the tests from the simutils package.
+
+> air_expected \<- c(Ozone = 37, Solar.R = 7, Wind = 0, Temp = 0, Month = 0, Day = 0)
+
+> expect_equal(na_counter(airquality), air_expected)
+
+The expect\_\* functions differ in the number of parameters, but the first parameter is always the object being tested.
+
+When you run your tests, you might notice that there is no output. You will only see an output message if the test has failed.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Call data_summary() on iris and assign the result to iris_summary.
+-   Assign the number of rows in iris_summary to summary_rows.
+-   Use the function expect_equal() to test whether the result of calling data_summary() on the iris dataset returns 4 rows.
+
+``` {.r filename="E2.R"}
+# Create a summary of the iris dataset using your data_summary() function
+iris_summary <- data_summary(iris)
+
+# Count how many rows are returned
+summary_rows <- nrow(iris_summary) 
+
+# Use expect_equal to test that calling data_summary() on iris returns 4 rows
+expect_equal(summary_rows, 4)
+```
+
+## Testing for equality
+
+You can use expect_equal(), expect_equivalent() and expect_identical() in order to test whether the output of a function is as expected.
+
+These three functions all have slightly different functionality:
+
+expect_identical() checks that the values, attributes, and type of both objects are the same. expect_equal() checks that the values, and attributes of both objects are the same. You can adjust how strict expect_equal() is by adjusting the tolerance parameter. expect_equivalent() checks that the values, of both objects are the same.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Update the first test below so that the test passes; do this by adjusting the tolerance parameter.
+-   Write a test comparing expected_result and result which does not produce an error.
+
+``` {.r filename="E3.R"}
+result <- data_summary(weather)
+
+# Update this test so it passes
+expect_equal(result$sd, c(2.1, 3.6), tolerance = 0.1)
+
+expected_result <- list(
+    ID = c("Day", "Temp"),
+    min = c(1L, 14L),
+    median = c(4L, 19L),
+    sd = c(2.16024689946929, 3.65148371670111),
+    max = c(7L, 24L)
+)
+
+# Write a passing test that compares expected_result to result
+expect_equivalent(result, expected_result)
+```
+
+## Testing errors
+
+You can use expect_error() to test if running a function returns an error. If the function returns an error, the test will pass, otherwise, it will fail. You can optionally define the error message that should be returned to ensure that you are testing for the correct error.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Call data_summary() on my_vector.
+-   Pick an appropriate expect\_\*() function such that when you call data_summary() on my_vector again, the test passes.
+
+``` {.r filename="E4.R"}
+# Create a vector containing the numbers 1 through 10
+my_vector <- 1:10
+
+# Look at what happens when we apply this vector as an argument to data_summary()
+data_summary(my_vector)
+
+# Test if running data_summary() on this vector returns an error
+expect_error(data_summary(my_vector))
+```
+
+## Testing warnings
+
+You can use expect_warning() to test if the output of a function also returns a warning. If the function returns a warning, the test will pass, otherwise, it will fail. You can optionally define the warning message that should be returned to ensure that you are testing for the correct warning.
+
+Your data_summary() function has been updated to issue a warning if na.rm is set to FALSE and if the data contains missing values.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Call data_summary() on airquality dataset with na.rm set to FALSE and see what happens.
+-   Pick an appropriate expect\_\*() function such that when you call data_summary() on airquality with na.rm set to FALSE again, the test passes.
+
+``` {.r filename="E5.R"}
+# Run data_summary on the airquality dataset with na.rm set to FALSE
+data_summary(airquality, na.rm = FALSE)
+
+# Use expect_warning to formally test this
+expect_warning(data_summary(airquality, na.rm = FALSE))
+```
+
+## Testing non-exported functions
+
+As only exported functions are loaded when tests are being run, you can test non-exported functions by referring to them using the package name, followed by three colons, and then the function name.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Call the non-exported function numeric_summary() on the Temp column of the weather dataset and assign it to result.
+-   Pick an appropriate expect\_\*() function which tests expected and result are exactly equal.
+
+``` {.r filename="E6.R"}
+# Expected result
+expected <- data.frame(min = 14L, median = 19L, sd = 3.65148371670111, max = 24L)
+
+# Create variable result by calling numeric summary on the temp column of the weather dataset
+result <- datasummary:::numeric_summary(weather$Temp, na.rm = TRUE)
+
+# Test that the value returned matches the expected value
+expect_equal(result, expected)
+```
+
+## Grouping tests
+
+So far, you've been using expect\_\*() functions to create individual tests. To run tests in packages you need to group these individual tests together. You do this using a function test_that(). You can use this to group together expectations that test specific functionality.
+
+You can use context() to collect these groups together. You usually have one context per file. An advantage of doing this is that it makes it easier to work out where failing tests are located.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Use context() to set the context to "Test data_summary()".
+-   Use test_that() to group the tests below together, giving them the description "data_summary() handles errors correctly".
+
+``` {.r filename="E7.R"}
+# Use context() and test_that() to group the tests below together
+context("Test data_summary()")
+
+test_that("data_summary() handles errors correctly", {
+
+  # Create a vector
+  my_vector <- 1:10
+
+  # Use expect_error()
+  expect_error(data_summary(my_vector))
+
+  # Use expect_warning()
+  expect_warning(data_summary(airquality, na.rm = FALSE))
+
+})
+```
+
+## Executing unit tests
+
+With your tests scripts saved in the package structure you can always easily re-run your tests using the test() function in devtools. This function looks for all tests located in the tests/testhat or inst/tests directory with filenames beginning with test- and ending in .R, and executes each of them. As with the other devtools functions, you supply the path to the package as the first argument to the test() function.
+
+## Instructions `100 XP` {.unnumbered}
+
+Run the tests on the datasummary package.
+
+``` {.r filename="E8.R"}
+# Run the tests on the datasummary package
+test("datasummary")
+```
+
+## Understanding a test failure
+
+In the video, we talked about a number of things you can do if you find a failing test, such as updating the test or changing the function. But, what's the first thing you should do if you find a failing test?
+
+## Answers question `50 XP` {.unnumbered}
+
+-   Update the test so it passes
+
+-   Update the R code so the test passes
+
+-   Work out the source of the test failure Respuesta
+
+-   Bang your head against your desk

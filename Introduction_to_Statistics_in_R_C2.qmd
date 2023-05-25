@@ -1,12 +1,12 @@
 ---
-title: "Importing data from flat files with utils"
+title: "Random Numbers and Probability"
 ---
 
-## r
+## 
 
 ## Instructions `100 XP` {.unnumbered}
 
-
+-   
 
 ``` {.r filename="E1.R"}
 
@@ -37,7 +37,6 @@ title: "Importing data from flat files with utils"
 ## Instructions `100 XP` {.unnumbered}
 
 
-
 ``` {.r filename="E4.R"}
 
 ```
@@ -59,4 +58,28 @@ title: "Importing data from flat files with utils"
 
 
 ``` {.r filename="E6.R"}
+
 ```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+
+
+``` {.r filename="E7.R"}
+
+```
+
+## 
+## Instructions `100 XP` {.unnumbered}
+
+Run the tests on the datasummary package.
+
+``` {.r filename="E8.R"}
+
+```
+
+## 
+
+## Answers question `50 XP` {.unnumbered}

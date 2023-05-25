@@ -12,14 +12,15 @@ dplyr has been loaded and sfo_survey and dest_sizes are available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Count the number of occurrences of each dest_size in sfo_survey.
+-   Count the number of occurrences of each dest_size in sfo_survey.
 
-* Use the correct type of filtering join on the sfo_survey data frame and the dest_sizes data frame to get the rows of sfo_survey with invalid dest_size values.
-* Get the id, airline, destination, and dest_size columns.
+-   Use the correct type of filtering join on the sfo_survey data frame and the dest_sizes data frame to get the rows of sfo_survey with invalid dest_size values.
 
+-   Get the id, airline, destination, and dest_size columns.
 
-* Use the correct filtering join on sfo_survey and dest_sizes to get the rows of sfo_survey that have a valid dest_size.
-* Count the number of times that each dest_size occurs to make sure there are no invalid values left behind.
+-   Use the correct filtering join on sfo_survey and dest_sizes to get the rows of sfo_survey that have a valid dest_size.
+
+-   Count the number of times that each dest_size occurs to make sure there are no invalid values left behind.
 
 ## Question {.unnumbered}
 
@@ -27,12 +28,11 @@ Take a closer look at your output. Which dest_size values appear to violate memb
 
 Possible Answers
 
-"huge", "Small", "Large ", and "Hub".
+"huge", "Small", "Large", and "Hub".
 
-"huge", " Small ", "Large ", and " Hub". Respuesta 
+"huge", " Small ","Large ", and" Hub". Respuesta
 
 "Small", "Medium", "Large", and "Hub".
-
 
 ``` {.r filename="E1.R"}
 # Count the number of occurrences of dest_size
@@ -65,13 +65,13 @@ dplyr and is loaded and sfo_survey is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Count the number of occurrences of each category of the dest_size variable of sfo_survey.
+-   Count the number of occurrences of each category of the dest_size variable of sfo_survey.
 
-* Count the number of occurrences of each category of the cleanliness variable of sfo_survey.
+-   Count the number of occurrences of each category of the cleanliness variable of sfo_survey.
 
-* 
+-   
 
-##  Question {.unnumbered}
+## Question {.unnumbered}
 
 Select the statement that most accurately describes the categories in the dest_size variable of sfo_survey.
 
@@ -85,8 +85,7 @@ The categories in dest_size have inconsistent white space.
 
 The categories in dest_size have inconsistent capitalization and white space. Respuesta
 
-
-##  Question {.unnumbered}
+## Question {.unnumbered}
 
 Select the statement that most accurately describes the categories in the cleanliness variable of sfo_survey.
 
@@ -94,13 +93,11 @@ Possible Answers
 
 The categories in cleanliness have no inconsistencies.
 
-The categories in cleanliness have inconsistent capitalization. Respuesta 
+The categories in cleanliness have inconsistent capitalization. Respuesta
 
 The categories in cleanliness have inconsistent white space.
 
 The categories in cleanliness have inconsistent capitalization and white space.
-
-
 
 ``` {.r filename="E2.R"}
 # Count dest_size
@@ -116,7 +113,6 @@ sfo_survey %>%
 sfo_survey %>%
   count(cleanliness)
   
-
 ```
 
 ## Correcting inconsistency
@@ -127,10 +123,10 @@ dplyr and stringr are loaded and sfo_survey is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Add a column to sfo_survey called dest_size_trimmed that contains the values in the dest_size column with all leading and trailing whitespace removed.
-* Add another column called cleanliness_lower that contains the values in the cleanliness column converted to all lowercase.
-* Count the number of occurrences of each category in dest_size_trimmed.
-* Count the number of occurrences of each category in cleanliness_lower.
+-   Add a column to sfo_survey called dest_size_trimmed that contains the values in the dest_size column with all leading and trailing whitespace removed.
+-   Add another column called cleanliness_lower that contains the values in the cleanliness column converted to all lowercase.
+-   Count the number of occurrences of each category in dest_size_trimmed.
+-   Count the number of occurrences of each category in cleanliness_lower.
 
 ``` {.r filename="E3.R"}
 # Add new columns to sfo_survey
@@ -147,7 +143,6 @@ sfo_survey %>%
 # Count values of cleanliness_lower
 sfo_survey %>%
   count(cleanliness_lower)
-
 ```
 
 ## Collapsing categories
@@ -158,13 +153,15 @@ dplyr and forcats are loaded and sfo_survey is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Count the categories of dest_region
+-   Count the categories of dest_region
 
-* Create a vector called europe_categories containing the three values of dest_region that need to be collapsed.
-* Add a new column to sfo_survey called dest_region_collapsed that contains the values from the dest_region column, except the categories stored in europe_categories should be collapsed to Europe.
-* Count the categories of dest_region_collapsed.
+-   Create a vector called europe_categories containing the three values of dest_region that need to be collapsed.
 
-## Question  {.unnumbered}
+-   Add a new column to sfo_survey called dest_region_collapsed that contains the values from the dest_region column, except the categories stored in europe_categories should be collapsed to Europe.
+
+-   Count the categories of dest_region_collapsed.
+
+## Question {.unnumbered}
 
 From your output from step 1, which categories need to be collapsed?
 
@@ -172,12 +169,11 @@ Possible Answers
 
 "EU" and "Europ" need to be collapsed to "Europe".
 
-"EU", "eur", and "Europ" need to be collapsed to "Europe".  Respuesta 
+"EU", "eur", and "Europ" need to be collapsed to "Europe". Respuesta
 
 "East US", "Midwest US", and "West US" need to be collapsed to "US".
 
 "Asia" and "Central/South America" should be collapsed to "Asia and Central/South America".
-
 
 ``` {.r filename="E4.R"}
 # Count categories of dest_region
@@ -211,9 +207,10 @@ dplyr and stringr are loaded, and sfo_survey is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Filter for rows with phone numbers that contain "-"s.
+-   Filter for rows with phone numbers that contain "-"s.
 
-* Filter for rows with phone numbers that contain "(", or ")". Remember to use fixed() when searching for parentheses.
+-   Filter for rows with phone numbers that contain "(", or ")". Remember to use fixed() when searching for parentheses.
+
 ``` {.r filename="E5.R"}
 # Filter for rows with "-" in the phone column
 sfo_survey %>%
@@ -233,11 +230,11 @@ dplyr and stringr are loaded and sfo_survey is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Remove opening and closing parentheses from the phone column. Store this as a variable called phone_no_parens. Remember to use fixed()!
+-   Remove opening and closing parentheses from the phone column. Store this as a variable called phone_no_parens. Remember to use fixed()!
 
-* Add a new column to sfo_survey called phone_no_parens that contains the contents of phone_no_parens.
+-   Add a new column to sfo_survey called phone_no_parens that contains the contents of phone_no_parens.
 
-* Create a new column of sfo_survey called phone_clean containing the values of phone_no_parens with all hyphens replaced with spaces.
+-   Create a new column of sfo_survey called phone_clean containing the values of phone_no_parens with all hyphens replaced with spaces.
 
 ``` {.r filename="E6.R"}
 # Remove parentheses from phone column
@@ -283,8 +280,9 @@ dplyr and stringr are loaded and sfo_survey is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Examine the invalid phone numbers by filtering for numbers whose length is not equal to 12.
-* Remove the rows with invalid numbers by filtering for numbers with a length of exactly 12.
+-   Examine the invalid phone numbers by filtering for numbers whose length is not equal to 12.
+-   Remove the rows with invalid numbers by filtering for numbers with a length of exactly 12.
+
 ``` {.r filename="E7.R"}
 # Check out the invalid numbers
 sfo_survey %>%
@@ -294,4 +292,3 @@ sfo_survey %>%
 sfo_survey %>%
   filter(str_length(phone) == 12)
 ```
-

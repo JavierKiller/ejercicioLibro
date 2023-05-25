@@ -33,7 +33,7 @@ book:
     - part: "Introduction to Writing Functions in R"
       chapters:
         - Introduction_to_Writing_Functions_in_R_C1.qmd    
-        - Introduction_to_Writing_Functions_in_R_C3.qmd   
+        - Introduction_to_Writing_Functions_in_R_C2.qmd   
         - Introduction_to_Writing_Functions_in_R_C3.qmd   
         - Introduction_to_Writing_Functions_in_R_C4.qmd       
     - part: "Introduction to Importing Data in R"
@@ -65,7 +65,13 @@ book:
         - Dealing_With_Missing_Data_in_R_C1.qmd 
         - Dealing_With_Missing_Data_in_R_C2.qmd 
         - Dealing_With_Missing_Data_in_R_C3.qmd 
-        - Dealing_With_Missing_Data_in_R_C4.qmd   
+        - Dealing_With_Missing_Data_in_R_C4.qmd  
+    - part: "Developing R Packages"
+      chapters:
+        - Developing_R_Packages_C1.qmd 
+        - Developing_R_Packages_C2.qmd 
+        - Developing_R_Packages_C3.qmd 
+        - Developing_R_Packages_C4.qmd  
 
 bibliography: references.bib
 
@@ -77,5 +83,8 @@ format:
 
 editor: visual
 
+
+#Statistics Fundamentals with R
+#Spatial Data with R
 # lux darkly cyborg vapor sketchy slate
 
