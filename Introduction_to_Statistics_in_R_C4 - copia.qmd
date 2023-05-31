@@ -1,0 +1,85 @@
+---
+title: "Correlation and Experimental Design"
+---
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E1.R"}
+
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+
+
+``` {.r filename="E2.R"}
+
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+
+
+``` {.r filename="E3.R"}
+
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+
+``` {.r filename="E4.R"}
+
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+
+
+``` {.r filename="E5.R"}
+
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+
+
+``` {.r filename="E6.R"}
+
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+
+
+``` {.r filename="E7.R"}
+
+```
+
+## 
+## Instructions `100 XP` {.unnumbered}
+
+Run the tests on the datasummary package.
+
+``` {.r filename="E8.R"}
+
+```
+
+## 
+
+## Answers question `50 XP` {.unnumbered}

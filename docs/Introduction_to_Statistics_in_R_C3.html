@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>libro - 39&nbsp; Adding Unit Tests to R Packages</title>
+<title>libro - 42&nbsp; More Distributions and the Central Limit Theorem</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction_to_Statistics_in_R_C1.html" rel="next">
-<link href="./Developing_R_Packages_C3.html" rel="prev">
+<link href="./Introduction_to_Statistics_in_R_C4.html" rel="next">
+<link href="./Introduction_to_Statistics_in_R_C2.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">More Distributions and the Central Limit Theorem</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -445,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Developing_R_Packages_C4.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></a>
+  <a href="./Developing_R_Packages_C4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></a>
   </div>
 </li>
       </ul>
@@ -470,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction_to_Statistics_in_R_C3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">More Distributions and the Central Limit Theorem</span></a>
+  <a href="./Introduction_to_Statistics_in_R_C3.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">More Distributions and the Central Limit Theorem</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -489,33 +489,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-up-the-test-structure" id="toc-setting-up-the-test-structure" class="nav-link active" data-scroll-target="#setting-up-the-test-structure"><span class="toc-section-number">39.1</span>  Setting up the test structure</a></li>
+  <li><a href="#distribution-of-amirs-sales" id="toc-distribution-of-amirs-sales" class="nav-link active" data-scroll-target="#distribution-of-amirs-sales"><span class="toc-section-number">42.1</span>  Distribution of Amir’s sales</a></li>
   <li><a href="#instructions-100-xp" id="toc-instructions-100-xp" class="nav-link" data-scroll-target="#instructions-100-xp">Instructions <code>100 XP</code></a></li>
-  <li><a href="#writing-an-individual-test" id="toc-writing-an-individual-test" class="nav-link" data-scroll-target="#writing-an-individual-test"><span class="toc-section-number">39.2</span>  Writing an individual test</a></li>
+  <li><a href="#probabilities-from-the-normal-distribution" id="toc-probabilities-from-the-normal-distribution" class="nav-link" data-scroll-target="#probabilities-from-the-normal-distribution"><span class="toc-section-number">42.2</span>  Probabilities from the normal distribution</a></li>
   <li><a href="#instructions-100-xp-1" id="toc-instructions-100-xp-1" class="nav-link" data-scroll-target="#instructions-100-xp-1">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-for-equality" id="toc-testing-for-equality" class="nav-link" data-scroll-target="#testing-for-equality"><span class="toc-section-number">39.3</span>  Testing for equality</a></li>
+  <li><a href="#simulating-sales-under-new-market-conditions" id="toc-simulating-sales-under-new-market-conditions" class="nav-link" data-scroll-target="#simulating-sales-under-new-market-conditions"><span class="toc-section-number">42.3</span>  Simulating sales under new market conditions</a></li>
   <li><a href="#instructions-100-xp-2" id="toc-instructions-100-xp-2" class="nav-link" data-scroll-target="#instructions-100-xp-2">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-errors" id="toc-testing-errors" class="nav-link" data-scroll-target="#testing-errors"><span class="toc-section-number">39.4</span>  Testing errors</a></li>
+  <li><a href="#the-clt-in-action" id="toc-the-clt-in-action" class="nav-link" data-scroll-target="#the-clt-in-action"><span class="toc-section-number">42.4</span>  The CLT in action</a></li>
   <li><a href="#instructions-100-xp-3" id="toc-instructions-100-xp-3" class="nav-link" data-scroll-target="#instructions-100-xp-3">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-warnings" id="toc-testing-warnings" class="nav-link" data-scroll-target="#testing-warnings"><span class="toc-section-number">39.5</span>  Testing warnings</a></li>
+  <li><a href="#the-mean-of-means" id="toc-the-mean-of-means" class="nav-link" data-scroll-target="#the-mean-of-means"><span class="toc-section-number">42.5</span>  The mean of means</a></li>
   <li><a href="#instructions-100-xp-4" id="toc-instructions-100-xp-4" class="nav-link" data-scroll-target="#instructions-100-xp-4">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-non-exported-functions" id="toc-testing-non-exported-functions" class="nav-link" data-scroll-target="#testing-non-exported-functions"><span class="toc-section-number">39.6</span>  Testing non-exported functions</a></li>
+  <li><a href="#tracking-lead-responses" id="toc-tracking-lead-responses" class="nav-link" data-scroll-target="#tracking-lead-responses"><span class="toc-section-number">42.6</span>  Tracking lead responses</a></li>
   <li><a href="#instructions-100-xp-5" id="toc-instructions-100-xp-5" class="nav-link" data-scroll-target="#instructions-100-xp-5">Instructions <code>100 XP</code></a></li>
-  <li><a href="#grouping-tests" id="toc-grouping-tests" class="nav-link" data-scroll-target="#grouping-tests"><span class="toc-section-number">39.7</span>  Grouping tests</a></li>
+  <li><a href="#modeling-time-between-leads" id="toc-modeling-time-between-leads" class="nav-link" data-scroll-target="#modeling-time-between-leads"><span class="toc-section-number">42.7</span>  Modeling time between leads</a></li>
   <li><a href="#instructions-100-xp-6" id="toc-instructions-100-xp-6" class="nav-link" data-scroll-target="#instructions-100-xp-6">Instructions <code>100 XP</code></a></li>
-  <li><a href="#executing-unit-tests" id="toc-executing-unit-tests" class="nav-link" data-scroll-target="#executing-unit-tests"><span class="toc-section-number">39.8</span>  Executing unit tests</a></li>
-  <li><a href="#instructions-100-xp-7" id="toc-instructions-100-xp-7" class="nav-link" data-scroll-target="#instructions-100-xp-7">Instructions <code>100 XP</code></a></li>
-  <li><a href="#understanding-a-test-failure" id="toc-understanding-a-test-failure" class="nav-link" data-scroll-target="#understanding-a-test-failure"><span class="toc-section-number">39.9</span>  Understanding a test failure</a></li>
-  <li><a href="#answers-question-50-xp" id="toc-answers-question-50-xp" class="nav-link" data-scroll-target="#answers-question-50-xp">Answers question <code>50 XP</code></a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Developing_R_Packages_C4.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Introduction_to_Statistics_in_R_C3.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">More Distributions and the Central Limit Theorem</span></h1>
 </div>
 
 
@@ -530,242 +526,234 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="setting-up-the-test-structure" class="level2" data-number="39.1">
-<h2 data-number="39.1" class="anchored" data-anchor-id="setting-up-the-test-structure"><span class="header-section-number">39.1</span> Setting up the test structure</h2>
-<p>You can set up a test framework in a package using the function use_testthat().</p>
-<p>This will create a tests directory that contains:</p>
-<blockquote class="blockquote">
-<ul>
-<li>A script testthat.R.</li>
-<li>A directory testthat.</li>
-</ul>
-</blockquote>
-<p>You save your tests in the tests/testthat/ directory in files with filenames beginning with test-. So, for example, the simutils package has tests named:</p>
-<blockquote class="blockquote">
-<ul>
-<li>test-na_counter.R</li>
-<li>test-sample_from_data.R</li>
-</ul>
-</blockquote>
-<p>There are no other strict rules governing the filenames, but you may find it easier to keep track of which functions you are testing if you name your tests after the functions like in the examples above. Alternatively, you can name your tests after areas of package functionality, for example, putting tests for multiple summary functions in test-summaries.R.</p>
+<section id="distribution-of-amirs-sales" class="level2" data-number="42.1">
+<h2 data-number="42.1" class="anchored" data-anchor-id="distribution-of-amirs-sales"><span class="header-section-number">42.1</span> Distribution of Amir’s sales</h2>
+<p>Since each deal Amir worked on (both won and lost) was different, each was worth a different amount of money. These values are stored in the amount column of amir_deals As part of Amir’s performance review, you want to be able to estimate the probability of him selling different amounts, but before you can do this, you’ll need to determine what kind of distribution the amount variable follows.</p>
+<p>Both dplyr and ggplot2 are loaded and amir_deals is available.</p>
 </section>
 <section id="instructions-100-xp" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Set up the test framework for your datasummary package.</li>
-<li>Look at the contents of the package root directory.</li>
-<li>Look at the contents of the new folder which has been created.</li>
+<li>Create a histogram with 10 bins to visualize the distribution of the amount.</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E1.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the test framework</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_testthat</span>(<span class="st">"datasummary"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the contents of the package root directory</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="st">"datasummary"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the contents of the new folder which has been created </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="st">"datasummary/tests"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of amount with 10 bins</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(amir_deals, <span class="fu">aes</span>(amount)) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="writing-an-individual-test" class="level2" data-number="39.2">
-<h2 data-number="39.2" class="anchored" data-anchor-id="writing-an-individual-test"><span class="header-section-number">39.2</span> Writing an individual test</h2>
-<p>You create individual tests within your test files using functions named with the pattern expect_* . To make your code easier to read, you may want to create the object to be tested (and/or the expected value, if there is one) before you call the expect_* function.</p>
-<p>Here is one of the tests from the simutils package.</p>
-<blockquote class="blockquote">
-<p>air_expected &lt;- c(Ozone = 37, Solar.R = 7, Wind = 0, Temp = 0, Month = 0, Day = 0)</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>expect_equal(na_counter(airquality), air_expected)</p>
-</blockquote>
-<p>The expect_* functions differ in the number of parameters, but the first parameter is always the object being tested.</p>
-<p>When you run your tests, you might notice that there is no output. You will only see an output message if the test has failed.</p>
+<section id="probabilities-from-the-normal-distribution" class="level2" data-number="42.2">
+<h2 data-number="42.2" class="anchored" data-anchor-id="probabilities-from-the-normal-distribution"><span class="header-section-number">42.2</span> Probabilities from the normal distribution</h2>
+<p>Since each deal Amir worked on (both won and lost) was different, each was worth a different amount of money. These values are stored in the amount column of amir_deals and follow a normal distribution with a mean of 5000 dollars and a standard deviation of 2000 dollars. As part of his performance metrics, you want to calculate the probability of Amir closing a deal worth various amounts.</p>
 </section>
 <section id="instructions-100-xp-1" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on iris and assign the result to iris_summary.</li>
-<li>Assign the number of rows in iris_summary to summary_rows.</li>
-<li>Use the function expect_equal() to test whether the result of calling data_summary() on the iris dataset returns 4 rows.</li>
+<li>What’s the probability of Amir closing a deal worth less than $7500?</li>
+<li>What’s the probability of Amir closing a deal worth more than $1000?</li>
+<li>What’s the probability of Amir closing a deal worth between $3000 and $7000?</li>
+<li>What amount will 75% of Amir’s sales be more than?</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E2.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary of the iris dataset using your data_summary() function</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>iris_summary <span class="ot">&lt;-</span> <span class="fu">data_summary</span>(iris)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of deal &lt; 7500</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">7500</span>, <span class="at">mean =</span> <span class="dv">5000</span>, <span class="at">sd =</span> <span class="dv">2000</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Count how many rows are returned</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>summary_rows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(iris_summary) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of deal &gt; 1000</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">5000</span>, <span class="at">sd =</span> <span class="dv">2000</span>, <span class="at">lower.tail =</span><span class="cn">FALSE</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use expect_equal to test that calling data_summary() on iris returns 4 rows</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(summary_rows, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of deal between 3000 and 7000</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">7000</span>, <span class="at">mean =</span> <span class="dv">5000</span>, <span class="at">sd =</span> <span class="dv">2000</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">3000</span>, <span class="at">mean =</span> <span class="dv">5000</span>, <span class="at">sd =</span> <span class="dv">2000</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate amount that 75% of deals will be more than</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.75</span>, <span class="at">mean =</span> <span class="dv">5000</span>, <span class="at">sd =</span> <span class="dv">2000</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-for-equality" class="level2" data-number="39.3">
-<h2 data-number="39.3" class="anchored" data-anchor-id="testing-for-equality"><span class="header-section-number">39.3</span> Testing for equality</h2>
-<p>You can use expect_equal(), expect_equivalent() and expect_identical() in order to test whether the output of a function is as expected.</p>
-<p>These three functions all have slightly different functionality:</p>
-<p>expect_identical() checks that the values, attributes, and type of both objects are the same. expect_equal() checks that the values, and attributes of both objects are the same. You can adjust how strict expect_equal() is by adjusting the tolerance parameter. expect_equivalent() checks that the values, of both objects are the same.</p>
+<section id="simulating-sales-under-new-market-conditions" class="level2" data-number="42.3">
+<h2 data-number="42.3" class="anchored" data-anchor-id="simulating-sales-under-new-market-conditions"><span class="header-section-number">42.3</span> Simulating sales under new market conditions</h2>
+<p>The company’s financial analyst is predicting that next quarter, the worth of each sale will increase by 20% and the volatility, or standard deviation, of each sale’s worth will increase by 30%. To see what Amir’s sales might look like next quarter under these new market conditions, you’ll simulate new sales amounts using the normal distribution and store these in the new_sales data frame, which has already been created for you.</p>
+<p>In addition, dplyr and ggplot2 are loaded.</p>
 </section>
 <section id="instructions-100-xp-2" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Update the first test below so that the test passes; do this by adjusting the tolerance parameter.</li>
-<li>Write a test comparing expected_result and result which does not produce an error.</li>
+<li>Currently, Amir’s average sale amount is $5000. Calculate what his new average amount will be if it increases by 20% and store this in new_mean.</li>
+<li>Amir’s current standard deviation is $2000. Calculate what his new standard deviation will be if it increases by 30% and store this in new_sd.</li>
+<li>Add a new column called amount to the data frame new_sales, which contains 36 simulated amounts from a normal distribution with a mean of new_mean and a standard deviation of new_sd.</li>
+<li>Plot the distribution of the new_sales amounts using a histogram with 10 bins.</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E3.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data_summary</span>(weather)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Update this test so it passes</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(result<span class="sc">$</span>sd, <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">3.6</span>), <span class="at">tolerance =</span> <span class="fl">0.1</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>expected_result <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID =</span> <span class="fu">c</span>(<span class="st">"Day"</span>, <span class="st">"Temp"</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">min =</span> <span class="fu">c</span>(1L, 14L),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">c</span>(4L, 19L),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">2.16024689946929</span>, <span class="fl">3.65148371670111</span>),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">max =</span> <span class="fu">c</span>(7L, 24L)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Write a passing test that compares expected_result to result</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equivalent</span>(result, expected_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate new average amount</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>new_mean <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="sc">*</span> <span class="fl">1.2</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate new standard deviation</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>new_sd <span class="ot">&lt;-</span> <span class="dv">2000</span> <span class="sc">*</span> <span class="fl">1.3</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate 36 sales</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>new_sales <span class="ot">&lt;-</span> new_sales <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">amount =</span> <span class="fu">rnorm</span>(<span class="dv">36</span>, <span class="at">mean =</span> new_mean, <span class="at">sd =</span> new_sd))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create histogram with 10 bins</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(new_sales, <span class="fu">aes</span>(amount)) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-errors" class="level2" data-number="39.4">
-<h2 data-number="39.4" class="anchored" data-anchor-id="testing-errors"><span class="header-section-number">39.4</span> Testing errors</h2>
-<p>You can use expect_error() to test if running a function returns an error. If the function returns an error, the test will pass, otherwise, it will fail. You can optionally define the error message that should be returned to ensure that you are testing for the correct error.</p>
+<section id="the-clt-in-action" class="level2" data-number="42.4">
+<h2 data-number="42.4" class="anchored" data-anchor-id="the-clt-in-action"><span class="header-section-number">42.4</span> The CLT in action</h2>
+<p>The central limit theorem states that a sampling distribution of a sample statistic approaches the normal distribution as you take more samples, no matter the original distribution being sampled from.</p>
+<p>In this exercise, you’ll focus on the sample mean and see the central limit theorem in action while examining the num_users column of amir_deals more closely, which contains the number of people who intend to use the product Amir is selling.</p>
+<p>Both dplyr and ggplot2 are loaded and amir_deals is available.</p>
 </section>
 <section id="instructions-100-xp-3" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on my_vector.</li>
-<li>Pick an appropriate expect_*() function such that when you call data_summary() on my_vector again, the test passes.</li>
+<li><p>Create a histogram of the num_users column of amir_deals. Use 10 bins.</p></li>
+<li><p>Set the seed to 104. Take a sample of size 20 with replacement from the num_users column of amir_deals, and take the mean.</p></li>
+<li><p>Repeat this 100 times and store as sample_means. This will take 100 different samples and calculate the mean of each.</p></li>
+<li><p>A data frame called samples has been created for you with a column mean, which contains the values from sample_means. Create a histogram of the mean column with 10 bins.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E4.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector containing the numbers 1 through 10</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at what happens when we apply this vector as an argument to data_summary()</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data_summary</span>(my_vector)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test if running data_summary() on this vector returns an error</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_error</span>(<span class="fu">data_summary</span>(my_vector))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a histogram of num_users</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(amir_deals, <span class="fu">aes</span>(num_users)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>  )</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed to 104</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">104</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 20 num_users with replacement from amir_deals</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(amir_deals<span class="sc">$</span>num_users, <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take mean</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed to 104</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">104</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 20 num_users from amir_deals and take mean</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(amir_deals<span class="sc">$</span>num_users, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat the above 100 times</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">sample</span>(amir_deals<span class="sc">$</span>num_users, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mean</span>())</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed to 104</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">104</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample 20 num_users from amir_deals and take mean</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(amir_deals<span class="sc">$</span>num_users, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat the above 100 times</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100</span>, <span class="fu">sample</span>(amir_deals<span class="sc">$</span>num_users, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> <span class="fu">mean</span>())</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame for plotting</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">mean =</span> sample_means)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of sample means</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(samples, <span class="fu">aes</span>(mean)) <span class="sc">+</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-warnings" class="level2" data-number="39.5">
-<h2 data-number="39.5" class="anchored" data-anchor-id="testing-warnings"><span class="header-section-number">39.5</span> Testing warnings</h2>
-<p>You can use expect_warning() to test if the output of a function also returns a warning. If the function returns a warning, the test will pass, otherwise, it will fail. You can optionally define the warning message that should be returned to ensure that you are testing for the correct warning.</p>
-<p>Your data_summary() function has been updated to issue a warning if na.rm is set to FALSE and if the data contains missing values.</p>
+<section id="the-mean-of-means" class="level2" data-number="42.5">
+<h2 data-number="42.5" class="anchored" data-anchor-id="the-mean-of-means"><span class="header-section-number">42.5</span> The mean of means</h2>
+<p>You want to know what the average number of users (num_users) is per deal, but you want to know this number for the entire company so that you can see if Amir’s deals have more or fewer users than the company’s average deal. The problem is that over the past year, the company has worked on more than ten thousand deals, so it’s not realistic to compile all the data. Instead, you’ll estimate the mean by taking several random samples of deals, since this is much easier than collecting data from everyone in the company.</p>
+<p>The user data for all the company’s deals is available in all_deals.</p>
 </section>
 <section id="instructions-100-xp-4" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on airquality dataset with na.rm set to FALSE and see what happens.</li>
-<li>Pick an appropriate expect_*() function such that when you call data_summary() on airquality with na.rm set to FALSE again, the test passes.</li>
+<li>Set the random seed to 321.</li>
+<li>Take 30 samples of size 20 from all_deals$num_users and take the mean of each sample. Store the sample means in sample_means.</li>
+<li>Take the mean of sample_means.</li>
+<li>Take the mean of the num_users column of amir_deals.</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E5.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run data_summary on the airquality dataset with na.rm set to FALSE</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use expect_warning to formally test this</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_warning</span>(<span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed to 321</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">321</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Take 30 samples of 20 values of num_users, take mean of each sample</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">30</span>, <span class="fu">sample</span>(all_deals<span class="sc">$</span>num_users, <span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">mean</span>())</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean of sample_means</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sample_means)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean of num_users in amir_deals</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(amir_deals<span class="sc">$</span>num_users)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-non-exported-functions" class="level2" data-number="39.6">
-<h2 data-number="39.6" class="anchored" data-anchor-id="testing-non-exported-functions"><span class="header-section-number">39.6</span> Testing non-exported functions</h2>
-<p>As only exported functions are loaded when tests are being run, you can test non-exported functions by referring to them using the package name, followed by three colons, and then the function name.</p>
+<section id="tracking-lead-responses" class="level2" data-number="42.6">
+<h2 data-number="42.6" class="anchored" data-anchor-id="tracking-lead-responses"><span class="header-section-number">42.6</span> Tracking lead responses</h2>
+<p>Your company uses sales software to keep track of new sales leads. It organizes them into a queue so that anyone can follow up on one when they have a bit of free time. Since the number of lead responses is a countable outcome over a period of time, this scenario corresponds to a Poisson distribution. On average, Amir responds to 4 leads each day. In this exercise, you’ll calculate probabilities of Amir responding to different numbers of leads.</p>
 </section>
 <section id="instructions-100-xp-5" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call the non-exported function numeric_summary() on the Temp column of the weather dataset and assign it to result.</li>
-<li>Pick an appropriate expect_*() function which tests expected and result are exactly equal.</li>
+<li>What’s the probability that Amir responds to 5 leads in a day, given that he responds to an average of 4?</li>
+<li>Amir’s coworker responds to an average of 5.5 leads per day. What is the probability that she answers 5 leads in a day?</li>
+<li>What’s the probability that Amir responds to 2 or fewer leads in a day?</li>
+<li>What’s the probability that Amir responds to more than 10 leads in a day?</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E6.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected result</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">min =</span> 14L, <span class="at">median =</span> 19L, <span class="at">sd =</span> <span class="fl">3.65148371670111</span>, <span class="at">max =</span> 24L)</span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of 5 responses</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">5</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable result by calling numeric summary on the temp column of the weather dataset</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> datasummary<span class="sc">:::</span><span class="fu">numeric_summary</span>(weather<span class="sc">$</span>Temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test that the value returned matches the expected value</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(result, expected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of 5 responses from coworker</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">5</span>, <span class="at">lambda =</span> <span class="fl">5.5</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of 2 or fewer responses</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">2</span>, <span class="at">lambda =</span> <span class="dv">4</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability of &gt; 10 responses</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">10</span>, <span class="at">lambda =</span> <span class="dv">4</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="grouping-tests" class="level2" data-number="39.7">
-<h2 data-number="39.7" class="anchored" data-anchor-id="grouping-tests"><span class="header-section-number">39.7</span> Grouping tests</h2>
-<p>So far, you’ve been using expect_*() functions to create individual tests. To run tests in packages you need to group these individual tests together. You do this using a function test_that(). You can use this to group together expectations that test specific functionality.</p>
-<p>You can use context() to collect these groups together. You usually have one context per file. An advantage of doing this is that it makes it easier to work out where failing tests are located.</p>
+<section id="modeling-time-between-leads" class="level2" data-number="42.7">
+<h2 data-number="42.7" class="anchored" data-anchor-id="modeling-time-between-leads"><span class="header-section-number">42.7</span> Modeling time between leads</h2>
+<p>To further evaluate Amir’s performance, you want to know how much time it takes him to respond to a lead after he opens it. On average, it takes 2.5 hours for him to respond. In this exercise, you’ll calculate probabilities of different amounts of time passing between Amir receiving a lead and sending a response.</p>
 </section>
 <section id="instructions-100-xp-6" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-6">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Use context() to set the context to “Test data_summary()”.</li>
-<li>Use test_that() to group the tests below together, giving them the description “data_summary() handles errors correctly”.</li>
+<li>What’s the probability it takes Amir less than an hour to respond to a lead?</li>
+<li>What’s the probability it takes Amir more than 4 hours to respond to a lead?</li>
+<li>What’s the probability it takes Amir 3-4 hours to respond to a lead?</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E7.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use context() and test_that() to group the tests below together</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">context</span>(<span class="st">"Test data_summary()"</span>)</span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability response takes &lt; 1 hour</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">1</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="fl">2.5</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"data_summary() handles errors correctly"</span>, {</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a vector</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use expect_error()</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_error</span>(<span class="fu">data_summary</span>(my_vector))</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use expect_warning()</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_warning</span>(<span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability response takes &gt; 4 hours</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">4</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="fl">2.5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Probability response takes 3-4 hours</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">4</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="fl">2.5</span>) <span class="sc">-</span> <span class="fu">pexp</span>(<span class="dv">3</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="executing-unit-tests" class="level2" data-number="39.8">
-<h2 data-number="39.8" class="anchored" data-anchor-id="executing-unit-tests"><span class="header-section-number">39.8</span> Executing unit tests</h2>
-<p>With your tests scripts saved in the package structure you can always easily re-run your tests using the test() function in devtools. This function looks for all tests located in the tests/testhat or inst/tests directory with filenames beginning with test- and ending in .R, and executes each of them. As with the other devtools functions, you supply the path to the package as the first argument to the test() function.</p>
-</section>
-<section id="instructions-100-xp-7" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-7">Instructions <code>100 XP</code></h2>
-<p>Run the tests on the datasummary package.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>E8.R</strong></pre>
-</div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests on the datasummary package</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="st">"datasummary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="understanding-a-test-failure" class="level2" data-number="39.9">
-<h2 data-number="39.9" class="anchored" data-anchor-id="understanding-a-test-failure"><span class="header-section-number">39.9</span> Understanding a test failure</h2>
-<p>In the video, we talked about a number of things you can do if you find a failing test, such as updating the test or changing the function. But, what’s the first thing you should do if you find a failing test?</p>
-</section>
-<section id="answers-question-50-xp" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="answers-question-50-xp">Answers question <code>50 XP</code></h2>
-<ul>
-<li><p>Update the test so it passes</p></li>
-<li><p>Update the R code so the test passes</p></li>
-<li><p>Work out the source of the test failure Respuesta</p></li>
-<li><p>Bang your head against your desk</p></li>
-</ul>
 
 
 </section>
@@ -906,13 +894,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Developing_R_Packages_C3.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Checking and Building R Packages</span></span>
+      <a href="./Introduction_to_Statistics_in_R_C2.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Random Numbers and Probability</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction_to_Statistics_in_R_C1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Summary Statistics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Introduction_to_Statistics_in_R_C4.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Correlation and Experimental Design</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

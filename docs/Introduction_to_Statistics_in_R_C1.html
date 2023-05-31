@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>libro - 39&nbsp; Adding Unit Tests to R Packages</title>
+<title>libro - 40&nbsp; Summary Statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction_to_Statistics_in_R_C1.html" rel="next">
-<link href="./Developing_R_Packages_C3.html" rel="prev">
+<link href="./Introduction_to_Statistics_in_R_C2.html" rel="next">
+<link href="./Developing_R_Packages_C4.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -134,7 +134,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Summary Statistics</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -445,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Developing_R_Packages_C4.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></a>
+  <a href="./Developing_R_Packages_C4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></a>
   </div>
 </li>
       </ul>
@@ -460,7 +460,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction_to_Statistics_in_R_C1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Summary Statistics</span></a>
+  <a href="./Introduction_to_Statistics_in_R_C1.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Summary Statistics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -489,33 +489,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-up-the-test-structure" id="toc-setting-up-the-test-structure" class="nav-link active" data-scroll-target="#setting-up-the-test-structure"><span class="toc-section-number">39.1</span>  Setting up the test structure</a></li>
+  <li><a href="#mean-and-median" id="toc-mean-and-median" class="nav-link active" data-scroll-target="#mean-and-median"><span class="toc-section-number">40.1</span>  Mean and median</a></li>
   <li><a href="#instructions-100-xp" id="toc-instructions-100-xp" class="nav-link" data-scroll-target="#instructions-100-xp">Instructions <code>100 XP</code></a></li>
-  <li><a href="#writing-an-individual-test" id="toc-writing-an-individual-test" class="nav-link" data-scroll-target="#writing-an-individual-test"><span class="toc-section-number">39.2</span>  Writing an individual test</a></li>
+  <li><a href="#mean-vs.-median" id="toc-mean-vs.-median" class="nav-link" data-scroll-target="#mean-vs.-median"><span class="toc-section-number">40.2</span>  Mean vs.&nbsp;median</a></li>
   <li><a href="#instructions-100-xp-1" id="toc-instructions-100-xp-1" class="nav-link" data-scroll-target="#instructions-100-xp-1">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-for-equality" id="toc-testing-for-equality" class="nav-link" data-scroll-target="#testing-for-equality"><span class="toc-section-number">39.3</span>  Testing for equality</a></li>
+  <li><a href="#quartiles-quantiles-and-quintiles" id="toc-quartiles-quantiles-and-quintiles" class="nav-link" data-scroll-target="#quartiles-quantiles-and-quintiles"><span class="toc-section-number">40.3</span>  Quartiles, quantiles, and quintiles</a></li>
   <li><a href="#instructions-100-xp-2" id="toc-instructions-100-xp-2" class="nav-link" data-scroll-target="#instructions-100-xp-2">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-errors" id="toc-testing-errors" class="nav-link" data-scroll-target="#testing-errors"><span class="toc-section-number">39.4</span>  Testing errors</a></li>
+  <li><a href="#variance-and-standard-deviation" id="toc-variance-and-standard-deviation" class="nav-link" data-scroll-target="#variance-and-standard-deviation"><span class="toc-section-number">40.4</span>  Variance and standard deviation</a></li>
   <li><a href="#instructions-100-xp-3" id="toc-instructions-100-xp-3" class="nav-link" data-scroll-target="#instructions-100-xp-3">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-warnings" id="toc-testing-warnings" class="nav-link" data-scroll-target="#testing-warnings"><span class="toc-section-number">39.5</span>  Testing warnings</a></li>
+  <li><a href="#finding-outliers-using-iqr" id="toc-finding-outliers-using-iqr" class="nav-link" data-scroll-target="#finding-outliers-using-iqr"><span class="toc-section-number">40.5</span>  Finding outliers using IQR</a></li>
   <li><a href="#instructions-100-xp-4" id="toc-instructions-100-xp-4" class="nav-link" data-scroll-target="#instructions-100-xp-4">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-non-exported-functions" id="toc-testing-non-exported-functions" class="nav-link" data-scroll-target="#testing-non-exported-functions"><span class="toc-section-number">39.6</span>  Testing non-exported functions</a></li>
-  <li><a href="#instructions-100-xp-5" id="toc-instructions-100-xp-5" class="nav-link" data-scroll-target="#instructions-100-xp-5">Instructions <code>100 XP</code></a></li>
-  <li><a href="#grouping-tests" id="toc-grouping-tests" class="nav-link" data-scroll-target="#grouping-tests"><span class="toc-section-number">39.7</span>  Grouping tests</a></li>
-  <li><a href="#instructions-100-xp-6" id="toc-instructions-100-xp-6" class="nav-link" data-scroll-target="#instructions-100-xp-6">Instructions <code>100 XP</code></a></li>
-  <li><a href="#executing-unit-tests" id="toc-executing-unit-tests" class="nav-link" data-scroll-target="#executing-unit-tests"><span class="toc-section-number">39.8</span>  Executing unit tests</a></li>
-  <li><a href="#instructions-100-xp-7" id="toc-instructions-100-xp-7" class="nav-link" data-scroll-target="#instructions-100-xp-7">Instructions <code>100 XP</code></a></li>
-  <li><a href="#understanding-a-test-failure" id="toc-understanding-a-test-failure" class="nav-link" data-scroll-target="#understanding-a-test-failure"><span class="toc-section-number">39.9</span>  Understanding a test failure</a></li>
-  <li><a href="#answers-question-50-xp" id="toc-answers-question-50-xp" class="nav-link" data-scroll-target="#answers-question-50-xp">Answers question <code>50 XP</code></a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Developing_R_Packages_C4.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Introduction_to_Statistics_in_R_C1.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Summary Statistics</span></h1>
 </div>
 
 
@@ -530,242 +522,215 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="setting-up-the-test-structure" class="level2" data-number="39.1">
-<h2 data-number="39.1" class="anchored" data-anchor-id="setting-up-the-test-structure"><span class="header-section-number">39.1</span> Setting up the test structure</h2>
-<p>You can set up a test framework in a package using the function use_testthat().</p>
-<p>This will create a tests directory that contains:</p>
-<blockquote class="blockquote">
-<ul>
-<li>A script testthat.R.</li>
-<li>A directory testthat.</li>
-</ul>
-</blockquote>
-<p>You save your tests in the tests/testthat/ directory in files with filenames beginning with test-. So, for example, the simutils package has tests named:</p>
-<blockquote class="blockquote">
-<ul>
-<li>test-na_counter.R</li>
-<li>test-sample_from_data.R</li>
-</ul>
-</blockquote>
-<p>There are no other strict rules governing the filenames, but you may find it easier to keep track of which functions you are testing if you name your tests after the functions like in the examples above. Alternatively, you can name your tests after areas of package functionality, for example, putting tests for multiple summary functions in test-summaries.R.</p>
+<section id="mean-and-median" class="level2" data-number="40.1">
+<h2 data-number="40.1" class="anchored" data-anchor-id="mean-and-median"><span class="header-section-number">40.1</span> Mean and median</h2>
+<p>In this chapter, you’ll be working with the 2018 Food Carbon Footprint Index from nu3. The food_consumption dataset contains information about the kilograms of food consumed per person per year in each country in each food category (consumption) as well as information about the carbon footprint of that food category (co2_emissions) measured in kilograms of carbon dioxide, or CO , per person per year in each country.</p>
+<p>In this exercise, you’ll compute measures of center to compare food consumption in the US and Belgium using your dplyr skills.</p>
+<p>dplyr is loaded for you and food_consumption is available.</p>
 </section>
 <section id="instructions-100-xp" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Set up the test framework for your datasummary package.</li>
-<li>Look at the contents of the package root directory.</li>
-<li>Look at the contents of the new folder which has been created.</li>
+<li><p>Create two data frames: one that holds the rows of food_consumption for “Belgium” and the another that holds rows for “USA”. Call these belgium_consumption and usa_consumption. Calculate the mean and median of kilograms of food consumed per person per year for both countries.</p></li>
+<li><p>Filter food_consumption for rows with data about Belgium and the USA. Group the filtered data by country. Calculate the mean and median of the kilograms of food consumed per person per year in each country. Call these columns mean_consumption and median_consumption.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E1.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the test framework</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_testthat</span>(<span class="st">"datasummary"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the contents of the package root directory</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="st">"datasummary"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the contents of the new folder which has been created </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="st">"datasummary/tests"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for Belgium</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>belgium_consumption <span class="ot">&lt;-</span> food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Belgium"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for USA</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>usa_consumption <span class="ot">&lt;-</span> food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span><span class="st">"USA"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median consumption in Belgium</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(belgium_consumption<span class="sc">$</span>consumption)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(belgium_consumption<span class="sc">$</span>consumption)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean and median consumption in USA</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(usa_consumption<span class="sc">$</span>consumption)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(usa_consumption<span class="sc">$</span>consumption)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for Belgium and USA</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Belgium"</span>, <span class="st">"USA"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by country</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get mean_consumption and median_consumption</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_consumption =</span> <span class="fu">mean</span>(consumption),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">median_consumption =</span> <span class="fu">median</span>(consumption))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="writing-an-individual-test" class="level2" data-number="39.2">
-<h2 data-number="39.2" class="anchored" data-anchor-id="writing-an-individual-test"><span class="header-section-number">39.2</span> Writing an individual test</h2>
-<p>You create individual tests within your test files using functions named with the pattern expect_* . To make your code easier to read, you may want to create the object to be tested (and/or the expected value, if there is one) before you call the expect_* function.</p>
-<p>Here is one of the tests from the simutils package.</p>
-<blockquote class="blockquote">
-<p>air_expected &lt;- c(Ozone = 37, Solar.R = 7, Wind = 0, Temp = 0, Month = 0, Day = 0)</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>expect_equal(na_counter(airquality), air_expected)</p>
-</blockquote>
-<p>The expect_* functions differ in the number of parameters, but the first parameter is always the object being tested.</p>
-<p>When you run your tests, you might notice that there is no output. You will only see an output message if the test has failed.</p>
+<section id="mean-vs.-median" class="level2" data-number="40.2">
+<h2 data-number="40.2" class="anchored" data-anchor-id="mean-vs.-median"><span class="header-section-number">40.2</span> Mean vs.&nbsp;median</h2>
+<p>In the video, you learned that the mean is the sum of all the data points divided by the total number of data points, and the median is the middle value of the dataset where 50% of the data is less than the median, and 50% of the data is greater than the median. In this exercise, you’ll compare these two measures of center.</p>
+<p>dplyr and ggplot2 are loaded and food_consumption is available.</p>
 </section>
 <section id="instructions-100-xp-1" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on iris and assign the result to iris_summary.</li>
-<li>Assign the number of rows in iris_summary to summary_rows.</li>
-<li>Use the function expect_equal() to test whether the result of calling data_summary() on the iris dataset returns 4 rows.</li>
+<li><p>Filter food_consumption to get the rows where food_category is “rice”.</p></li>
+<li><p>Create a histogram using ggplot2 of co2_emission for rice.</p></li>
+<li><p>Filter food_consumption to get the rows where food_category is “rice”.</p></li>
+<li><p>Summarize the data to get the mean and median of co2_emission, calling them mean_co2 and median_co2.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E2.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary of the iris dataset using your data_summary() function</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>iris_summary <span class="ot">&lt;-</span> <span class="fu">data_summary</span>(iris)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Count how many rows are returned</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>summary_rows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(iris_summary) </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use expect_equal to test that calling data_summary() on iris returns 4 rows</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(summary_rows, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for rice food category</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(food_category <span class="sc">==</span> <span class="st">"rice"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create histogram of co2_emission</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> co2_emission)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for rice food category</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(food_category <span class="sc">==</span> <span class="st">"rice"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create histogram of co2_emission</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(co2_emission)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filter for rice food category</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(food_category <span class="sc">==</span> <span class="st">"rice"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get mean_co2 and median_co2</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_co2 =</span> <span class="fu">mean</span>(co2_emission),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">median_co2 =</span> <span class="fu">median</span>(co2_emission))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-for-equality" class="level2" data-number="39.3">
-<h2 data-number="39.3" class="anchored" data-anchor-id="testing-for-equality"><span class="header-section-number">39.3</span> Testing for equality</h2>
-<p>You can use expect_equal(), expect_equivalent() and expect_identical() in order to test whether the output of a function is as expected.</p>
-<p>These three functions all have slightly different functionality:</p>
-<p>expect_identical() checks that the values, attributes, and type of both objects are the same. expect_equal() checks that the values, and attributes of both objects are the same. You can adjust how strict expect_equal() is by adjusting the tolerance parameter. expect_equivalent() checks that the values, of both objects are the same.</p>
+<section id="quartiles-quantiles-and-quintiles" class="level2" data-number="40.3">
+<h2 data-number="40.3" class="anchored" data-anchor-id="quartiles-quantiles-and-quintiles"><span class="header-section-number">40.3</span> Quartiles, quantiles, and quintiles</h2>
+<p>Quantiles are a great way of summarizing numerical data since they can be used to measure center and spread, as well as to get a sense of where a data point stands in relation to the rest of the dataset. For example, you might want to give a discount to the 10% most active users on a website.</p>
+<p>In this exercise, you’ll calculate quartiles, quintiles, and deciles, which split up a dataset into 4, 5, and 10 pieces, respectively.</p>
+<p>The dplyr package is loaded and food_consumption is available.</p>
 </section>
 <section id="instructions-100-xp-2" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Update the first test below so that the test passes; do this by adjusting the tolerance parameter.</li>
-<li>Write a test comparing expected_result and result which does not produce an error.</li>
+<li>Calculate the quartiles of the co2_emission column of food_consumption.</li>
+<li>Calculate the six quantiles that split up the data into 5 pieces (quintiles) of the co2_emission column of food_consumption.</li>
+<li>Calculate the eleven quantiles of co2_emission that split up the data into ten pieces (deciles).</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E3.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data_summary</span>(weather)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Update this test so it passes</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(result<span class="sc">$</span>sd, <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">3.6</span>), <span class="at">tolerance =</span> <span class="fl">0.1</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>expected_result <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID =</span> <span class="fu">c</span>(<span class="st">"Day"</span>, <span class="st">"Temp"</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">min =</span> <span class="fu">c</span>(1L, 14L),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">c</span>(4L, 19L),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">2.16024689946929</span>, <span class="fl">3.65148371670111</span>),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">max =</span> <span class="fu">c</span>(7L, 24L)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Write a passing test that compares expected_result to result</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equivalent</span>(result, expected_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the quartiles of co2_emission</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(food_consumption<span class="sc">$</span>co2_emission)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the quintiles of co2_emission</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(food_consumption<span class="sc">$</span>co2_emission, <span class="at">probs =</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="dv">1</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the deciles of co2_emission</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(food_consumption<span class="sc">$</span>co2_emission, <span class="at">probs =</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>, <span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-errors" class="level2" data-number="39.4">
-<h2 data-number="39.4" class="anchored" data-anchor-id="testing-errors"><span class="header-section-number">39.4</span> Testing errors</h2>
-<p>You can use expect_error() to test if running a function returns an error. If the function returns an error, the test will pass, otherwise, it will fail. You can optionally define the error message that should be returned to ensure that you are testing for the correct error.</p>
+<section id="variance-and-standard-deviation" class="level2" data-number="40.4">
+<h2 data-number="40.4" class="anchored" data-anchor-id="variance-and-standard-deviation"><span class="header-section-number">40.4</span> Variance and standard deviation</h2>
+<p>Variance and standard deviation are two of the most common ways to measure the spread of a variable, and you’ll practice calculating these in this exercise. Spread is important since it can help inform expectations. For example, if a salesperson sells a mean of 20 products a day, but has a standard deviation of 10 products, there will probably be days where they sell 40 products, but also days where they only sell one or two. Information like this is important, especially when making predictions.</p>
+<p>Both dplyr and ggplot2 are loaded, and food_consumption is available.</p>
 </section>
 <section id="instructions-100-xp-3" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on my_vector.</li>
-<li>Pick an appropriate expect_*() function such that when you call data_summary() on my_vector again, the test passes.</li>
+<li>Calculate the variance and standard deviation of co2_emission for each food_category by grouping by and summarizing variance as var_co2 and standard deviation as sd_co2.</li>
+<li>Create a histogram of co2_emission for each food_category using facet_wrap().</li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E4.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector containing the numbers 1 through 10</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at what happens when we apply this vector as an argument to data_summary()</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data_summary</span>(my_vector)</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variance and sd of co2_emission for each food_category</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>food_consumption <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(food_category) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">var_co2 =</span> <span class="fu">var</span>(co2_emission),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">sd_co2 =</span> <span class="fu">sd</span>(co2_emission))</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test if running data_summary() on this vector returns an error</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_error</span>(<span class="fu">data_summary</span>(my_vector))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create subgraphs for each food_category: histogram of co2_emission</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(food_consumption, <span class="fu">aes</span>(co2_emission)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a histogram</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a separate sub-graph for each food_category</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> food_category)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-warnings" class="level2" data-number="39.5">
-<h2 data-number="39.5" class="anchored" data-anchor-id="testing-warnings"><span class="header-section-number">39.5</span> Testing warnings</h2>
-<p>You can use expect_warning() to test if the output of a function also returns a warning. If the function returns a warning, the test will pass, otherwise, it will fail. You can optionally define the warning message that should be returned to ensure that you are testing for the correct warning.</p>
-<p>Your data_summary() function has been updated to issue a warning if na.rm is set to FALSE and if the data contains missing values.</p>
+<section id="finding-outliers-using-iqr" class="level2" data-number="40.5">
+<h2 data-number="40.5" class="anchored" data-anchor-id="finding-outliers-using-iqr"><span class="header-section-number">40.5</span> Finding outliers using IQR</h2>
+<p>Outliers can have big effects on statistics like mean, as well as statistics that rely on the mean, such as variance and standard deviation. Interquartile range, or IQR, is another way of measuring spread that’s less influenced by outliers. IQR is also often used to find outliers. If a value is less than Q3 + 1.5 x IQR or greater than Q3 + 1.5 x IQR, it’s considered an outlier. In fact, this is how the lengths of the whiskers in a ggplot2 box plot are calculated. In this exercise, you’ll calculate IQR and use it to find some outliers. Both dplyr and ggplot2 are loaded and food_consumption is available.</p>
 </section>
 <section id="instructions-100-xp-4" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on airquality dataset with na.rm set to FALSE and see what happens.</li>
-<li>Pick an appropriate expect_*() function such that when you call data_summary() on airquality with na.rm set to FALSE again, the test passes.</li>
+<li><p>Calculate the total co2_emission per country by grouping by country and taking the sum of co2_emission. Call the sum total_emission and store the resulting data frame as emissions_by_country.</p></li>
+<li><p>Compute the first and third quartiles of total_emission and store these as q1 and q3.</p></li>
+<li><p>Calculate the interquartile range of total_emission and store it as iqr.</p></li>
+<li><p>Calculate the lower and upper cutoffs for outliers of total_emission, and store these as lower and upper.</p></li>
+<li><p>Use filter() to get countries with a total_emission greater than the upper cutoff or a total_emission less than the lower cutoff.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E5.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run data_summary on the airquality dataset with na.rm set to FALSE</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use expect_warning to formally test this</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_warning</span>(<span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total co2_emission per country: emissions_by_country</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>emissions_by_country <span class="ot">&lt;-</span> food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_emission =</span> <span class="fu">sum</span>(co2_emission))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>emissions_by_country</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total co2_emission per country: emissions_by_country</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>emissions_by_country <span class="ot">&lt;-</span> food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_emission =</span> <span class="fu">sum</span>(co2_emission))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the first and third quartiles and IQR of total_emission</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="at">probs =</span> <span class="fl">0.25</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="at">probs =</span> <span class="fl">0.75</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>iqr <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total co2_emission per country: emissions_by_country</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>emissions_by_country <span class="ot">&lt;-</span> food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_emission =</span> <span class="fu">sum</span>(co2_emission))</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the first and third quartiles and IQR of total_emission</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="fl">0.25</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="fl">0.75</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>iqr <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the lower and upper cutoffs for outliers</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>lower <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="fl">0.25</span>) <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>upper <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total co2_emission per country: emissions_by_country</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>emissions_by_country <span class="ot">&lt;-</span> food_consumption <span class="sc">%&gt;%</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_emission =</span> <span class="fu">sum</span>(co2_emission))</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the first and third quartiles and IQR of total_emission</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="fl">0.25</span>)</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(emissions_by_country<span class="sc">$</span>total_emission, <span class="fl">0.75</span>)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>iqr <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the lower and upper cutoffs for outliers</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>lower <span class="ot">&lt;-</span> q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>upper <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter emissions_by_country to find outliers</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>emissions_by_country <span class="sc">%&gt;%</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(total_emission <span class="sc">&lt;</span> lower <span class="sc">|</span> total_emission <span class="sc">&gt;</span> upper )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="testing-non-exported-functions" class="level2" data-number="39.6">
-<h2 data-number="39.6" class="anchored" data-anchor-id="testing-non-exported-functions"><span class="header-section-number">39.6</span> Testing non-exported functions</h2>
-<p>As only exported functions are loaded when tests are being run, you can test non-exported functions by referring to them using the package name, followed by three colons, and then the function name.</p>
-</section>
-<section id="instructions-100-xp-5" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
-<ul>
-<li>Call the non-exported function numeric_summary() on the Temp column of the weather dataset and assign it to result.</li>
-<li>Pick an appropriate expect_*() function which tests expected and result are exactly equal.</li>
-</ul>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>E6.R</strong></pre>
-</div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected result</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">min =</span> 14L, <span class="at">median =</span> 19L, <span class="at">sd =</span> <span class="fl">3.65148371670111</span>, <span class="at">max =</span> 24L)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable result by calling numeric summary on the temp column of the weather dataset</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> datasummary<span class="sc">:::</span><span class="fu">numeric_summary</span>(weather<span class="sc">$</span>Temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test that the value returned matches the expected value</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(result, expected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="grouping-tests" class="level2" data-number="39.7">
-<h2 data-number="39.7" class="anchored" data-anchor-id="grouping-tests"><span class="header-section-number">39.7</span> Grouping tests</h2>
-<p>So far, you’ve been using expect_*() functions to create individual tests. To run tests in packages you need to group these individual tests together. You do this using a function test_that(). You can use this to group together expectations that test specific functionality.</p>
-<p>You can use context() to collect these groups together. You usually have one context per file. An advantage of doing this is that it makes it easier to work out where failing tests are located.</p>
-</section>
-<section id="instructions-100-xp-6" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-6">Instructions <code>100 XP</code></h2>
-<ul>
-<li>Use context() to set the context to “Test data_summary()”.</li>
-<li>Use test_that() to group the tests below together, giving them the description “data_summary() handles errors correctly”.</li>
-</ul>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>E7.R</strong></pre>
-</div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use context() and test_that() to group the tests below together</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">context</span>(<span class="st">"Test data_summary()"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"data_summary() handles errors correctly"</span>, {</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a vector</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use expect_error()</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_error</span>(<span class="fu">data_summary</span>(my_vector))</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use expect_warning()</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_warning</span>(<span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="executing-unit-tests" class="level2" data-number="39.8">
-<h2 data-number="39.8" class="anchored" data-anchor-id="executing-unit-tests"><span class="header-section-number">39.8</span> Executing unit tests</h2>
-<p>With your tests scripts saved in the package structure you can always easily re-run your tests using the test() function in devtools. This function looks for all tests located in the tests/testhat or inst/tests directory with filenames beginning with test- and ending in .R, and executes each of them. As with the other devtools functions, you supply the path to the package as the first argument to the test() function.</p>
-</section>
-<section id="instructions-100-xp-7" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-7">Instructions <code>100 XP</code></h2>
-<p>Run the tests on the datasummary package.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>E8.R</strong></pre>
-</div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests on the datasummary package</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="st">"datasummary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="understanding-a-test-failure" class="level2" data-number="39.9">
-<h2 data-number="39.9" class="anchored" data-anchor-id="understanding-a-test-failure"><span class="header-section-number">39.9</span> Understanding a test failure</h2>
-<p>In the video, we talked about a number of things you can do if you find a failing test, such as updating the test or changing the function. But, what’s the first thing you should do if you find a failing test?</p>
-</section>
-<section id="answers-question-50-xp" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="answers-question-50-xp">Answers question <code>50 XP</code></h2>
-<ul>
-<li><p>Update the test so it passes</p></li>
-<li><p>Update the R code so the test passes</p></li>
-<li><p>Work out the source of the test failure Respuesta</p></li>
-<li><p>Bang your head against your desk</p></li>
-</ul>
 
 
 </section>
@@ -906,13 +871,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Developing_R_Packages_C3.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Checking and Building R Packages</span></span>
+      <a href="./Developing_R_Packages_C4.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction_to_Statistics_in_R_C1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Summary Statistics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Introduction_to_Statistics_in_R_C2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Random Numbers and Probability</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

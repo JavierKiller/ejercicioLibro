@@ -72,7 +72,12 @@ book:
         - Developing_R_Packages_C2.qmd 
         - Developing_R_Packages_C3.qmd 
         - Developing_R_Packages_C4.qmd  
-
+    - part: "Introduction to Statistics in R"
+      chapters:
+        - Introduction_to_Statistics_in_R_C1.qmd 
+        - Introduction_to_Statistics_in_R_C2.qmd 
+        - Introduction_to_Statistics_in_R_C3.qmd 
+        - Introduction_to_Statistics_in_R_C4.qmd  
 bibliography: references.bib
 
 format:
