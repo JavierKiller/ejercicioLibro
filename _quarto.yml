@@ -78,6 +78,19 @@ book:
         - Introduction_to_Statistics_in_R_C2.qmd 
         - Introduction_to_Statistics_in_R_C3.qmd 
         - Introduction_to_Statistics_in_R_C4.qmd  
+    - part: "Introduction to Regression in R"
+      chapters:
+        - Introduction_to_Regression_in_R_C1.qmd 
+        - Introduction_to_Regression_in_R_C2.qmd 
+        - Introduction_to_Regression_in_R_C3.qmd 
+        - Introduction_to_Regression_in_R_C4.qmd  
+    - part: "Intermediate Regression in R"
+      chapters:
+        - Intermediate_Regression_in_R_C1.qmd 
+        - Intermediate_Regression_in_R_C2.qmd 
+        - Intermediate_Regression_in_R_C3.qmd 
+        - Intermediate_Regression_in_R_C4.qmd  
+
 bibliography: references.bib
 
 format:
@@ -91,5 +104,5 @@ editor: visual
 
 #Statistics Fundamentals with R
 #Spatial Data with R
-# lux darkly cyborg vapor sketchy slate
+# lux darkly cyborg vapor sketchy slate  
 

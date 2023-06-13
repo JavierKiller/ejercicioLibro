@@ -58,7 +58,7 @@
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_Writing_Functions_in_R_C4.html</loc>
-    <lastmod>2023-03-28T00:37:06.716Z</lastmod>
+    <lastmod>2023-06-13T19:47:35.937Z</lastmod>
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_Importing_Data_in_R_C1.html</loc>
@@ -199,5 +199,37 @@
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_Statistics_in_R_C4.html</loc>
     <lastmod>2023-05-31T07:01:58.296Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_Regression_in_R_C1.html</loc>
+    <lastmod>2023-06-13T19:47:18.127Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_Regression_in_R_C2.html</loc>
+    <lastmod>2023-06-13T19:47:15.475Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_Regression_in_R_C3.html</loc>
+    <lastmod>2023-06-13T19:47:15.477Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Introduction_to_Regression_in_R_C4.html</loc>
+    <lastmod>2023-06-13T19:47:15.481Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Intermediate_Regression_in_R_C1.html</loc>
+    <lastmod>2023-06-13T19:47:15.484Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Intermediate_Regression_in_R_C2.html</loc>
+    <lastmod>2023-06-13T19:47:15.489Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Intermediate_Regression_in_R_C3.html</loc>
+    <lastmod>2023-06-13T19:47:15.494Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Intermediate_Regression_in_R_C4.html</loc>
+    <lastmod>2023-06-13T19:47:15.501Z</lastmod>
   </url>
 </urlset>

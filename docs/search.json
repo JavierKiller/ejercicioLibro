@@ -6032,5 +6032,859 @@
     "title": "43  Correlation and Experimental Design",
     "section": "Instructions 100 XP",
     "text": "Instructions 100 XP\n\nCreate a scatterplot showing the relationship between grams_sugar_per_day (on the x-axis) and happiness_score (on the y-axis).\nCalculate the correlation between grams_sugar_per_day and happiness_score.\n\n\n\nE4.R\n\n# Scatterplot of grams_sugar_per_day and happiness_score\nggplot(world_happiness, aes(grams_sugar_per_day, happiness_score)) +\n  geom_point()\n\n# Correlation between grams_sugar_per_day and happiness_score\ncor(world_happiness$grams_sugar_per_day, world_happiness$happiness_score)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#visualizing-two-variables",
+    "href": "Introduction_to_Regression_in_R_C1.html#visualizing-two-variables",
+    "title": "44  Simple Linear Regression",
+    "section": "44.1 Visualizing two variables",
+    "text": "44.1 Visualizing two variables\nBefore you can run any statistical models, it’s usually a good idea to visualize your dataset. Here, we’ll look at the relationship between house price per area and the number of nearby convenience stores, using the Taiwan real estate dataset.\nOne challenge in this dataset is that the number of convenience stores contains integer data, causing points to overlap. To solve this, you will make the points transparent.\ntaiwan_real_estate is available, ggplot2 is loaded, and its black and white theme has been set."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp",
+    "href": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp",
+    "title": "44  Simple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing taiwan_real_estate, draw a scatter plot of price_twd_msq (y-axis) versus n_convenience (x-axis).\nUpdate the plot to make the points 50% transparent by setting alpha to 0.5.\nUpdate the plot by adding a trend line, calculated using a linear regression. You can omit the confidence ribbon.\n\n\n\nE1.R\n\n# Draw a scatter plot of n_convenience vs. price_twd_msq\nggplot(taiwan_real_estate, aes(n_convenience,price_twd_msq))+\ngeom_point()\n\n\n# Make points 50% transparent\nggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq)) +\n  geom_point( alpha = 0.5)\n\n# Add a linear trend line without a confidence ribbon\nggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq)) +\n  geom_point(alpha = 0.5) +\n  geom_smooth(method = \"lm\", se = FALSE)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#linear-regression-with-lm",
+    "href": "Introduction_to_Regression_in_R_C1.html#linear-regression-with-lm",
+    "title": "44  Simple Linear Regression",
+    "section": "44.2 Linear regression with lm()",
+    "text": "44.2 Linear regression with lm()\nWhile ggplot can display a linear regression trend line using geom_smooth(), it doesn’t give you access to the intercept and slope as variables, or allow you to work with the model results as variables. That means that sometimes you’ll need to run a linear regression yourself.\nTime to run your first model!\ntaiwan_real_estate is available. TWD is an abbreviation for Taiwan dollars."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-1",
+    "href": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-1",
+    "title": "44  Simple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun a linear regression with price_twd_msq as the response variable, n_convenience as the explanatory variable, and taiwan_real_estate as the dataset.\n\n\n\nE2.R\n\n# Run a linear regression of price_twd_msq vs. n_convenience\n\nlm(price_twd_msq ~ n_convenience, data = taiwan_real_estate)\n\nggplot(taiwan_real_estate, aes(price_twd_msq, n_convenience)) +\ngeom_smooth()"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#visualizing-numeric-vs.-categorical",
+    "href": "Introduction_to_Regression_in_R_C1.html#visualizing-numeric-vs.-categorical",
+    "title": "44  Simple Linear Regression",
+    "section": "44.3 Visualizing numeric vs. categorical",
+    "text": "44.3 Visualizing numeric vs. categorical\nIf the explanatory variable is categorical, the scatter plot that you used before to visualize the data doesn’t make sense. Instead, a good option is to draw a histogram for each category.\nThe Taiwan real estate dataset has a categorical variable in the form of the age of each house. The ages have been split into 3 groups: 0 to 15 years, 15 to 30 years, and 30 to 45 years.\ntaiwan_real_estate is available and ggplot2 is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-2",
+    "href": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-2",
+    "title": "44  Simple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing taiwan_real_estate, plot a histogram of price_twd_msq with 10 bins.\nFacet the plot by house_age_years to give 3 panels.\n\n\n\nE3.R\n\n# Using taiwan_real_estate, plot price_twd_msq\nggplot(taiwan_real_estate, aes(price_twd_msq)) +\n    # Make it a histogram with 10 bins\n  geom_histogram(bins = 10) +\n  # Facet the plot so each house age group gets its own panel\n  facet_wrap(vars(house_age_years))"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#calculating-means-by-category",
+    "href": "Introduction_to_Regression_in_R_C1.html#calculating-means-by-category",
+    "title": "44  Simple Linear Regression",
+    "section": "44.4 Calculating means by category",
+    "text": "44.4 Calculating means by category\nA good way to explore categorical variables is to calculate summary statistics such as the mean for each category. Here, you’ll look at grouped means for the house prices in the Taiwan real estate dataset.\ntaiwan_real_estate is available and dplyr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-3",
+    "href": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-3",
+    "title": "44  Simple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGroup taiwan_real_estate by house_age_years.\nSummarize to calculate the mean price_twd_msq for each group, naming the column mean_by_group.\nAssign the result to summary_stats and look at the numbers.\n\n\n\nE4.R\n\nsummary_stats <- taiwan_real_estate %>% \n  # Group by house age\n  group_by(house_age_years) %>% \n  # Summarize to calculate the mean house price/area\n  summarize(mean_by_group = mean(price_twd_msq))\n\n# See the result\nsummary_stats"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#lm-with-a-categorical-explanatory-variable",
+    "href": "Introduction_to_Regression_in_R_C1.html#lm-with-a-categorical-explanatory-variable",
+    "title": "44  Simple Linear Regression",
+    "section": "44.5 lm() with a categorical explanatory variable",
+    "text": "44.5 lm() with a categorical explanatory variable\nLinear regressions also work with categorical explanatory variables. In this case, the code to run the model is the same, but the coefficients returned by the model are different. Here you’ll run a linear regression on the Taiwan real estate dataset.\ntaiwan_real_estate is available."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-4",
+    "href": "Introduction_to_Regression_in_R_C1.html#instructions-100-xp-4",
+    "title": "44  Simple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun a linear regression with price_twd_msq as the response variable, house_age_years as the explanatory variable, and taiwan_real_estate as the dataset. Assign to mdl_price_vs_age.\nUpdate the model formula so that no intercept is included in the model. Assign to mdl_price_vs_age_no_intercept.\n\n\n\nE5.R\n\n# Run a linear regression of price_twd_msq vs. house_age_years\nmdl_price_vs_age <- lm(taiwan_real_estate$price_twd_msq ~ taiwan_real_estate$house_age_years )\n\n# See the result\nmdl_price_vs_age\n\n\n\n# Update the model formula to remove the intercept\nmdl_price_vs_age_no_intercept <- lm(\n  price_twd_msq ~ house_age_years + 0, \n  data = taiwan_real_estate\n)\n\n# See the result\nmdl_price_vs_age_no_intercept"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html",
+    "href": "Introduction_to_Regression_in_R_C2.html",
+    "title": "45  Predictions and model objects",
+    "section": "",
+    "text": "46 Create a tibble with n_convenience column from zero to ten\nexplanatory_data <- tibble( n_convenience = 0:10 )\npredict(mdl_price_vs_conv,explanatory_data )\nexplanatory_data <- tibble( n_convenience = 0:10 )\nprediction_data <- explanatory_data %>% mutate( price_twd_msq = predict(mdl_price_vs_conv, explanatory_data) )\nprediction_data"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#predicting-house-prices",
+    "href": "Introduction_to_Regression_in_R_C2.html#predicting-house-prices",
+    "title": "45  Predictions and model objects",
+    "section": "45.1 Predicting house prices",
+    "text": "45.1 Predicting house prices\nPerhaps the most useful feature of statistical models like linear regression is that you can make predictions. That is, you specify values for each of the explanatory variables, feed them to the model, and you get a prediction for the corresponding response variable. The code flow is as follows.\n\nexplanatory_data <- tibble( explanatory_var = some_values ) explanatory_data %>% mutate( response_var = predict(model, explanatory_data) )\n\nHere, you’ll make predictions for the house prices in the Taiwan real estate dataset.\ntaiwan_real_estate is available. The linear regression model of house price versus number of convenience stores is available as mdl_price_vs_conv (print it and read the call to see how it was made); and dplyr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a tibble of explanatory data, where the number of convenience stores, n_convenience, takes the integer values from zero to ten.\nUse the model mdl_price_vs_conv to make predictions from explanatory_data.\nCreate a tibble of predictions named prediction_data.\n\nStart with explanatory_data.\nAdd an extra column, price_twd_msq, containing the predictions. ``` {.r filename=“E1.R”} # Create a tibble with n_convenience column from zero to ten explanatory_data <- tibble(n_convenience = 0:10)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#the-limits-of-prediction",
+    "href": "Introduction_to_Regression_in_R_C2.html#the-limits-of-prediction",
+    "title": "45  Predictions and model objects",
+    "section": "50.1 The limits of prediction",
+    "text": "50.1 The limits of prediction\nIn the last exercise you made predictions on some sensible, could-happen-in-real-life, situations. That is, the cases when the number of nearby convenience stores were between zero and ten. To test the limits of the model’s ability to predict, try some impossible situations.\nUse the console to try predicting house prices from mdl_price_vs_conv when there are -1 convenience stores. Do the same for 2.5 convenience stores. What happens in each case?\nmdl_price_vs_conv is available and dplyr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-1",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-1",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate some impossible explanatory data. Define a tibble with one column, n_convenience, set to minus one, assigning to minus_one. Create another with n_convenience set to two point five, assigning to two_pt_five.\n\n\n\nE3.R\n\n# Define a tibble where n_convenience is -1\nminus_one <- tibble(n_convenience = -1)\n\n# Define a tibble where n_convenience is 2.5\ntwo_pt_five <- tibble(n_convenience = 2.5)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#extracting-model-elements",
+    "href": "Introduction_to_Regression_in_R_C2.html#extracting-model-elements",
+    "title": "45  Predictions and model objects",
+    "section": "50.2 Extracting model elements",
+    "text": "50.2 Extracting model elements\nThe variable returned by lm() that contains the model object has many elements. In order to perform further analysis on the model results, you need to extract the useful bits of it. The model coefficients, the fitted values, and the residuals are perhaps the most important bits of the linear model object.\nmdl_price_vs_conv is available."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-2",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-2",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nPrint the coefficients of mdl_price_vs_conv.\nPrint the fitted values of mdl_price_vs_conv.\nPrint the residuals of mdl_price_vs_conv.\nPrint a summary of mdl_price_vs_conv.\n\n\n\nE4.R\n\n# Get the model coefficients of mdl_price_vs_conv\ncoef(mdl_price_vs_conv)\n\n\n# Get the fitted values of mdl_price_vs_conv\nfitted(mdl_price_vs_conv)\n\n\n# Get the residuals of mdl_price_vs_conv\nresiduals(mdl_price_vs_conv)\n\n\n# Print a summary of mdl_price_vs_conv\nsummary(mdl_price_vs_conv)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#manually-predicting-house-prices",
+    "href": "Introduction_to_Regression_in_R_C2.html#manually-predicting-house-prices",
+    "title": "45  Predictions and model objects",
+    "section": "50.3 Manually predicting house prices",
+    "text": "50.3 Manually predicting house prices\nYou can manually calculate the predictions from the model coefficients. When making predictions in real life, it is better to use predict(), but doing this manually is helpful to reassure yourself that predictions aren’t magic—they are simply arithmetic.\nIn fact, for a simple linear regression, the predicted value is just the intercept plus the slope times the explanatory variable.\nmdl_price_vs_conv and explanatory_data are available, and dplyr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-3",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-3",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the coefficients of mdl_price_vs_conv, assigning to coeffs.\nGet the intercept, which is the first element of coeffs, assigning to intercept.\nGet the slope, which is the second element of coeffs, assigning to slope.\nManually predict price_twd_msq using the intercept, slope, and n_convenience.\n\n\n\nE5.R\n\n# Get the coefficients of mdl_price_vs_conv\ncoeffs <- coef(mdl_price_vs_conv)\n\n# Get the intercept\nintercept <- coeffs[1]\n\n# Get the slope\nslope <- coeffs[2]\n\nexplanatory_data %>% \n  mutate(\n    # Manually calculate the predictions\n    price_twd_msq = intercept + slope * n_convenience\n  )\n\n# Compare to the results from predict()\npredict(mdl_price_vs_conv, explanatory_data)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#using-broom",
+    "href": "Introduction_to_Regression_in_R_C2.html#using-broom",
+    "title": "45  Predictions and model objects",
+    "section": "50.4 Using broom",
+    "text": "50.4 Using broom\nMany programming tasks are easier if you keep all your data inside data frames. This is particularly true if you are a tidyverse fan, where dplyr and ggplot2 require you to use data frames. The broom package contains functions that decompose models into three data frames: one for the coefficient-level elements (the coefficients themselves, as well as p-values for each coefficient), the observation-level elements (like fitted values and residuals), and the model-level elements (mostly performance metrics).\nThe functions in broom are generic. That is, they work with many model types, not just linear regression model objects. They also work with logistic regression model objects (as you’ll see in Chapter 4), and many other types of model.\nmdl_price_vs_conv is available and broom is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-4",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-4",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nTidy the model to print the coefficient-level elements of mdl_price_vs_conv.\nAugment the model to print the observation-level elements of mdl_price_vs_conv.\nGlance at the model to print the model-level elements of mdl_price_vs_conv.\n\n\n\nE6.R\n\n# Get the coefficient-level elements of the model\ntidy(mdl_price_vs_conv)\n\n\n# Get the observation-level elements of the model\naugment(mdl_price_vs_conv)\n\n\n# Get the model-level elements of the model\nglance(mdl_price_vs_conv)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#plotting-consecutive-portfolio-returns",
+    "href": "Introduction_to_Regression_in_R_C2.html#plotting-consecutive-portfolio-returns",
+    "title": "45  Predictions and model objects",
+    "section": "50.5 Plotting consecutive portfolio returns",
+    "text": "50.5 Plotting consecutive portfolio returns\nRegression to the mean is also an important concept in investing. Here you’ll look at the annual returns from investing in companies in the Standard and Poor 500 index (S&P 500), in 2018 and 2019.\nThe sp500_yearly_returns dataset contains three columns:\nvariable meaning symbol Stock ticker symbol uniquely identifying the company. return_2018 A measure of investment performance in 2018. return_2019 A measure of investment performance in 2019.\nA positive number for the return means the investment increased in value; negative means it lost value.\nJust as with baseball home runs, a naive prediction might be that the investment performance stays the same from year to year, lying on the “y equals x” line.\nsp500_yearly_returns is available and ggplot2 is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-5",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-5",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing sp500_yearly_returns, draw a scatter plot of return_2019 vs. return_2018.\nAdd an “A-B line”, colored “green”, with size 1.\nAdd a smooth trend line made with the linear regression method, and no standard error ribbon.\nFix the coordinates so distances along the x and y axes appear the same.\n\n\n\nE7.R\n\n# Using sp500_yearly_returns, plot return_2019 vs. return_2018\nggplot(sp500_yearly_returns, aes(return_2018, return_2019)) +\n  # Make it a scatter plot\n  geom_point() +\n  # Add a line at y = x, colored green, size 1\n  geom_abline(color = \"green\", size = 1) +\n  # Add a linear regression trend line, no std. error ribbon\n  geom_smooth(method = \"lm\", se = FALSE) +\n  # Fix the coordinate ratio\n  coord_fixed()"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#modeling-consecutive-returns",
+    "href": "Introduction_to_Regression_in_R_C2.html#modeling-consecutive-returns",
+    "title": "45  Predictions and model objects",
+    "section": "50.6 Modeling consecutive returns",
+    "text": "50.6 Modeling consecutive returns\nLet’s quantify the relationship between returns in 2019 and 2018 by running a linear regression and making predictions. By looking at companies with extremely high or extremely low returns in 2018, we can see if their performance was similar in 2019.\nsp500_yearly_returns is available and dplyr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-6",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-6",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun a linear regression on return_2019 versus return_2018 using sp500_yearly_returns. Assign to mdl_returns.\nCreate a data frame (or tibble) named explanatory_data. Give it one column with 2018 returns set to a vector containing -1, 0, and 1.\nUse mdl_returns to predict with explanatory_data.\n\n\n\nE8.R\n\n# Run a linear regression on return_2019 vs. return_2018 using sp500_yearly_returns\nmdl_returns <- lm(\n  return_2019 ~ return_2018, \n  data = sp500_yearly_returns\n)\n\n# See the result\nmdl_returns\n\n\n# Run a linear regression on return_2019 vs. return_2018 using sp500_yearly_returns\nmdl_returns <- lm(\n  return_2019 ~ return_2018, \n  data = sp500_yearly_returns\n)\n\n# Create a data frame with return_2018 at -1, 0, and 1 \nexplanatory_data <- tibble(return_2018 = c(-1,0,1))\n\n# Use mdl_returns to predict with explanatory_data\npredict(mdl_returns,explanatory_data)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#transforming-the-explanatory-variable",
+    "href": "Introduction_to_Regression_in_R_C2.html#transforming-the-explanatory-variable",
+    "title": "45  Predictions and model objects",
+    "section": "50.7 Transforming the explanatory variable",
+    "text": "50.7 Transforming the explanatory variable\nIf there is no straight line relationship between the response variable and the explanatory variable, it is sometimes possible to create one by transforming one or both of the variables. Here, you’ll look at transforming the explanatory variable.\nYou’ll take another look at the Taiwan real estate dataset, this time using the distance to the nearest MRT (metro) station as the explanatory variable. You’ll use code to make every commuter’s dream come true: shortening the distance to the metro station by taking the square root. Take that, geography!\ntaiwan_real_estate is available and ggplot2 and tibble are loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-7",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-7",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun the code provided, and look at the plot.\nEdit the plot so the x aesthetic is square root transformed.\nLook at the new plot. Notice how the numbers on the x-axis have changed. This is a different line to what was shown before. Do the points track the line more closely?\nRun a linear regression of price_twd_msq versus the square root of dist_to_mrt_m using taiwan_real_estate.\nCreate a data frame of prediction data named prediction_data. Start with explanatory_data, and add a column named after the response variable. Predict values using mdl_price_vs_dist and explanatory_data.\nEdit the plot to add a layer of points from prediction_data, colored “green”, size 5.\n\n\n\nE9.R\n\n# Run the code to see the plot\n# Edit so x-axis is square root of dist_to_mrt_m\nggplot(taiwan_real_estate, aes(sqrt(dist_to_mrt_m), price_twd_msq)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE)\n  \n  \n# Run a linear regression of price_twd_msq vs. square root of dist_to_mrt_m using taiwan_real_estate\nmdl_price_vs_dist <- lm(\n  price_twd_msq ~ sqrt(dist_to_mrt_m), \n  data = taiwan_real_estate\n)\n\n# See the result\nmdl_price_vs_dist\n\n\n\n# Run a linear regression of price_twd_msq vs. square root of dist_to_mrt_m using taiwan_real_estate\nmdl_price_vs_dist <- lm(\n  price_twd_msq ~ sqrt(dist_to_mrt_m), \n  data = taiwan_real_estate\n)\n\nexplanatory_data <- tibble(\n  dist_to_mrt_m = seq(0, 80, 10) ^ 2\n)\n\n# Use mdl_price_vs_dist to predict explanatory_data\nprediction_data <- explanatory_data %>% \n  mutate(\n    price_twd_msq = predict(mdl_price_vs_dist, explanatory_data)\n  )\n\n# See the result\nprediction_data\n\n\n# From previous steps\nmdl_price_vs_dist <- lm(\n  price_twd_msq ~ sqrt(dist_to_mrt_m), \n  data = taiwan_real_estate\n)\nexplanatory_data <- tibble(\n  dist_to_mrt_m = seq(0, 80, 10) ^ 2\n)\nprediction_data <- explanatory_data %>% \n  mutate(\n    price_twd_msq = predict(mdl_price_vs_dist, explanatory_data)\n  )\n\nggplot(taiwan_real_estate, aes(sqrt(dist_to_mrt_m), price_twd_msq)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  # Add points from prediction_data, colored green, size 5\n  geom_point(data = prediction_data, color = \"green\", size = 5)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#transforming-the-response-variable-too",
+    "href": "Introduction_to_Regression_in_R_C2.html#transforming-the-response-variable-too",
+    "title": "45  Predictions and model objects",
+    "section": "50.8 Transforming the response variable too",
+    "text": "50.8 Transforming the response variable too\nThe response variable can be transformed too, but this means you need an extra step at the end to undo that transformation. That is, you “back transform” the predictions.\nIn the video, you saw the first step of the digital advertising workflow: spending money to buy ads, and counting how many people see them (the “impressions”). The next step is determining how many people click on the advert after seeing it.\nad_conversion is available and ggplot2 and tibble are loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-8",
+    "href": "Introduction_to_Regression_in_R_C2.html#instructions-100-xp-8",
+    "title": "45  Predictions and model objects",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun the code provided, and look at the plot.\nEdit the plot so the x and y aesthetics are transformed by raising them to the power 0.25.\nLook at the new plot. Do the points track the line more closely?\nRun a linear regression of n_clicks to the power 0.25 versus n_impressions to the power 0.25 using ad_conversion. Each variable in the formula needs to be specified “as is”, using I().\nComplete the code for the prediction data. Use mdl_click_vs_impression to predict n_clicks to the power 0.25 from explanatory_data.\nBack transform by raising n_clicks_025 to the power 4 to get n_clicks.\nEdit the plot to add a layer of points from prediction_data, colored “green”.\n\n\n\nE10.R\n\n# Run the code to see the plot\n# Edit to raise x, y aesthetics to power 0.25\nggplot(ad_conversion, aes(n_impressions ^ 0.25, n_clicks ^ 0.25)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE)\n\n\n\n# Run a linear regression of n_clicks to the power 0.25 vs. n_impressions to the power 0.25 using ad_conversion\nmdl_click_vs_impression <- lm(\n  I(n_clicks ^ 0.25) ~ I(n_impressions ^ 0.25),\n  data = ad_conversion\n)\n\n\n\n# Run a linear regression of n_clicks to the power 0.25 vs. n_impressions to the power 0.25 using ad_conversion\nmdl_click_vs_impression <- lm(\n  I(n_clicks ^ 0.25) ~ I(n_impressions ^ 0.25),\n  data = ad_conversion\n)\n\nexplanatory_data <- tibble(\n  n_impressions = seq(0, 3e6, 5e5)\n)\n\nprediction_data <- explanatory_data %>% \n  mutate(\n    # Use mdl_click_vs_impression to predict n_clicks ^ 0.25\n    n_clicks_025 = predict(mdl_click_vs_impression, explanatory_data),\n    # Back transform to get n_clicks\n    n_clicks = n_clicks_025 ^ 4\n  )\n  \n\n\n# From previous steps\nmdl_click_vs_impression <- lm(\n  I(n_clicks ^ 0.25) ~ I(n_impressions ^ 0.25),\n  data = ad_conversion\n)\nexplanatory_data <- tibble(\n  n_impressions = seq(0, 3e6, 5e5)\n)\nprediction_data <- explanatory_data %>% \n  mutate(\n    n_clicks_025 = predict(mdl_click_vs_impression, explanatory_data),\n    n_clicks = n_clicks_025 ^ 4\n  )\n\nggplot(ad_conversion, aes(n_impressions ^ 0.25, n_clicks ^ 0.25)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  # Add points from prediction_data, colored green\n  geom_point(data = prediction_data, color = \"green\")"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#coefficient-of-determination",
+    "href": "Introduction_to_Regression_in_R_C3.html#coefficient-of-determination",
+    "title": "46  Assessing model fit",
+    "section": "46.1 Coefficient of determination",
+    "text": "46.1 Coefficient of determination\nThe coefficient of determination is a measure of how well the linear regression line fits the observed values. For simple linear regression, it is equal to the square of the correlation between the explanatory and response variables.\nHere, you’ll take another look at the second stage of the advertising pipeline: modeling the click response to impressions. Two models are available: mdl_click_vs_impression_orig models n_clicks versus n_impressions. mdl_click_vs_impression_trans is the transformed model you saw in Chapter 2. It models n_clicks ^ 0.25 versus n_impressions ^ 0.25.\nbroom is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp",
+    "href": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp",
+    "title": "46  Assessing model fit",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nPrint a summary of mdl_click_vs_impression_orig. Do the same for mdl_click_vs_impression_trans\nGet the coefficient of determination for mdl_click_vs_impression_orig by glancing at the model, then pulling the r.squared value.\nDo the same for mdl_click_vs_impression_trans.\n\n\n\nE1.R\n\n# Print a summary of mdl_click_vs_impression_orig\nsummary(mdl_click_vs_impression_orig)\n\n# Print a summary of mdl_click_vs_impression_trans\nsummary(mdl_click_vs_impression_trans)\n\n\n\n# Get coeff of determination for mdl_click_vs_impression_orig\nmdl_click_vs_impression_orig %>% \n  # Get the model-level details\n  glance() %>% \n  # Pull out r.squared\n  pull(r.squared)\n\n# Do the same for the transformed model\nmdl_click_vs_impression_trans %>% \n  glance() %>% \n  pull(r.squared)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#residual-standard-error",
+    "href": "Introduction_to_Regression_in_R_C3.html#residual-standard-error",
+    "title": "46  Assessing model fit",
+    "section": "46.2 Residual standard error",
+    "text": "46.2 Residual standard error\nResidual standard error (RSE) is a measure of the typical size of the residuals. Equivalently, it’s a measure of how badly wrong you can expect predictions to be. Smaller numbers are better, with zero being a perfect fit to the data.\nAgain, you’ll look at the models from the advertising pipeline, mdl_click_vs_impression_orig and mdl_click_vs_impression_trans. broom is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp-1",
+    "href": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp-1",
+    "title": "46  Assessing model fit",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the residual standard error for mdl_click_vs_impression_orig by glancing at the model, then pulling the sigma value.\nDo the same for mdl_click_vs_impression_trans.\n\n\n\nE2.R\n\n# Get RSE for mdl_click_vs_impression_orig\nmdl_click_vs_impression_orig %>% \n  # Get the model-level details\n  glance() %>% \n  # Pull out sigma\n  pull(sigma)\n\n# Do the same for the transformed model\nmdl_click_vs_impression_trans %>% \n  glance() %>% \n  pull(sigma)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#drawing-diagnostic-plots",
+    "href": "Introduction_to_Regression_in_R_C3.html#drawing-diagnostic-plots",
+    "title": "46  Assessing model fit",
+    "section": "46.3 Drawing diagnostic plots",
+    "text": "46.3 Drawing diagnostic plots\nIt’s time for you to draw these diagnostic plots yourself. Let’s go back to the Taiwan real estate dataset and the model of house prices versus number of convenience stores.\nRecall that autoplot() lets you specify which diagnostic plots you are interested in.\n\n1 residuals vs. fitted values 2 Q-Q plot 3 scale-location\n\nmdl_price_vs_conv is available, and ggplot2 and ggfortify are loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp-2",
+    "href": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp-2",
+    "title": "46  Assessing model fit",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nPlot the three diagnostic plots (numbered 1 to 3) for mdl_price_vs_conv. Use a layout of three rows and one column.\n\n\n\nE3.R\n\n# Plot the three diagnostics for mdl_price_vs_conv\nautoplot(mdl_price_vs_conv, which = 1:3, nrow = 3, ncol = 1)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#extracting-leverage-and-influence",
+    "href": "Introduction_to_Regression_in_R_C3.html#extracting-leverage-and-influence",
+    "title": "46  Assessing model fit",
+    "section": "46.4 Extracting leverage and influence",
+    "text": "46.4 Extracting leverage and influence\nIn the last few exercises you explored which observations had the highest leverage and influence. Now you’ll extract those values from an augmented version of the model, and visualize them.\nmdl_price_vs_dist is available. dplyr, ggplot2 and ggfortify are loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp-3",
+    "href": "Introduction_to_Regression_in_R_C3.html#instructions-100-xp-3",
+    "title": "46  Assessing model fit",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAugment mdl_price_vs_dist, then arrange observations by descending influence (.hat), and get the head of the results.\nAugment mdl_price_vs_dist, then arrange observations by descending influence (.cooksd), and get the head of the results.\nPlot the three outlier diagnostic plots (numbered 4 to 6) for mdl_price_vs_dist. Use a layout of three rows and one column.\n\n\n\nE4.R\n\nmdl_price_vs_dist %>% \n  # Augment the model\n  augment() %>% \n  # Arrange rows by descending leverage\n  arrange(desc(.hat)) %>% \n  # Get the head of the dataset\n  head()\n \n\nmdl_price_vs_dist %>% \n  # Augment the model\n  augment() %>% \n  # Arrange rows by descending Cook's distance\n  arrange(desc(.cooksd)) %>% \n  # Get the head of the dataset\n  head()\n  \n\n# Plot the three outlier diagnostics for mdl_price_vs_dist\nautoplot(mdl_price_vs_dist, which = 4:6, nrow = 3, ncol = 1)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#exploring-the-explanatory-variables",
+    "href": "Introduction_to_Regression_in_R_C4.html#exploring-the-explanatory-variables",
+    "title": "47  Simple logistic regression",
+    "section": "47.1 Exploring the explanatory variables",
+    "text": "47.1 Exploring the explanatory variables\nWhen the response variable is logical, all the points lie on the y equals zero and y equals one lines, making it difficult to see what is happening. In the video, until you saw the trend line, it wasn’t clear how the explanatory variable was distributed on each line. This can be solved with a histogram of the explanatory variable, faceted on the response.\nYou will use these histograms to get to know the financial services churn dataset seen in the video.\nchurn is available and ggplot2 is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing churn, plot time_since_last_purchase as a histogram with binwidth 0.25 faceted in a grid with has_churned on each row.\nRedraw the plot with time_since_first_purchase. That is, using churn, plot time_since_first_purchase as a histogram with binwidth 0.25 faceted in a grid with has_churned on each row.\n\n\n\nE1.R\n\n# Using churn, plot time_since_last_purchase\nggplot(churn, aes(time_since_last_purchase)) +\n  # as a histogram with binwidth 0.25\n  geom_histogram(binwidth = 0.25) +\n  # faceted in a grid with has_churned on each row\n  facet_grid(rows = vars(has_churned))\n\n\n\n# Redraw the plot with time_since_first_purchase\nggplot(churn, aes(time_since_first_purchase)) +\n  geom_histogram(binwidth = 0.25) +\n  facet_grid(rows = vars(has_churned))"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#visualizing-linear-and-logistic-models",
+    "href": "Introduction_to_Regression_in_R_C4.html#visualizing-linear-and-logistic-models",
+    "title": "47  Simple logistic regression",
+    "section": "47.2 Visualizing linear and logistic models",
+    "text": "47.2 Visualizing linear and logistic models\nAs with linear regressions, ggplot2 will draw model predictions for a logistic regression without you having to worry about the modeling code yourself. To see how the predictions differ for linear and logistic regressions, try drawing both trend lines side by side. Spoiler: you should see a linear (straight line) trend from the linear model, and a logistic (S-shaped) trend from the logistic model.\nchurn is available and ggplot2 is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-1",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-1",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing churn plot has_churned vs. time_since_first_purchase as a scatter plot, adding a red linear regression trend line (without a standard error ribbon).\nUpdate the plot by adding a second trend line from logistic regression. (No standard error ribbon again).\n\n\n\nE2.R\n\n# Using churn plot has_churned vs. time_since_first_purchase\nggplot(churn, aes(time_since_first_purchase, has_churned)) +\n  # Make it a scatter plot\n  geom_point() +\n  # Add an lm trend line, no std error ribbon, colored red\n  geom_smooth(method = \"lm\", se = FALSE, color = \"red\")\n\n\n\nggplot(churn, aes(time_since_first_purchase, has_churned)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"red\") +\n  # Add a glm trend line, no std error ribbon, binomial family\n  geom_smooth(\n    method = \"glm\", \n    se = FALSE, \n    method.args = list(family = binomial)\n  )"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#logistic-regression-with-glm",
+    "href": "Introduction_to_Regression_in_R_C4.html#logistic-regression-with-glm",
+    "title": "47  Simple logistic regression",
+    "section": "47.3 Logistic regression with glm()",
+    "text": "47.3 Logistic regression with glm()\nLinear regression and logistic regression are special cases of a broader type of models called generalized linear models (“GLMs”). A linear regression makes the assumption that the residuals follow a Gaussian (normal) distribution. By contrast, a logistic regression assumes that residuals follow a binomial distribution.\nHere, you’ll model how the length of relationship with a customer affects churn."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-2",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-2",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a logistic regression of has_churned versus time_since_first_purchase using the churn dataset. Assign to mdl_churn_vs_relationship.\n\n\n\nE3.R\n\n# Fit a logistic regression of churn vs. length of relationship using the churn dataset\nmdl_churn_vs_relationship <- glm(\n  has_churned ~ time_since_first_purchase, \n  data = churn, \n  family = binomial\n)\n\n# See the result\nmdl_churn_vs_relationship"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#probabilities",
+    "href": "Introduction_to_Regression_in_R_C4.html#probabilities",
+    "title": "47  Simple logistic regression",
+    "section": "47.4 Probabilities",
+    "text": "47.4 Probabilities\nThere are four main ways of expressing the prediction from a logistic regression model—we’ll look at each of them over the next four exercises. Firstly, since the response variable is either “yes” or “no”, you can make a prediction of the probability of a “yes”. Here, you’ll calculate and visualize these probabilities.\nThree variables are available:\n\nmdl_churn_vs_relationship is the logistic regression model of has_churned versus time_since_first_purchase.\nexplanatory_data is a data frame of explanatory values.\nplt_churn_vs_relationship is a scatter plot of has_churned versus time_since_first_purchase with a smooth glm line. dplyr is loaded."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-3",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-3",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the model, mdl_churn_vs_relationship, and the explanatory data, explanatory_data, to predict the probability of churning. Assign the predictions to the has_churned column of a data frame, prediction_data. Remember to set the prediction type.\nUpdate the plt_churn_vs_relationship plot to add points from prediction_data, colored yellow with size of 2.\n\n\n\nE4.R\n\n# Make a data frame of predicted probabilities\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(\n      mdl_churn_vs_relationship, \n      explanatory_data, \n      type = \"response\"\n    )\n  )\n# See the result\nprediction_data\n\n\n\n\n# Make a data frame of predicted probabilities\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = \"response\")\n  )\n\n# Update the plot\nplt_churn_vs_relationship +\n  # Add points from prediction_data, colored yellow, size 2\n  geom_point(data = prediction_data, color = \"yellow\", size = 2)"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#most-likely-outcome",
+    "href": "Introduction_to_Regression_in_R_C4.html#most-likely-outcome",
+    "title": "47  Simple logistic regression",
+    "section": "47.5 Most likely outcome",
+    "text": "47.5 Most likely outcome\nWhen explaining your results to a non-technical audience, you may wish to side-step talking about probabilities and simply explain the most likely outcome. That is, rather than saying there is a 60% chance of a customer churning, you say that the most likely outcome is that the customer will churn. The tradeoff here is easier interpretation at the cost of nuance.\nmdl_churn_vs_relationship, explanatory_data, and plt_churn_vs_relationship are available and"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-4",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-4",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate prediction_data to add a column of the most likely churn outcome, most_likely_outcome.\nUpdate plt_churn_vs_relationship, adding yellow points of size 2 with most_likely_outcome as the y aesthetic, using prediction_data.\n\n\n\nE5.R\n\n\n# Update the data frame\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = \"response\"),\n    # Add the most likely churn outcome\n    most_likely_outcome = round(has_churned)\n  )\n\n# See the result\nprediction_data\n\n\n\n# Update the data frame\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = \"response\"),\n    most_likely_outcome = round(has_churned)\n  )\n\n# Update the plot\nplt_churn_vs_relationship +\n  # Add most likely outcome points from prediction_data, colored yellow, size 2\n  geom_point(\n    aes(y = most_likely_outcome), \n    data = prediction_data, \n    color = \"yellow\",\n    size = 2\n  )"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#odds-ratio",
+    "href": "Introduction_to_Regression_in_R_C4.html#odds-ratio",
+    "title": "47  Simple logistic regression",
+    "section": "47.6 Odds ratio",
+    "text": "47.6 Odds ratio\nOdds ratios compare the probability of something happening with the probability of it not happening. This is sometimes easier to reason about than probabilities, particularly when you want to make decisions about choices. For example, if a customer has a 20% chance of churning, it maybe more intuitive to say “the chance of them not churning is four times higher than the chance of them churning”.\nmdl_churn_vs_relationship, explanatory_data, and plt_churn_vs_relationship are available and"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-5",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-5",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate prediction_data to add a column, odds_ratio, of the odds ratios.\nUsing prediction_data, draw a line plot of odds_ratio versus time_since_first_purchase. Add a dotted horizontal line at odds_ratio equal to 1.\n\n\n\nE6.R\n\n# Update the data frame\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(\n      mdl_churn_vs_relationship, explanatory_data, \n      type = \"response\"\n    ),\n    # Add the odds ratio\n    odds_ratio = has_churned / (1 - has_churned)\n  )\n\n# See the result\nprediction_data\n\n\n\n# From previous step\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = \"response\"),\n    odds_ratio = has_churned / (1 - has_churned)\n  )\n\n# Using prediction_data, plot odds_ratio vs. time_since_first_purchase\nggplot(prediction_data, aes(time_since_first_purchase, odds_ratio)) +\n  # Make it a line plot\n  geom_line() +\n  # Add a dotted horizontal line at y = 1\n  geom_hline(yintercept = 1, linetype = \"dotted\")"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#log-odds-ratio",
+    "href": "Introduction_to_Regression_in_R_C4.html#log-odds-ratio",
+    "title": "47  Simple logistic regression",
+    "section": "47.7 Log odds ratio",
+    "text": "47.7 Log odds ratio\nOne downside to probabilities and odds ratios for logistic regression predictions is that the prediction lines for each are curved. This makes it harder to reason about what happens to the prediction when you make a change to the explanatory variable. The logarithm of the odds ratio (the “log odds ratio”) does have a linear relationship between predicted response and explanatory variable. That means that as the explanatory variable changes, you don’t see dramatic changes in the response metric - only linear changes.\nSince the actual values of log odds ratio are less intuitive than (linear) odds ratio, for visualization purposes it’s usually better to plot the odds ratio and apply a log transformation to the y-axis scale.\nmdl_churn_vs_relationship, explanatory_data, and plt_churn_vs_relationship are available and"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-6",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-6",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUpdate prediction_data to add the log odds ratio calculated two ways. Calculate it from the odds_ratio, then directly using predict().\nUpdate the plot to use a logarithmic y-scale.\n\n\n\nE7.R\n\n# Update the data frame\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = \"response\"),\n    odds_ratio = has_churned / (1 - has_churned),\n    # Add the log odds ratio from odds_ratio\n    log_odds_ratio = log(odds_ratio),\n    # Add the log odds ratio using predict()\n    log_odds_ratio2 = predict(mdl_churn_vs_relationship, explanatory_data)\n  )\n\n# See the result\nprediction_data\n\n\n\n# Update the data frame\nprediction_data <- explanatory_data %>% \n  mutate(   \n    has_churned = predict(mdl_churn_vs_relationship, explanatory_data, type = \"response\"),\n    odds_ratio = has_churned / (1 - has_churned),\n    log_odds_ratio = log(odds_ratio)\n  )\n\n# Update the plot\nggplot(prediction_data, aes(time_since_first_purchase, odds_ratio)) +\n  geom_line() +\n  geom_hline(yintercept = 1, linetype = \"dotted\") +\n  # Use a logarithmic y-scale\n  scale_y_log10()"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#calculating-the-confusion-matrix",
+    "href": "Introduction_to_Regression_in_R_C4.html#calculating-the-confusion-matrix",
+    "title": "47  Simple logistic regression",
+    "section": "47.8 Calculating the confusion matrix",
+    "text": "47.8 Calculating the confusion matrix\nA confusion matrix (occasionally called a confusion table) is the basis of all performance metrics for models with a categorical response (such as a logistic regression). It contains the counts of each actual response-predicted response pair. In this case, where there are two possible responses (churn or not churn), there are four overall outcomes.\nThe customer churned and the model predicted that. The customer churned but the model didn’t predict that. The customer didn’t churn but the model predicted they did. The customer didn’t churn and the model predicted that. churn and mdl_churn_vs_relationship are available."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-7",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-7",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the actual responses from the has_churned column of the dataset. Assign to actual_response.\nGet the “most likely” predicted responses from the model. Assign to predicted_response.\nCreate a table of counts from the actual and predicted response vectors. Assign to outcomes.\n\n\n\nE8.R\n\n# Get the actual responses from the dataset\nactual_response <- churn$has_churned\n\n# Get the \"most likely\" predicted responses from the model\npredicted_response <- round(fitted(mdl_churn_vs_relationship))\n\n# Create a table of counts\noutcomes <- table(predicted_response, actual_response)\n\n# See the result\noutcomes"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#measuring-logistic-model-performance",
+    "href": "Introduction_to_Regression_in_R_C4.html#measuring-logistic-model-performance",
+    "title": "47  Simple logistic regression",
+    "section": "47.9 Measuring logistic model performance",
+    "text": "47.9 Measuring logistic model performance\nHaving the confusion matrix as a table object is OK, but a little hard to program with. By converting this to a yardstick confusion matrix object, you get methods for plotting and extracting performance metrics.\nThe confusion matrix, outcomes is available as a table object. ggplot2 and yardstick are loaded, and the yardstick.event_first option is set to FALSE."
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-8",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-8",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nConvert outcomes to a yardstick confusion matrix. Assign to confusion.\nAutomatically plot confusion.\nGet performance metrics from confusion, remembering that the positive response is in the second column.\n\nRun the tests on the datasummary package.\n\n\nE9.R\n\n# Convert outcomes to a yardstick confusion matrix\nconfusion <- conf_mat(outcomes)\n\n# Plot the confusion matrix\nautoplot(confusion)\n\n# Get performance metrics for the confusion matrix\nsummary(confusion, event_level = \"second\")"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#section",
+    "href": "Introduction_to_Regression_in_R_C4.html#section",
+    "title": "47  Simple logistic regression",
+    "section": "47.10 ",
+    "text": "47.10"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-9",
+    "href": "Introduction_to_Regression_in_R_C4.html#instructions-100-xp-9",
+    "title": "47  Simple logistic regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\nRun the tests on the datasummary package.\n\n\nE10.R"
+  },
+  {
+    "objectID": "Introduction_to_Regression_in_R_C4.html#answers-question-50-xp",
+    "href": "Introduction_to_Regression_in_R_C4.html#answers-question-50-xp",
+    "title": "47  Simple logistic regression",
+    "section": "Answers question 50 XP",
+    "text": "Answers question 50 XP"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#fitting-a-parallel-slopes-linear-regression",
+    "href": "Intermediate_Regression_in_R_C1.html#fitting-a-parallel-slopes-linear-regression",
+    "title": "48  Parallel Slopes",
+    "section": "48.1 Fitting a parallel slopes linear regression",
+    "text": "48.1 Fitting a parallel slopes linear regression\nIn Introduction to Regression in R, you learned to fit linear regression models with a single explanatory variable. In many cases, using only one explanatory variable limits the accuracy of predictions. That means that to truly master linear regression, you need to be able to include multiple explanatory variables.\nThe case when there is one numeric explanatory variable and one categorical explanatory variable is sometimes called a “parallel slopes” linear regression due to the shape of the predictions—more on that in the next exercise.\nHere, you’ll revisit the Taiwan real estate dataset. Recall the meaning of each variable.\n\nVariable Meaning dist_to_mrt_station_m Distance to nearest MRT metro station, in meters. n_convenience No. of convenience stores in walking distance. house_age_years The age of the house, in years, in 3 groups. price_twd_msq House price per unit area, in New Taiwan dollars per meter squared.\n\ntaiwan_real_estate is available."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#instructions-100-xp",
+    "href": "Intermediate_Regression_in_R_C1.html#instructions-100-xp",
+    "title": "48  Parallel Slopes",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the taiwan_real_estate dataset, model the house price (in TWD per square meter) versus the number of nearby convenience stores.\nModel the house price (in TWD per square meter) versus the house age (in years). Don’t include an intercept term.\nModel the house price (in TWD per square meter) versus the number of nearby convenience stores plus the house age (in years). Don’t include an intercept term.\n\n\n\nE1.R\n\n# Fit a linear regr'n of price_twd_msq vs. n_convenience\nmdl_price_vs_conv <- lm(price_twd_msq ~ n_convenience, data = taiwan_real_estate)\n\n# See the result\nmdl_price_vs_conv\n\n\n\n# Fit a linear regr'n of price_twd_msq vs. house_age_years, no intercept\nmdl_price_vs_age <- lm(price_twd_msq ~ house_age_years + 0, data = taiwan_real_estate)\n\n# See the result\nmdl_price_vs_age\n\n\n\n# Fit a linear regr'n of price_twd_msq vs. n_convenience plus house_age_years, no intercept\nmdl_price_vs_both <- lm(price_twd_msq ~ n_convenience + house_age_years + 0, data = taiwan_real_estate)\n\n# See the result\nmdl_price_vs_both"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#visualizing-each-explanatory-variable",
+    "href": "Intermediate_Regression_in_R_C1.html#visualizing-each-explanatory-variable",
+    "title": "48  Parallel Slopes",
+    "section": "48.2 Visualizing each explanatory variable",
+    "text": "48.2 Visualizing each explanatory variable\nBeing able to see the predictions made by a model makes it easier to understand. In the case where there is only one explanatory variable, ggplot lets you do this without any manual calculation or messing about.\nTo visualize the relationship between a numeric explanatory variable and the numeric response, you can draw a scatter plot with a linear trend line.\nTo visualize the relationship between a categorical explanatory variable and the numeric response, you can draw a box plot.\ntaiwan_real_estate is available and ggplot2 is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-1",
+    "href": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-1",
+    "title": "48  Parallel Slopes",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the taiwan_real_estate dataset, plot the house price versus the number of nearby convenience stores.\nMake it a scatter plot.\nAdd a smooth linear regression trend line without a standard error ribbon.\nUsing the taiwan_real_estate dataset, plot the house price versus the house age.\nMake it a box plot.\n\n\n\nE2.R\n\n# Using taiwan_real_estate, plot price_twd_msq vs. n_convenience\nggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq)) +\n  # Add a point layer\n  geom_point() +\n  # Add a smooth trend line using linear regr'n, no ribbon\n  geom_smooth(method = \"lm\", se = FALSE)\n\n\n\n\n# Using taiwan_real_estate, plot price_twd_msq vs. house_age_years\nggplot(taiwan_real_estate, aes(house_age_years, price_twd_msq)) +\n  # Add a box plot layer\n  geom_boxplot()"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#visualizing-parallel-slopes",
+    "href": "Intermediate_Regression_in_R_C1.html#visualizing-parallel-slopes",
+    "title": "48  Parallel Slopes",
+    "section": "48.3 Visualizing parallel slopes",
+    "text": "48.3 Visualizing parallel slopes\nThe two plots in the previous exercise gave very different predictions: one gave a predicted response that increased linearly with a numeric variable; the other gave a fixed response for each category. The only sensible way to reconcile these two conflicting predictions is to incorporate both explanatory variables in the model at once.\nWhen it comes to a linear regression model with a numeric and a categorical explanatory variable, ggplot2 doesn’t have an easy, “out of the box” way to show the predictions. Fortunately, the moderndive package includes an extra geom, geom_parallel_slopes() to make it simple.\ntaiwan_real_estate is available; ggplot2 and moderndive are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-2",
+    "href": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-2",
+    "title": "48  Parallel Slopes",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the taiwan_real_estate dataset, plot house prices versus the number of nearby convenience stores, colored by house age.\nMake it a scatter plot.\nAdd parallel slopes, without a standard error ribbon.\n\n\n\nE3.R\n\n# Using taiwan_real_estate, plot price_twd_msq vs. n_convenience colored by house_age_years\nggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq, color = house_age_years)) +\n  # Add a point layer\n  geom_point() +\n  # Add parallel slopes, no ribbon\n  geom_parallel_slopes(se = FALSE)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#predicting-with-a-parallel-slopes-model",
+    "href": "Intermediate_Regression_in_R_C1.html#predicting-with-a-parallel-slopes-model",
+    "title": "48  Parallel Slopes",
+    "section": "48.4 Predicting with a parallel slopes model",
+    "text": "48.4 Predicting with a parallel slopes model\nWhile ggplot can automatically show you model predictions, in order to get those values to program with, you’ll need to do the calculations yourself.\nJust as with the case of a single explanatory variable, the workflow has two steps: create a data frame of explanatory variables, then add a column of predictions. To make sure you’ve got the right answer, you can add your predictions to the ggplot with the geom_parallel_slopes() lines.\ntaiwan_real_estate and mdl_price_vs_both are available; dplyr, tidyr, and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-3",
+    "href": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-3",
+    "title": "48  Parallel Slopes",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nn_convenience should take the numbers zero to ten.\nhouse_age_years should take the unique values of the house_age_years column of taiwan_real_estate.\nAdd a column to the explanatory_data named for the response variable, assigning to prediction_data.\nThe response column contain predictions made using mdl_price_vs_both and explanatory_data.\nUpdate the plot to add a point layer of predictions. Use the prediction_data, set the point size to 5, and the point shape to 15.\n\n\n\nE4.R\n\n# Make a grid of explanatory data\nexplanatory_data <- expand_grid(\n  # Set n_convenience to zero to ten\n  n_convenience = 0:10,\n  # Set house_age_years to the unique values of that variable\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\n\n# See the result\nexplanatory_data\n\n\n\n# From previous step\nexplanatory_data <- expand_grid(\n  n_convenience = 0:10,\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\n\n# Add predictions to the data frame\nprediction_data <- explanatory_data\nprediction_data$price_twd_msq <- predict(mdl_price_vs_both, explanatory_data)\n\n# See the result\nprediction_data\n\n\n\n\n# From previous steps\nexplanatory_data <- expand_grid(\n  n_convenience = 0:10,\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\nprediction_data <- explanatory_data %>% \n  mutate(\n    price_twd_msq = predict(mdl_price_vs_both, explanatory_data)\n  )\n\ntaiwan_real_estate %>% \n  ggplot(aes(n_convenience, price_twd_msq, color = house_age_years)) +\n  geom_point() +\n  geom_parallel_slopes(se = FALSE) +\n  # Add points using prediction_data, with size 5 and shape 15\n  geom_point(data = prediction_data, size = 5, shape = 15)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#manually-calculating-predictions",
+    "href": "Intermediate_Regression_in_R_C1.html#manually-calculating-predictions",
+    "title": "48  Parallel Slopes",
+    "section": "48.5 Manually calculating predictions",
+    "text": "48.5 Manually calculating predictions\nAs with simple linear regression, you can manually calculate the predictions from the model coefficients. The only change for the parallel slopes case is that the intercept is different for each category of the categorical explanatory variable. That means you need to consider the case when each each category occurs separately.\ntaiwan_real_estate, mdl_price_vs_both, and explanatory_data are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-4",
+    "href": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-4",
+    "title": "48  Parallel Slopes",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the coefficients from mdl_price_vs_both, assigning to coeffs.\nAssign each of the elements of coeffs to the appropriate variable.\nAdd columns to explanatory_data.\n\nTo choose the intercept, in the case when house_age_years is “0 to 15”, choose intercept_0_15. In the case when house_age_years is “15 to 30”, choose intercept_15_30. Do likewise for “30 to 45”.\nManually calculate the predictions as the intercept plus the slope times n_convenience.\n\n\n\n\nE5.R\n\n# Get the coefficients from mdl_price_vs_both\ncoeffs <- coefficients(mdl_price_vs_both)\n\n# Extract the slope coefficient\nslope <- coeffs[1]\n\n# Extract the intercept coefficient for 0 to 15\nintercept_0_15 <- coeffs[2]\n\n# Extract the intercept coefficient for 15 to 30\nintercept_15_30 <- coeffs[3]\n\n# Extract the intercept coefficient for 30 to 45\nintercept_30_45 <- coeffs[4]\n\n\n\n# From previous step\ncoeffs <- coefficients(mdl_price_vs_both)\nslope <- coeffs[1]\nintercept_0_15 <- coeffs[2]\nintercept_15_30 <- coeffs[3]\nintercept_30_45 <- coeffs[4]\n\nprediction_data <- explanatory_data %>% \n  mutate(\n    # Consider the 3 cases to choose the intercept\n    intercept = case_when(\n      house_age_years == \"0 to 15\" ~ intercept_0_15,\n      house_age_years == \"15 to 30\" ~ intercept_15_30,\n      house_age_years == \"30 to 45\" ~ intercept_30_45 \n    ),\n    # Manually calculate the predictions\n    price_twd_msq = intercept + slope * n_convenience\n  )\n\n# See the results\nprediction_data"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#comparing-coefficients-of-determination",
+    "href": "Intermediate_Regression_in_R_C1.html#comparing-coefficients-of-determination",
+    "title": "48  Parallel Slopes",
+    "section": "48.6 Comparing coefficients of determination",
+    "text": "48.6 Comparing coefficients of determination\nRecall that the coefficient of determination is a measure of how well the linear regression line fits the observed values. An important motivation for including several explanatory variables in a linear regression is that you can improve the fit compared to considering only a single explanatory variable.\nHere you’ll compare the coefficient of determination for the three Taiwan house price models, to see which gives the best result.\nmdl_price_vs_conv, mdl_price_vs_age, and mdl_price_vs_both are available; dplyr and broom are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-5",
+    "href": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-5",
+    "title": "48  Parallel Slopes",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the unadjusted and adjusted coefficients of determination for mdl_price_vs_conv by glancing at the model, then selecting the r.squared and adj.r.squared values.\nDo the same for mdl_price_vs_age and mdl_price_vs_both.\n\n\n\nE6.R\n\nmdl_price_vs_conv %>% \n  # Get the model-level coefficients\n  glance() %>% \n  # Select the coeffs of determination\n  select(r.squared, adj.r.squared)\n\n# Get the coeffs of determination for mdl_price_vs_age\nmdl_price_vs_age %>% \n  glance() %>% \n  select(r.squared, adj.r.squared)\n\n# Get the coeffs of determination for mdl_price_vs_both\nmdl_price_vs_both %>% \n  glance() %>% \n  select(r.squared, adj.r.squared)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#comparing-residual-standard-error",
+    "href": "Intermediate_Regression_in_R_C1.html#comparing-residual-standard-error",
+    "title": "48  Parallel Slopes",
+    "section": "48.7 Comparing residual standard error",
+    "text": "48.7 Comparing residual standard error\nThe other common metric for assessing model fit is the residual standard error (RSE), which measures the typical size of the residuals.\nIn the last exercise you saw how including both explanatory variables into the model increased the coefficient of determination. How do you think using both explanatory variables will change the RSE?\nmdl_price_vs_conv, mdl_price_vs_age, and mdl_price_vs_both are available; dplyr and broom are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-6",
+    "href": "Intermediate_Regression_in_R_C1.html#instructions-100-xp-6",
+    "title": "48  Parallel Slopes",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the residual standard error for mdl_price_vs_conv by glancing at the model, then pulling the sigma value.\nDo the same for mdl_price_vs_age.\nDo the same for mdl_price_vs_both.\n\n\n\nE7.R\n\nmdl_price_vs_conv %>% \n  # Get the model-level coefficients\n  glance() %>% \n  # Pull out the RSE\n  pull(sigma)\n\n# Get the RSE for mdl_price_vs_age\nmdl_price_vs_age %>% \n  glance() %>% \n  pull(sigma)\n\n# Get the RSE for mdl_price_vs_both\nmdl_price_vs_both %>% \n  glance() %>% \n  pull(sigma)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#one-model-per-category",
+    "href": "Intermediate_Regression_in_R_C2.html#one-model-per-category",
+    "title": "49  Interactions",
+    "section": "49.1 One model per category",
+    "text": "49.1 One model per category\nThe model you ran on the whole dataset fits some parts of the data better than others. It’s worth taking a look at what happens when you run a linear model on different parts of the dataset separately, to see if each model agrees or disagrees with the others.\ntaiwan_real_estate is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFilter taiwan_real_estate for rows where house_age_years is “0 to 15”, assigning to taiwan_0_to_15.\nRepeat this for the “15 to 30” and “30 to 45” house age categories.\nRun a linear regression of price_twd_msq versus n_convenience using the taiwan_0_to_15 dataset.\nRepeat this for taiwan_15_to_30 and taiwan_30_to_45.\n\n\n\nE1.R\n\n# Filter for rows where house age is 0 to 15 years\ntaiwan_0_to_15 <- taiwan_real_estate %>%\n  filter(house_age_years == \"0 to 15\")\n\n# Filter for rows where house age is 15 to 30 years\ntaiwan_15_to_30 <- taiwan_real_estate %>%\n  filter(house_age_years == \"15 to 30\")\n\n# Filter for rows where house age is 30 to 45 years\ntaiwan_30_to_45 <- taiwan_real_estate %>%\n  filter(house_age_years == \"30 to 45\")\n  \n  \n\n# From previous step\ntaiwan_0_to_15 <- taiwan_real_estate %>%\n  filter(house_age_years == \"0 to 15\")\ntaiwan_15_to_30 <- taiwan_real_estate %>%\n  filter(house_age_years == \"15 to 30\")\ntaiwan_30_to_45 <- taiwan_real_estate %>%\n  filter(house_age_years == \"30 to 45\")\n\n# Model price vs. no. convenience stores using 0 to 15 data\nmdl_0_to_15 <- lm(price_twd_msq ~ n_convenience, data = taiwan_0_to_15)\n\n# Model price vs. no. convenience stores using 15 to 30 data\nmdl_15_to_30 <- lm(price_twd_msq ~ n_convenience, data = taiwan_15_to_30)\n\n# Model price vs. no. convenience stores using 30 to 45 data\nmdl_30_to_45 <- lm(price_twd_msq ~ n_convenience, data = taiwan_30_to_45)\n\n# See the results\nmdl_0_to_15\nmdl_15_to_30\nmdl_30_to_45"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#predicting-multiple-models",
+    "href": "Intermediate_Regression_in_R_C2.html#predicting-multiple-models",
+    "title": "49  Interactions",
+    "section": "49.2 Predicting multiple models",
+    "text": "49.2 Predicting multiple models\nIn order to see what each of the models for individual categories are doing, it’s helpful to make predictions from them. The flow is exactly the same as the flow for making predictions on the whole model, though remember that you only have a single explanatory variable in these models (so expand_grid() isn’t needed.)\nThe models mdl_0_to_15, mdl_15_to_30 and mdl_30_to_45 are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-1",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-1",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a tibble of explanatory data, setting n_convenience to a vector from zero to ten, assigning to explanatory_data_0_to_15.\nAdd a column of predictions named price_twd_msq to explanatory_data, using mdl_0_to_15 and explanatory_data. Assign to prediction_data_0_to_15.\nRepeat this for the 15 to 30 year and 30 to 45 year house age categories.\n\n\n\nE2.R\n\n# Create a tibble of explanatory data, setting no. of conv stores to 0 to 10\nexplanatory_data <- tibble(\n  n_convenience = 0:10\n)\n\n\n\n# From previous step\nexplanatory_data <- tibble(\n  n_convenience = 0:10\n)\n\n# Add column of predictions using \"0 to 15\" model and explanatory data \nprediction_data_0_to_15 <- explanatory_data %>% \n  mutate(\n    mass_g = predict(mdl_0_to_15, explanatory_data),\n    )\n\n# Same again, with \"15 to 30\"\nprediction_data_15_to_30 <- explanatory_data %>% \n  mutate(\n    mass_g = predict(mdl_15_to_30, explanatory_data),\n    \n)\n\n# Same again, with \"30 to 45\"\nprediction_data_30_to_45 <- explanatory_data %>% \n  mutate(\n    mass_g = predict(mdl_30_to_45, explanatory_data),\n)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#visualizing-multiple-models",
+    "href": "Intermediate_Regression_in_R_C2.html#visualizing-multiple-models",
+    "title": "49  Interactions",
+    "section": "49.3 Visualizing multiple models",
+    "text": "49.3 Visualizing multiple models\nIn the last two exercises, you ran models for each category of house ages separately, then calculated predictions for each model. Now it’s time to visualize those predictions to see how they compare.\nWhen you use geom_smooth() in a ggplot with an aesthetic that splits the dataset into groups and draws a line for each group (like the color aesthetic), you get multiple trend lines. This is the same as running a model on each group separately, so we get a chance to test our predictions against ggplot’s.\ntaiwan_real_estate, prediction_data_0_to_15, prediction_data_15_to_30, and prediction_data_30_to_45 are available; ggplot2 is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-2",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-2",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing taiwan_real_estate, plot price_twd_msq versus n_convenience colored by house_age_years.\nAdd a point layer.\nAdd smooth trend lines for each color using the linear regression method and turning off the standard error ribbon.\nExtend the plot by adding the prediction points from prediction_data_0_to_15. Color them red, with size 3 and shape 15.\nAdd prediction points from prediction_data_15_to_30, colored green, size 3, and shape 15.\nAdd prediction points from prediction_data_30_to_45, colored blue, size 3, and shape 15.\n\n\n\nE3.R\n\n# Using taiwan_real_estate, plot price vs. no. of conv. stores colored by house age\nggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq, color = house_age_years)) +\n  # Make it a scatter plot\n  geom_point() +\n  # Add smooth linear regression trend lines, no ribbon\n  geom_smooth(method = \"lm\", se = FALSE)\n\n\n# Extend the plot to include prediction points\nggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq, color = house_age_years)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  # Add points using prediction_data_0_to_15, colored red, size 3, shape 15\n   geom_point(data = prediction_data_0_to_15, size = 3, shape = 15, color = \"red\") +\n  # Add points using prediction_data_15_to_30, colored green, size 3, shape 15\n  geom_point(data = prediction_data_15_to_30, size = 3, shape = 15, color = \"green\") +\n  # Add points using prediction_data_30_to_45, colored blue, size 3, shape 15\n  geom_point(data = prediction_data_30_to_45, size = 3, shape = 15, color = \"blue\")"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#assessing-model-performance",
+    "href": "Intermediate_Regression_in_R_C2.html#assessing-model-performance",
+    "title": "49  Interactions",
+    "section": "49.4 Assessing model performance",
+    "text": "49.4 Assessing model performance\nTo test which approach is best—the whole dataset model or the models for each house age category—you need to calculate some metrics. Here’s, you’ll compare the coefficient of determination and the residual standard error for each model.\nFour models of price versus no. of convenience stores (mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45) are available; dplyr and broom are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-3",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-3",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the coefficient of determination for mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.\nGet the residual standard error for mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.\n\n\n\nE4.R\n\n# Get the coeff. of determination for mdl_all_ages\nmdl_all_ages %>% \n  glance() %>% \n  pull(r.squared)\n\n# Get the coeff. of determination for mdl_0_to_15\nmdl_0_to_15 %>% \n  glance() %>% \n  pull(r.squared)\n\n# Get the coeff. of determination for mdl_15_to_30\nmdl_15_to_30 %>% \n  glance() %>% \n  pull(r.squared)\n\n# Get the coeff. of determination for mdl_30_to_45\nmdl_30_to_45 %>% \n  glance() %>% \n  pull(r.squared)\n\n\n\n\n# Get the RSE for mdl_all\nmdl_all_ages %>% \n  glance() %>% \n  pull(sigma)\n\n# Get the RSE for mdl_0_to_15\nmdl_0_to_15 %>% \n  glance() %>% \n  pull(sigma)\n\n# Get the RSE for mdl_15_to_30\nmdl_15_to_30 %>% \n  glance() %>% \n  pull(sigma)\n\n# Get the RSE for mdl_30_to_45\nmdl_30_to_45 %>% \n  glance() %>% \n  pull(sigma)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#specifying-an-interaction",
+    "href": "Intermediate_Regression_in_R_C2.html#specifying-an-interaction",
+    "title": "49  Interactions",
+    "section": "49.5 Specifying an interaction",
+    "text": "49.5 Specifying an interaction\nSo far you used a single parallel slopes model, which gave an OK fit for the whole dataset, then three separate models for each house age category, which gave a better fit for each individual category, but was clunky because you had three separate models to work with and explain. Ideally, you’d have a single model that had all the predictive power of the individual models.\nDefining this single model is achieved through adding interactions between explanatory variables. R’s formula syntax is flexible, and gives you a couple of options, depending on whether you prefer concise code that is quick to type and to read, or explicit code that describes what you are doing in detail.\ntaiwan_real_estate is available."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-4",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-4",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a linear regression of price_twd_msq versus n_convenience and house_age_years and their interaction, using the “times” syntax to implicitly generate the interaction.\nFit a linear regression of price_twd_msq versus n_convenience and house_age_years and their interaction, using the “colon” syntax to explicitly generate the interaction.\n\n\n\nE5.R\n\n# Model price vs both with an interaction using \"times\" syntax\nlm(price_twd_msq ~ n_convenience * house_age_years, data = taiwan_real_estate)\n\n\n\n\n# Model price vs both with an interaction using \"colon\" syntax\nlm(\n  price_twd_msq ~ n_convenience + house_age_years + n_convenience:house_age_years, \n  data = taiwan_real_estate\n)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#interactions-with-understandable-coeffs",
+    "href": "Intermediate_Regression_in_R_C2.html#interactions-with-understandable-coeffs",
+    "title": "49  Interactions",
+    "section": "49.6 Interactions with understandable coeffs",
+    "text": "49.6 Interactions with understandable coeffs\nThe previous model with the interaction term returned coefficients that were a little tricky to interpret. In order clarify what the model is predicting, you can reformulate the model in a way that returns understandable coefficients. For further clarity, you can compare the results to the models on the separate house age categories (mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45).\ntaiwan_real_estate, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45 are available."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-5",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-5",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a linear regression of price_twd_msq versus house_age_years plus an interaction between n_convenience and house_age_years, and no global intercept, using the taiwan_real_estate dataset.\nFor comparison, get the coefficients for the three models for each category: mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.\n\n\n\nE6.R\n\n# Model price vs. house age plus an interaction, no intercept\nmdl_readable_inter <- lm(\n  price_twd_msq ~ house_age_years + n_convenience:house_age_years + 0, \n  data = taiwan_real_estate\n)\n\n# See the result\nmdl_readable_inter\n\n# Get coefficients for mdl_0_to_15\ncoefficients(mdl_0_to_15)\n\n# Get coefficients for mdl_15_to_30\ncoefficients(mdl_15_to_30)\n\n# Get coefficients for mdl_30_to_45\ncoefficients(mdl_30_to_45)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#predicting-with-interactions",
+    "href": "Intermediate_Regression_in_R_C2.html#predicting-with-interactions",
+    "title": "49  Interactions",
+    "section": "49.7 Predicting with interactions",
+    "text": "49.7 Predicting with interactions\nAs with every other regression model you’ve created, the fun part is making predictions. Fortunately, the code flow for this case is the same as the one without interactions—R can handle calculating the interactions without any extra prompting from you. The only thing you need to remember is the trick for getting combinations of explanatory variables.\nmdl_price_vs_both_inter is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-6",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-6",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nMake a grid of explanatory data, formed from combinations of the following variables.\n\nn_convenience should take the numbers zero to ten.\nhouse_age_years should take the unique values of the house_age_years column of taiwan_real_estate.\n\nAdd a column to the explanatory_data, assigning to prediction_data.\nThe column should be named after the response variable, and contain predictions made using mdl_price_vs_both_inter and explanatory_data.\nUsing taiwan_real_estate, plot price_twd_msq versus n_convenience, colored by house_age_years.\nAdd a point layer.\nAdd smooth trend lines using linear regression, no standard error ribbon.\nAdd another point layer using prediction_data, with size 5 and shape 15.\n\n\n\nE7.R\n\n# Make a grid of explanatory data\nexplanatory_data <- expand_grid(\n  # Set n_convenience to zero to ten\n  n_convenience = 0:10,\n  # Set house_age_years to the unique values of that variable\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\n\n# See the result\nexplanatory_data\n\n\n\n\n# From previous step\nexplanatory_data <- expand_grid(\n  n_convenience = 0:10,\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\n\n# Add predictions to the data frame\nprediction_data <- explanatory_data %>%\n  mutate(price_twd_msq = predict(mdl_price_vs_both_inter, explanatory_data))\n\n# See the result\nprediction_data\n\n\n\n\n# From previous step\nexplanatory_data <- expand_grid(\n  n_convenience = 0:10,\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\nprediction_data <- explanatory_data %>% \n  mutate(\n    price_twd_msq = predict(mdl_price_vs_both_inter, explanatory_data)\n  )\n\n# Using taiwan_real_estate, plot price vs. no. of convenience stores, colored by house age\nggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq, color = house_age_years)) +\n  # Make it a scatter plot\n  geom_point() +\n  # Add linear regression trend lines, no ribbon\n  geom_smooth(method = \"lm\", se = FALSE) +\n  # Add points from prediction_data, size 5, shape 15\n  geom_point(data = prediction_data, size = 5, shape = 15)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#manually-calculating-predictions-with-interactions",
+    "href": "Intermediate_Regression_in_R_C2.html#manually-calculating-predictions-with-interactions",
+    "title": "49  Interactions",
+    "section": "49.8 Manually calculating predictions with interactions",
+    "text": "49.8 Manually calculating predictions with interactions\nIn order to understand how predict() works, it’s time to calculate the predictions manually again. For this model, there are three separate lines to calculate for, and in each one, the prediction is an intercept plus a slope times the numeric explanatory value. The tricky part is getting the right intercept and the right slope for each case.\nmdl_price_vs_both_inter and explanatory_data are available; dplyr and tidyr are available."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-7",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-7",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the coefficients from mdl_price_vs_both_inter, assigning to coeffs.\nGet the three intercept coefficients from coeffs, assigning to intercept_0_15, intercept_15_30, and intercept_30_45.\nGet the three slope coefficients from coeffs, assigning to slope_0_15, slope_15_30, and slope_30_45.\n\n\n\nE8.R\n\n\n Get the intercept for 0 to 15 year age group\nintercept_0_15 <- coeffs[1]\n\n# Get the intercept for 15 to 30 year age group\nintercept_15_30 <- coeffs[2]\n\n# Get the intercept for 30 to 45 year age group\nintercept_30_45 <- coeffs[3]\n\n# Get the slope for 0 to 15 year age group\nslope_0_15 <- coeffs[4]\n\n# Get the slope for 15 to 30 year age group\nslope_15_30 <- coeffs[5]\n\n# Get the slope for 30 to 45 year age group\nslope_30_45 <- coeffs[6]"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#modeling-ebay-auctions",
+    "href": "Intermediate_Regression_in_R_C2.html#modeling-ebay-auctions",
+    "title": "49  Interactions",
+    "section": "49.9 Modeling eBay auctions",
+    "text": "49.9 Modeling eBay auctions\nSometimes modeling a whole dataset suggests trends that disagree with models on separate parts of that dataset. This is known as Simpson’s paradox. In the most extreme case, you may see a positive slope on the whole dataset, and negative slopes on every subset of that dataset (or the other way around).\nOver the next few exercises, you’ll look at eBay auctions of Palm Pilot M515 PDA models.\nvariable meaning price Final sale price, USD openbid The opening bid, USD auction_type How long did the auction last?\nauctions is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-8",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-8",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nLook at the structure of the auctions dataset and familiarize yourself with its columns.\nFit a linear regression model of price versus openbid, using the auctions dataset. Look at the coefficients.\nUsing auctions, plot price versus openbid as a scatter plot with linear regression trend lines (no ribbon). Look at the trend line.\n\n\n\nE9.R\n\n# Take a glimpse at the dataset\nglimpse(auctions)\n\n# Model price vs. opening bid using auctions\nmdl_price_vs_openbid <- lm(price ~ openbid, data = auctions)\n\n# See the result\nmdl_price_vs_openbid\n\n\n\n\n# Using auctions, plot price vs. opening bid as a scatter plot with linear regression trend lines\nggplot(auctions, aes(openbid, price)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#modeling-each-auction-type",
+    "href": "Intermediate_Regression_in_R_C2.html#modeling-each-auction-type",
+    "title": "49  Interactions",
+    "section": "49.10 Modeling each auction type",
+    "text": "49.10 Modeling each auction type\nYou just saw that the opening bid price appeared not to affect the final sale price of Palm Pilots in the eBay auctions. Now let’s look at what happens when you model the three auction types (3 day, 5 day, and 7 day) separately.\nauctions is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-9",
+    "href": "Intermediate_Regression_in_R_C2.html#instructions-100-xp-9",
+    "title": "49  Interactions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a linear regression model of price versus openbid and auction_type, with an interaction, using the auctions dataset. Look at the coefficients.\nUsing auctions, plot price versus openbid, colored by auction_type, as a scatter plot with linear regression trend lines (no ribbon). Look at the trend lines.\n\n\n\nE10.R\n\n# Fit linear regression of price vs. opening bid and auction type, with an interaction.\nmdl_price_vs_both <- lm(\n  price ~ auction_type + openbid:auction_type + 0, # or price ~ auction_type * openbid\n  data = auctions\n)\n\n# See the result\nmdl_price_vs_both\n\n\n\n\n# Using auctions, plot price vs. opening bid colored by auction type as a scatter plot with linear regr'n trend lines\nggplot(auctions, aes(openbid, price, color = auction_type)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = FALSE)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#d-visualizations",
+    "href": "Intermediate_Regression_in_R_C3.html#d-visualizations",
+    "title": "50  Multiple Linear Regression",
+    "section": "50.1 3D visualizations",
+    "text": "50.1 3D visualizations\nSince computer screens and paper are both two-dimensional objects, most plots are best suited to visualizing two variables at once. For the case of three continuous variables, you can draw a 3D scatter plot, but perspective problems usually make it difficult to interpret. There are some “flat” alternatives that provide easier interpretation, though they require a little thinking about to make.\ntaiwan_real_estate is available; magrittr, plot3D and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#instructions-100-xp",
+    "href": "Intermediate_Regression_in_R_C3.html#instructions-100-xp",
+    "title": "50  Multiple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nWith the taiwan_real_estate dataset, draw a 3D scatter plot of the number of nearby convenience stores on the x-axis, the square-root of the distance to the nearest MRT stop on the y-axis, and the house price on the z-axis.\nWith the taiwan_real_estate dataset, draw a scatter plot of the square-root of the distance to the nearest MRT stop versus the number of nearby convenience stores, colored by house price.\nUse the continuous viridis color scale, using the “plasma” option.\n\n\n\nE1.R\n\n# With taiwan_real_estate, draw a 3D scatter plot of no. of conv. stores, sqrt dist to MRT, and price\nscatter3D\n\nscatter3D(taiwan_real_estate$n_convenience, sqrt(taiwan_real_estate$dist_to_mrt_m), taiwan_real_estate$price_twd_msq)\n\n\n\n\n# Using taiwan_real_estate, plot sqrt dist to MRT vs. no. of conv stores, colored by price\nggplot(taiwan_real_estate,\naes(n_convenience, sqrt(dist_to_mrt_m), color = price_twd_msq)) + \n  # Make it a scatter plot\n  geom_point() +\n  # Use the continuous viridis plasma color scale\n  scale_color_viridis_c (option=\"plasma\")"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#modeling-2-numeric-explanatory-variables",
+    "href": "Intermediate_Regression_in_R_C3.html#modeling-2-numeric-explanatory-variables",
+    "title": "50  Multiple Linear Regression",
+    "section": "50.2 Modeling 2 numeric explanatory variables",
+    "text": "50.2 Modeling 2 numeric explanatory variables\nYou already saw how to make a model and predictions with a numeric and a categorical explanatory variable. The code for modeling and predicting with two numeric explanatory variables in the same, other than a slight difference in how to specify the explanatory variables to make predictions against.\nHere you’ll model and predict the house prices against the number of nearby convenience stores and the square-root of the distance to the nearest MRT station.\ntaiwan_real_estate is available; dplyr, tidyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-1",
+    "href": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-1",
+    "title": "50  Multiple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a linear regression of house price versus the number of convenience stores and the square-root of the distance to the nearest MRT stations, without an interaction, using the taiwan_real_estate dataset.\nCreate expanded grid of explanatory variables with number of convenience stores from 0 to 10 and the distance to the nearest MRT station as a sequence from 0 to 80 in steps of 10, all squared (0, 100, 400, …, 6400). Assign to explanatory_data.\nAdd a column of predictions to explanatory_data using mdl_price_vs_conv_dist and explanatory_data. Assign to prediction_data.\nExtend the plot to add a layer of points using the prediction data, colored yellow, with size 3.\n\n\n\nE2.R\n\n# Fit a linear regression of price vs. no. of conv. stores and sqrt dist. to nearest MRT, no interaction\nmdl_price_vs_conv_dist <- lm(price_twd_msq ~ n_convenience + sqrt(dist_to_mrt_m), data = taiwan_real_estate)\n\n# See the result\nmdl_price_vs_conv_dist\n\n\n\n\n# From previous step \nmdl_price_vs_conv_dist <- lm(price_twd_msq ~ n_convenience + sqrt(dist_to_mrt_m), data = taiwan_real_estate)\n\n# Create expanded grid of explanatory variables with no. of conv. stores and  dist. to nearest MRT\nexplanatory_data <- expand_grid(\n  n_convenience = 0:10,\n  dist_to_mrt_m = seq(0, 80, 10) ^ 2\n)\n\n# Add predictions using mdl_price_vs_conv_dist and explanatory_data\nprediction_data <- explanatory_data %>% \n  mutate(\n    price_twd_msq = predict(mdl_price_vs_conv_dist, explanatory_data)\n  )\n\n# See the result\nprediction_data\n\n\n\n\n# From previous steps\nmdl_price_vs_conv_dist <- lm(price_twd_msq ~ n_convenience + sqrt(dist_to_mrt_m), data = taiwan_real_estate)\nexplanatory_data <- expand_grid(n_convenience = 0:10, dist_to_mrt_m = seq(0, 80, 10) ^ 2)\nprediction_data <- explanatory_data %>% \n  mutate(price_twd_msq = predict(mdl_price_vs_conv_dist, explanatory_data))\n\n# Add predictions to plot\nggplot(\n  taiwan_real_estate, \n  aes(n_convenience, sqrt(dist_to_mrt_m), color = price_twd_msq)\n) + \n  geom_point() +\n  scale_color_viridis_c(option = \"plasma\")+\n  # Add prediction points colored yellow, size 3\n  geom_point(data = prediction_data, color = \"yellow\", size = 3)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#including-an-interaction",
+    "href": "Intermediate_Regression_in_R_C3.html#including-an-interaction",
+    "title": "50  Multiple Linear Regression",
+    "section": "50.3 Including an interaction",
+    "text": "50.3 Including an interaction\nJust as in the case with one numeric and one categorical explanatory variable, it is possible that numeric explanatory variables can interact. With this model structure, you’ll get a third slope coefficient: one for each explanatory variable and one for the interaction.\nHere you’ll run and predict the same model as in the previous exercise, but this time including an interaction between the explanatory variables.\ntaiwan_real_estate is available; dplyr, tidyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-2",
+    "href": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-2",
+    "title": "50  Multiple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a linear regression of house price versus the number of convenience stores and the square-root of the distance to the nearest MRT stations, with an interaction, using the taiwan_real_estate dataset.\nCreate expanded grid of explanatory variables with number of convenience stores from 0 to 10 and the distance to the nearest MRT station as a sequence from 0 to 80 in steps of 10, all squared (0, 100, 400, …, 6400). Assign to explanatory_data.\nAdd a column of predictions to explanatory_data using mdl_price_vs_conv_dist and explanatory_data. Assign to prediction_data.\nExtend the plot to add a layer of points using the prediction data, colored yellow, with size 3.\n\n\n\nE3.R\n\n# Fit a linear regression of price vs. no. of conv. stores and sqrt dist. to nearest MRT, with interaction\nmdl_price_vs_conv_dist <- lm(\n  price_twd_msq ~ n_convenience * sqrt(dist_to_mrt_m), data = taiwan_real_estate\n)\n\n# See the result\nmdl_price_vs_conv_dist\n\n\n\n# From previous step \nmdl_price_vs_conv_dist <- lm(price_twd_msq ~ n_convenience * sqrt(dist_to_mrt_m), data = taiwan_real_estate)\n\n# Create expanded grid of explanatory variables with no. of conv. stores and  dist. to nearest MRT\nexplanatory_data <- expand_grid(\n  n_convenience = 0:10,\n  dist_to_mrt_m = seq(0, 80, 10) ^ 2\n)\n\n# Add predictions using mdl_price_vs_conv_dist and explanatory_data\nprediction_data <- explanatory_data %>% \n  mutate(\n    price_twd_msq = predict(mdl_price_vs_conv_dist, explanatory_data)\n  )\n\n# See the result\nprediction_data\n\n\n\n\n# From previous steps\nmdl_price_vs_conv_dist <- lm(price_twd_msq ~ n_convenience * sqrt(dist_to_mrt_m), data = taiwan_real_estate)\nexplanatory_data <- expand_grid(n_convenience = 0:10, dist_to_mrt_m = seq(0, 80, 10) ^ 2)\nprediction_data <- explanatory_data %>% \n  mutate(price_twd_msq = predict(mdl_price_vs_conv_dist, explanatory_data))\n\n# Add predictions to plot\nggplot(\n  taiwan_real_estate, \n  aes(n_convenience, sqrt(dist_to_mrt_m), color = price_twd_msq)\n) + \n  geom_point() +\n  scale_color_viridis_c(option = \"plasma\") +\n  # Add prediction points colored yellow, size 3\n  geom_point(data = prediction_data, color = \"yellow\", size = 3)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#visualizing-many-variables",
+    "href": "Intermediate_Regression_in_R_C3.html#visualizing-many-variables",
+    "title": "50  Multiple Linear Regression",
+    "section": "50.4 Visualizing many variables",
+    "text": "50.4 Visualizing many variables\nAs you begin to consider more variables, plotting them all at the same time becomes increasingly difficult. In addition to using x and y scales for two numeric variables, you can use color for a third numeric variable, and you can use faceting for categorical variables. And that’s about your limit before the plots become to difficult to interpret. There are some specialist plot types like correlation heatmaps and parallel coordinates plots that will handle more variables, but they give you much less information about each variable, and they aren’t great for visualizing model predictions.\nHere you’ll push the limits of the scatter plot by showing the house price, the distance to the MRT station, the number of nearby convenience stores, and the house age, all together in one plot.\ntaiwan_real_estate is available; ggplot2 is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-3",
+    "href": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-3",
+    "title": "50  Multiple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the taiwan_real_estate dataset, draw a scatter plot of n_convenience versus the square root of dist_to_mrt_m, colored by price_twd_msq.\nUse the continuous viridis plasma color scale.\nFacet the plot, wrapping by house_age_years.\n\n\n\nE4.R\n\n# Using taiwan_real_estate, no. of conv. stores vs. sqrt of dist. to MRT, colored by plot house price\nggplot(\n  taiwan_real_estate, \n  aes(sqrt(dist_to_mrt_m), n_convenience, color = price_twd_msq)\n) +\n  # Make it a scatter plot\n  geom_point() +\n  # Use the continuous viridis plasma color scale\n  scale_color_viridis_c(option = \"plasma\") +\n  # Facet, wrapped by house age\n  facet_wrap(vars(house_age_years))"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#different-levels-of-interaction",
+    "href": "Intermediate_Regression_in_R_C3.html#different-levels-of-interaction",
+    "title": "50  Multiple Linear Regression",
+    "section": "50.5 Different levels of interaction",
+    "text": "50.5 Different levels of interaction\nOnce you have three explanatory variables, the number of options for specifying interactions increases. You can specify no interactions. You can specify 2-way interactions, which gives you model coefficients for each pair of variables. The third option is to specify all the interactions, which means the three 2-way interactions and and interaction between all three explanatory variables.\nAs the number of explanatory variables increases further, the number of interaction possibilities rapidly increases.\ntaiwan_real_estate is available."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-4",
+    "href": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-4",
+    "title": "50  Multiple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a linear regression of house price versus n_convenience, the square-root of dist_to_mrt_m, and house_age_years. Don’t include a global intercept, and don’t include any interactions.\nFit a linear regression of house price versus the square-root of dist_to_mrt_m, n_convenience, and house_age_years. Don’t include a global intercept, but do include 2-way and 3-way interactions between the explanatory variables.\nFit a linear regression of house price versus the square-root of dist_to_mrt_m, n_convenience, and house_age_years. Don’t include a global intercept, but do include 2-way (not 3-way) interactions between the explanatory variables.\n\n\n\nE5.R\n\n# Model price vs. no. of conv. stores, sqrt dist. to MRT station & house age, no global intercept, no interactions\nmdl_price_vs_all_no_inter <- lm(\n  price_twd_msq ~ n_convenience + sqrt(dist_to_mrt_m) + house_age_years + 0, \n  data = taiwan_real_estate\n)\n\n# See the result\nmdl_price_vs_all_no_inter\n\n\n\n\n\n# Model price vs. sqrt dist. to MRT station, no. of conv. stores & house age, no global intercept, 3-way interactions\nmdl_price_vs_all_3_way_inter <- lm(\n  price_twd_msq ~ sqrt(dist_to_mrt_m) * n_convenience * house_age_years + 0, \n  data = taiwan_real_estate\n)\n\n# See the result\nmdl_price_vs_all_3_way_inter\n\n\n\n# Model price vs. sqrt dist. to MRT station, no. of conv. stores & house age, no global intercept, 2-way interactions\nmdl_price_vs_all_2_way_inter <- lm(\n  price_twd_msq ~ (sqrt(dist_to_mrt_m) + n_convenience + house_age_years) ^ 2 + 0, \n  data = taiwan_real_estate\n)\n\n# See the result\nmdl_price_vs_all_2_way_inter"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#predicting-again",
+    "href": "Intermediate_Regression_in_R_C3.html#predicting-again",
+    "title": "50  Multiple Linear Regression",
+    "section": "50.6 Predicting again",
+    "text": "50.6 Predicting again\nYou’ve followed the prediction workflow several times now with different combinations of explanatory variables. Time to try it once more on the model with three explanatory variables. Here, you’ll use the model with 3-way interactions, though the code is the same when using any of the three models from the previous exercise.\ntaiwan_real_estate and mdl_price_vs_all_3_way_inter are available; dplyr, tidyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-5",
+    "href": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-5",
+    "title": "50  Multiple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nMake a grid of explanatory data, formed from combinations of the following variables.\n\ndist_to_mrt_m should take a sequence from zero to eighty in steps of ten, all squared (0, 100, 400, …, 6400).\nn_convenience should take the numbers zero to ten.\nhouse_age_years should take the unique values of the house_age_years column of taiwan_real_estate.\n\nAdd a column to the explanatory_data, assigning to prediction_data.\nThe column should be named after the response variable, and contain predictions made using mdl_price_vs_all_3_way_inter and explanatory_data.\nExtend the plot to include predictions as points from prediction_data, with size 3 and shape 15.\nLook at the plot. What do the prediction points tell you?\n\n\n\nE6.R\n\n# Make a grid of explanatory data\nexplanatory_data <- expand_grid(\n  # Set dist_to_mrt_m a seq from 0 to 80 by 10s, squared\n  dist_to_mrt_m = seq(0, 80, 10) ^ 2,\n  # Set n_convenience to 0 to 10\n  n_convenience = 0:10,\n  # Set house_age_years to the unique values of that variable\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\n\n# See the result\nexplanatory_data\n\n\n\n# From previous step\nexplanatory_data <- expand_grid(\n  dist_to_mrt_m = seq(0, 80, 10) ^ 2,\n  n_convenience = 0:10,\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\n\n# Add predictions to the data frame\nprediction_data <- explanatory_data %>% \n  mutate(\n    price_twd_msq = predict(mdl_price_vs_all_3_way_inter, explanatory_data)\n  )\n\n# See the result\nprediction_data\n\n\n\n\n# From previous step\nexplanatory_data <- expand_grid(\n  dist_to_mrt_m = seq(0, 80, 10) ^ 2,\n  n_convenience = 0:10,\n  house_age_years = unique(taiwan_real_estate$house_age_years)\n)\nprediction_data <- explanatory_data %>% \n  mutate(price_twd_msq = predict(mdl_price_vs_all_3_way_inter, explanatory_data))\n\n# Extend the plot\nggplot(\n  taiwan_real_estate, \n  aes(sqrt(dist_to_mrt_m), n_convenience, color = price_twd_msq)\n) +\n  geom_point() +\n  scale_color_viridis_c(option = \"plasma\") +\n  facet_wrap(vars(house_age_years)) +\n  # Add points from prediction data, size 3, shape 15\n    geom_point(data = prediction_data, color = \"yellow\", size = 3, shape = 15)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#linear-regression-algorithm",
+    "href": "Intermediate_Regression_in_R_C3.html#linear-regression-algorithm",
+    "title": "50  Multiple Linear Regression",
+    "section": "50.7 Linear regression algorithm",
+    "text": "50.7 Linear regression algorithm\nTo truly understand linear regression, it is helpful to know how the algorithm works. The code for lm() is hundreds of lines because it has to work with any formula and any dataset. However, in the case of simple linear regression for a single dataset, you can implement a linear regression algorithm in just a few lines of code.\nThe workflow is\nWrite a script to calculate the sum of squares. Turn this into a function. Use R’s general purpose optimization function find the coefficients that minimize this. The explanatory values (the n_convenience column of taiwan_real_estate) are available as x_actual. The response values (the price_twd_msq column of taiwan_real_estate) are available as y_actual."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-6",
+    "href": "Intermediate_Regression_in_R_C3.html#instructions-100-xp-6",
+    "title": "50  Multiple Linear Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSet the intercept to ten.\nSet the slope to one.\nCalculate the predicted y-values as the intercept plus the slope times the actual x-values.\nCalculate the differences between actual and predicted y-values.\nCalculate the sum of squares. Get the sum of the differences in y-values, squaring each value.\nComplete the function body.\n\nGet the intercept from the first element of coeffs.\nGet the slope from the second element of coeffs.\nCalculate the predicted y-values as the intercept plus the slope times the actual x-values.\nCalculate the differences between actual and predicted y-values.\nCalculate the sum of squares. Get the sum of the differences in y-values, squaring each value.\n\nOptimize the sum of squares metric.\nCall an optimization function. Initially guess that the intercept is zero and the slope is zero by passing a named vector of parameters. *Use calc_sum_of_squares as the optimization function.\n\n\n\nE7.R\n\n# Set the intercept to 10\nintercept <- 10\n\n# Set the slope to 1\nslope <- 1\n\n# Calculate the predicted y values\ny_pred <- intercept + slope * x_actual\n\n# Calculate the differences between actual and predicted\ny_diff <- y_actual - y_pred\n\n# Calculate the sum of squares\nsum(y_diff ^ 2)\n\n\n\n\n# Set the intercept to 10\nintercept <- 10\n\n# Set the slope to 1\nslope <- 1\n\n# Calculate the predicted y values\ny_pred <- intercept + slope * x_actual\n\n# Calculate the differences between actual and predicted\ny_diff <- y_actual - y_pred\n\n# Calculate the sum of squares\nsum(y_diff ^ 2)\n\n\n\n\n\n# From previous step\ncalc_sum_of_squares <- function(coeffs) {\n  intercept <- coeffs[1]\n  slope <- coeffs[2]\n  y_pred <- intercept + slope * x_actual\n  y_diff <- y_actual - y_pred\n  sum(y_diff ^ 2)\n}\n\n# Optimize the metric\noptim(\n  # Initially guess 0 intercept and 0 slope\n  par = c(intercept = 0, slope = 0), \n  # Use calc_sum_of_squares as the optimization fn\n  fn = calc_sum_of_squares\n)\n\n# Compare the coefficients to those calculated by lm()\nlm(price_twd_msq ~ n_convenience, data = taiwan_real_estate)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#visualizing-multiple-explanatory-variables",
+    "href": "Intermediate_Regression_in_R_C4.html#visualizing-multiple-explanatory-variables",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.1 Visualizing multiple explanatory variables",
+    "text": "51.1 Visualizing multiple explanatory variables\nLogistic regression also supports multiple explanatory variables. Plotting has similar issues as the linear regression case: it quickly becomes difficult to include more numeric variables in the plot. Here we’ll look at the case of two numeric explanatory variables, and the solution is basically the same as before: use color to denote the response.\nHere there are only two possible values of response (zero and one), and later when we add predicted responses, the values all lie between zero and one. Once you include predicted responses, the most important thing to determine from the plot is whether the predictions are close to zero, or close to one. That means that a 2-color gradient split at 0.5 is really useful: responses above 0.5 are one color, and responses below 0.5 are another color.\nThe bank churn dataset is available as churn; ggplot2 is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the churn dataset, plot the recency of purchase, time_since_last_purchase, versus the length of customer relationship, time_since_first_purchase, colored by whether or not the customer churned, has_churned.\nAdd a point layer, with transparency set to 0.5.\nUse a 2-color gradient, with midpoint 0.5.\nUse the black and white theme.\n\n\n\nE1.R\n\n# Using churn, plot recency vs. length of relationship colored by churn status\nggplot(\n  churn, \n  aes(time_since_first_purchase, time_since_last_purchase, color = has_churned)\n) +\n  # Make it a scatter plot, with transparency 0.5\n  geom_point(alpha = 0.5) +\n  # Use a 2-color gradient split at 0.5\n  scale_color_gradient2(midpoint = 0.5) +\n  # Use the black and white theme\n  theme_bw()"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#logistic-regression-with-2-explanatory-variables",
+    "href": "Intermediate_Regression_in_R_C4.html#logistic-regression-with-2-explanatory-variables",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.2 Logistic regression with 2 explanatory variables",
+    "text": "51.2 Logistic regression with 2 explanatory variables\nTo include multiple explanatory variables in logistic regression models, the syntax is the same as for linear regressions. The only change is the same as in the simple case: you run a generalized linear model with a binomial error family.\nHere you’ll fit a model of churn status with both of the explanatory variables from the dataset: the length of customer relationship and the recency of purchase.\nchurn is available."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-1",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-1",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nFit a logistic regression of churn status, has_churned versus length of customer relationship, time_since_first_purchase and recency of purchase, time_since_last_purchase, and an interaction between the explanatory variables.\n\n\n\nE2.R\n\n# Fit a logistic regression of churn status vs. length of relationship, recency, and an interaction\nmdl_churn_vs_both_inter <- glm(\n  has_churned ~ time_since_first_purchase * time_since_last_purchase, \n  data = churn, \n  family = binomial\n)\n\n# See the result\nmdl_churn_vs_both_inter"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#logistic-regression-prediction",
+    "href": "Intermediate_Regression_in_R_C4.html#logistic-regression-prediction",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.3 Logistic regression prediction",
+    "text": "51.3 Logistic regression prediction\nAs with linear regression, the joy of logistic regression is that you can make predictions. Let’s step through the prediction flow one more time!\nchurn and mdl_churn_vs_both_inter are available; dplyr, tidyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-2",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-2",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a grid of explanatory variables.\n\nSet time_since_first_purchase to a sequence from minus two to four in steps of 0.1.\nSet time_since_last_purchase to a sequence from minus one to six in steps of 0.1.\n\nAdd a column to explanatory_data named has_churned containing predictions using mdl_churn_vs_both_inter and explanatory_data with type “response”.\nExtend the plot by adding points from prediction_data with size 3 and shape 15.\n\n\n\nE3.R\n\n# Make a grid of explanatory data\nexplanatory_data <- expand_grid(\n  # Set len. relationship to seq from -2 to 4 in steps of 0.1\n  time_since_first_purchase = seq(-2, 4, 0.1),\n  # Set recency to seq from -1 to 6 in steps of 0.1\n  time_since_last_purchase = seq(-1, 6, 0.1)\n)\n\n# See the result\nexplanatory_data\n\n\n\n\n# From previous steps\nexplanatory_data <- expand_grid(\n  time_since_first_purchase = seq(-2, 4, 0.1),\n  time_since_last_purchase = seq(-1, 6, 0.1)\n)\n\n# Add a column of predictions using mdl_churn_vs_both_inter and explanatory_data with type response\nprediction_data <- explanatory_data %>% \n  mutate(has_churned = predict(mdl_churn_vs_both_inter, explanatory_data, type = \"response\"))\n\n# See the result\nprediction_data\n\n\n\n\n# From previous steps\nexplanatory_data <- expand_grid(\n  time_since_first_purchase = seq(-2, 4, 0.1),\n  time_since_last_purchase = seq(-1, 6, 0.1)\n)\nprediction_data <- explanatory_data %>% \n  mutate(\n    has_churned = predict(mdl_churn_vs_both_inter, explanatory_data, type = \"response\")\n  )\n\n# Extend the plot\nggplot(\n  churn, \n  aes(time_since_first_purchase, time_since_last_purchase, color = has_churned)\n) +\n  geom_point(alpha = 0.5) +\n  scale_color_gradient2(midpoint = 0.5) +\n  theme_bw() +\n  # Add points from prediction_data with size 3 and shape 15\n  geom_point(data = prediction_data, size = 3, shape = 15)"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#confusion-matrix",
+    "href": "Intermediate_Regression_in_R_C4.html#confusion-matrix",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.4 Confusion matrix",
+    "text": "51.4 Confusion matrix\nWhen the response variable has just two outcomes, like the case of churn, the measures of success for the model are “how many cases where the customer churned did the model correctly predict?” and “how many cases where the customer didn’t churn did the model correctly predict?”. These can be found by generating a confusion matrix and calculating summary metrics on it. A mosaic plot is the natural way to visualize the results.\nchurn and mdl_churn_vs_both_inter are available; dplyr and yardstick are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-3",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-3",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the actual responses from the churn dataset.\nGet the predicted responses from the rounded, fitted values of mdl_churn_vs_both_inter.\nCreate a table of the actual and predicted response values.\nConvert the table to a conf_mat confusion matrix object.\n“Automatically” plot the confusion matrix, confusion.\nGet summary metrics from the confusion matrix. Remember that the churn event is in the second row/column of the matrix.\n\n\n\nE4.R\n\n# Get the actual responses from churn\nactual_response <- churn$has_churned\n\n# Get the predicted responses from the model\npredicted_response <- round(fitted(mdl_churn_vs_both_inter))\n\n# Get a table of these values\noutcomes <- table(predicted_response, actual_response)\n\n# Convert the table to a conf_mat object\nconfusion <- conf_mat(outcomes)\n\n# See the result\nconfusion\n\n\n\n\n# From previous step\nactual_response <- churn$has_churned\npredicted_response <- round(fitted(mdl_churn_vs_both_inter))\noutcomes <- table(predicted_response, actual_response)\nconfusion <- conf_mat(outcomes)\n\n# \"Automatically\" plot the confusion matrix\nautoplot(confusion)\n\n# Get summary metrics\nsummary(confusion, event_level = \"second\")"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#cumulative-distribution-function",
+    "href": "Intermediate_Regression_in_R_C4.html#cumulative-distribution-function",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.5 Cumulative distribution function",
+    "text": "51.5 Cumulative distribution function\nUnderstanding the logistic distribution is key to understanding logistic regression. Like the normal (Gaussian) distribution, it is a probability distribution of a single continuous variable. Here you’ll visualize the cumulative distribution function (CDF) for the logistic distribution. That is, if you have a logistically distributed variable, x, and a possible value, xval, that x could take, then the CDF gives the probability that x is less than xval.\nThe logistic distribution’s CDF is calculated with the logistic function (hence the name). The plot of this has an S-shape, known as a sigmoid curve. An important property of this function is that it takes an input that can be any number from minus infinity to infinity, and returns a value between zero and one.\nggplot2 is loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-4",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-4",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a tibble containing three columns.\n\nx values as a sequence from minus ten to ten in steps of 0.1.\nlogistic_x made from x transformed with the logistic distribution CDF.\nlogistic_x_man made from x transformed with a logistic function calculated from the equation\n\n\n\ncd(x) = 1/(1+exp(-x)).\n\n* Check that both logistic transformations (logistic_x and logistic_x_man) have the same values with all.equal().\n\nUsing the logistic_distn_cdf dataset, plot logistic_x versus x as a line plot.\n\n\n\nE5.R\n\nlogistic_distn_cdf <- tibble(\n  # Make a seq from -10 to 10 in steps of 0.1\n  x = seq(-10, 10, 0.1),\n  # Transform x with built-in logistic CDF\n  logistic_x = plogis(x),\n  # Transform x with manual logistic\n  logistic_x_man = 1 / (1 + exp(-x))\n) \n\n# Check that each logistic function gives the same results\nall.equal(\n  logistic_distn_cdf$logistic_x, \n  logistic_distn_cdf$logistic_x_man\n)\n\n\n\n# From previous step\nlogistic_distn_cdf <- tibble(\n  x = seq(-10, 10, 0.1),\n  logistic_x = plogis(x),\n  logistic_x_man = 1 / (1 + exp(-x))\n)\n\n# Using logistic_distn_cdf, plot logistic_x vs. x\nggplot(logistic_distn_cdf, aes(x, logistic_x)) +\n  # Make it a line plot\n  geom_line()"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#inverse-cumulative-distribution-function",
+    "href": "Intermediate_Regression_in_R_C4.html#inverse-cumulative-distribution-function",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.6 Inverse cumulative distribution function",
+    "text": "51.6 Inverse cumulative distribution function\nThe logistic function (logistic distribution CDF) has another important property: each x input value is transformed to a unique value. That means that the transformation can be reversed. The logit function is the name for the inverse logistic function, which is also the logistic distribution inverse cumulative distribution function. (All three terms mean exactly the same thing.)\nThe logit function takes values between zero and one, and returns values between minus infinity and infinity.\ndplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-5",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-5",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a tibble containing three columns.\n\nx values as a sequence from minus 0.001 to 0.999 in steps of 0.001.\nlogit_p made from p transformed with the logistic distribution inverse CDF.\nlogit_p_man made from p transformed with the equation\n\n\n\nlog(p/(1-p)).\n\n* Check that both logit transformations (logit_p and logit_p_man) have the same values with all.equal().\n\nUsing the logistic_distn_inv_cdf dataset, plot logit_p versus p as a line plot.\n\n\n\nE6.R\n\n\nlogistic_distn_inv_cdf <- tibble(\n  # Make a seq from 0.001 to 0.999 in steps of 0.001\n  p = seq(0.001, 0.999, 0.001),\n  # Transform with built-in logistic inverse CDF\n  logit_p = qlogis(p),\n  # Transform with manual logit\n  logit_p_man = log(p / (1 - p))\n) \n\n# Check that each logistic function gives the same results\nall.equal(\n  logistic_distn_inv_cdf$logit_p, \n  logistic_distn_inv_cdf$logit_p_man\n)\n\n\n\n\n# From previous step\nlogistic_distn_inv_cdf <- tibble(\n  p = seq(0.001, 0.999, 0.001),\n  logit_p = qlogis(p),\n  logit_p_man = log(p / (1 - p))\n)\n\n# Using logistic_distn_inv_cdf, plot logit_p vs. p\nggplot(logistic_distn_inv_cdf, aes(p, logit_p)) +\n  # Make it a line plot\n  geom_line()"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#binomial-family-argument",
+    "href": "Intermediate_Regression_in_R_C4.html#binomial-family-argument",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.7 binomial family argument",
+    "text": "51.7 binomial family argument\nThe big difference between running a linear regression with lm() and running a logistic regression with glm() is that you have to set glm()’s family argument to binomial. binomial() is a function that returns a list of other functions that tell glm() how to perform calculations in the regression. The two most interesting functions are linkinv and linkfun, which are used for transforming variables from the whole number line (minus infinity to infinity) to probabilities (zero to one) and back again.\nA vector of values, x, and a vector of probabilities, p, are available."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-6",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-6",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExamine the structure of the binomial() function. Notice that it contains two elements that are functions, binomial()\\[linkinv, and binomial()\\]linkfun.\nCall binomial()$linkinv() on x, assigning to linkinv_x.\nCheck that linkinv_x and plogis() of x give the same results with all.equal().\nCall binomial()$linkfun() on p, assigning to linkfun_p.\nCheck that linkfun_p and qlogis() of p give the same results.\n\n\n\nE7.R\n\n# Look at the structure of binomial() function\nstr(binomial())\n\n# Call the link inverse on x\nlinkinv_x <- binomial()$linkinv(x)\n\n# Check linkinv_x and plogis() of x give same results \nall.equal(linkinv_x, plogis(x))\n\n# Call the link fun on p\nlinkfun_p <- binomial()$linkfun(p)\n\n# Check linkfun_p and qlogis() of p give same results \nall.equal(linkfun_p, qlogis(p))"
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#logistic-regression-algorithm",
+    "href": "Intermediate_Regression_in_R_C4.html#logistic-regression-algorithm",
+    "title": "51  Multiple Logistic Regression",
+    "section": "51.8 Logistic regression algorithm",
+    "text": "51.8 Logistic regression algorithm\nLet’s dig into the internals and implement a logistic regression algorithm. Since R’s glm() function is very complex, you’ll stick to implementing simple logistic regression for a single dataset.\nRather than using sum of squares as the metric, we want to use likelihood. However, log-likelihood is more computationally stable, so we’ll use that instead. Actually, there is one more change: since we want to maximize log-likelihood, but optim() defaults to finding minimum values, it is easier to calculate the negative log-likelihood.\nThe log-likelihood value for each observation is\nThe metric to calculate is minus the sum of these log-likelihood contributions.\nThe explanatory values (the time_since_last_purchase column of churn) are available as x_actual. The response values (the has_churned column of churn) are available as y_actual."
+  },
+  {
+    "objectID": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-7",
+    "href": "Intermediate_Regression_in_R_C4.html#instructions-100-xp-7",
+    "title": "51  Multiple Logistic Regression",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSet the intercept to one.\nSet the slope to 0.5.\nCalculate the predicted y-values as the intercept plus the slope times the actual x-values, all transformed with the logistic distribution CDF.\nCalculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.\nCalculate minus the sum of the log-likelihoods for each term.\nRun the tests on the datasummary package.\nComplete the function body.\n\nGet the intercept from the first element of coeffs.\nGet the slope from the second element of coeffs.\nCalculate the predicted y-values as the intercept plus the slope times the actual x-values, transformed with the logistic distribution CDF.\nCalculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.\nCalculate minus the sum of the log-likelihoods for each term.\n\nOptimize the sum of squares metric.\n\nCall an optimization function.\nInitially guess that the intercept is zero and the slope is one.\nUse calc_neg_log_likelihood as the optimization function.\n\n\n\n\nE8.R\n\n# Set the intercept to 1\nintercept <- 1\n\n# Set the slope to 0.5\nslope <- 0.5\n\n# Calculate the predicted y values\ny_pred <- plogis(intercept + slope * x_actual)\n\n# Calculate the log-likelihood for each term\nlog_likelihoods <- log(y_pred) * y_actual + log(1 - y_pred) * (1 - y_actual)\n\n# Calculate minus the sum of the log-likelihoods for each term\n-sum(log_likelihoods)\n\n\n\n\ncalc_neg_log_likelihood <- function(coeffs) {\n  # Get the intercept coeff\n  intercept <- coeffs[1]\n\n  # Get the slope coeff\n  slope <- coeffs[2]\n\n  # Calculate the predicted y values\n  y_pred <- plogis(intercept + slope * x_actual)\n\n  # Calculate the log-likelihood for each term\n  log_likelihoods <- log(y_pred) * y_actual + log(1 - y_pred) * (1 - y_actual)\n\n  # Calculate minus the sum of the log-likelihoods for each term\n  -sum(log_likelihoods)\n}\n\n\n\n\n# From previous step\ncalc_neg_log_likelihood <- function(coeffs) {\n  intercept <- coeffs[1]\n  slope <- coeffs[2]\n  y_pred <- plogis(intercept + slope * x_actual)\n  log_likelihoods <- log(y_pred) * y_actual + log(1 - y_pred) * (1 - y_actual)\n  -sum(log_likelihoods)\n}\n\n# Optimize the metric\noptim(\n  # Initially guess 0 intercept and 1 slope\n  par = c(intercept = 0, slope = 1),\n  # Use calc_neg_log_likelihood as the optimization fn \n  fn = calc_neg_log_likelihood\n)\n\n# Compare the coefficients to those calculated by glm()\nglm(has_churned ~ time_since_last_purchase, data = churn, family = binomial)"
   }
 ]
