@@ -5254,7 +5254,7 @@
     "href": "Developing_R_Packages_C4.html#instructions-100-xp-1",
     "title": "39  Adding Unit Tests to R Packages",
     "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\nCall data_summary() on iris and assign the result to iris_summary.\nAssign the number of rows in iris_summary to summary_rows.\nUse the function expect_equal() to test whether the result of calling data_summary() on the iris dataset returns 4 rows.\n\n\n\nE2.R\n\n# Create a summary of the iris dataset using your data_summary() function\niris_summary <- data_summary(iris)\n\n# Count how many rows are returned\nsummary_rows <- nrow(iris_summary) \n\n# Use expect_equal to test that calling data_summary() on iris returns 4 rows\nexpect_equal(summary_rows, 4)"
+    "text": "Instructions 100 XP\n\nCall data_summary() on iris and assign the result to iris_summary.\nAssign the number of rows in iris_summary to summary_rows.\nUse the function expect_equal() to test whether the result of calling data_summary() on the iris dataset returns 4 rows.\n\n\n\nE2.R\n\n# Create a summary of the iris dataset using your data_summary() function\niris_summary &lt;- data_summary(iris)\n\n# Count how many rows are returned\nsummary_rows &lt;- nrow(iris_summary) \n\n# Use expect_equal to test that calling data_summary() on iris returns 4 rows\nexpect_equal(summary_rows, 4)"
   },
   {
     "objectID": "Developing_R_Packages_C4.html#section-1",
@@ -5268,7 +5268,7 @@
     "href": "Developing_R_Packages_C4.html#instructions-100-xp-2",
     "title": "39  Adding Unit Tests to R Packages",
     "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\nUpdate the first test below so that the test passes; do this by adjusting the tolerance parameter.\nWrite a test comparing expected_result and result which does not produce an error.\n\n\n\nE3.R\n\nresult <- data_summary(weather)\n\n# Update this test so it passes\nexpect_equal(result$sd, c(2.1, 3.6), tolerance = 0.1)\n\nexpected_result <- list(\n    ID = c(\"Day\", \"Temp\"),\n    min = c(1L, 14L),\n    median = c(4L, 19L),\n    sd = c(2.16024689946929, 3.65148371670111),\n    max = c(7L, 24L)\n)\n\n# Write a passing test that compares expected_result to result\nexpect_equivalent(result, expected_result)"
+    "text": "Instructions 100 XP\n\nUpdate the first test below so that the test passes; do this by adjusting the tolerance parameter.\nWrite a test comparing expected_result and result which does not produce an error.\n\n\n\nE3.R\n\nresult &lt;- data_summary(weather)\n\n# Update this test so it passes\nexpect_equal(result$sd, c(2.1, 3.6), tolerance = 0.1)\n\nexpected_result &lt;- list(\n    ID = c(\"Day\", \"Temp\"),\n    min = c(1L, 14L),\n    median = c(4L, 19L),\n    sd = c(2.16024689946929, 3.65148371670111),\n    max = c(7L, 24L)\n)\n\n# Write a passing test that compares expected_result to result\nexpect_equivalent(result, expected_result)"
   },
   {
     "objectID": "Developing_R_Packages_C4.html#section-2",
@@ -5282,7 +5282,7 @@
     "href": "Developing_R_Packages_C4.html#instructions-100-xp-3",
     "title": "39  Adding Unit Tests to R Packages",
     "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\nCall data_summary() on my_vector.\nPick an appropriate expect_*() function such that when you call data_summary() on my_vector again, the test passes.\n\n\n\nE4.R\n\n# Create a vector containing the numbers 1 through 10\nmy_vector <- 1:10\n\n# Look at what happens when we apply this vector as an argument to data_summary()\ndata_summary(my_vector)\n\n# Test if running data_summary() on this vector returns an error\nexpect_error(data_summary(my_vector))"
+    "text": "Instructions 100 XP\n\nCall data_summary() on my_vector.\nPick an appropriate expect_*() function such that when you call data_summary() on my_vector again, the test passes.\n\n\n\nE4.R\n\n# Create a vector containing the numbers 1 through 10\nmy_vector &lt;- 1:10\n\n# Look at what happens when we apply this vector as an argument to data_summary()\ndata_summary(my_vector)\n\n# Test if running data_summary() on this vector returns an error\nexpect_error(data_summary(my_vector))"
   },
   {
     "objectID": "Developing_R_Packages_C4.html#section-3",
@@ -5310,7 +5310,7 @@
     "href": "Developing_R_Packages_C4.html#instructions-100-xp-5",
     "title": "39  Adding Unit Tests to R Packages",
     "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\nCall the non-exported function numeric_summary() on the Temp column of the weather dataset and assign it to result.\nPick an appropriate expect_*() function which tests expected and result are exactly equal.\n\n\n\nE6.R\n\n# Expected result\nexpected <- data.frame(min = 14L, median = 19L, sd = 3.65148371670111, max = 24L)\n\n# Create variable result by calling numeric summary on the temp column of the weather dataset\nresult <- datasummary:::numeric_summary(weather$Temp, na.rm = TRUE)\n\n# Test that the value returned matches the expected value\nexpect_equal(result, expected)"
+    "text": "Instructions 100 XP\n\nCall the non-exported function numeric_summary() on the Temp column of the weather dataset and assign it to result.\nPick an appropriate expect_*() function which tests expected and result are exactly equal.\n\n\n\nE6.R\n\n# Expected result\nexpected &lt;- data.frame(min = 14L, median = 19L, sd = 3.65148371670111, max = 24L)\n\n# Create variable result by calling numeric summary on the temp column of the weather dataset\nresult &lt;- datasummary:::numeric_summary(weather$Temp, na.rm = TRUE)\n\n# Test that the value returned matches the expected value\nexpect_equal(result, expected)"
   },
   {
     "objectID": "Developing_R_Packages_C1.html#the-structure-of-an-r-package",
@@ -5625,7 +5625,7 @@
     "href": "Developing_R_Packages_C4.html#writing-an-individual-test",
     "title": "39  Adding Unit Tests to R Packages",
     "section": "39.2 Writing an individual test",
-    "text": "39.2 Writing an individual test\nYou create individual tests within your test files using functions named with the pattern expect_* . To make your code easier to read, you may want to create the object to be tested (and/or the expected value, if there is one) before you call the expect_* function.\nHere is one of the tests from the simutils package.\n\nair_expected <- c(Ozone = 37, Solar.R = 7, Wind = 0, Temp = 0, Month = 0, Day = 0)\n\n\nexpect_equal(na_counter(airquality), air_expected)\n\nThe expect_* functions differ in the number of parameters, but the first parameter is always the object being tested.\nWhen you run your tests, you might notice that there is no output. You will only see an output message if the test has failed."
+    "text": "39.2 Writing an individual test\nYou create individual tests within your test files using functions named with the pattern expect_* . To make your code easier to read, you may want to create the object to be tested (and/or the expected value, if there is one) before you call the expect_* function.\nHere is one of the tests from the simutils package.\n\nair_expected &lt;- c(Ozone = 37, Solar.R = 7, Wind = 0, Temp = 0, Month = 0, Day = 0)\n\n\nexpect_equal(na_counter(airquality), air_expected)\n\nThe expect_* functions differ in the number of parameters, but the first parameter is always the object being tested.\nWhen you run your tests, you might notice that there is no output. You will only see an output message if the test has failed."
   },
   {
     "objectID": "Developing_R_Packages_C4.html#testing-for-equality",
@@ -5667,7 +5667,7 @@
     "href": "Developing_R_Packages_C4.html#instructions-100-xp-6",
     "title": "39  Adding Unit Tests to R Packages",
     "section": "Instructions 100 XP",
-    "text": "Instructions 100 XP\n\nUse context() to set the context to “Test data_summary()”.\nUse test_that() to group the tests below together, giving them the description “data_summary() handles errors correctly”.\n\n\n\nE7.R\n\n# Use context() and test_that() to group the tests below together\ncontext(\"Test data_summary()\")\n\ntest_that(\"data_summary() handles errors correctly\", {\n\n  # Create a vector\n  my_vector <- 1:10\n\n  # Use expect_error()\n  expect_error(data_summary(my_vector))\n\n  # Use expect_warning()\n  expect_warning(data_summary(airquality, na.rm = FALSE))\n\n})"
+    "text": "Instructions 100 XP\n\nUse context() to set the context to “Test data_summary()”.\nUse test_that() to group the tests below together, giving them the description “data_summary() handles errors correctly”.\n\n\n\nE7.R\n\n# Use context() and test_that() to group the tests below together\ncontext(\"Test data_summary()\")\n\ntest_that(\"data_summary() handles errors correctly\", {\n\n  # Create a vector\n  my_vector &lt;- 1:10\n\n  # Use expect_error()\n  expect_error(data_summary(my_vector))\n\n  # Use expect_warning()\n  expect_warning(data_summary(airquality, na.rm = FALSE))\n\n})"
   },
   {
     "objectID": "Developing_R_Packages_C4.html#executing-unit-tests",
@@ -6886,5 +6886,579 @@
     "title": "51  Multiple Logistic Regression",
     "section": "Instructions 100 XP",
     "text": "Instructions 100 XP\n\nSet the intercept to one.\nSet the slope to 0.5.\nCalculate the predicted y-values as the intercept plus the slope times the actual x-values, all transformed with the logistic distribution CDF.\nCalculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.\nCalculate minus the sum of the log-likelihoods for each term.\nRun the tests on the datasummary package.\nComplete the function body.\n\nGet the intercept from the first element of coeffs.\nGet the slope from the second element of coeffs.\nCalculate the predicted y-values as the intercept plus the slope times the actual x-values, transformed with the logistic distribution CDF.\nCalculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.\nCalculate minus the sum of the log-likelihoods for each term.\n\nOptimize the sum of squares metric.\n\nCall an optimization function.\nInitially guess that the intercept is zero and the slope is one.\nUse calc_neg_log_likelihood as the optimization function.\n\n\n\n\nE8.R\n\n# Set the intercept to 1\nintercept <- 1\n\n# Set the slope to 0.5\nslope <- 0.5\n\n# Calculate the predicted y values\ny_pred <- plogis(intercept + slope * x_actual)\n\n# Calculate the log-likelihood for each term\nlog_likelihoods <- log(y_pred) * y_actual + log(1 - y_pred) * (1 - y_actual)\n\n# Calculate minus the sum of the log-likelihoods for each term\n-sum(log_likelihoods)\n\n\n\n\ncalc_neg_log_likelihood <- function(coeffs) {\n  # Get the intercept coeff\n  intercept <- coeffs[1]\n\n  # Get the slope coeff\n  slope <- coeffs[2]\n\n  # Calculate the predicted y values\n  y_pred <- plogis(intercept + slope * x_actual)\n\n  # Calculate the log-likelihood for each term\n  log_likelihoods <- log(y_pred) * y_actual + log(1 - y_pred) * (1 - y_actual)\n\n  # Calculate minus the sum of the log-likelihoods for each term\n  -sum(log_likelihoods)\n}\n\n\n\n\n# From previous step\ncalc_neg_log_likelihood <- function(coeffs) {\n  intercept <- coeffs[1]\n  slope <- coeffs[2]\n  y_pred <- plogis(intercept + slope * x_actual)\n  log_likelihoods <- log(y_pred) * y_actual + log(1 - y_pred) * (1 - y_actual)\n  -sum(log_likelihoods)\n}\n\n# Optimize the metric\noptim(\n  # Initially guess 0 intercept and 1 slope\n  par = c(intercept = 0, slope = 1),\n  # Use calc_neg_log_likelihood as the optimization fn \n  fn = calc_neg_log_likelihood\n)\n\n# Compare the coefficients to those calculated by glm()\nglm(has_churned ~ time_since_last_purchase, data = churn, family = binomial)"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#section",
+    "href": "Sampling_in_R_C1.html#section",
+    "title": "52  Introduction to Sampling",
+    "section": "52.1 ",
+    "text": "52.1"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#instructions-100-xp",
+    "href": "Sampling_in_R_C1.html#instructions-100-xp",
+    "title": "52  Introduction to Sampling",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse View() to view the spotify_population dataset. Explore it in the viewer until you are clear on what it contains.\nUse dplyr to sample 1000 rows from spotify_population, assigning to spotify_sample.\nUsing the spotify_population dataset, calculate the mean duration in minutes. Call the calculated column mean_dur.\nUsing the spotify_sample dataset, perform the same calculation in another column called mean_dur.\nLook at the two values. How different are they?\n\n\n\nE1.R\n\n# View the whole population dataset\nspotify_population\n\n# Sample 1000 rows from spotify_population\nspotify_sample &lt;- slice_sample(spotify_population, n = 1000)\n\n# See the result\nspotify_sample\n\n\n\n# From previous step\nspotify_sample &lt;- spotify_population %&gt;% \n  slice_sample(n = 1000)\n\n# Calculate the mean duration in mins from spotify_population\nmean_dur_pop &lt;- spotify_population %&gt;% \n  summarize(mean_dur = mean(duration_minutes))\n\n# Calculate the mean duration in mins from spotify_sample\nmean_dur_samp &lt;- spotify_sample %&gt;% \n  summarize(mean_dur = mean(duration_minutes))\n\n# See the results\nmean_dur_pop\nmean_dur_samp"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#section-1",
+    "href": "Sampling_in_R_C1.html#section-1",
+    "title": "52  Introduction to Sampling",
+    "section": "52.2 ",
+    "text": "52.2"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#instructions-100-xp-1",
+    "href": "Sampling_in_R_C1.html#instructions-100-xp-1",
+    "title": "52  Introduction to Sampling",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the loudness column of spotify_population, assigning to loudness_pop.\nUsing base-R, sample loudness_pop to get 100 random values, assigning to loudness_samp.\nCalculate the standard deviation of loudness_pop.\nCalculate the standard deviation of loudness_samp.\nLook at the two values. How different are they?\n\n\n\nE2.R\n\n# Get the loudness column of spotify_population\nloudness_pop &lt;- spotify_population$loudness\n\n# Sample 100 values of loudness_pop\nloudness_samp &lt;- sample(loudness_pop, size = 100)\n\n# See the results\nloudness_samp\n\n\n\n# From previous step\nloudness_pop &lt;- spotify_population$loudness\nloudness_samp &lt;- sample(loudness_pop, size = 100)\n\n# Calculate the standard deviation of loudness_pop\nsd_loudness_pop &lt;- sd(loudness_pop)\n\n# Calculate the standard deviation of loudness_samp\nsd_loudness_samp &lt;- sd(loudness_samp)\n\n# See the results\nsd_loudness_pop\nsd_loudness_samp"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#section-2",
+    "href": "Sampling_in_R_C1.html#section-2",
+    "title": "52  Introduction to Sampling",
+    "section": "52.3 ",
+    "text": "52.3"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#instructions-100-xp-2",
+    "href": "Sampling_in_R_C1.html#instructions-100-xp-2",
+    "title": "52  Introduction to Sampling",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing spotify_population, draw a histogram of acousticness with binwidth of 0.01.\nUpdate the histogram code to use the spotify_mysterious_sample dataset.\nSet the x-axis limits from zero to one (for easier comparison with the previous plot).\n\n\n\nE3.R\n\n# Visualize the distribution of acousticness as a histogram with a binwidth of 0.01\nggplot(data = spotify_population, aes(x = acousticness)) +\ngeom_histogram(binwidth = 0.01)\n\n\n\n# Update the histogram to use spotify_mysterious_sample with x-axis limits from 0 to 1\nggplot(spotify_mysterious_sample, aes(acousticness)) +\n  geom_histogram(binwidth = 0.01)+\n  xlim(0:1)"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#section-3",
+    "href": "Sampling_in_R_C1.html#section-3",
+    "title": "52  Introduction to Sampling",
+    "section": "52.4 ",
+    "text": "52.4"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#instructions-100-xp-3",
+    "href": "Sampling_in_R_C1.html#instructions-100-xp-3",
+    "title": "52  Introduction to Sampling",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing spotify_population, draw a histogram of duration_minutes with binwidth of 0.5.\nUpdate the histogram code to use the spotify_mysterious_sample2 dataset.\nSet the x-axis limits from zero to fifteen (for easier comparison with the previous plot).\n\n\n\nE4.R\n\n# Visualize the distribution of duration_minutes as a histogram with a binwidth of 0.5\nggplot(spotify_population, aes(duration_minutes)) +\n  geom_histogram(binwidth = 0.5)\n  \n  \n\n# Update the histogram to use spotify_mysterious_sample2 with x-axis limits from 0 to 15\nggplot(spotify_mysterious_sample2, aes(duration_minutes)) +\n  geom_histogram(binwidth = 0.01) +\n  xlim(0, 15)"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#a",
+    "href": "Sampling_in_R_C1.html#a",
+    "title": "52  Introduction to Sampling",
+    "section": "52.5 A",
+    "text": "52.5 A"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#instructions-100-xp-4",
+    "href": "Sampling_in_R_C1.html#instructions-100-xp-4",
+    "title": "52  Introduction to Sampling",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nComplete the data frame of random numbers. -Generate n_numbers from a uniform distribution ranging from -3 to 3. -Generate n_numbers from a normal distribution with mean 5 and standard deviation 2.\nUsing randoms, plot a histogram of the uniform column, using binwidth 0.25.\nUsing randoms, plot a histogram of the normal column, using binwidth 0.5.\n\n\n\nE5.R\n\n# Generate random numbers from ...\nrandoms &lt;- data.frame(\n  # a uniform distribution from -3 to 3\n  uniform = runif(n_numbers, min = -3, max = 3),\n  # a normal distribution with mean 5 and sd 2\n  normal = rnorm(n_numbers, mean = 5, sd = 2)\n)\n\n\n# From previous step\nrandoms &lt;- data.frame(\n  uniform = runif(n_numbers, min = -3, max = 3),\n  normal = rnorm(n_numbers, mean = 5, sd = 2)\n)\n\n# Plot a histogram of uniform values, binwidth 0.25\nggplot(randoms, aes(uniform)) +\n  geom_histogram(binwidth = 0.25)\n  \n\n\n# From previous step\nrandoms &lt;- data.frame(\n  uniform = runif(n_numbers, min = -3, max = 3),\n  normal = rnorm(n_numbers, mean = 5, sd = 2)\n)\n\n# Plot a histogram of normal values, binwidth 0.5\nggplot(randoms, aes(normal)) +\n  geom_histogram(binwidth = 0.5)"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#section-4",
+    "href": "Sampling_in_R_C1.html#section-4",
+    "title": "52  Introduction to Sampling",
+    "section": "52.6 ",
+    "text": "52.6"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#instructions-100-xp-5",
+    "href": "Sampling_in_R_C1.html#instructions-100-xp-5",
+    "title": "52  Introduction to Sampling",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#section-5",
+    "href": "Sampling_in_R_C1.html#section-5",
+    "title": "52  Introduction to Sampling",
+    "section": "52.7 ",
+    "text": "52.7"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#instructions-100-xp-6",
+    "href": "Sampling_in_R_C1.html#instructions-100-xp-6",
+    "title": "52  Introduction to Sampling",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE7.R"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#section",
+    "href": "Sampling_in_R_C2.html#section",
+    "title": "53  Sampling Methods",
+    "section": "53.1 ",
+    "text": "53.1"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nView the attrition_pop dataset. Explore it in the viewer until you are clear on what it contains.\nSet the random seed to a value of your choosing.\nAdd a row ID column to the dataset, then use simple random sampling to get 200 rows.\nView the sample dataset, attrition_samp. What do you notice about the row IDs?\n\n\n\nE1.R\n\n# View the attrition_pop dataset\nView(attrition_pop)\n\n# Set the seed\nset.seed(18900217)\n\nattrition_samp &lt;- attrition_pop %&gt;% \n  # Add a row ID column\n  rowid_to_column() %&gt;% \n  # Get 200 rows using simple random sampling\n  slice_sample(n = 200)\n\n# View the attrition_samp dataset\nView(attrition_samp)"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#section-1",
+    "href": "Sampling_in_R_C2.html#section-1",
+    "title": "53  Sampling Methods",
+    "section": "53.2 ",
+    "text": "53.2"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-1",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-1",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSet the sample size to 200.\nGet the population size from attrition_pop.\nCalculate the interval between rows to be sampled.\nGet the row indexes for the sample as a numeric sequence of interval, 2 * interval, up to sample_size * interval.\nSystematically sample attrition_pop, assigning to attrition_sys_samp.\n\nAdd a row ID column to attrition_pop.\nGet the rows of the population corresponding to row_indexes.\n\n\n\n\nE2.R\n\n# Set the sample size to 200\nsample_size &lt;- 200\n\n# Get the population size from attrition_pop\npop_size &lt;- nrow(attrition_pop)\n\n# Calculate the interval\ninterval &lt;- pop_size %/% sample_size\n\n\n# From previous step\nsample_size &lt;- 200\npop_size &lt;- nrow(attrition_pop)\ninterval &lt;- pop_size %/% sample_size\n\n# Get row indexes for the sample\nrow_indexes &lt;- seq_len(sample_size) * interval\n\nattrition_sys_samp &lt;- attrition_pop %&gt;% \n  # Add a row ID column\n  rowid_to_column() %&gt;% \n  # Get 200 rows using systematic sampling\n  slice(row_indexes)\n\n# See the result\nView(attrition_sys_samp)"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#section-2",
+    "href": "Sampling_in_R_C2.html#section-2",
+    "title": "53  Sampling Methods",
+    "section": "53.3 ",
+    "text": "53.3"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-2",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-2",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd a row ID column to attrition_pop.\nUsing the attrition_pop_id dataset, plot YearsAtCompany versus rowid as a scatter plot, with a smooth trend line.\nShuffle the rows of attrition_pop.\nAdd a row ID column to attrition_pop.\nRepeat the plot of YearsAtCompany versus rowid with points and a smooth trend line, this time using attrition_shuffled.\n\n\n\nE3.R\n\n# Add a row ID column to attrition_pop\nattrition_pop_id &lt;- attrition_pop %&gt;% \n  rowid_to_column()\n\n# Using attrition_pop_id, plot YearsAtCompany vs. rowid\nggplot(attrition_pop_id, aes(rowid, YearsAtCompany)) +\n  # Make it a scatter plot\n  geom_point() +\n  # Add a smooth trend line\n  geom_smooth()\n  \n\n# Shuffle the rows of attrition_pop then add row IDs\nattrition_shuffled &lt;- attrition_pop %&gt;% \n  slice_sample(prop = 1) %&gt;% \n  rowid_to_column()\n\n# Using attrition_shuffled, plot YearsAtCompany vs. rowid\n# Add points and a smooth trend line\nggplot(attrition_shuffled, aes(rowid, YearsAtCompany)) +\n  geom_point() +\n  geom_smooth()"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#section-3",
+    "href": "Sampling_in_R_C2.html#section-3",
+    "title": "53  Sampling Methods",
+    "section": "53.4 ",
+    "text": "53.4"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-3",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-3",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the counts of employees by Education level from attrition_pop, sorted by descending count\nAdd a percent column of percentages (100 times the count divided by the total count).\nUse proportional stratified sampling on attrition_pop to get 40% of each Education group. That is, group by Education and perform a simple random sample of proportion 0.4 on each group.\nUngroup the stratified sample.\nAs you did with attrition_pop, get the counts of employees by Education level from attrition_strat, sorted by descending count, then add a percent column of percentages.\n\n\n\nE4.R\n\neducation_counts_pop &lt;- attrition_pop %&gt;% \n  # Count the employees by Education level, sorting by n\n  count(Education, sort = TRUE) %&gt;% \n  # Add a percent column\n  mutate(percent = 100 * n / sum(n))\n\n# See the results\neducation_counts_pop\n\n\n\n# From previous step\nattrition_pop %&gt;% \n  count(Education, sort = TRUE) %&gt;% \n  mutate(percent = 100 * n / sum(n))\n\n# Use proportional stratified sampling to get 40% of each Education group\nattrition_strat &lt;- attrition_pop %&gt;% \n  group_by(Education) %&gt;% \n  slice_sample(prop = 0.4) %&gt;% \n  ungroup()\n\n# See the result\nattrition_strat\n\n\n\n# From previous steps\nattrition_pop %&gt;% \n  count(Education, sort = TRUE) %&gt;% \n  mutate(percent = 100 * n / sum(n))\nattrition_strat &lt;- attrition_pop %&gt;% \n  group_by(Education) %&gt;% \n  slice_sample(prop = 0.4) %&gt;% \n  ungroup()\n\n# Get the counts and percents from attrition_strat\neducation_counts_strat &lt;- attrition_strat %&gt;% \n  count(Education, sort = TRUE) %&gt;% \n  mutate(percent = 100 * n / sum(n))\n\n# See the results\neducation_counts_strat"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#a",
+    "href": "Sampling_in_R_C2.html#a",
+    "title": "53  Sampling Methods",
+    "section": "53.5 A",
+    "text": "53.5 A"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-4",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-4",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse equal counts stratified sampling on attrition_pop to get 30 employees from each Education group. That is, group by Education and perform a simple random sample of size 30 on each group.\nUngroup the stratified sample.\nGet the counts of employees by Education level from attrition_eq, sorted by descending count.\nAdd a percent column of percentages (100 times the count divided by the total count).\n\n\n\nE5.R\n\n# Use equal counts stratified sampling to get 30 employees from each Education group\nattrition_eq &lt;- attrition_pop %&gt;%\n  group_by(Education) %&gt;% \n  slice_sample(n = 30) %&gt;%\n  ungroup()\n\n# See the results\nattrition_eq\n\n\n\n# From previous step\nattrition_eq &lt;- attrition_pop %&gt;%\n  group_by(Education) %&gt;% \n  slice_sample(n = 30) %&gt;%\n  ungroup()\n\n# Get the counts and percents from attrition_eq\neducation_counts_eq &lt;- attrition_eq %&gt;% \n  count(Education, sort = TRUE) %&gt;% \n  mutate(percent = 100 * n / sum(n))\n\n# See the results\neducation_counts_eq"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#section-4",
+    "href": "Sampling_in_R_C2.html#section-4",
+    "title": "53  Sampling Methods",
+    "section": "53.6 ",
+    "text": "53.6"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-5",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-5",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing attrition_pop, plot YearsAtCompany as a histogram with a binwidth of 1.\nSample 400 employees from attrition_pop weighted by YearsAtCompany.\nUsing attrition_weight, plot YearsAtCompany as a histogram with binwidth 1.\n\n\n\nE6.R\n\n# Using attrition_pop, plot YearsAtCompany as a histogram with binwidth 1\nggplot(attrition_pop, aes(YearsAtCompany)) +\n  geom_histogram(binwidth = 1)\n\n\n  \n\n# Sample 400 employees weighted by YearsAtCompany\nattrition_weight &lt;- attrition_pop %&gt;% \n  slice_sample(n = 400, weight_by = YearsAtCompany)\n\n# See the results\nattrition_weight\n\n\n# From previous step\nattrition_weight &lt;- attrition_pop %&gt;% \n  slice_sample(n = 400, weight_by = YearsAtCompany)\n\n# Using attrition_weight, plot YearsAtCompany as a histogram with binwidth 1\nggplot(attrition_weight, aes(x = YearsAtCompany)) +\n  geom_histogram(binwidth = 1)"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#section-5",
+    "href": "Sampling_in_R_C2.html#section-5",
+    "title": "53  Sampling Methods",
+    "section": "53.7 ",
+    "text": "53.7"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-6",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-6",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGet the unique JobRole values from attrition_pop.\nRandomly sample four JobRole values from job_roles_pop.\nFilter attrition_pop for the sampled job roles. That is, filter for rows where JobRole is in job_roles_samp.\nFor each job role in the filtered dataset, take a random sample of ten rows.\n\n\n\nE7.R\n\n# Get unique JobRole values\njob_roles_pop &lt;- unique(attrition_pop$JobRole)\n\n# Randomly sample four JobRole values\njob_roles_samp &lt;- sample(job_roles_pop, size = 4)\n\n# See the result\njob_roles_samp\n\n\n\n# From previous step\njob_roles_pop &lt;- unique(attrition_pop$JobRole)\njob_roles_samp &lt;- sample(job_roles_pop, size = 4)\n\n# Filter for rows where JobRole is in job_roles_samp\nattrition_filtered &lt;- attrition_pop %&gt;% \n  filter(JobRole %in% job_roles_samp)\n\n# Randomly sample 10 employees from each sampled job role\nattrition_clus &lt;- attrition_filtered %&gt;% \n  group_by(JobRole) %&gt;% \n  slice_sample(n = 10)\n\n# See the result\nattrition_clus"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#section",
+    "href": "Sampling_in_R_C3.html#section",
+    "title": "54  Sampling Distributions",
+    "section": "54.1 ",
+    "text": "54.1"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#instructions-100-xp",
+    "href": "Sampling_in_R_C3.html#instructions-100-xp",
+    "title": "54  Sampling Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGenerate a simple random sample from attrition_pop of ten rows. Summarize to calculate the mean proportion of employee attrition (Attrition equals “Yes”). Calculate the relative error between mean_attrition_srs10 and mean_attrition_pop as a percentage.\nCalculate the relative error percentage again. This time, use a simple random sample of one hundred rows of attrition_pop.\n\n\n\nE1.R\n\n# Generate a simple random sample of 10 rows \nattrition_srs10 &lt;- attrition_pop %&gt;% \n  slice_sample(n = 10)\n\n# Calculate the proportion of employee attrition in the sample\nmean_attrition_srs10 &lt;- attrition_srs10 %&gt;% \n  summarize(mean_attrition = mean(Attrition == \"Yes\")) %&gt;% \n  pull(mean_attrition)\n\n# Calculate the relative error percentage\nrel_error_pct10 &lt;- 100 * abs(mean_attrition_pop - mean_attrition_srs10) / mean_attrition_pop\n\n# See the result\nrel_error_pct10\n\n\n\n# Calculate the relative error percentage again with a sample of 100 rows\nattrition_srs100 &lt;- attrition_pop %&gt;% \n  slice_sample(n = 100)\n\nmean_attrition_srs100 &lt;- attrition_srs100 %&gt;% \n  summarize(mean_attrition = mean(Attrition == \"Yes\")) %&gt;% \n  pull(mean_attrition)\n\nrel_error_pct100 &lt;- 100 * abs(mean_attrition_pop - mean_attrition_srs100) / mean_attrition_pop\n\n# See the result\nrel_error_pct100"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#section-1",
+    "href": "Sampling_in_R_C3.html#section-1",
+    "title": "54  Sampling Distributions",
+    "section": "54.2 ",
+    "text": "54.2"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#instructions-100-xp-1",
+    "href": "Sampling_in_R_C3.html#instructions-100-xp-1",
+    "title": "54  Sampling Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nReplicate the provided code so that it runs 500 times. Assign the resulting vector of sample means to mean_attritions.\nCreate a tibble with a column named sample_mean to store mean_attritions.\nUsing sample_means, draw a histogram of the sample_mean column with a binwidth of 0.05.\n\n\n\nE2.R\n\n# Replicate this code 500 times\nmean_attritions &lt;- replicate(\n  n = 500,\n  attrition_pop %&gt;% \n    slice_sample(n = 20) %&gt;% \n    summarize(mean_attrition = mean(Attrition == \"Yes\")) %&gt;% \n    pull(mean_attrition)\n)\n\n# See the result\nhead(mean_attritions)\n\n\n\n# From previous step\nmean_attritions &lt;- replicate(\n  n = 500,\n  attrition_pop %&gt;% \n    slice_sample(n = 20) %&gt;% \n    summarize(mean_attrition = mean(Attrition == \"Yes\")) %&gt;% \n    pull(mean_attrition)\n)\n\n# Store mean_attritions in a tibble in a column named sample_mean\nsample_means &lt;- tibble(sample_mean = mean_attritions)\n\n# Plot a histogram of the `sample_mean` column, binwidth 0.05\nggplot(sample_means, aes(sample_mean)) +\n  geom_histogram(binwidth = 0.05)"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#section-2",
+    "href": "Sampling_in_R_C3.html#section-2",
+    "title": "54  Sampling Distributions",
+    "section": "54.3 ",
+    "text": "54.3"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#instructions-100-xp-2",
+    "href": "Sampling_in_R_C3.html#instructions-100-xp-2",
+    "title": "54  Sampling Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExpand a grid representing 5 8-sided dice. That is, create a tibble with five columns, named die1 to die5. The rows should contain all possibilities for throwing five dice, each numbered 1 to 8.\n\n*Add a column, mean_roll, to dice, that contains the mean of the five rolls.\n\nUsing the dice dataset, plot mean_roll, converted to a factor, as a bar plot.\n\n\n\nE3.R\n\n# Expand a grid representing 5 8-sided dice\ndice &lt;- expand_grid(\n  die1 = 1:8,\n  die2 = 1:8,\n  die3 = 1:8,\n  die4 = 1:8,\n  die5 = 1:8\n)\n\n# See the result\ndice\n\n\ndice &lt;- expand_grid(\n  die1 = 1:8,\n  die2 = 1:8,\n  die3 = 1:8,\n  die4 = 1:8,\n  die5 = 1:8\n) %&gt;% \n  # Add a column of mean rolls\n  mutate(mean_roll = (die1 + die2 + die3 + die4 + die5) / 5)\n  \n  \n\n# From previous step\ndice &lt;- expand_grid(\n  die1 = 1:8,\n  die2 = 1:8,\n  die3 = 1:8,\n  die4 = 1:8,\n  die5 = 1:8\n) %&gt;% \n  mutate(mean_roll = (die1 + die2 + die3 + die4 + die5) / 5)\n\n# Using dice, draw a bar plot of mean_roll as a factor\nggplot(dice, aes(factor(mean_roll))) +\n  geom_bar()"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#section-3",
+    "href": "Sampling_in_R_C3.html#section-3",
+    "title": "54  Sampling Distributions",
+    "section": "54.4 ",
+    "text": "54.4"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#instructions-100-xp-3",
+    "href": "Sampling_in_R_C3.html#instructions-100-xp-3",
+    "title": "54  Sampling Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSample one to eight, five times, with replacement. Assign to five_rolls.\nCalculate the mean of five_rolls.\nReplicate the sampling code 1000 times, assigning to sample_means_1000.\nCreate a tibble, and store sample_means_1000 in the a column named sample_mean.\nUsing the sample_means dataset, plot sample_mean, converted to a factor, as a bar plot.\n\n\n\nE4.R\n\n# Sample one to eight, five times, with replacement\nfive_rolls &lt;- sample(1:8, size = 5, replace = TRUE)\n  \n# Calculate the mean of five_rolls\nmean(five_rolls)\n\n\n\n# Replicate the sampling code 1000 times\nsample_means_1000 &lt;- replicate(\n  n = 1000,\n  expr = {\n    five_rolls &lt;- sample(1:8, size = 5, replace = TRUE)\n    mean(five_rolls)\n  }\n)\n\n# See the result\nsample_means_1000\n\n\n\n# From previous step\nsample_means_1000 &lt;- replicate(\n  n = 1000,\n  expr = {\n    five_rolls &lt;- sample(1:8, size = 5, replace = TRUE)\n    mean(five_rolls)\n  }\n)\n\n# Wrap sample_means_1000 in the sample_mean column of a tibble\nsample_means &lt;- tibble(\n  sample_mean = sample_means_1000\n)\n\n# See the result\nsample_means\n\n\n\n# From previous steps\nsample_means_1000 &lt;- replicate(\n  n = 1000,\n  expr = {\n    five_rolls &lt;- sample(1:8, size = 5, replace = TRUE)\n    mean(five_rolls)\n  }\n)\nsample_means &lt;- tibble(\n  sample_mean = sample_means_1000\n)\n\n# Using sample_means, draw a bar plot of sample_mean as a factor\nggplot(sample_means, aes(factor(sample_mean))) +\n  geom_bar()"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#a",
+    "href": "Sampling_in_R_C3.html#a",
+    "title": "54  Sampling Distributions",
+    "section": "54.5 A",
+    "text": "54.5 A"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#instructions-100-xp-4",
+    "href": "Sampling_in_R_C3.html#instructions-100-xp-4",
+    "title": "54  Sampling Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing sampling_distribution_5, calculate the mean across all the replicates of the mean_attritions (a mean of sample means). Store this in a column called mean_mean_attrition.\nDo the same calculation using sampling_distribution_50 and sampling_distribution_500.\n\n\n\nE5.R\n\n# Calculate the mean across replicates of the mean attritions in sampling_distribution_5\nmean_of_means_5 &lt;- sampling_distribution_5 %&gt;%\n  summarize(mean_mean_attrition = mean(mean_attrition))\n\n# Do the same for sampling_distribution_50\nmean_of_means_50 &lt;- sampling_distribution_50 %&gt;%\n  summarize(mean_mean_attrition = mean(mean_attrition))\n\n# ... and for sampling_distribution_500\nmean_of_means_500 &lt;- sampling_distribution_500 %&gt;%\n  summarize(mean_mean_attrition = mean(mean_attrition))\n\n# See the results\nmean_of_means_5\nmean_of_means_50\nmean_of_means_500"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#section-4",
+    "href": "Sampling_in_R_C3.html#section-4",
+    "title": "54  Sampling Distributions",
+    "section": "54.6 ",
+    "text": "54.6"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#instructions-100-xp-5",
+    "href": "Sampling_in_R_C3.html#instructions-100-xp-5",
+    "title": "54  Sampling Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing sampling_distribution_5, calculate the standard deviation across all the replicates of the mean_attritions (a standard deviation of sample means). Store this in a column called sd_mean_attrition.\nDo the same calculation using sampling_distribution_50 and sampling_distribution_500.\n\n\n\nE6.R\n\n# Calculate the standard deviation across replicates of the mean attritions in sampling_distribution_5\nsd_of_means_5 &lt;- sampling_distribution_5 %&gt;%\n  summarize(sd_mean_attrition = sd(mean_attrition))\n\n# Do the same for sampling_distribution_50\nsd_of_means_50 &lt;- sampling_distribution_50 %&gt;%\n  summarize(sd_mean_attrition = sd(mean_attrition))\n\n# ... and for sampling_distribution_500\nsd_of_means_500 &lt;- sampling_distribution_500 %&gt;%\n  summarize(sd_mean_attrition = sd(mean_attrition))\n\n# See the results\nsd_of_means_5\nsd_of_means_50\nsd_of_means_500"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#section-5",
+    "href": "Sampling_in_R_C3.html#section-5",
+    "title": "54  Sampling Distributions",
+    "section": "54.7 ",
+    "text": "54.7"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#instructions-100-xp-6",
+    "href": "Sampling_in_R_C3.html#instructions-100-xp-6",
+    "title": "54  Sampling Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE7.R"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#section",
+    "href": "Sampling_in_R_C4.html#section",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.1 ",
+    "text": "55.1"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#instructions-100-xp",
+    "href": "Sampling_in_R_C4.html#instructions-100-xp",
+    "title": "55  Bootstrap Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGenerate a single bootstrap resample from spotify_sample\nSummarize to calculate the mean danceability of spotify_1_resample as mean_danceability, then pull out this value to get a numeric vector of length 1.\nReplicate the expression provided 1000 times.\nStore mean_danceability_1000 in a tibble, in a column named resample_mean.\nUsing bootstrap_distn, draw a histogram of the resample_means with binwidth 0.002.\n\n\n\nE1.R\n\n# Generate 1 bootstrap resample\nspotify_1_resample &lt;- spotify_sample %&gt;% \n  slice_sample(prop = 1, replace = TRUE)\n\n# See the result\nspotify_1_resample\n\n\n\n# From previous step\nspotify_1_resample &lt;- spotify_sample %&gt;% \n  slice_sample(prop = 1, replace = TRUE)\n\n# Calculate mean danceability of resample\nmean_danceability_1 &lt;- spotify_1_resample %&gt;% \n  summarize(mean_danceability = mean(danceability)) %&gt;% \n  pull(mean_danceability)\n\n# See the result\nmean_danceability_1\n\n\n\n\n# Replicate this 1000 times\nmean_danceability_1000 &lt;- replicate(\n  n = 1000,\n  expr = {\n    spotify_1_resample &lt;- spotify_sample %&gt;% \n      slice_sample(prop = 1, replace = TRUE)\n    spotify_1_resample %&gt;% \n      summarize(mean_danceability = mean(danceability)) %&gt;% \n      pull(mean_danceability)\n  }\n)\n\n# See the result\nmean_danceability_1000\n\n\n\n# From previous steps\nmean_danceability_1000 &lt;- load_step_4()\n\n# Store the resamples in a tibble\nbootstrap_distn &lt;- tibble(\n  resample_mean = mean_danceability_1000\n)\n\n# Draw a histogram of the resample means with binwidth 0.002\nggplot(bootstrap_distn, aes(resample_mean)) +\n  geom_histogram(binwidth = 0.002)"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#section-1",
+    "href": "Sampling_in_R_C4.html#section-1",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.2 ",
+    "text": "55.2"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#instructions-100-xp-1",
+    "href": "Sampling_in_R_C4.html#instructions-100-xp-1",
+    "title": "55  Bootstrap Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGenerate a sampling distribution of 2000 replicates. Sample 500 rows of the population without replacement. Calculate the statistic of interest (the mean popularity) in the column mean_popularity. Pull out the statistic so it is a single numeric value (not a tibble).\nGenerate a bootstrap distribution of 2000 replicates. Sample 500 rows of the sample with replacement. Calculate the statistic of interest (the mean popularity) in the column mean_popularity. Pull out the statistic so it is a single numeric value (not a tibble).\n\n\n\nE2.R\n\n# Generate a sampling distribution\nmean_popularity_2000_samp &lt;- replicate(\n  # Use 2000 replicates\n  n = 2000,\n  expr = {\n    # Start with the population\n    spotify_population %&gt;% \n      # Sample 500 rows without replacement\n      slice_sample(n = 500) %&gt;% \n      # Calculate the mean popularity as mean_popularity\n      summarize(mean_popularity = mean(popularity)) %&gt;% \n      # Pull out the mean popularity\n      pull(mean_popularity)\n  }\n)\n\n# See the result\nmean_popularity_2000_samp\n\n\n\n# Generate a bootstrap distribution\nmean_popularity_2000_boot &lt;- replicate(\n  # Use 2000 replicates\n  n = 2000,\n  expr = {\n    # Start with the sample\n    spotify_sample %&gt;% \n      # Sample same number of rows with replacement\n      slice_sample(prop = 1, replace = TRUE) %&gt;% \n      # Calculate the mean popularity\n      summarize(mean_popularity = mean(popularity)) %&gt;% \n      # Pull out the mean popularity\n      pull(mean_popularity)\n  }\n)\n\n# See the result\nmean_popularity_2000_boot"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#section-2",
+    "href": "Sampling_in_R_C4.html#section-2",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.3 ",
+    "text": "55.3"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#instructions-100-xp-2",
+    "href": "Sampling_in_R_C4.html#instructions-100-xp-2",
+    "title": "55  Bootstrap Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate the mean popularity with summarize() in 4 ways.\nPopulation: from spotify_population, take the mean of popularity.\nSample: from spotify_sample, take the mean of popularity.\nSampling distribution: from sampling_distribution, take the mean of sample_mean.\nBootstrap distribution: from bootstrap_distribution, take the mean of resample_mean.\n\n\n\nE3.R\n\n# Calculate the true population mean popularity\npop_mean &lt;- spotify_population %&gt;% \n  summarize(mean(popularity))\n\n# Calculate the original sample mean popularity\nsamp_mean &lt;- spotify_sample %&gt;% \n  summarize(mean(popularity))\n\n# Calculate the sampling dist'n estimate of mean popularity\nsamp_distn_mean &lt;- sampling_distribution %&gt;% \n  summarize(mean(sample_mean))\n\n# Calculate the bootstrap dist'n estimate of mean popularity\nboot_distn_mean &lt;- bootstrap_distribution %&gt;% \n  summarize(mean(resample_mean))\n\n# See the results\nc(pop = pop_mean, samp = samp_mean, samp_distn = samp_distn_mean, boot_distn = boot_distn_mean)"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#section-3",
+    "href": "Sampling_in_R_C4.html#section-3",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.4 ",
+    "text": "55.4"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#instructions-100-xp-3",
+    "href": "Sampling_in_R_C4.html#instructions-100-xp-3",
+    "title": "55  Bootstrap Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate the standard deviation of popularity with summarize() in 4 ways.\nPopulation: from spotify_population, take the standard deviation of popularity.\nOriginal sample: from spotify_sample, take the standard deviation of popularity.\nSampling distribution: from sampling_distribution, take the standard deviation of sample_mean and multiply by the square root of the sample size (500).\nBootstrap distribution: from bootstrap_distribution, take the standard deviation of resample_mean and multiply by the square root of the sample size.\n\n\n\nE4.R\n\n# Calculate the true population std dev popularity\npop_sd &lt;- spotify_population %&gt;% \n  summarize(sd(popularity))\n\n# Calculate the original sample std dev popularity\nsamp_sd &lt;- spotify_sample %&gt;% \n  summarize(sd(popularity))\n\n# Calculate the sampling dist'n estimate of std dev popularity\nsamp_distn_sd &lt;- sampling_distribution %&gt;% \n  summarize(sd(sample_mean) * sqrt(500))\n\n# Calculate the bootstrap dist'n estimate of std dev popularity\nboot_distn_sd &lt;- bootstrap_distribution %&gt;% \n  summarize(sd(resample_mean) * sqrt(500))\n\n# See the results\nc(pop = pop_sd, samp = samp_sd, sam_distn = samp_distn_sd, boot_distn = boot_distn_sd)\n\n##Calculating confidence intervals\nWe can use the cumulative distribution function and its inverse to calculate confidence intervals in R. You’ll do so with the Spotify data now."
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#a",
+    "href": "Sampling_in_R_C4.html#a",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.5 A",
+    "text": "55.5 A"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#instructions-100-xp-4",
+    "href": "Sampling_in_R_C4.html#instructions-100-xp-4",
+    "title": "55  Bootstrap Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGenerate a 95% confidence interval using the quantile method.\nSummarize to get the 0.025 quantile as lower, and the 0.975 quantile as upper.\nGenerate a 95% confidence interval using the standard error method.\nCalculate point_estimate as the mean of resample_mean, and standard_error as the standard deviation of resample_mean.\nCalculate lower as the 0.025 quantile of an inv. CDF from a normal distribution with mean point_estimate and standard deviation standard_error.\nCalculate upper as the 0.975 quantile of that same inv. CDF.\n\n\n\nE5.R\n\n# Generate a 95% confidence interval using the quantile method\nconf_int_quantile &lt;- bootstrap_distribution %&gt;% \n  summarize(\n    lower = quantile(resample_mean, 0.025),\n    upper = quantile(resample_mean, 0.975)\n  )\n\n# See the result\nconf_int_quantile\n\n\n# Generate a 95% confidence interval using the std error method\nconf_int_std_error &lt;- bootstrap_distribution %&gt;% \n  summarize(\n    point_estimate = mean(resample_mean),\n    standard_error = sd(resample_mean),\n    lower = qnorm(0.025, point_estimate, standard_error),\n    upper = qnorm(0.975, point_estimate, standard_error)\n  )\n\n# See the result\nconf_int_std_error"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#section-4",
+    "href": "Sampling_in_R_C4.html#section-4",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.6 ",
+    "text": "55.6"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#instructions-100-xp-5",
+    "href": "Sampling_in_R_C4.html#instructions-100-xp-5",
+    "title": "55  Bootstrap Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE6.R"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#section-5",
+    "href": "Sampling_in_R_C4.html#section-5",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.7 ",
+    "text": "55.7"
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#instructions-100-xp-6",
+    "href": "Sampling_in_R_C4.html#instructions-100-xp-6",
+    "title": "55  Bootstrap Distributions",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\nE7.R"
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#simple-sampling-with-dplyr",
+    "href": "Sampling_in_R_C1.html#simple-sampling-with-dplyr",
+    "title": "52  Introduction to Sampling",
+    "section": "52.1 Simple sampling with dplyr",
+    "text": "52.1 Simple sampling with dplyr\nThroughout this chapter you’ll be exploring song data from Spotify. Each row of the dataset represents a song, and there are 41656 rows. Columns include the name of the song, the artists who performed it, the release year, and attributes of the song like its duration, tempo, and danceability. We’ll start by looking at the durations.\nYour first task is to sample the song dataset and compare a calculation on the whole population and on a sample.\nspotify_population is available and dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#simple-sampling-with-base-r",
+    "href": "Sampling_in_R_C1.html#simple-sampling-with-base-r",
+    "title": "52  Introduction to Sampling",
+    "section": "52.2 Simple sampling with base-R",
+    "text": "52.2 Simple sampling with base-R\nWhile dplyr provides great tools for sampling data frames, if you want to work with vectors you can use base-R.\nLet’s turn it up to eleven and look at the loudness property of each song.\nspotify_population is available."
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#are-findings-from-the-sample-generalizable",
+    "href": "Sampling_in_R_C1.html#are-findings-from-the-sample-generalizable",
+    "title": "52  Introduction to Sampling",
+    "section": "52.3 Are findings from the sample generalizable?",
+    "text": "52.3 Are findings from the sample generalizable?\nYou just saw how convenience sampling—collecting data via the easiest method can result in samples that aren’t representative of the whole population. Equivalently, this means findings from the sample are not generalizable to the whole population. Visualizing the distributions of the population and the sample can help determine whether or not the sample is representative of the population.\nThe Spotify dataset contains a column named acousticness, which is a confidence measure from zero to one of whether the track is acoustic, that is, it was made with instruments that aren’t plugged in. Here, you’ll look at acousticness in the total population of songs, and in a sample of those songs.\nspotify_population and spotify_mysterious_sample are available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#are-these-findings-generalizable",
+    "href": "Sampling_in_R_C1.html#are-these-findings-generalizable",
+    "title": "52  Introduction to Sampling",
+    "section": "52.4 Are these findings generalizable?",
+    "text": "52.4 Are these findings generalizable?\nLet’s look at another sample to see if it is representative of the population. This time, you’ll look at the duration_minutes column of the Spotify dataset, which contains the length of the song in minutes.\nspotify_population and spotify_mysterious_sample2 are available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C1.html#generating-random-numbers",
+    "href": "Sampling_in_R_C1.html#generating-random-numbers",
+    "title": "52  Introduction to Sampling",
+    "section": "52.5 Generating random numbers",
+    "text": "52.5 Generating random numbers\nYou’ve seen sample() and it’s dplyr cousin, slice_sample() for generating pseudo-random numbers from a set of values. A related task is to generate random numbers that follow a statistical distribution, like the uniform distribution or the normal distribution.\nEach random number generation function has a name beginning with “r”. It’s first argument is the number of numbers to generate, but other arguments are distribution-specific. Free hint: Try args(runif) and args(rnorm) to see what arguments you need to pass to those functions.\nn_numbers is available and set to 5000; ggplot2 is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#simple-random-sampling",
+    "href": "Sampling_in_R_C2.html#simple-random-sampling",
+    "title": "53  Sampling Methods",
+    "section": "53.1 Simple random sampling",
+    "text": "53.1 Simple random sampling\nThe simplest method of sampling a population is the one you’ve seen already. It is known as simple random sampling (sometimes abbreviated to “SRS”), and involves picking rows at random, one at a time, where each row has the same chance of being picked as any other.\nTo make it easier to see which rows end up in the sample, it’s helpful to include a row ID column in the dataset before you take the sample.\nIn this chapter, we’ll look at sampling methods using a synthetic (fictional) employee attrition dataset from IBM, where “attrition” means leaving the company.\nattrition_pop is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#systematic-sampling",
+    "href": "Sampling_in_R_C2.html#systematic-sampling",
+    "title": "53  Sampling Methods",
+    "section": "53.2 Systematic sampling",
+    "text": "53.2 Systematic sampling\nOne sampling method that avoids randomness is called systematic sampling. Here, you pick rows from the population at regular intervals.\nFor example, if the population dataset had one thousand rows and you wanted a sample size of five, you’d pick rows 200, 400, 600, 800, and 1000.\nattrition_pop is available; dplyr and tibble are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#is-systematic-sampling-ok",
+    "href": "Sampling_in_R_C2.html#is-systematic-sampling-ok",
+    "title": "53  Sampling Methods",
+    "section": "53.3 Is systematic sampling OK?",
+    "text": "53.3 Is systematic sampling OK?\nSystematic sampling has a problem: if the data has been sorted, or there is some sort of pattern or meaning behind the row order, then the resulting sample may not be representative of the whole population. The problem can be solved by shuffling the rows, but then systematic sampling is equivalent to simple random sampling.\nHere you’ll look at how to determine whether or not there is a problem.\nattrition_sys_samp is available and has been given a row ID column; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#proportional-stratified-sampling",
+    "href": "Sampling_in_R_C2.html#proportional-stratified-sampling",
+    "title": "53  Sampling Methods",
+    "section": "53.4 Proportional stratified sampling",
+    "text": "53.4 Proportional stratified sampling\nIf you are interested in subgroups within the population, then you may need to carefully control the counts of each subgroup within the population. Proportional stratified sampling results in subgroup sizes within the sample that are representative of the subgroup sizes within the population. It is equivalent to performing a simple random sample on each subgroup.\nattrition_pop is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#equal-counts-stratified-sampling",
+    "href": "Sampling_in_R_C2.html#equal-counts-stratified-sampling",
+    "title": "53  Sampling Methods",
+    "section": "53.5 Equal counts stratified sampling",
+    "text": "53.5 Equal counts stratified sampling\nIf one subgroup is larger than another subgroup in the population, but you don’t want to reflect that difference in your analysis, then you can use equal counts stratified sampling to generate samples where each subgroup has the same amount of data. For example, if you are analyzing blood types, O is the most common blood type worldwide, but you may wish to have equal amounts of O, A, B, and AB in your sample.\n\nattrition_pop is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#weighted-sampling",
+    "href": "Sampling_in_R_C2.html#weighted-sampling",
+    "title": "53  Sampling Methods",
+    "section": "53.6 Weighted sampling",
+    "text": "53.6 Weighted sampling\nStratified sampling provides rules about the probability of picking rows from your dataset at the subgroup level. A generalization of this is weighted sampling, which lets you specify rules about the probability of picking rows at the row level. The probability of picking any given row is proportional to the weight value for that row.\nattrition_pop is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#performing-cluster-sampling",
+    "href": "Sampling_in_R_C2.html#performing-cluster-sampling",
+    "title": "53  Sampling Methods",
+    "section": "53.7 Performing cluster sampling",
+    "text": "53.7 Performing cluster sampling\nNow that you know when to use cluster sampling, it’s time to put it into action. In this exercise you’ll explore the JobRole column of the attrition dataset. You can think of each job role as a subgroup of the whole population of employees.\nattrition_pop is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#kinds-of-sampling",
+    "href": "Sampling_in_R_C2.html#kinds-of-sampling",
+    "title": "53  Sampling Methods",
+    "section": "53.8 3 kinds of sampling",
+    "text": "53.8 3 kinds of sampling\nLet’s compare the performance of point estimates using simple, stratified, and cluster sampling. Before we do that, you’ll have to set up the samples.\nIn these exercises, we’ll use the RelationshipSatisfaction column of the attrition dataset, which categorizes the employee’s relationship with the company. It’s an ordered factor with four levels: Low, Medium, High, and Very_High."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-7",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-7",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nPerform simple random sampling on attrition_pop to get one quarter of the population.\nPerform stratified sampling on attrition_pop to get one quarter of the population of each RelationshipSatisfaction group. Remember to ungroup the result.\nGet unique values of attrition_pop’s RelationshipSatisfaction column. Randomly sample satisfaction_unique to get two values. Perform cluster sampling on the selected satisfaction groups, sampling one quarter of the population and ungrouping the result.\n\n\n\nE8.R\n\n# Perform simple random sampling to get 0.25 of the population\nattrition_srs &lt;- attrition_pop %&gt;% \n  slice_sample(prop = 0.25)\n\n\n\n# Perform stratified sampling to get 0.25 of each relationship group\nattrition_strat &lt;- attrition_pop %&gt;%\n  group_by(RelationshipSatisfaction) %&gt;% \n  slice_sample(prop = 0.25) %&gt;% \n  ungroup()\n  \n\n\n# Get unique values of RelationshipSatisfaction\nsatisfaction_unique &lt;- unique(attrition_pop$RelationshipSatisfaction)\n\n# Randomly sample for 2 of the unique satisfaction values\nsatisfaction_samp &lt;- sample(satisfaction_unique, size = 2)\n\n# Perform cluster sampling on the selected group getting 0.25 of the population\nattrition_clust &lt;- attrition_pop %&gt;%\n  filter(RelationshipSatisfaction %in% satisfaction_samp) %&gt;% \n  group_by(RelationshipSatisfaction) %&gt;% \n  slice_sample(n = nrow(attrition_pop) / 4) %&gt;% \n  ungroup()"
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#summary-statistics-on-different-kinds-of-sample",
+    "href": "Sampling_in_R_C2.html#summary-statistics-on-different-kinds-of-sample",
+    "title": "53  Sampling Methods",
+    "section": "53.9 Summary statistics on different kinds of sample",
+    "text": "53.9 Summary statistics on different kinds of sample\nNow you have three types of sample (simple, stratified, cluster), you can compare point estimates from each sample to the population parameter. That is, you can calculate the same summary statistic on each sample and see how it compares to the summary statistic for the population.\nHere, we’ll look at how satisfaction with the company affects whether or not the employee leaves the company. That is, you’ll calculate the proportion of employees who left the company (they have an Attrition value of “Yes”), for each value of RelationshipSatisfaction.\nattrition_pop, attrition_srs, attrition_strat, and attrition_clust are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C2.html#instructions-100-xp-8",
+    "href": "Sampling_in_R_C2.html#instructions-100-xp-8",
+    "title": "53  Sampling Methods",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nGroup by RelationshipSatisfaction level. Summarize to calculate a column named mean_attrition as the mean of the cases where Attrition is equal to “Yes”.\nCalculate the proportion of employee attrition for each relationship satisfaction group, this time on the simple random sample, attrition_srs.\nCalculate the proportion of employee attrition for each relationship satisfaction group, this time on the stratified sample, attrition_strat.\nCalculate the proportion of employee attrition for each relationship satisfaction group, this time on the cluster sample, attrition_clust.\n\n\n\nE9.R\n\n# Use the whole population dataset \nmean_attrition_pop &lt;- attrition_pop %&gt;% \n  # Group by relationship satisfaction level\n  group_by(RelationshipSatisfaction) %&gt;% \n  # Calculate the proportion of employee attrition\n  summarize(mean_attrition = mean(Attrition == \"Yes\"))\n\n# See the result\nmean_attrition_pop\n\n\n\n# Calculate the same thing for the simple random sample \nmean_attrition_srs &lt;- attrition_srs %&gt;% \n  group_by(RelationshipSatisfaction) %&gt;% \n  summarize(mean_attrition = mean(Attrition == \"Yes\"))\n\n# See the result\nmean_attrition_srs\n\n\n\n# Calculate the same thing for the stratified sample \nmean_attrition_strat &lt;- attrition_strat %&gt;% \n  group_by(RelationshipSatisfaction) %&gt;% \n  summarize(mean_attrition = mean(Attrition == \"Yes\"))\n\n# See the result\nmean_attrition_strat\n\n\n\n# Calculate the same thing for the cluster sample \nmean_attrition_clust &lt;- attrition_clust %&gt;% \n  group_by(RelationshipSatisfaction) %&gt;% \n  summarize(mean_attrition = mean(Attrition == \"Yes\"))\n\n# See the result\nmean_attrition_clust"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#calculating-relative-errors",
+    "href": "Sampling_in_R_C3.html#calculating-relative-errors",
+    "title": "54  Sampling Distributions",
+    "section": "54.1 Calculating relative errors",
+    "text": "54.1 Calculating relative errors\nThe size of the sample you take affects how accurately the point estimates reflect the corresponding population parameter. For example, when you calculate a sample mean, you want it to be close to the population mean. However, if your sample is too small, this might not be the case.\nThe most common metric for assessing accuracy is relative error. This is the absolute difference between the population parameter and the point estimate, all divided by the population parameter. It is sometimes expressed as a percentage.\nattrition_pop and mean_attrition_pop are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#replicating-samples",
+    "href": "Sampling_in_R_C3.html#replicating-samples",
+    "title": "54  Sampling Distributions",
+    "section": "54.2 Replicating samples",
+    "text": "54.2 Replicating samples\nWhen you calculate a point estimate such as a sample mean, the value you calculate depends on the rows that were included in the sample. That means that there is some randomness in the answer. In order to quantify the variation caused by this randomness, you can create many samples and calculate the sample mean (or other statistic) for each sample.\nattrition_pop is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#exact-sampling-distribution",
+    "href": "Sampling_in_R_C3.html#exact-sampling-distribution",
+    "title": "54  Sampling Distributions",
+    "section": "54.3 Exact sampling distribution",
+    "text": "54.3 Exact sampling distribution\nTo quantify how the point estimate (sample statistic) you are interested in varies, you need to know all the possible values it can take, and how often. That is, you need to know its distribution.\nThe distribution of a sample statistic is called the sampling distribution. When we can calculate this exactly, rather than using an approximation, it is known as the exact sampling distribution.\nLet’s take another look at the sampling distribution of dice rolls. This time, we’ll look at five eight-sided dice. (These have the numbers one to eight.)"
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#approximate-sampling-distribution",
+    "href": "Sampling_in_R_C3.html#approximate-sampling-distribution",
+    "title": "54  Sampling Distributions",
+    "section": "54.4 Approximate sampling distribution",
+    "text": "54.4 Approximate sampling distribution\nCalculating the exact sampling distribution is only possible in very simple situations. With just five eight-sided dice, the number of possible rolls is 8 ^ 5, which is over thirty thousand. When the dataset is more complicated, for example where a variable has hundreds or thousands or categories, the number of possible outcomes becomes too difficult to compute exactly.\nIn this situation, you can calculate an approximate sampling distribution by simulating the exact sampling distribution. That is, you can repeat a procedure over and over again to simulate both the sampling process and the sample statistic calculation process.\ntibble and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#population-sampling-distribution-means",
+    "href": "Sampling_in_R_C3.html#population-sampling-distribution-means",
+    "title": "54  Sampling Distributions",
+    "section": "54.5 Population & sampling distribution means",
+    "text": "54.5 Population & sampling distribution means\nOne of the useful features of sampling distributions is that you can quantify them. In particular, you can calculate summary statistics on them. Here, we’ll look at the relationship between the mean of the sampling distribution and the population parameter that the sampling is supposed to estimate.\nThree sampling distributions are provided. In each case, the employee attrition dataset was sampled using simple random sampling, then the mean attrition was calculated. This was done 1000 times to get a sampling distribution of mean attritions. One sampling distribution used a sample size of 5 for each replicate, one used 50, and one used 500.\nattrition_pop, sampling_distribution_5, sampling_distribution_50, and sampling_distribution_500 are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C3.html#population-and-sampling-distribution-variation",
+    "href": "Sampling_in_R_C3.html#population-and-sampling-distribution-variation",
+    "title": "54  Sampling Distributions",
+    "section": "54.6 Population and sampling distribution variation",
+    "text": "54.6 Population and sampling distribution variation\nYou just calculated the mean of the sampling distribution and saw how it is an estimate of the corresponding population parameter. Similarly, as a result of the central limit theorem, the standard deviation of the sampling distribution has an interesting relationship with the population parameter’s standard deviation and the sample size.\nattrition_pop, sampling_distribution_5, sampling_distribution_50, and sampling_distribution_500 are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#generating-a-bootstrap-distribution",
+    "href": "Sampling_in_R_C4.html#generating-a-bootstrap-distribution",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.1 Generating a bootstrap distribution",
+    "text": "55.1 Generating a bootstrap distribution\nThe process for generating a bootstrap distribution is remarkably similar to the process for generating a sampling distribution; only the first step is different.\nTo make a sampling distribution, you start with the population and sample without replacement. To make a bootstrap distribution, you start with a sample and sample that with replacement. After that, the steps are the same: calculate the summary statistic that you are interested in on that sample/resample, then replicate the process many times. In each case, you can visualize the distribution with a histogram.\nHere, spotify_sample is a subset of the spotify_population dataset. To make it easier to see how resampling works, a row ID column has been added, and only the artist name, song name, and danceability columns have been included.\nspotify_sample is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#sampling-distribution-vs.-bootstrap-distribution",
+    "href": "Sampling_in_R_C4.html#sampling-distribution-vs.-bootstrap-distribution",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.2 Sampling distribution vs. bootstrap distribution",
+    "text": "55.2 Sampling distribution vs. bootstrap distribution\nThe sampling distribution and bootstrap distribution are closely linked. In situations where you can repeatedly sample from a population (these occasions are rare) and as you learn about both, it’s helpful to generate both the sampling distribution and the bootstrap distribution, one after the other, to see how they are related.\nHere, the statistic you are interested in is the mean popularity score of the songs.\nspotify_population (the whole dataset) and spotify_sample (500 rows only representing an original sample) are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#compare-sampling-and-bootstrap-means",
+    "href": "Sampling_in_R_C4.html#compare-sampling-and-bootstrap-means",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.3 Compare sampling and bootstrap means",
+    "text": "55.3 Compare sampling and bootstrap means\nTo make calculation easier, the distributions from the previous exercise have been included in tibbles. mean_popularity_2000_samp is in the sample_mean column of sampling_distribution, and mean_popularity_2000_boot is in the resample_mean column of bootstrap_distribution.\nspotify_population, spotify_sample, sampling_distribution, and bootstrap_distribution are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Sampling_in_R_C4.html#compare-sampling-and-bootstrap-standard-deviations",
+    "href": "Sampling_in_R_C4.html#compare-sampling-and-bootstrap-standard-deviations",
+    "title": "55  Bootstrap Distributions",
+    "section": "55.4 Compare sampling and bootstrap standard deviations",
+    "text": "55.4 Compare sampling and bootstrap standard deviations\nIn the same way that you looked at how the sampling distribution and bootstrap distribution could be used to estimate the population mean, you’ll now take a look at how they can be used to estimate variation, or more specifically, the standard deviation, in the population.\nspotify_population, spotify_sample, sampling_distribution, and bootstrap_distribution are available; dplyr is loaded."
   }
 ]

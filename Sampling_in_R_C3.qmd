@@ -1,0 +1,294 @@
+---
+title: "Sampling Distributions"
+---
+
+## Calculating relative errors
+
+The size of the sample you take affects how accurately the point estimates reflect the corresponding population parameter. For example, when you calculate a sample mean, you want it to be close to the population mean. However, if your sample is too small, this might not be the case.
+
+The most common metric for assessing accuracy is relative error. This is the absolute difference between the population parameter and the point estimate, all divided by the population parameter. It is sometimes expressed as a percentage.
+
+attrition_pop and mean_attrition_pop are available; dplyr is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Generate a simple random sample from attrition_pop of ten rows.
+Summarize to calculate the mean proportion of employee attrition (Attrition equals "Yes").
+Calculate the relative error between mean_attrition_srs10 and mean_attrition_pop as a percentage.
+
+* Calculate the relative error percentage again. This time, use a simple random sample of one hundred rows of attrition_pop.
+
+``` {.r filename="E1.R"}
+# Generate a simple random sample of 10 rows 
+attrition_srs10 <- attrition_pop %>% 
+  slice_sample(n = 10)
+
+# Calculate the proportion of employee attrition in the sample
+mean_attrition_srs10 <- attrition_srs10 %>% 
+  summarize(mean_attrition = mean(Attrition == "Yes")) %>% 
+  pull(mean_attrition)
+
+# Calculate the relative error percentage
+rel_error_pct10 <- 100 * abs(mean_attrition_pop - mean_attrition_srs10) / mean_attrition_pop
+
+# See the result
+rel_error_pct10
+
+
+
+# Calculate the relative error percentage again with a sample of 100 rows
+attrition_srs100 <- attrition_pop %>% 
+  slice_sample(n = 100)
+
+mean_attrition_srs100 <- attrition_srs100 %>% 
+  summarize(mean_attrition = mean(Attrition == "Yes")) %>% 
+  pull(mean_attrition)
+
+rel_error_pct100 <- 100 * abs(mean_attrition_pop - mean_attrition_srs100) / mean_attrition_pop
+
+# See the result
+rel_error_pct100
+```
+
+## Replicating samples
+
+When you calculate a point estimate such as a sample mean, the value you calculate depends on the rows that were included in the sample. That means that there is some randomness in the answer. In order to quantify the variation caused by this randomness, you can create many samples and calculate the sample mean (or other statistic) for each sample.
+
+attrition_pop is available; dplyr and ggplot2 are loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Replicate the provided code so that it runs 500 times. Assign the resulting vector of sample means to mean_attritions.
+
+* Create a tibble with a column named sample_mean to store mean_attritions.
+* Using sample_means, draw a histogram of the sample_mean column with a binwidth of 0.05.
+``` {.r filename="E2.R"}
+# Replicate this code 500 times
+mean_attritions <- replicate(
+  n = 500,
+  attrition_pop %>% 
+    slice_sample(n = 20) %>% 
+    summarize(mean_attrition = mean(Attrition == "Yes")) %>% 
+    pull(mean_attrition)
+)
+
+# See the result
+head(mean_attritions)
+
+
+
+# From previous step
+mean_attritions <- replicate(
+  n = 500,
+  attrition_pop %>% 
+    slice_sample(n = 20) %>% 
+    summarize(mean_attrition = mean(Attrition == "Yes")) %>% 
+    pull(mean_attrition)
+)
+
+# Store mean_attritions in a tibble in a column named sample_mean
+sample_means <- tibble(sample_mean = mean_attritions)
+
+# Plot a histogram of the `sample_mean` column, binwidth 0.05
+ggplot(sample_means, aes(sample_mean)) +
+  geom_histogram(binwidth = 0.05)
+```
+
+## Exact sampling distribution
+
+To quantify how the point estimate (sample statistic) you are interested in varies, you need to know all the possible values it can take, and how often. That is, you need to know its distribution.
+
+The distribution of a sample statistic is called the sampling distribution. When we can calculate this exactly, rather than using an approximation, it is known as the exact sampling distribution.
+
+Let's take another look at the sampling distribution of dice rolls. This time, we'll look at five eight-sided dice. (These have the numbers one to eight.)
+
+## Instructions `100 XP` {.unnumbered}
+
+* Expand a grid representing 5 8-sided dice. That is, create a tibble with five columns, named die1 to die5. The rows should contain all possibilities for throwing five dice, each numbered 1 to 8.
+
+*Add a column, mean_roll, to dice, that contains the mean of the five rolls.
+
+* Using the dice dataset, plot mean_roll, converted to a factor, as a bar plot.
+
+``` {.r filename="E3.R"}
+# Expand a grid representing 5 8-sided dice
+dice <- expand_grid(
+  die1 = 1:8,
+  die2 = 1:8,
+  die3 = 1:8,
+  die4 = 1:8,
+  die5 = 1:8
+)
+
+# See the result
+dice
+
+
+dice <- expand_grid(
+  die1 = 1:8,
+  die2 = 1:8,
+  die3 = 1:8,
+  die4 = 1:8,
+  die5 = 1:8
+) %>% 
+  # Add a column of mean rolls
+  mutate(mean_roll = (die1 + die2 + die3 + die4 + die5) / 5)
+  
+  
+
+# From previous step
+dice <- expand_grid(
+  die1 = 1:8,
+  die2 = 1:8,
+  die3 = 1:8,
+  die4 = 1:8,
+  die5 = 1:8
+) %>% 
+  mutate(mean_roll = (die1 + die2 + die3 + die4 + die5) / 5)
+
+# Using dice, draw a bar plot of mean_roll as a factor
+ggplot(dice, aes(factor(mean_roll))) +
+  geom_bar()
+```
+
+## Approximate sampling distribution
+
+Calculating the exact sampling distribution is only possible in very simple situations. With just five eight-sided dice, the number of possible rolls is 8 ^ 5, which is over thirty thousand. When the dataset is more complicated, for example where a variable has hundreds or thousands or categories, the number of possible outcomes becomes too difficult to compute exactly.
+
+In this situation, you can calculate an approximate sampling distribution by simulating the exact sampling distribution. That is, you can repeat a procedure over and over again to simulate both the sampling process and the sample statistic calculation process.
+
+tibble and ggplot2 are loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Sample one to eight, five times, with replacement. Assign to five_rolls.
+* Calculate the mean of five_rolls.
+
+* Replicate the sampling code 1000 times, assigning to sample_means_1000.
+
+* Create a tibble, and store sample_means_1000 in the a column named sample_mean.
+
+* Using the sample_means dataset, plot sample_mean, converted to a factor, as a bar plot.
+
+``` {.r filename="E4.R"}
+# Sample one to eight, five times, with replacement
+five_rolls <- sample(1:8, size = 5, replace = TRUE)
+  
+# Calculate the mean of five_rolls
+mean(five_rolls)
+
+
+
+# Replicate the sampling code 1000 times
+sample_means_1000 <- replicate(
+  n = 1000,
+  expr = {
+    five_rolls <- sample(1:8, size = 5, replace = TRUE)
+    mean(five_rolls)
+  }
+)
+
+# See the result
+sample_means_1000
+
+
+
+# From previous step
+sample_means_1000 <- replicate(
+  n = 1000,
+  expr = {
+    five_rolls <- sample(1:8, size = 5, replace = TRUE)
+    mean(five_rolls)
+  }
+)
+
+# Wrap sample_means_1000 in the sample_mean column of a tibble
+sample_means <- tibble(
+  sample_mean = sample_means_1000
+)
+
+# See the result
+sample_means
+
+
+
+# From previous steps
+sample_means_1000 <- replicate(
+  n = 1000,
+  expr = {
+    five_rolls <- sample(1:8, size = 5, replace = TRUE)
+    mean(five_rolls)
+  }
+)
+sample_means <- tibble(
+  sample_mean = sample_means_1000
+)
+
+# Using sample_means, draw a bar plot of sample_mean as a factor
+ggplot(sample_means, aes(factor(sample_mean))) +
+  geom_bar()
+```
+
+## Population & sampling distribution means
+
+One of the useful features of sampling distributions is that you can quantify them. In particular, you can calculate summary statistics on them. Here, we'll look at the relationship between the mean of the sampling distribution and the population parameter that the sampling is supposed to estimate.
+
+Three sampling distributions are provided. In each case, the employee attrition dataset was sampled using simple random sampling, then the mean attrition was calculated. This was done 1000 times to get a sampling distribution of mean attritions. One sampling distribution used a sample size of 5 for each replicate, one used 50, and one used 500.
+
+attrition_pop, sampling_distribution_5, sampling_distribution_50, and sampling_distribution_500 are available; dplyr is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Using sampling_distribution_5, calculate the mean across all the replicates of the mean_attritions (a mean of sample means). Store this in a column called mean_mean_attrition.
+* Do the same calculation using sampling_distribution_50 and sampling_distribution_500.
+
+``` {.r filename="E5.R"}
+# Calculate the mean across replicates of the mean attritions in sampling_distribution_5
+mean_of_means_5 <- sampling_distribution_5 %>%
+  summarize(mean_mean_attrition = mean(mean_attrition))
+
+# Do the same for sampling_distribution_50
+mean_of_means_50 <- sampling_distribution_50 %>%
+  summarize(mean_mean_attrition = mean(mean_attrition))
+
+# ... and for sampling_distribution_500
+mean_of_means_500 <- sampling_distribution_500 %>%
+  summarize(mean_mean_attrition = mean(mean_attrition))
+
+# See the results
+mean_of_means_5
+mean_of_means_50
+mean_of_means_500
+
+```
+
+## Population and sampling distribution variation
+
+You just calculated the mean of the sampling distribution and saw how it is an estimate of the corresponding population parameter. Similarly, as a result of the central limit theorem, the standard deviation of the sampling distribution has an interesting relationship with the population parameter's standard deviation and the sample size.
+
+attrition_pop, sampling_distribution_5, sampling_distribution_50, and sampling_distribution_500 are available; dplyr is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Using sampling_distribution_5, calculate the standard deviation across all the replicates of the mean_attritions (a standard deviation of sample means). Store this in a column called sd_mean_attrition.
+* Do the same calculation using sampling_distribution_50 and sampling_distribution_500.
+
+``` {.r filename="E6.R"}
+# Calculate the standard deviation across replicates of the mean attritions in sampling_distribution_5
+sd_of_means_5 <- sampling_distribution_5 %>%
+  summarize(sd_mean_attrition = sd(mean_attrition))
+
+# Do the same for sampling_distribution_50
+sd_of_means_50 <- sampling_distribution_50 %>%
+  summarize(sd_mean_attrition = sd(mean_attrition))
+
+# ... and for sampling_distribution_500
+sd_of_means_500 <- sampling_distribution_500 %>%
+  summarize(sd_mean_attrition = sd(mean_attrition))
+
+# See the results
+sd_of_means_5
+sd_of_means_50
+sd_of_means_500
+```
+

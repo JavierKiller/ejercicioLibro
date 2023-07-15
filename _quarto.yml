@@ -90,6 +90,12 @@ book:
         - Intermediate_Regression_in_R_C2.qmd 
         - Intermediate_Regression_in_R_C3.qmd 
         - Intermediate_Regression_in_R_C4.qmd  
+    - part: "Sampling in R"
+      chapters:
+        - Sampling_in_R_C1.qmd 
+        - Sampling_in_R_C2.qmd 
+        - Sampling_in_R_C3.qmd 
+        - Sampling_in_R_C4.qmd  
 
 bibliography: references.bib
 

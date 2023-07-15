@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>libro - 39&nbsp; Adding Unit Tests to R Packages</title>
+<title>libro - 55&nbsp; Bootstrap Distributions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./Introduction_to_Statistics_in_R_C1.html" rel="next">
-<link href="./Developing_R_Packages_C3.html" rel="prev">
+<link href="./Sampling_in_R_C3.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -108,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Developing_R_Packages_C1.html">Developing R Packages</a></li><li class="breadcrumb-item"><a href="./Developing_R_Packages_C4.html"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Sampling_in_R_C1.html">Sampling in R</a></li><li class="breadcrumb-item"><a href="./Sampling_in_R_C4.html"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Bootstrap Distributions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -469,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Developing_R_Packages_C4.html" class="sidebar-item-text sidebar-link active">
+  <a href="./Developing_R_Packages_C4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></span></a>
   </div>
 </li>
@@ -609,7 +608,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Sampling_in_R_C4.html" class="sidebar-item-text sidebar-link">
+  <a href="./Sampling_in_R_C4.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Bootstrap Distributions</span></span></a>
   </div>
 </li>
@@ -625,33 +624,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-up-the-test-structure" id="toc-setting-up-the-test-structure" class="nav-link active" data-scroll-target="#setting-up-the-test-structure"><span class="header-section-number">39.1</span> Setting up the test structure</a></li>
+  <li><a href="#generating-a-bootstrap-distribution" id="toc-generating-a-bootstrap-distribution" class="nav-link active" data-scroll-target="#generating-a-bootstrap-distribution"><span class="header-section-number">55.1</span> Generating a bootstrap distribution</a></li>
   <li><a href="#instructions-100-xp" id="toc-instructions-100-xp" class="nav-link" data-scroll-target="#instructions-100-xp">Instructions <code>100 XP</code></a></li>
-  <li><a href="#writing-an-individual-test" id="toc-writing-an-individual-test" class="nav-link" data-scroll-target="#writing-an-individual-test"><span class="header-section-number">39.2</span> Writing an individual test</a></li>
+  <li><a href="#sampling-distribution-vs.-bootstrap-distribution" id="toc-sampling-distribution-vs.-bootstrap-distribution" class="nav-link" data-scroll-target="#sampling-distribution-vs.-bootstrap-distribution"><span class="header-section-number">55.2</span> Sampling distribution vs.&nbsp;bootstrap distribution</a></li>
   <li><a href="#instructions-100-xp-1" id="toc-instructions-100-xp-1" class="nav-link" data-scroll-target="#instructions-100-xp-1">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-for-equality" id="toc-testing-for-equality" class="nav-link" data-scroll-target="#testing-for-equality"><span class="header-section-number">39.3</span> Testing for equality</a></li>
+  <li><a href="#compare-sampling-and-bootstrap-means" id="toc-compare-sampling-and-bootstrap-means" class="nav-link" data-scroll-target="#compare-sampling-and-bootstrap-means"><span class="header-section-number">55.3</span> Compare sampling and bootstrap means</a></li>
   <li><a href="#instructions-100-xp-2" id="toc-instructions-100-xp-2" class="nav-link" data-scroll-target="#instructions-100-xp-2">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-errors" id="toc-testing-errors" class="nav-link" data-scroll-target="#testing-errors"><span class="header-section-number">39.4</span> Testing errors</a></li>
+  <li><a href="#compare-sampling-and-bootstrap-standard-deviations" id="toc-compare-sampling-and-bootstrap-standard-deviations" class="nav-link" data-scroll-target="#compare-sampling-and-bootstrap-standard-deviations"><span class="header-section-number">55.4</span> Compare sampling and bootstrap standard deviations</a></li>
   <li><a href="#instructions-100-xp-3" id="toc-instructions-100-xp-3" class="nav-link" data-scroll-target="#instructions-100-xp-3">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-warnings" id="toc-testing-warnings" class="nav-link" data-scroll-target="#testing-warnings"><span class="header-section-number">39.5</span> Testing warnings</a></li>
   <li><a href="#instructions-100-xp-4" id="toc-instructions-100-xp-4" class="nav-link" data-scroll-target="#instructions-100-xp-4">Instructions <code>100 XP</code></a></li>
-  <li><a href="#testing-non-exported-functions" id="toc-testing-non-exported-functions" class="nav-link" data-scroll-target="#testing-non-exported-functions"><span class="header-section-number">39.6</span> Testing non-exported functions</a></li>
-  <li><a href="#instructions-100-xp-5" id="toc-instructions-100-xp-5" class="nav-link" data-scroll-target="#instructions-100-xp-5">Instructions <code>100 XP</code></a></li>
-  <li><a href="#grouping-tests" id="toc-grouping-tests" class="nav-link" data-scroll-target="#grouping-tests"><span class="header-section-number">39.7</span> Grouping tests</a></li>
-  <li><a href="#instructions-100-xp-6" id="toc-instructions-100-xp-6" class="nav-link" data-scroll-target="#instructions-100-xp-6">Instructions <code>100 XP</code></a></li>
-  <li><a href="#executing-unit-tests" id="toc-executing-unit-tests" class="nav-link" data-scroll-target="#executing-unit-tests"><span class="header-section-number">39.8</span> Executing unit tests</a></li>
-  <li><a href="#instructions-100-xp-7" id="toc-instructions-100-xp-7" class="nav-link" data-scroll-target="#instructions-100-xp-7">Instructions <code>100 XP</code></a></li>
-  <li><a href="#understanding-a-test-failure" id="toc-understanding-a-test-failure" class="nav-link" data-scroll-target="#understanding-a-test-failure"><span class="header-section-number">39.9</span> Understanding a test failure</a></li>
-  <li><a href="#answers-question-50-xp" id="toc-answers-question-50-xp" class="nav-link" data-scroll-target="#answers-question-50-xp">Answers question <code>50 XP</code></a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Developing_R_Packages_C4.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Sampling_in_R_C4.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></h1>
+<h1 class="title"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Bootstrap Distributions</span></h1>
 </div>
 
 
@@ -666,242 +656,252 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="setting-up-the-test-structure" class="level2" data-number="39.1">
-<h2 data-number="39.1" class="anchored" data-anchor-id="setting-up-the-test-structure"><span class="header-section-number">39.1</span> Setting up the test structure</h2>
-<p>You can set up a test framework in a package using the function use_testthat().</p>
-<p>This will create a tests directory that contains:</p>
-<blockquote class="blockquote">
-<ul>
-<li>A script testthat.R.</li>
-<li>A directory testthat.</li>
-</ul>
-</blockquote>
-<p>You save your tests in the tests/testthat/ directory in files with filenames beginning with test-. So, for example, the simutils package has tests named:</p>
-<blockquote class="blockquote">
-<ul>
-<li>test-na_counter.R</li>
-<li>test-sample_from_data.R</li>
-</ul>
-</blockquote>
-<p>There are no other strict rules governing the filenames, but you may find it easier to keep track of which functions you are testing if you name your tests after the functions like in the examples above. Alternatively, you can name your tests after areas of package functionality, for example, putting tests for multiple summary functions in test-summaries.R.</p>
+<section id="generating-a-bootstrap-distribution" class="level2" data-number="55.1">
+<h2 data-number="55.1" class="anchored" data-anchor-id="generating-a-bootstrap-distribution"><span class="header-section-number">55.1</span> Generating a bootstrap distribution</h2>
+<p>The process for generating a bootstrap distribution is remarkably similar to the process for generating a sampling distribution; only the first step is different.</p>
+<p>To make a sampling distribution, you start with the population and sample without replacement. To make a bootstrap distribution, you start with a sample and sample that with replacement. After that, the steps are the same: calculate the summary statistic that you are interested in on that sample/resample, then replicate the process many times. In each case, you can visualize the distribution with a histogram.</p>
+<p>Here, spotify_sample is a subset of the spotify_population dataset. To make it easier to see how resampling works, a row ID column has been added, and only the artist name, song name, and danceability columns have been included.</p>
+<p>spotify_sample is available; dplyr and ggplot2 are loaded.</p>
 </section>
 <section id="instructions-100-xp" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Set up the test framework for your datasummary package.</li>
-<li>Look at the contents of the package root directory.</li>
-<li>Look at the contents of the new folder which has been created.</li>
+<li><p>Generate a single bootstrap resample from spotify_sample</p></li>
+<li><p>Summarize to calculate the mean danceability of spotify_1_resample as mean_danceability, then pull out this value to get a numeric vector of length 1.</p></li>
+<li><p>Replicate the expression provided 1000 times.</p></li>
+<li><p>Store mean_danceability_1000 in a tibble, in a column named resample_mean.</p></li>
+<li><p>Using bootstrap_distn, draw a histogram of the resample_means with binwidth 0.002.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E1.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the test framework</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_testthat</span>(<span class="st">"datasummary"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the contents of the package root directory</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="st">"datasummary"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the contents of the new folder which has been created </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dir</span>(<span class="st">"datasummary/tests"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate 1 bootstrap resample</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>spotify_1_resample <span class="ot">&lt;-</span> spotify_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>spotify_1_resample</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># From previous step</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>spotify_1_resample <span class="ot">&lt;-</span> spotify_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean danceability of resample</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>mean_danceability_1 <span class="ot">&lt;-</span> spotify_1_resample <span class="sc">%&gt;%</span> </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_danceability =</span> <span class="fu">mean</span>(danceability)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_danceability)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>mean_danceability_1</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Replicate this 1000 times</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>mean_danceability_1000 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1000</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">expr =</span> {</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    spotify_1_resample <span class="ot">&lt;-</span> spotify_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    spotify_1_resample <span class="sc">%&gt;%</span> </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">mean_danceability =</span> <span class="fu">mean</span>(danceability)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pull</span>(mean_danceability)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>mean_danceability_1000</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># From previous steps</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>mean_danceability_1000 <span class="ot">&lt;-</span> <span class="fu">load_step_4</span>()</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the resamples in a tibble</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>bootstrap_distn <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">resample_mean =</span> mean_danceability_1000</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw a histogram of the resample means with binwidth 0.002</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bootstrap_distn, <span class="fu">aes</span>(resample_mean)) <span class="sc">+</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.002</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="writing-an-individual-test" class="level2" data-number="39.2">
-<h2 data-number="39.2" class="anchored" data-anchor-id="writing-an-individual-test"><span class="header-section-number">39.2</span> Writing an individual test</h2>
-<p>You create individual tests within your test files using functions named with the pattern expect_* . To make your code easier to read, you may want to create the object to be tested (and/or the expected value, if there is one) before you call the expect_* function.</p>
-<p>Here is one of the tests from the simutils package.</p>
-<blockquote class="blockquote">
-<p>air_expected &lt;- c(Ozone = 37, Solar.R = 7, Wind = 0, Temp = 0, Month = 0, Day = 0)</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>expect_equal(na_counter(airquality), air_expected)</p>
-</blockquote>
-<p>The expect_* functions differ in the number of parameters, but the first parameter is always the object being tested.</p>
-<p>When you run your tests, you might notice that there is no output. You will only see an output message if the test has failed.</p>
+<section id="sampling-distribution-vs.-bootstrap-distribution" class="level2" data-number="55.2">
+<h2 data-number="55.2" class="anchored" data-anchor-id="sampling-distribution-vs.-bootstrap-distribution"><span class="header-section-number">55.2</span> Sampling distribution vs.&nbsp;bootstrap distribution</h2>
+<p>The sampling distribution and bootstrap distribution are closely linked. In situations where you can repeatedly sample from a population (these occasions are rare) and as you learn about both, it’s helpful to generate both the sampling distribution and the bootstrap distribution, one after the other, to see how they are related.</p>
+<p>Here, the statistic you are interested in is the mean popularity score of the songs.</p>
+<p>spotify_population (the whole dataset) and spotify_sample (500 rows only representing an original sample) are available; dplyr is loaded.</p>
 </section>
 <section id="instructions-100-xp-1" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on iris and assign the result to iris_summary.</li>
-<li>Assign the number of rows in iris_summary to summary_rows.</li>
-<li>Use the function expect_equal() to test whether the result of calling data_summary() on the iris dataset returns 4 rows.</li>
+<li><p>Generate a sampling distribution of 2000 replicates. Sample 500 rows of the population without replacement. Calculate the statistic of interest (the mean popularity) in the column mean_popularity. Pull out the statistic so it is a single numeric value (not a tibble).</p></li>
+<li><p>Generate a bootstrap distribution of 2000 replicates. Sample 500 rows of the sample with replacement. Calculate the statistic of interest (the mean popularity) in the column mean_popularity. Pull out the statistic so it is a single numeric value (not a tibble).</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E2.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a summary of the iris dataset using your data_summary() function</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>iris_summary <span class="ot">&lt;-</span> <span class="fu">data_summary</span>(iris)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Count how many rows are returned</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>summary_rows <span class="ot">&lt;-</span> <span class="fu">nrow</span>(iris_summary) </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use expect_equal to test that calling data_summary() on iris returns 4 rows</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(summary_rows, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a sampling distribution</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mean_popularity_2000_samp <span class="ot">&lt;-</span> <span class="fu">replicate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use 2000 replicates</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">2000</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">expr =</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Start with the population</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    spotify_population <span class="sc">%&gt;%</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Sample 500 rows without replacement</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Calculate the mean popularity as mean_popularity</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">mean_popularity =</span> <span class="fu">mean</span>(popularity)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Pull out the mean popularity</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pull</span>(mean_popularity)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>mean_popularity_2000_samp</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a bootstrap distribution</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>mean_popularity_2000_boot <span class="ot">&lt;-</span> <span class="fu">replicate</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use 2000 replicates</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">2000</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">expr =</span> {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Start with the sample</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    spotify_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Sample same number of rows with replacement</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">slice_sample</span>(<span class="at">prop =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Calculate the mean popularity</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(<span class="at">mean_popularity =</span> <span class="fu">mean</span>(popularity)) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Pull out the mean popularity</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">pull</span>(mean_popularity)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>mean_popularity_2000_boot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-for-equality" class="level2" data-number="39.3">
-<h2 data-number="39.3" class="anchored" data-anchor-id="testing-for-equality"><span class="header-section-number">39.3</span> Testing for equality</h2>
-<p>You can use expect_equal(), expect_equivalent() and expect_identical() in order to test whether the output of a function is as expected.</p>
-<p>These three functions all have slightly different functionality:</p>
-<p>expect_identical() checks that the values, attributes, and type of both objects are the same. expect_equal() checks that the values, and attributes of both objects are the same. You can adjust how strict expect_equal() is by adjusting the tolerance parameter. expect_equivalent() checks that the values, of both objects are the same.</p>
+<section id="compare-sampling-and-bootstrap-means" class="level2" data-number="55.3">
+<h2 data-number="55.3" class="anchored" data-anchor-id="compare-sampling-and-bootstrap-means"><span class="header-section-number">55.3</span> Compare sampling and bootstrap means</h2>
+<p>To make calculation easier, the distributions from the previous exercise have been included in tibbles. mean_popularity_2000_samp is in the sample_mean column of sampling_distribution, and mean_popularity_2000_boot is in the resample_mean column of bootstrap_distribution.</p>
+<p>spotify_population, spotify_sample, sampling_distribution, and bootstrap_distribution are available; dplyr is loaded.</p>
 </section>
 <section id="instructions-100-xp-2" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Update the first test below so that the test passes; do this by adjusting the tolerance parameter.</li>
-<li>Write a test comparing expected_result and result which does not produce an error.</li>
+<li><p>Calculate the mean popularity with summarize() in 4 ways.</p></li>
+<li><p>Population: from spotify_population, take the mean of popularity.</p></li>
+<li><p>Sample: from spotify_sample, take the mean of popularity.</p></li>
+<li><p>Sampling distribution: from sampling_distribution, take the mean of sample_mean.</p></li>
+<li><p>Bootstrap distribution: from bootstrap_distribution, take the mean of resample_mean.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E3.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">data_summary</span>(weather)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Update this test so it passes</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(result<span class="sc">$</span>sd, <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">3.6</span>), <span class="at">tolerance =</span> <span class="fl">0.1</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>expected_result <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID =</span> <span class="fu">c</span>(<span class="st">"Day"</span>, <span class="st">"Temp"</span>),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">min =</span> <span class="fu">c</span>(1L, 14L),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">c</span>(4L, 19L),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">c</span>(<span class="fl">2.16024689946929</span>, <span class="fl">3.65148371670111</span>),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">max =</span> <span class="fu">c</span>(7L, 24L)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Write a passing test that compares expected_result to result</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equivalent</span>(result, expected_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the true population mean popularity</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>pop_mean <span class="ot">&lt;-</span> spotify_population <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(popularity))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the original sample mean popularity</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>samp_mean <span class="ot">&lt;-</span> spotify_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(popularity))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the sampling dist'n estimate of mean popularity</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>samp_distn_mean <span class="ot">&lt;-</span> sampling_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(sample_mean))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the bootstrap dist'n estimate of mean popularity</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>boot_distn_mean <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(resample_mean))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># See the results</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">pop =</span> pop_mean, <span class="at">samp =</span> samp_mean, <span class="at">samp_distn =</span> samp_distn_mean, <span class="at">boot_distn =</span> boot_distn_mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="testing-errors" class="level2" data-number="39.4">
-<h2 data-number="39.4" class="anchored" data-anchor-id="testing-errors"><span class="header-section-number">39.4</span> Testing errors</h2>
-<p>You can use expect_error() to test if running a function returns an error. If the function returns an error, the test will pass, otherwise, it will fail. You can optionally define the error message that should be returned to ensure that you are testing for the correct error.</p>
+<section id="compare-sampling-and-bootstrap-standard-deviations" class="level2" data-number="55.4">
+<h2 data-number="55.4" class="anchored" data-anchor-id="compare-sampling-and-bootstrap-standard-deviations"><span class="header-section-number">55.4</span> Compare sampling and bootstrap standard deviations</h2>
+<p>In the same way that you looked at how the sampling distribution and bootstrap distribution could be used to estimate the population mean, you’ll now take a look at how they can be used to estimate variation, or more specifically, the standard deviation, in the population.</p>
+<p>spotify_population, spotify_sample, sampling_distribution, and bootstrap_distribution are available; dplyr is loaded.</p>
 </section>
 <section id="instructions-100-xp-3" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on my_vector.</li>
-<li>Pick an appropriate expect_*() function such that when you call data_summary() on my_vector again, the test passes.</li>
+<li><p>Calculate the standard deviation of popularity with summarize() in 4 ways.</p></li>
+<li><p>Population: from spotify_population, take the standard deviation of popularity.</p></li>
+<li><p>Original sample: from spotify_sample, take the standard deviation of popularity.</p></li>
+<li><p>Sampling distribution: from sampling_distribution, take the standard deviation of sample_mean and multiply by the square root of the sample size (500).</p></li>
+<li><p>Bootstrap distribution: from bootstrap_distribution, take the standard deviation of resample_mean and multiply by the square root of the sample size.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E4.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector containing the numbers 1 through 10</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at what happens when we apply this vector as an argument to data_summary()</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data_summary</span>(my_vector)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test if running data_summary() on this vector returns an error</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_error</span>(<span class="fu">data_summary</span>(my_vector))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the true population std dev popularity</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pop_sd <span class="ot">&lt;-</span> spotify_population <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">sd</span>(popularity))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the original sample std dev popularity</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>samp_sd <span class="ot">&lt;-</span> spotify_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">sd</span>(popularity))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the sampling dist'n estimate of std dev popularity</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>samp_distn_sd <span class="ot">&lt;-</span> sampling_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">sd</span>(sample_mean) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">500</span>))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the bootstrap dist'n estimate of std dev popularity</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>boot_distn_sd <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">sd</span>(resample_mean) <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">500</span>))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># See the results</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">pop =</span> pop_sd, <span class="at">samp =</span> samp_sd, <span class="at">sam_distn =</span> samp_distn_sd, <span class="at">boot_distn =</span> boot_distn_sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="testing-warnings" class="level2" data-number="39.5">
-<h2 data-number="39.5" class="anchored" data-anchor-id="testing-warnings"><span class="header-section-number">39.5</span> Testing warnings</h2>
-<p>You can use expect_warning() to test if the output of a function also returns a warning. If the function returns a warning, the test will pass, otherwise, it will fail. You can optionally define the warning message that should be returned to ensure that you are testing for the correct warning.</p>
-<p>Your data_summary() function has been updated to issue a warning if na.rm is set to FALSE and if the data contains missing values.</p>
+<p>##Calculating confidence intervals</p>
+<p>We can use the cumulative distribution function and its inverse to calculate confidence intervals in R. You’ll do so with the Spotify data now.</p>
 </section>
 <section id="instructions-100-xp-4" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
 <ul>
-<li>Call data_summary() on airquality dataset with na.rm set to FALSE and see what happens.</li>
-<li>Pick an appropriate expect_*() function such that when you call data_summary() on airquality with na.rm set to FALSE again, the test passes.</li>
+<li><p>Generate a 95% confidence interval using the quantile method.</p></li>
+<li><p>Summarize to get the 0.025 quantile as lower, and the 0.975 quantile as upper.</p></li>
+<li><p>Generate a 95% confidence interval using the standard error method.</p></li>
+<li><p>Calculate point_estimate as the mean of resample_mean, and standard_error as the standard deviation of resample_mean.</p></li>
+<li><p>Calculate lower as the 0.025 quantile of an inv. CDF from a normal distribution with mean point_estimate and standard deviation standard_error.</p></li>
+<li><p>Calculate upper as the 0.975 quantile of that same inv. CDF.</p></li>
 </ul>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>E5.R</strong></pre>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run data_summary on the airquality dataset with na.rm set to FALSE</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use expect_warning to formally test this</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_warning</span>(<span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a 95% confidence interval using the quantile method</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>conf_int_quantile <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">quantile</span>(resample_mean, <span class="fl">0.025</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">quantile</span>(resample_mean, <span class="fl">0.975</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>conf_int_quantile</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a 95% confidence interval using the std error method</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>conf_int_std_error <span class="ot">&lt;-</span> bootstrap_distribution <span class="sc">%&gt;%</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">point_estimate =</span> <span class="fu">mean</span>(resample_mean),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">standard_error =</span> <span class="fu">sd</span>(resample_mean),</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>, point_estimate, standard_error),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>, point_estimate, standard_error)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># See the result</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>conf_int_std_error</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="testing-non-exported-functions" class="level2" data-number="39.6">
-<h2 data-number="39.6" class="anchored" data-anchor-id="testing-non-exported-functions"><span class="header-section-number">39.6</span> Testing non-exported functions</h2>
-<p>As only exported functions are loaded when tests are being run, you can test non-exported functions by referring to them using the package name, followed by three colons, and then the function name.</p>
-</section>
-<section id="instructions-100-xp-5" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
-<ul>
-<li>Call the non-exported function numeric_summary() on the Temp column of the weather dataset and assign it to result.</li>
-<li>Pick an appropriate expect_*() function which tests expected and result are exactly equal.</li>
-</ul>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>E6.R</strong></pre>
-</div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected result</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">min =</span> 14L, <span class="at">median =</span> 19L, <span class="at">sd =</span> <span class="fl">3.65148371670111</span>, <span class="at">max =</span> 24L)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable result by calling numeric summary on the temp column of the weather dataset</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> datasummary<span class="sc">:::</span><span class="fu">numeric_summary</span>(weather<span class="sc">$</span>Temp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test that the value returned matches the expected value</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">expect_equal</span>(result, expected)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="grouping-tests" class="level2" data-number="39.7">
-<h2 data-number="39.7" class="anchored" data-anchor-id="grouping-tests"><span class="header-section-number">39.7</span> Grouping tests</h2>
-<p>So far, you’ve been using expect_*() functions to create individual tests. To run tests in packages you need to group these individual tests together. You do this using a function test_that(). You can use this to group together expectations that test specific functionality.</p>
-<p>You can use context() to collect these groups together. You usually have one context per file. An advantage of doing this is that it makes it easier to work out where failing tests are located.</p>
-</section>
-<section id="instructions-100-xp-6" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-6">Instructions <code>100 XP</code></h2>
-<ul>
-<li>Use context() to set the context to “Test data_summary()”.</li>
-<li>Use test_that() to group the tests below together, giving them the description “data_summary() handles errors correctly”.</li>
-</ul>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>E7.R</strong></pre>
-</div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use context() and test_that() to group the tests below together</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">context</span>(<span class="st">"Test data_summary()"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"data_summary() handles errors correctly"</span>, {</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a vector</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  my_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use expect_error()</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_error</span>(<span class="fu">data_summary</span>(my_vector))</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use expect_warning()</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_warning</span>(<span class="fu">data_summary</span>(airquality, <span class="at">na.rm =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="executing-unit-tests" class="level2" data-number="39.8">
-<h2 data-number="39.8" class="anchored" data-anchor-id="executing-unit-tests"><span class="header-section-number">39.8</span> Executing unit tests</h2>
-<p>With your tests scripts saved in the package structure you can always easily re-run your tests using the test() function in devtools. This function looks for all tests located in the tests/testhat or inst/tests directory with filenames beginning with test- and ending in .R, and executes each of them. As with the other devtools functions, you supply the path to the package as the first argument to the test() function.</p>
-</section>
-<section id="instructions-100-xp-7" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-7">Instructions <code>100 XP</code></h2>
-<p>Run the tests on the datasummary package.</p>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>E8.R</strong></pre>
-</div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the tests on the datasummary package</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(<span class="st">"datasummary"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="understanding-a-test-failure" class="level2" data-number="39.9">
-<h2 data-number="39.9" class="anchored" data-anchor-id="understanding-a-test-failure"><span class="header-section-number">39.9</span> Understanding a test failure</h2>
-<p>In the video, we talked about a number of things you can do if you find a failing test, such as updating the test or changing the function. But, what’s the first thing you should do if you find a failing test?</p>
-</section>
-<section id="answers-question-50-xp" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="answers-question-50-xp">Answers question <code>50 XP</code></h2>
-<ul>
-<li><p>Update the test so it passes</p></li>
-<li><p>Update the R code so the test passes</p></li>
-<li><p>Work out the source of the test failure Respuesta</p></li>
-<li><p>Bang your head against your desk</p></li>
-</ul>
 
 
 </section>
@@ -1142,14 +1142,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./Developing_R_Packages_C3.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Checking and Building R Packages</span></span>
+      <a href="./Sampling_in_R_C3.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./Introduction_to_Statistics_in_R_C1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Summary Statistics</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

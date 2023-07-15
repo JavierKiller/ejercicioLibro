@@ -1,0 +1,199 @@
+---
+title: "Introduction to Sampling"
+---
+
+## Simple sampling with dplyr
+
+Throughout this chapter you'll be exploring song data from Spotify. Each row of the dataset represents a song, and there are 41656 rows. Columns include the name of the song, the artists who performed it, the release year, and attributes of the song like its duration, tempo, and danceability. We'll start by looking at the durations.
+
+Your first task is to sample the song dataset and compare a calculation on the whole population and on a sample.
+
+spotify_population is available and dplyr is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Use View() to view the spotify_population dataset. Explore it in the viewer until you are clear on what it contains.
+* Use dplyr to sample 1000 rows from spotify_population, assigning to spotify_sample.
+
+* Using the spotify_population dataset, calculate the mean duration in minutes. Call the calculated column mean_dur.
+* Using the spotify_sample dataset, perform the same calculation in another column called mean_dur.
+* Look at the two values. How different are they?
+
+``` {.r filename="E1.R"}
+# View the whole population dataset
+spotify_population
+
+# Sample 1000 rows from spotify_population
+spotify_sample <- slice_sample(spotify_population, n = 1000)
+
+# See the result
+spotify_sample
+
+
+
+# From previous step
+spotify_sample <- spotify_population %>% 
+  slice_sample(n = 1000)
+
+# Calculate the mean duration in mins from spotify_population
+mean_dur_pop <- spotify_population %>% 
+  summarize(mean_dur = mean(duration_minutes))
+
+# Calculate the mean duration in mins from spotify_sample
+mean_dur_samp <- spotify_sample %>% 
+  summarize(mean_dur = mean(duration_minutes))
+
+# See the results
+mean_dur_pop
+mean_dur_samp
+```
+
+## Simple sampling with base-R
+
+While dplyr provides great tools for sampling data frames, if you want to work with vectors you can use base-R.
+
+Let's turn it up to eleven and look at the loudness property of each song.
+
+spotify_population is available.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Get the loudness column of spotify_population, assigning to loudness_pop.
+* Using base-R, sample loudness_pop to get 100 random values, assigning to loudness_samp.
+
+* Calculate the standard deviation of loudness_pop.
+* Calculate the standard deviation of loudness_samp.
+* Look at the two values. How different are they?
+
+``` {.r filename="E2.R"}
+# Get the loudness column of spotify_population
+loudness_pop <- spotify_population$loudness
+
+# Sample 100 values of loudness_pop
+loudness_samp <- sample(loudness_pop, size = 100)
+
+# See the results
+loudness_samp
+
+
+
+# From previous step
+loudness_pop <- spotify_population$loudness
+loudness_samp <- sample(loudness_pop, size = 100)
+
+# Calculate the standard deviation of loudness_pop
+sd_loudness_pop <- sd(loudness_pop)
+
+# Calculate the standard deviation of loudness_samp
+sd_loudness_samp <- sd(loudness_samp)
+
+# See the results
+sd_loudness_pop
+sd_loudness_samp
+```
+
+## Are findings from the sample generalizable?
+
+You just saw how convenience sampling—collecting data via the easiest method can result in samples that aren't representative of the whole population. Equivalently, this means findings from the sample are not generalizable to the whole population. Visualizing the distributions of the population and the sample can help determine whether or not the sample is representative of the population.
+
+The Spotify dataset contains a column named acousticness, which is a confidence measure from zero to one of whether the track is acoustic, that is, it was made with instruments that aren't plugged in. Here, you'll look at acousticness in the total population of songs, and in a sample of those songs.
+
+spotify_population and spotify_mysterious_sample are available; dplyr and ggplot2 are loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Using spotify_population, draw a histogram of acousticness with binwidth of 0.01.
+
+* Update the histogram code to use the spotify_mysterious_sample dataset.
+* Set the x-axis limits from zero to one (for easier comparison with the previous plot).
+
+``` {.r filename="E3.R"}
+# Visualize the distribution of acousticness as a histogram with a binwidth of 0.01
+ggplot(data = spotify_population, aes(x = acousticness)) +
+geom_histogram(binwidth = 0.01)
+
+
+
+# Update the histogram to use spotify_mysterious_sample with x-axis limits from 0 to 1
+ggplot(spotify_mysterious_sample, aes(acousticness)) +
+  geom_histogram(binwidth = 0.01)+
+  xlim(0:1)
+```
+
+## Are these findings generalizable?
+
+Let's look at another sample to see if it is representative of the population. This time, you'll look at the duration_minutes column of the Spotify dataset, which contains the length of the song in minutes.
+
+spotify_population and spotify_mysterious_sample2 are available; dplyr and ggplot2 are loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Using spotify_population, draw a histogram of duration_minutes with binwidth of 0.5.
+
+* Update the histogram code to use the spotify_mysterious_sample2 dataset.
+* Set the x-axis limits from zero to fifteen (for easier comparison with the previous plot).
+
+``` {.r filename="E4.R"}
+# Visualize the distribution of duration_minutes as a histogram with a binwidth of 0.5
+ggplot(spotify_population, aes(duration_minutes)) +
+  geom_histogram(binwidth = 0.5)
+  
+  
+
+# Update the histogram to use spotify_mysterious_sample2 with x-axis limits from 0 to 15
+ggplot(spotify_mysterious_sample2, aes(duration_minutes)) +
+  geom_histogram(binwidth = 0.01) +
+  xlim(0, 15)
+
+```
+
+## Generating random numbers
+
+You've seen sample() and it's dplyr cousin, slice_sample() for generating pseudo-random numbers from a set of values. A related task is to generate random numbers that follow a statistical distribution, like the uniform distribution or the normal distribution.
+
+Each random number generation function has a name beginning with "r". It's first argument is the number of numbers to generate, but other arguments are distribution-specific. Free hint: Try args(runif) and args(rnorm) to see what arguments you need to pass to those functions.
+
+n_numbers is available and set to 5000; ggplot2 is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+* Complete the data frame of random numbers.
+  -Generate n_numbers from a uniform distribution ranging from -3 to 3.
+  -Generate n_numbers from a normal distribution with mean 5 and standard deviation 2.
+
+* Using randoms, plot a histogram of the uniform column, using binwidth 0.25.
+
+* Using randoms, plot a histogram of the normal column, using binwidth 0.5.
+
+``` {.r filename="E5.R"}
+# Generate random numbers from ...
+randoms <- data.frame(
+  # a uniform distribution from -3 to 3
+  uniform = runif(n_numbers, min = -3, max = 3),
+  # a normal distribution with mean 5 and sd 2
+  normal = rnorm(n_numbers, mean = 5, sd = 2)
+)
+
+
+# From previous step
+randoms <- data.frame(
+  uniform = runif(n_numbers, min = -3, max = 3),
+  normal = rnorm(n_numbers, mean = 5, sd = 2)
+)
+
+# Plot a histogram of uniform values, binwidth 0.25
+ggplot(randoms, aes(uniform)) +
+  geom_histogram(binwidth = 0.25)
+  
+
+
+# From previous step
+randoms <- data.frame(
+  uniform = runif(n_numbers, min = -3, max = 3),
+  normal = rnorm(n_numbers, mean = 5, sd = 2)
+)
+
+# Plot a histogram of normal values, binwidth 0.5
+ggplot(randoms, aes(normal)) +
+  geom_histogram(binwidth = 0.5)
+```
