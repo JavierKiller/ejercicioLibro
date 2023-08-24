@@ -1,0 +1,84 @@
+---
+title: "Non-Parametric Tests"
+---
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E1.R"}
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E2.R"}
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E3.R"}
+```
+
+## A
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E4.R"}
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E5.R"}
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E6.R"}
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E7.R"}
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E8.R"}
+```
+
+## 
+
+## Instructions `100 XP` {.unnumbered}
+
+-   
+
+``` {.r filename="E9.R"}
+```

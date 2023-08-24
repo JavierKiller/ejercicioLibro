@@ -96,6 +96,13 @@ book:
         - Sampling_in_R_C2.qmd 
         - Sampling_in_R_C3.qmd 
         - Sampling_in_R_C4.qmd  
+    - part: "Hypothesis Testing in R"
+      chapters:
+        - Hypothesis_Testing_in_R_C1.qmd 
+        - Hypothesis_Testing_in_R_C2.qmd 
+        - Hypothesis_Testing_in_R_C3.qmd 
+        - Hypothesis_Testing_in_R_C4.qmd  
+
 
 bibliography: references.bib
 

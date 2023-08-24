@@ -1,0 +1,267 @@
+---
+title: "Two-Sample and ANOVA Tests"
+---
+
+## Two sample mean test statistic
+
+The hypothesis test for determining if there is a difference between the means of two populations uses a different type of test statistic to the z-scores you saw in Chapter one. It's called "t", and can be calculated from three values from each sample using this equation.
+
+While trying to determine why some shipments are late, you may wonder if the weight of the shipments that were late is different from the weight of the shipments that were on time. The late_shipments dataset has been split into a "yes" group, where late == "Yes" and a "no" group where late == "No". The weight of the shipment is given in the weight_kilograms variable.
+
+For convenience, the sample means for the two groups are available as xbar_no and xbar_yes. The sample standard deviations are s_no and s_yes. The sample sizes are n_no and n_yes.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Calculate the numerator of the test statistic.
+- Calculate the denominator of the test statistic.
+- Use those two numbers to calculate the test statistic. 
+
+``` {.r filename="E1.R"}
+# Calculate the numerator of the test statistic
+numerator <- xbar_no - xbar_yes
+
+# Calculate the denominator of the test statistic
+denominator <- sqrt(s_no ^ 2 / n_no + s_yes ^ 2 / n_yes)
+
+# Calculate the test statistic
+t_stat <- numerator/denominator
+
+# See the result
+t_stat
+```
+
+## From t to p
+
+Previously, you calculated the test statistic for the two-sample problem of whether the mean weight of shipments is lower for shipments that weren't late (late == "No") compared to shipments that were late (late == "Yes"). In order to make decisions about it, you need to transform the test statistic with a cumulative distribution function to get a p-value.
+
+Recall the hypotheses:
+
+>H0 : The mean weight of shipments that weren't late is the same as the mean weight of shipments that were late.
+
+>HA: The mean weight of shipments that weren't late is less than the mean weight of shipments that were late.
+
+The test statistic, t_stat, is available, as are the samples sizes for each group, n_no and n_yes. Use a significance level of alpha = 0.05.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Calculate the degrees of freedom for the test.
+- Use the test statistic, t_stat, to calculate the p-value.
+
+``` {.r filename="E2.R"}
+# Calculate the degrees of freedom
+degrees_of_freedom <- n_no + n_yes - 2
+
+# Calculate the p-value from the test stat
+p_value <- pt(t_stat, df = degrees_of_freedom)
+
+# See the result
+p_value
+```
+
+## Visualizing the difference
+
+Before you start running hypothesis tests, it's a great idea to perform some exploratory data analysis. That is, calculating summary statistics and visualizing distributions.
+
+Here, you'll look at the proportion of county-level votes for the Democratic candidate in 2012 and 2016, dem_votes_potus_12_16. Since the counties are the same in both years, these samples are paired. The columns containing the samples are dem_percent_12 and dem_percent_16.
+
+dem_votes_potus_12_16 is available; dplyr and ggplot2 are loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+- View the dem_votes_potus_12_16 dataset.
+- Mutate dem_votes_potus_12_16 to add a diff column containing the percentage of votes for the democratic candidate in 2012 minus the votes for the democratic candidate in 2016.
+
+- Summarize sample_dem_data to calculate the mean of the diff column as xbar_diff and the standard deviation of that column as s_diff.
+
+- Using sample_dem_data, plot diff as a histogram with binwidth 1.
+``` {.r filename="E3.R"}
+# View the dem_votes_potus_12_16 dataset
+View(dem_votes_potus_12_16)
+
+# Calculate the differences from 2012 to 2016
+sample_dem_data <- dem_votes_potus_12_16 %>% 
+  mutate(diff = dem_percent_12 - dem_percent_16)
+
+# See the result
+sample_dem_data
+
+
+
+
+# From previous step
+sample_dem_data <- dem_votes_potus_12_16 %>% 
+  mutate(diff = dem_percent_12 - dem_percent_16)
+
+# Find mean and standard deviation of differences
+diff_stats <- sample_dem_data %>% 
+  summarize(
+    xbar_diff = mean(diff),
+    s_diff = sd(diff)
+  )
+
+# See the result
+diff_stats
+
+
+
+
+# From previous step
+sample_dem_data <- dem_votes_potus_12_16 %>% 
+  mutate(diff = dem_percent_12 - dem_percent_16)
+
+# Using sample_dem_data, plot diff as a histogram
+ggplot(sample_dem_data, aes(x = diff))+  geom_histogram(binwidth =1)
+```
+
+## Using t.test()
+
+Manually calculating test statistics and transforming them with a CDF to get a p-value is a lot of effort to do every time you need to compare two sample means. The comparison of two sample means is called a t-test, and R has a t.test() function to accomplish it. This function provides some flexibility in how you perform the test.
+
+As in the previous exercise, you'll explore the difference between the proportion of county-level votes for the Democratic candidate in 2012 and 2016.
+
+sample_dem_data is available, and has columns diff, dem_percent_12, and dem_percent_16.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Conduct a t-test on the sample differences (the diff column of sample_dem_data). Use an appropriate alternative hypothesis chosen from "two.sided", "less", and "greater".
+
+- Conduct a paired test on the democratic votes in 2012 and 2016 (the dem_percent_12 and dem_percent_16 columns of sample_dem_data). Use an appropriate alternative hypothesis.
+
+``` {.r filename="E4.R"}
+# Conduct a t-test on diff
+test_results <- t.test(# Vector of differences
+  sample_dem_data$diff,
+  # Choose between "two.sided", "less", "greater"
+    alternative = "greater")
+  
+
+# See the results
+test_results
+
+
+
+
+
+# Conduct a paired t-test on dem_percent_12 and dem_percent_16
+test_results <- t.test(
+    sample_dem_data$dem_percent_12,
+    sample_dem_data$dem_percent_16,
+    alternative ="greater",
+    #mu =0,
+    paired =TRUE
+      )
+
+# See the results
+test_results
+```
+
+## Visualizing many categories
+
+So far in this chapter, we've only considered the case of differences in a numeric variable between two categories. Of course, many datasets contain more categories. Before you get to conducting tests on many categories, it's often helpful to perform exploratory data analysis. That is, calculating summary statistics for each group and visualizing the distributions of the numeric variable for each category using box plots.
+
+Here, we'll return to the late shipments data, and how the price of each package (pack_price) varies between the three shipment modes (shipment_mode): "Air", "Air Charter", and "Ocean".
+
+late_shipments is available; dplyr and ggplot2 are loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the late_shipments dataset, group by shipment_mode.
+- Summarize to calculate the mean of pack_price as xbar_pack_price and the standard deviation of pack_price as s_pack_price.
+
+- Using late_shipments, plot pack_price versus shipment_mode as a box plot with flipped x and y coordinates.
+
+``` {.r filename="E5.R"}
+# Using late_shipments, group by shipment mode, and calculate the mean and std dev of pack price
+group_by(late_shipments, shipment_mode) %>%
+  summarize(
+    xbar_pack_price = mean(pack_price),
+     s_pack_price = sd(pack_price))
+
+
+
+
+
+# Using late_shipments, plot pack_price vs. shipment_mode
+# as a box plot with flipped x and y coordinates
+late_shipments %>%
+  ggplot(aes(x = shipment_mode,
+   y = pack_price))+ 
+    geom_boxplot()+ 
+     coord_flip()
+
+  
+```
+
+## Conducting an ANOVA test
+
+The box plots made it look like the distribution of pack price was different for each of the three shipment modes. However, it didn't tell us whether the mean pack price was different in each category. To determine that, we can use an ANOVA test. The null and alternative hypotheses can be written as follows.
+
+: Pack prices for every category of shipment mode are the same. 
+: Pack prices for some categories of shipment mode are different.
+
+We'll set a significance level of 0.1.
+
+late_shipments is available.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Run a linear regression of pack_price versus shipment_mode using the late_shipments dataset. The formula takes the form response ~ explanatory.
+
+- Perform ANOVA on mdl_pack_price_vs_shipment_mode.
+
+``` {.r filename="E6.R"}
+# Run a linear regression of pack price vs. shipment mode 
+mdl_pack_price_vs_shipment_mode <- lm(pack_price ~ shipment_mode,
+ data = late_shipments)
+
+# See the results
+summary(mdl_pack_price_vs_shipment_mode)
+
+
+
+# From previous step
+mdl_pack_price_vs_shipment_mode <- lm(
+    pack_price ~ shipment_mode,
+     data = late_shipments
+     )
+
+# Perform ANOVA on the regression model
+anova(mdl_pack_price_vs_shipment_mode)
+```
+
+## Pairwise t-tests
+
+The ANOVA test didn't tell us which categories of shipment mode had significant differences in pack prices. To pinpoint which categories had differences, we could instead use pairwise t-tests.
+
+late_shipments is available.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Perform pairwise t-tests on late_shipments's pack_price variable, grouped by shipment_mode. Don't do any p-value adjustment, and keep the default "two.sided" alternative hypothesis specification.
+
+- Modify the pairwise t-tests to use Bonferroni p-value adjustment.
+
+``` {.r filename="E7.R"}
+# Perform pairwise t-tests on pack price, grouped by shipment mode, no p-value adjustment
+test_results <- pairwise.t.test(
+  late_shipments$pack_price,
+  late_shipments$shipment_mode,
+  p.adjust.method = "none"
+)
+
+# See the results
+test_results
+
+
+
+
+# Modify the pairwise t-tests to use Bonferroni p-value adjustment
+test_results <- pairwise.t.test(
+  late_shipments$pack_price,
+  late_shipments$shipment_mode,
+  p.adjust.method = "bonferroni"
+)
+
+# See the results
+test_results
+```

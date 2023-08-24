@@ -7460,5 +7460,495 @@
     "title": "55  Bootstrap Distributions",
     "section": "55.4 Compare sampling and bootstrap standard deviations",
     "text": "55.4 Compare sampling and bootstrap standard deviations\nIn the same way that you looked at how the sampling distribution and bootstrap distribution could be used to estimate the population mean, you’ll now take a look at how they can be used to estimate variation, or more specifically, the standard deviation, in the population.\nspotify_population, spotify_sample, sampling_distribution, and bootstrap_distribution are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#test-for-single-proportions",
+    "href": "Hypothesis_Testing_in_R_C3.html#test-for-single-proportions",
+    "title": "58  Proportion Tests",
+    "section": "58.1 Test for single proportions",
+    "text": "58.1 Test for single proportions\nIn Chapter 1, you calculated a p-value for a test hypothesizing that the proportion of late shipments was greater than 6%. In that chapter, you used a bootstrap distribution to estimate the standard error of the statistic. A simpler alternative is to use an equation for the standard error based on the sample proportion, hypothesized proportion, and sample size.\nLet’s revisit the p-value using this simpler calculation.\nlate_shipments is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nHypothesize that the proportion of late shipments is 6%.\nCalculate the sample proportion of shipments where late equals “Yes” as prop_late, and pull out the value to get a numeric value.\nCalculate the number of observations in the sample.\nCalculate the numerator of the z-score as the difference between the sample proportion and the hypothesized proportion.\nCalculate the denominator of the z-score as the sample proportion times one minus the sample proportion, divided by the sample size, all square rooted.\nCalculate the z-score as the ratio of these numbers.\nTransform the z-score into a p-value, remembering that this is a “greater than” alternative hypothesis.\n\n\n\nE1.R\n\n# Hypothesize that the proportion of late shipments is 6%\np_0 &lt;- 0.06\n\n# Calculate the sample proportion of late shipments\np_hat &lt;- late_shipments %&gt;%\nsummarize(prop_late = mean(late == \"Yes\")) %&gt;%\npull(prop_late)\n\n# Calculate the sample size\nn &lt;- nrow(late_shipments)\n\n\n\n# From previous step\np_0 &lt;- 0.06\np_hat &lt;- late_shipments %&gt;%\n  summarize(prop_late = mean(late == \"Yes\")) %&gt;%\n  pull(prop_late)\nn &lt;- nrow(late_shipments)\n\n# Calculate the numerator of the test statistic\nnumerator &lt;- p_hat - p_0\n\n# Calculate the denominator of the test statistic\ndenominator &lt;- sqrt(p_0 * (1 - p_0) / n)\n\n# Calculate the test statistic\nz_score &lt;- numerator / denominator\n\n# See the result\nz_score \n\n\n\n\n# From previous step\np_0 &lt;- 0.06\np_hat &lt;- late_shipments %&gt;%\n  summarize(prop_late = mean(late == \"Yes\")) %&gt;%\n  pull(prop_late)\nn &lt;- nrow(late_shipments)\nnumerator &lt;- p_hat - p_0\ndenominator &lt;- sqrt(p_0 * (1 - p_0) / n)\nz_score &lt;- numerator / denominator\n\n# Calculate the p-value from the z-score\np_value &lt;-  pnorm(z_score, lower.tail = FALSE)\n\n# See the result\np_value"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#section",
+    "href": "Hypothesis_Testing_in_R_C3.html#section",
+    "title": "58  Proportion Tests",
+    "section": "58.2 ",
+    "text": "58.2"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-1",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-1",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate the pooled sample proportion, p hat, as the mean of p_hats weighted by ns. Use weighted.mean() or arithmetic with this equation.\nCalculate the standard error of the sample.\nCalculate the pooled sample proportion times one minus the pooled sample proportion.\nDivide p_hat_times_not_p_hat by the sample sizes.\nCalculate the square root of the sum of p_hat_times_not_p_hat_over_ns.\nCalculate the z-score. Use the following equation. You’ll need square bracket indexing to access elements of p_hats.\nCalculate the p-value from the z-score.\n\n\n\nE2.R\n\n# See the sample variables\nprint(p_hats)\nprint(ns)\n\n# Calculate the pooled estimate of the population proportion\np_hat &lt;- weighted.mean(p_hats, ns)\n\n# See the result\np_hat\n\n\n\n\n# From previous step\np_hat &lt;- weighted.mean(p_hats, ns)\n\n# Calculate sample prop'n times one minus sample prop'n\np_hat_times_not_p_hat &lt;- p_hat * (1 - p_hat)\n\n# Divide this by the sample sizes\np_hat_times_not_p_hat_over_ns &lt;- p_hat_times_not_p_hat / ns\n\n# Calculate std. error\nstd_error &lt;- sqrt(sum(p_hat_times_not_p_hat_over_ns))\n\n# See the result\nstd_error\n\n\n\n\n# From previous steps\np_hat &lt;- weighted.mean(p_hats, ns)\np_hat_times_not_p_hat &lt;- p_hat * (1 - p_hat)\np_hat_times_not_p_hat_over_ns &lt;- p_hat_times_not_p_hat / ns\nstd_error &lt;- sqrt(sum(p_hat_times_not_p_hat_over_ns))\n\n# Calculate the z-score\nz_score &lt;- (p_hats[\"expensive\"] - p_hats[\"reasonable\"]) / std_error\n\n# See the result\nz_score\n\n\n\n\n# From previous steps\np_hat &lt;- weighted.mean(p_hats, ns)\np_hat_times_not_p_hat &lt;- p_hat * (1 - p_hat)\np_hat_times_not_p_hat_over_ns &lt;- p_hat_times_not_p_hat / ns\nstd_error &lt;- sqrt(sum(p_hat_times_not_p_hat_over_ns))\nz_score &lt;- (p_hats[\"expensive\"] - p_hats[\"reasonable\"]) / std_error\n\n# Calculate the p-value from the z-score\np_value &lt;- pnorm(z_score, lower.tail = FALSE)\n\n# See the result\np_value"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#section-1",
+    "href": "Hypothesis_Testing_in_R_C3.html#section-1",
+    "title": "58  Proportion Tests",
+    "section": "58.3 ",
+    "text": "58.3"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-2",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-2",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, use prop_test() to perform a proportion test appropriate to the hypotheses.\n\nSpecify a hypothesis of late versus freight_cost_group.\nSet the order of the freight cost groups. -Specify the success value for late and the type of alternative hypothesis. -Don’t use Yates’ continuity correction.\n\n\n\n\nE3.R\n\n# Perform a proportion test appropriate to the hypotheses \ntest_results &lt;- late_shipments %&gt;% \n  prop_test(\n    late ~ freight_cost_group,\n    order = c(\"expensive\", \"reasonable\"),\n    success = \"Yes\",\n    alternative = \"greater\",\n    correct = FALSE\n  )\n\n# See the results\ntest_results"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#a",
+    "href": "Hypothesis_Testing_in_R_C3.html#a",
+    "title": "58  Proportion Tests",
+    "section": "58.4 A",
+    "text": "58.4 A"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-3",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-3",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, draw a proportional stacked bar plot of vendor_inco_term with fill color by freight_cost_group.\nUsing the late_shipments dataset, perform a chi-square test of independence on freight_cost_group and vendor_inco_term.\n\n\n\nE4.R\n\n# Plot vendor_inco_term filled by freight_cost_group.\n# Make it a proportional stacked bar plot.\nggplot(late_shipments,  aes(vendor_inco_term, fill = freight_cost_group)) +\n  geom_bar(position = \"fill\")\n  \n\n\n# Perform a chi-square test of independence on freight_cost_group and vendor_inco_term\ntest_results &lt;- late_shipments %&gt;% \n  chisq_test(freight_cost_group ~ vendor_inco_term)\n\n# See the results\ntest_results"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#section-2",
+    "href": "Hypothesis_Testing_in_R_C3.html#section-2",
+    "title": "58  Proportion Tests",
+    "section": "58.5 ",
+    "text": "58.5"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-4",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-4",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, count the vendor_inco_terms.\nGet the number of rows in late_shipments.\nAdd a column, n to the tibble being defined, containing hypothesized counts for each category.\nUsing the vendor_inco_term_counts dataset, plot n versus vendor_inco_term.\nMake it a precalculated bar plot (a.k.a. col plot).\nAdd points from the hypothesized dataset.\n\n\n\nE5.R\n\n# Using late_shipments, count the vendor incoterms\nvendor_inco_term_counts &lt;- late_shipments %&gt;% \n  count(vendor_inco_term)\n\n# Get the number of rows in the whole sample\nn_total &lt;- nrow(late_shipments)\n\nhypothesized &lt;- tribble(\n  ~ vendor_inco_term, ~ prop,\n  \"EXW\", 0.75,\n  \"CIP\", 0.05,\n  \"DDP\", 0.1,\n  \"FCA\", 0.1\n) %&gt;%\n  # Add a column of hypothesized counts for the incoterms\n  mutate(n = prop * n_total)\n\n# See the results\nhypothesized\n\n\n\n\n# From previous step\nvendor_inco_term_counts &lt;- late_shipments %&gt;% \n  count(vendor_inco_term)\nn_total &lt;- nrow(late_shipments)\nhypothesized &lt;- tribble(\n  ~ vendor_inco_term, ~ prop,\n  \"EXW\", 0.75,\n  \"CIP\", 0.05,\n  \"DDP\", 0.1,\n  \"FCA\", 0.1\n) %&gt;%\n  mutate(n = prop * n_total)\n\n# Using vendor_inco_term_counts, plot n vs. vendor_inco_term \nggplot(vendor_inco_term_counts,  aes(vendor_inco_term, n)) +\n  # Make it a (precalculated) bar plot\n  geom_col() +\n  # Add points from hypothesized \n  geom_point(data = hypothesized)"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#section-3",
+    "href": "Hypothesis_Testing_in_R_C3.html#section-3",
+    "title": "58  Proportion Tests",
+    "section": "58.6 ",
+    "text": "58.6"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-5",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-5",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, perform a chi-square goodness of fit test on vendor_inco_term. The hypothesized proportions are given in hypothesized_props.\n\n\n\nE6.R\n\nhypothesized_props &lt;- c(\n  EXW = 0.75, CIP = 0.05, DDP = 0.1, FCA = 0.1\n)\n\n# Run chi-square goodness of fit test on vendor_inco_term\ntest_results &lt;- late_shipments %&gt;% \n  chisq_test(\n    response = vendor_inco_term,\n    p = hypothesized_props\n  )\n\n# See the results\ntest_results"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#section-4",
+    "href": "Hypothesis_Testing_in_R_C3.html#section-4",
+    "title": "58  Proportion Tests",
+    "section": "58.7 ",
+    "text": "58.7"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-6",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-6",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\n\n\n\nE7.R"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#section-5",
+    "href": "Hypothesis_Testing_in_R_C3.html#section-5",
+    "title": "58  Proportion Tests",
+    "section": "58.8 ",
+    "text": "58.8"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-7",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-7",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\n\n\n\nE8.R"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#section-6",
+    "href": "Hypothesis_Testing_in_R_C3.html#section-6",
+    "title": "58  Proportion Tests",
+    "section": "58.9 ",
+    "text": "58.9"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-8",
+    "href": "Hypothesis_Testing_in_R_C3.html#instructions-100-xp-8",
+    "title": "58  Proportion Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\n\n\n\nE9.R"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#calculating-the-sample-mean",
+    "href": "Hypothesis_Testing_in_R_C1.html#calculating-the-sample-mean",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "56.1 Calculating the sample mean",
+    "text": "56.1 Calculating the sample mean\nThe late_shipments dataset contains supply chain data on the delivery of medical supplies. Each row represents one delivery of a part. The late columns denotes whether or not the part was delivered late. A value of “Yes” means that the part was delivered late, and a value of “No” means the part was delivered on time.\nLet’s begin our analysis by calculating a point estimate (sample statistic), namely the proportion of late shipments.\nlate_shipments is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp",
+    "href": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse View() to view the late_shipments dataset.\nCalculate the proportion of late shipments in the sample. That is, the mean cases where the late column is “Yes”.\n\n\n\nE1.R\n\n# View the late_shipments dataset\nView(late_shipments)\n\n# Calculate the proportion of late shipments\nlate_prop_samp &lt;- late_shipments %&gt;%\nsummarize(prop_late_shipments = mean(late == \"Yes\")) %&gt;% \n  pull(prop_late_shipments)\n\n\n# See the results\nlate_prop_samp"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#calculating-a-z-score",
+    "href": "Hypothesis_Testing_in_R_C1.html#calculating-a-z-score",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "56.2 Calculating a z-score",
+    "text": "56.2 Calculating a z-score\nSince variables have arbitrary ranges and units, we need to standardize them. For example, it would be silly if a hypothesis test gave a different answer if your variables were in Euros instead of US dollars. Standardization avoids that.\nOne standardized value of interest in a hypothesis test is called a z-score. To calculate it, we need three numbers: the sample statistic (point estimate), the hypothesized statistic, and the standard error of the statistic (which we estimate from the bootstrap distribution).\nThe sample statistic is late_prop_samp.\nlate_shipments_boot_distn is a bootstrap distribution of the proportion of late shipments. The proportion of late shipments statistic is in the late_prop column.\nlate_prop_samp and late_shipments_boot_distn are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp-1",
+    "href": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp-1",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nHypothesize that the proportion of late shipments is 6%.\nCalculate the standard error. That is, the standard deviation of the bootstrap distribution.\nCalculate the z-score.\n\n\n\nE2.R\n\n# Hypothesize that the proportion is 6%\nlate_prop_hyp &lt;- 0.06\n\n# Calculate the standard error\nstd_error &lt;- late_shipments_boot_distn %&gt;% \n  summarize(sd_late_prop = sd(late_prop)) %&gt;% \n  pull(sd_late_prop)\n\n# Find z-score of late_prop_samp\nz_score &lt;- (late_prop_samp - late_prop_hyp) / std_error\n\n# See the results\nz_score"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#calculating-p-values",
+    "href": "Hypothesis_Testing_in_R_C1.html#calculating-p-values",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "56.3 Calculating p-values",
+    "text": "56.3 Calculating p-values\nIn order to determine whether to choose the null hypothesis or the alternative hypothesis, you need to calculate a p-value from the z-score.\nLet’s return to the late shipments dataset and the proportion of late shipments.\nThe null hypothesis, , is that the proportion of late shipments is six percent.\nThe alternative hypothesis, , is that the proportion of late shipments is greater than six percent.\nThe observed sample statistic, late_prop_samp, the null hypothesis statistic, late_prop_hyp (6%), and the bootstrap standard error, std_error are available."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp-2",
+    "href": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp-2",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate the z-score of late_prop_samp.\nCalculate the p-value for the z-score, assuming a right-tailed test.\n\n\n\nE3.R\n\n# Calculate the z-score of late_prop_samp\nz_score &lt;- (late_prop_samp - late_prop_hyp) / std_error\n\n# Calculate the p-value\np_value &lt;- pnorm(z_score, lower.tail = FALSE)\n                 \n# See the result\np_value"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#calculating-confidence-intervals",
+    "href": "Hypothesis_Testing_in_R_C1.html#calculating-confidence-intervals",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "56.4 Calculating confidence intervals",
+    "text": "56.4 Calculating confidence intervals\nIf you give a single estimate of a sample statistic, you are bound to be wrong by some amount. For example, the hypothesized proportion of late shipments was 6%. Even if evidence suggests the null hypothesis that the proportion of late shipments is equal to this, for any new sample of shipments, the proportion is likely to be a little different. Consequently, it’s a good idea to state a confidence interval. That is, you say “we are 95% ‘confident’ the proportion of late shipments is between A and B” (for some value of A and B).\nSampling in R demonstrated two methods for calculating confidence intervals. Here, you’ll use quantiles of the bootstrap distribution to calculate the confidence interval.\nlate_prop_samp and late_shipments_boot_distn are available; dplyr is loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp-3",
+    "href": "Hypothesis_Testing_in_R_C1.html#instructions-100-xp-3",
+    "title": "56  Introduction to Hypothesis Testing",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSummarize the prop_late_shipments column of late_shipments_boot_distn to calculate the 95% confidence interval using the quantile method. Label the lower and upper CI values lower and upper\n\n\n\nE4.R\n\n# Calculate 95% confidence interval using quantile method\nconf_int_quantile &lt;- late_shipments_boot_distn %&gt;%\n  summarize(\n    lower = quantile(prop_late_shipments, 0.025),\n    upper = quantile(prop_late_shipments, 0.975)\n  )\n\n# See the result\nconf_int_quantile"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#two-sample-mean-test-statistic",
+    "href": "Hypothesis_Testing_in_R_C2.html#two-sample-mean-test-statistic",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "57.1 Two sample mean test statistic",
+    "text": "57.1 Two sample mean test statistic\nThe hypothesis test for determining if there is a difference between the means of two populations uses a different type of test statistic to the z-scores you saw in Chapter one. It’s called “t”, and can be calculated from three values from each sample using this equation.\nWhile trying to determine why some shipments are late, you may wonder if the weight of the shipments that were late is different from the weight of the shipments that were on time. The late_shipments dataset has been split into a “yes” group, where late == “Yes” and a “no” group where late == “No”. The weight of the shipment is given in the weight_kilograms variable.\nFor convenience, the sample means for the two groups are available as xbar_no and xbar_yes. The sample standard deviations are s_no and s_yes. The sample sizes are n_no and n_yes."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp",
+    "href": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate the numerator of the test statistic.\nCalculate the denominator of the test statistic.\nUse those two numbers to calculate the test statistic.\n\n\n\nE1.R\n\n# Calculate the numerator of the test statistic\nnumerator &lt;- xbar_no - xbar_yes\n\n# Calculate the denominator of the test statistic\ndenominator &lt;- sqrt(s_no ^ 2 / n_no + s_yes ^ 2 / n_yes)\n\n# Calculate the test statistic\nt_stat &lt;- numerator/denominator\n\n# See the result\nt_stat"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#from-t-to-p",
+    "href": "Hypothesis_Testing_in_R_C2.html#from-t-to-p",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "57.2 From t to p",
+    "text": "57.2 From t to p\nPreviously, you calculated the test statistic for the two-sample problem of whether the mean weight of shipments is lower for shipments that weren’t late (late == “No”) compared to shipments that were late (late == “Yes”). In order to make decisions about it, you need to transform the test statistic with a cumulative distribution function to get a p-value.\nRecall the hypotheses:\n\nH0 : The mean weight of shipments that weren’t late is the same as the mean weight of shipments that were late.\n\n\nHA: The mean weight of shipments that weren’t late is less than the mean weight of shipments that were late.\n\nThe test statistic, t_stat, is available, as are the samples sizes for each group, n_no and n_yes. Use a significance level of alpha = 0.05."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-1",
+    "href": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-1",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate the degrees of freedom for the test.\nUse the test statistic, t_stat, to calculate the p-value.\n\n\n\nE2.R\n\n# Calculate the degrees of freedom\ndegrees_of_freedom &lt;- n_no + n_yes - 2\n\n# Calculate the p-value from the test stat\np_value &lt;- pt(t_stat, df = degrees_of_freedom)\n\n# See the result\np_value"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#visualizing-the-difference",
+    "href": "Hypothesis_Testing_in_R_C2.html#visualizing-the-difference",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "57.3 Visualizing the difference",
+    "text": "57.3 Visualizing the difference\nBefore you start running hypothesis tests, it’s a great idea to perform some exploratory data analysis. That is, calculating summary statistics and visualizing distributions.\nHere, you’ll look at the proportion of county-level votes for the Democratic candidate in 2012 and 2016, dem_votes_potus_12_16. Since the counties are the same in both years, these samples are paired. The columns containing the samples are dem_percent_12 and dem_percent_16.\ndem_votes_potus_12_16 is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-2",
+    "href": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-2",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nView the dem_votes_potus_12_16 dataset.\nMutate dem_votes_potus_12_16 to add a diff column containing the percentage of votes for the democratic candidate in 2012 minus the votes for the democratic candidate in 2016.\nSummarize sample_dem_data to calculate the mean of the diff column as xbar_diff and the standard deviation of that column as s_diff.\nUsing sample_dem_data, plot diff as a histogram with binwidth 1.\n\n\n\nE3.R\n\n# View the dem_votes_potus_12_16 dataset\nView(dem_votes_potus_12_16)\n\n# Calculate the differences from 2012 to 2016\nsample_dem_data &lt;- dem_votes_potus_12_16 %&gt;% \n  mutate(diff = dem_percent_12 - dem_percent_16)\n\n# See the result\nsample_dem_data\n\n\n\n\n# From previous step\nsample_dem_data &lt;- dem_votes_potus_12_16 %&gt;% \n  mutate(diff = dem_percent_12 - dem_percent_16)\n\n# Find mean and standard deviation of differences\ndiff_stats &lt;- sample_dem_data %&gt;% \n  summarize(\n    xbar_diff = mean(diff),\n    s_diff = sd(diff)\n  )\n\n# See the result\ndiff_stats\n\n\n\n\n# From previous step\nsample_dem_data &lt;- dem_votes_potus_12_16 %&gt;% \n  mutate(diff = dem_percent_12 - dem_percent_16)\n\n# Using sample_dem_data, plot diff as a histogram\nggplot(sample_dem_data, aes(x = diff))+  geom_histogram(binwidth =1)"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#using-t.test",
+    "href": "Hypothesis_Testing_in_R_C2.html#using-t.test",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "57.4 Using t.test()",
+    "text": "57.4 Using t.test()\nManually calculating test statistics and transforming them with a CDF to get a p-value is a lot of effort to do every time you need to compare two sample means. The comparison of two sample means is called a t-test, and R has a t.test() function to accomplish it. This function provides some flexibility in how you perform the test.\nAs in the previous exercise, you’ll explore the difference between the proportion of county-level votes for the Democratic candidate in 2012 and 2016.\nsample_dem_data is available, and has columns diff, dem_percent_12, and dem_percent_16."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-3",
+    "href": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-3",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nConduct a t-test on the sample differences (the diff column of sample_dem_data). Use an appropriate alternative hypothesis chosen from “two.sided”, “less”, and “greater”.\nConduct a paired test on the democratic votes in 2012 and 2016 (the dem_percent_12 and dem_percent_16 columns of sample_dem_data). Use an appropriate alternative hypothesis.\n\n\n\nE4.R\n\n# Conduct a t-test on diff\ntest_results &lt;- t.test(# Vector of differences\n  sample_dem_data$diff,\n  # Choose between \"two.sided\", \"less\", \"greater\"\n    alternative = \"greater\")\n  \n\n# See the results\ntest_results\n\n\n\n\n\n# Conduct a paired t-test on dem_percent_12 and dem_percent_16\ntest_results &lt;- t.test(\n    sample_dem_data$dem_percent_12,\n    sample_dem_data$dem_percent_16,\n    alternative =\"greater\",\n    #mu =0,\n    paired =TRUE\n      )\n\n# See the results\ntest_results"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#visualizing-many-categories",
+    "href": "Hypothesis_Testing_in_R_C2.html#visualizing-many-categories",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "57.5 Visualizing many categories",
+    "text": "57.5 Visualizing many categories\nSo far in this chapter, we’ve only considered the case of differences in a numeric variable between two categories. Of course, many datasets contain more categories. Before you get to conducting tests on many categories, it’s often helpful to perform exploratory data analysis. That is, calculating summary statistics for each group and visualizing the distributions of the numeric variable for each category using box plots.\nHere, we’ll return to the late shipments data, and how the price of each package (pack_price) varies between the three shipment modes (shipment_mode): “Air”, “Air Charter”, and “Ocean”.\nlate_shipments is available; dplyr and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-4",
+    "href": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-4",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, group by shipment_mode.\nSummarize to calculate the mean of pack_price as xbar_pack_price and the standard deviation of pack_price as s_pack_price.\nUsing late_shipments, plot pack_price versus shipment_mode as a box plot with flipped x and y coordinates.\n\n\n\nE5.R\n\n# Using late_shipments, group by shipment mode, and calculate the mean and std dev of pack price\ngroup_by(late_shipments, shipment_mode) %&gt;%\n  summarize(\n    xbar_pack_price = mean(pack_price),\n     s_pack_price = sd(pack_price))\n\n\n\n\n\n# Using late_shipments, plot pack_price vs. shipment_mode\n# as a box plot with flipped x and y coordinates\nlate_shipments %&gt;%\n  ggplot(aes(x = shipment_mode,\n   y = pack_price))+ \n    geom_boxplot()+ \n     coord_flip()"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#conducting-an-anova-test",
+    "href": "Hypothesis_Testing_in_R_C2.html#conducting-an-anova-test",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "57.6 Conducting an ANOVA test",
+    "text": "57.6 Conducting an ANOVA test\n\nThe box plots made it look like the distribution of pack price was different for each of the three shipment modes. However, it didn’t tell us whether the mean pack price was different in each category. To determine that, we can use an ANOVA test. The null and alternative hypotheses can be written as follows.\n\nPack prices for every category of shipment mode are the same.\n\n\nPack prices for some categories of shipment mode are different.\n\n\nWe’ll set a significance level of 0.1.\nlate_shipments is available."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-5",
+    "href": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-5",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun a linear regression of pack_price versus shipment_mode using the late_shipments dataset. The formula takes the form response ~ explanatory.\nPerform ANOVA on mdl_pack_price_vs_shipment_mode.\n\n\n\nE6.R\n\n# Run a linear regression of pack price vs. shipment mode \nmdl_pack_price_vs_shipment_mode &lt;- lm(pack_price ~ shipment_mode,\n data = late_shipments)\n\n# See the results\nsummary(mdl_pack_price_vs_shipment_mode)\n\n\n\n# From previous step\nmdl_pack_price_vs_shipment_mode &lt;- lm(\n    pack_price ~ shipment_mode,\n     data = late_shipments\n     )\n\n# Perform ANOVA on the regression model\nanova(mdl_pack_price_vs_shipment_mode)"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#pairwise-t-tests",
+    "href": "Hypothesis_Testing_in_R_C2.html#pairwise-t-tests",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "57.7 Pairwise t-tests",
+    "text": "57.7 Pairwise t-tests\nThe ANOVA test didn’t tell us which categories of shipment mode had significant differences in pack prices. To pinpoint which categories had differences, we could instead use pairwise t-tests.\nlate_shipments is available."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-6",
+    "href": "Hypothesis_Testing_in_R_C2.html#instructions-100-xp-6",
+    "title": "57  Two-Sample and ANOVA Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nPerform pairwise t-tests on late_shipments’s pack_price variable, grouped by shipment_mode. Don’t do any p-value adjustment, and keep the default “two.sided” alternative hypothesis specification.\nModify the pairwise t-tests to use Bonferroni p-value adjustment.\n\n\n\nE7.R\n\n# Perform pairwise t-tests on pack price, grouped by shipment mode, no p-value adjustment\ntest_results &lt;- pairwise.t.test(\n  late_shipments$pack_price,\n  late_shipments$shipment_mode,\n  p.adjust.method = \"none\"\n)\n\n# See the results\ntest_results\n\n\n\n\n# Modify the pairwise t-tests to use Bonferroni p-value adjustment\ntest_results &lt;- pairwise.t.test(\n  late_shipments$pack_price,\n  late_shipments$shipment_mode,\n  p.adjust.method = \"bonferroni\"\n)\n\n# See the results\ntest_results"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section",
+    "href": "Hypothesis_Testing_in_R_C4.html#section",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.7 ",
+    "text": "59.7"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, get counts by the freight_cost_group columns. Insert a suitable number to inspect whether the counts are “big enough” for a two sample t-test.\nUsing the late_shipments dataset, get counts by the late column. Insert a suitable number to inspect whether the counts are “big enough” for a one sample proportion test.\nUsing the late_shipments dataset, get counts by the vendor_inco_term and freight_cost_group columns. Insert a suitable number to inspect whether the counts are “big enough” for a chi-square independence test.\nUsing the late_shipments dataset, get counts by the shipment_mode column. Insert a suitable number to inspect whether the counts are “big enough” for an ANOVA test.\n\n\n\nE1.R\n\n# Get counts by freight_cost_group\ncounts &lt;- late_shipments %&gt;%\n  count(freight_cost_group)\n\n# See the result\ncounts\n\n# Inspect whether the counts are big enough\nall(counts$n &gt;= 30)\n\n\n\n\n\n# Get counts by late\ncounts &lt;- late_shipments %&gt;%\n  count(late)\n\n# See the result\ncounts\n\n# Inspect whether the counts are big enough\nall(counts$n &gt;= 10)\n\n\n\n\n# Count the values of vendor_inco_term and freight_cost_group\ncounts &lt;- late_shipments %&gt;%\n  count(vendor_inco_term, freight_cost_group)\n\n# See the result\ncounts\n\n# Inspect whether the counts are big enough\nall(counts$n &gt;= 5)\n\n\n\n# Count the values of shipment_mode\ncounts &lt;- late_shipments %&gt;%\n  count(shipment_mode)\n\n# See the result\ncounts\n\n# Inspect whether the counts are big enough\nall(counts$n &gt;= 30)"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section-1",
+    "href": "Hypothesis_Testing_in_R_C4.html#section-1",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.8 ",
+    "text": "59.8"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-1",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-1",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, specify that we are interested in late proportions across freight_cost_group, where “Yes” denotes success.\nExtend the pipeline to declare a null hypothesis that the variables are independent.\n\n\n\nE2.R\n\n# Specify that we are interested in late proportions across freight_cost_groups, where \"Yes\" denotes success\nspecified &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  )\n\n# See the result\nspecified\n\n\n\n\n# Extend the pipeline to declare a null hypothesis that the variables are independent\nhypothesized &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  hypothesize(null = \"independence\")\n\n# See the result\nhypothesized"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section-2",
+    "href": "Hypothesis_Testing_in_R_C4.html#section-2",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.9 ",
+    "text": "59.9"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-2",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-2",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nExtend the infer pipeline to generate two thousand permutation replicates. (Note this will take a few seconds to complete.)\nComplete the infer pipeline for the null distribution by calculating the difference in proportions, setting the order to expensive proportion minus reasonable proportion.\nVisualize the null distribution.\n\n\n\nE3.R\n\n# Extend the pipeline to generate 2000 permutations\ngenerated &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 2000, type = \"permute\")\n\n# See the result\ngenerated\n\n\n\n\n# Extend the pipeline to calculate the difference in proportions (expensive minus reasonable)\nnull_distn &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 2000, type = \"permute\") %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\n\n# See the result\nnull_distn\n\n\n\n\n# From previous steps\nnull_distn &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 2000, type = \"permute\") %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\n\n# Visualize the null distribution\nvisualize(null_distn)"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#a",
+    "href": "Hypothesis_Testing_in_R_C4.html#a",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.4 A",
+    "text": "59.4 A"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-3",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-3",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCopy, paste, and modify the null distribution pipeline to get the observed statistic.\nVisualize the null distribution, adding a vertical line at the observed statistic.\nGet the p-value from the null distribution and observed statistic, assuming an appropriate direction for the alternative hypothesis.\n\n\n\nE4.R\n\nnull_distn &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 2000, type = \"permute\") %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\n\n# Copy, paste, and modify the pipeline to get the observed statistic\nobs_stat &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\n\n# See the result\nobs_stat\n\n\n\n# From previous steps\nnull_distn &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 2000, type = \"permute\") %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\nobs_stat &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\n\n# Visualize the null dist'n, adding a vertical line at the observed statistic\nvisualize(null_distn) +\n  geom_vline(aes(xintercept = stat), data = obs_stat)\n  \n  \n  \n\n# From previous steps\nnull_distn &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 2000, type = \"permute\") %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\nobs_stat &lt;- late_shipments %&gt;% \n  specify(\n    late ~ freight_cost_group, \n    success = \"Yes\"\n  ) %&gt;% \n  calculate(\n    stat = \"diff in props\", \n    order = c(\"expensive\", \"reasonable\")\n  )\n\n# Get the p-value\np_value &lt;- get_p_value(\n  null_distn, obs_stat, \n  direction = \"greater\"\n)\n\n# See the result\np_value"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section-3",
+    "href": "Hypothesis_Testing_in_R_C4.html#section-3",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.5 ",
+    "text": "59.5"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-4",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-4",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSpecify weight in kilograms versus whether or not the shipment was late.\nDeclare a null hypothesis of independence.\nGenerate 1000 permutation replicates.\nCalculate the difference in means, setting the order as “No” minus “Yes”.\nCalculate the difference in means observed in the late_shipments dataset.\nGet the p-value from the null distribution and the observed difference in means, setting an appropriate direction.\n\n\n\nE5.R\n\n# Fill out the null distribution pipeline\nnull_distn &lt;- late_shipments %&gt;% \n  # Specify weight_kilograms vs. late\n  specify(weight_kilograms ~ late) %&gt;% \n  # Declare a null hypothesis of independence\n  hypothesize(null = \"independence\") %&gt;% \n  # Generate 1000 permutation replicates\n  generate(reps = 1000, type = \"permute\") %&gt;% \n  # Calculate the difference in means (\"No\" minus \"Yes\")\n  calculate(\nstat = \"diff in means\",\norder = c(\"No\",\n\"Yes\"))\n\n# See the results\nnull_distn\n\n\n\n\n\n# From previous step\nnull_distn &lt;- late_shipments %&gt;% \n  specify(weight_kilograms ~ late) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 1000, type = \"permute\") %&gt;% \n  calculate(stat = \"diff in means\", order = c(\"No\", \"Yes\"))\n\n# Calculate the observed difference in means\nobs_stat &lt;- late_shipments %&gt;%\nspecify(weight_kilograms ~ late) %&gt;%\ncalculate(\nstat = \"diff in means\",\norder = c(\"No\",\n\"Yes\")\n)\n\n# See the result\nobs_stat\n\n\n\n\n# From previous steps\nnull_distn &lt;- late_shipments %&gt;% \n  specify(weight_kilograms ~ late) %&gt;% \n  hypothesize(null = \"independence\") %&gt;% \n  generate(reps = 1000, type = \"permute\") %&gt;% \n  calculate(stat = \"diff in means\", order = c(\"No\", \"Yes\"))\nobs_stat &lt;- late_shipments %&gt;% \n  specify(weight_kilograms ~ late) %&gt;% \n  calculate(stat = \"diff in means\", order = c(\"No\", \"Yes\"))\n\n# Get the p-value\np_value &lt;- get_p_value(\n  null_distn, obs_stat,\n  direction = \"less\"\n)\n\n# See the result\np_value"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section-4",
+    "href": "Hypothesis_Testing_in_R_C4.html#section-4",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.6 ",
+    "text": "59.6"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-5",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-5",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUsing the late_shipments dataset, run a Wilcoxon-Mann-Whitney test on the weight in kilograms versus whether or not the shipment was late.\nUsing the late_shipments dataset, run a Kruskal-Wallace test on the weight in kilograms versus the shipment mode.\n\n\n\nE6.R\n\n# Run a Wilcoxon-Mann-Whitney test on weight_kilograms vs. late\ntest_results &lt;- wilcox.test(\n    weight_kilograms ~ late,\n    data = late_shipments,\n)\n\n# See the result\ntest_results\n\n\n\n# Run a Kruskal-Wallace test on weight_kilograms vs. shipment_mode\ntest_results &lt;- kruskal.test(\n    weight_kilograms ~ shipment_mode,\n    data=late_shipments\n    )\n\n# See the result\ntest_results"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section-5",
+    "href": "Hypothesis_Testing_in_R_C4.html#section-5",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.7 ",
+    "text": "59.7"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-6",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-6",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\n\n\n\nE7.R"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section-6",
+    "href": "Hypothesis_Testing_in_R_C4.html#section-6",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.8 ",
+    "text": "59.8"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-7",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-7",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\n\n\n\nE8.R"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#section-7",
+    "href": "Hypothesis_Testing_in_R_C4.html#section-7",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.9 ",
+    "text": "59.9"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-8",
+    "href": "Hypothesis_Testing_in_R_C4.html#instructions-100-xp-8",
+    "title": "59  Non-Parametric Tests",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\n\n\n\n\nE9.R"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html",
+    "href": "Hypothesis_Testing_in_R_C3.html",
+    "title": "58  Proportion Tests",
+    "section": "",
+    "text": "59"
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#test-of-two-proportions",
+    "href": "Hypothesis_Testing_in_R_C3.html#test-of-two-proportions",
+    "title": "58  Proportion Tests",
+    "section": "58.2 Test of two proportions",
+    "text": "58.2 Test of two proportions\nYou may wonder if the amount paid for freight affects whether or not the shipment was late. Recall that in late_shipments dataset, whether or not the shipment was late is stored in the late column. Freight costs are stored in the freight_cost_group column, and the categories are “expensive” and “reasonable”.\nWe can form hypotheses to test.\n\nH0: late expensive - late reasonable = 0\n\n\nHA: late expensive - late reasonable &gt; 0\n\np_hats contains the estimates of population proportions (sample proportions) for the “expensive” and “reasonable” groups. ns contains the sample sizes for these groups."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#prop_test-for-two-samples",
+    "href": "Hypothesis_Testing_in_R_C3.html#prop_test-for-two-samples",
+    "title": "58  Proportion Tests",
+    "section": "58.3 prop_test() for two samples",
+    "text": "58.3 prop_test() for two samples\nThat took a lot of effort to calculate the p-value, so while it is useful to see how the calculations work, it isn’t practical to do in real-world analyses. For daily usage, it’s better to use the infer package.\nRecall the hypotheses.\n\nH0: late expensive - late reasonable = 0\n\n\nHA: late expensive - late reasonable &gt; 0\n\nlate_shipments is available; infer is loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#performing-a-chi-square-test",
+    "href": "Hypothesis_Testing_in_R_C3.html#performing-a-chi-square-test",
+    "title": "58  Proportion Tests",
+    "section": "58.4 Performing a chi-square test",
+    "text": "58.4 Performing a chi-square test\nThe chi-square independence test compares proportions of successes of a categorical variable across categories of another categorical variable.\nTrade deals often use a form of business shorthand in order to specify the exact details of their contract. These are International Chamber of Commerce (ICC) international commercial terms, or incoterms for short.\nThe late_shipments dataset includes a vendor_inco_term that describes the incoterms that applied to a given shipment. The choices are:\n\nEXW: “Ex works”. The buyer pays for transportation of the goods. CIP: “Carriage and insurance paid to”. The seller pays for freight and insurance until the goods board a ship. DDP: “Delivered duty paid”. The seller pays for transportation of the goods until they reach a destination port. FCA: “Free carrier”. The seller pays for transportation of the goods.\n\nPerhaps the incoterms affect whether or not the freight costs are expensive. Test these hypotheses with a significance level of 0.01.\n\nH0: vendor_inco_term and freight_cost_group are independent.\n\n\nHA: vendor_inco_term and freight_cost_group are associated.\n\nlate_shipments is available; ggplot2 and infer are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#visualizing-goodness-of-fit",
+    "href": "Hypothesis_Testing_in_R_C3.html#visualizing-goodness-of-fit",
+    "title": "58  Proportion Tests",
+    "section": "58.5 Visualizing goodness of fit",
+    "text": "58.5 Visualizing goodness of fit\nThe chi-square goodness of fit test compares proportions of each level of a categorical variable to hypothesized values. Before running such a test, it can be helpful to visually compare the distribution in the sample to the hypothesized distribution.\nRecall the vendor incoterms in the late_shipments dataset. Let’s hypothesize that the four values occur with these frequencies in the population of shipments.\n\nEXW: 0.75 CIP: 0.05 DDP: 0.1 FCA: 0.1\n\nlate_shipments is available; tibble, dplyr, ggplot2, and infer are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C3.html#performing-a-goodness-of-fit-test",
+    "href": "Hypothesis_Testing_in_R_C3.html#performing-a-goodness-of-fit-test",
+    "title": "58  Proportion Tests",
+    "section": "58.6 Performing a goodness of fit test",
+    "text": "58.6 Performing a goodness of fit test\nThe bar plot of vendor_inco_term suggested that its distribution across the four categories was quite close to the hypothesized distribution. You’ll need to perform a chi-square goodness of fit test to see whether the differences are statistically significant.\nTo decide which hypothesis to choose, we’ll set a significance level of 0.1.\nlate_shipments is available; tibble, dplyr, ggplot2, and infer are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#testing-sample-size",
+    "href": "Hypothesis_Testing_in_R_C4.html#testing-sample-size",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.1 Testing sample size",
+    "text": "59.1 Testing sample size\nIn order to conduct a hypothesis test, and be sure that the result is fair, a sample must meet three requirements: it is a random sample of the population; the observations are independent; and there are enough observations. Of these, only the last condition is easily testable with code.\nThe minimum sample size depends on the type of hypothesis tests you want to perform. Let’s test some scenarios on the late_shipments dataset.\nlate_shipments is available; dplyr is loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#specifying-and-hypothesizing",
+    "href": "Hypothesis_Testing_in_R_C4.html#specifying-and-hypothesizing",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.2 Specifying and hypothesizing",
+    "text": "59.2 Specifying and hypothesizing\nIn Chapter 3, you ran a two sample proportion test on the proportion of late shipments across freight cost groups. Recall the hypotheses.\n\nH0: vendor_inco_term and freight_cost_group are independent.\n\n\nHA: vendor_inco_term and freight_cost_group are associated.\n\nLet’s compare that traditional approach using prop_test() with a simulation-based infer pipeline.\nlate_shipments is available; dplyr and infer are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#generating-calculating",
+    "href": "Hypothesis_Testing_in_R_C4.html#generating-calculating",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.3 Generating & calculating",
+    "text": "59.3 Generating & calculating\nThe infer pipeline for hypothesis testing requires four steps to calculate the null distribution: specify, hypothesize, generate, and calculate.\nLet’s continue the pipeline you began in the previous coding exercise. We’ll get a set of differences in proportions that are distributed as though the null hypothesis, that the proportion of late shipments is the same across freight cost groups, is true.\nlate_shipments is available; dplyr, infer, and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#observed-statistic-and-p-value",
+    "href": "Hypothesis_Testing_in_R_C4.html#observed-statistic-and-p-value",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.4 Observed statistic and p-value",
+    "text": "59.4 Observed statistic and p-value\nYou now have a null distribution. In order to get a p-value and weigh up the evidence against the null hypothesis, you need to calculate the difference in proportions that is observed in the late_shipments sample.\nlate_shipments is available; dplyr, infer, and ggplot2 are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#simulation-based-t-test",
+    "href": "Hypothesis_Testing_in_R_C4.html#simulation-based-t-test",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.5 Simulation-based t-test",
+    "text": "59.5 Simulation-based t-test\nIn Chapter 2 you manually performed the steps for a t-test to explore these hypotheses.\nH0: The mean weight of shipments that weren’t late is the same as the mean weight of shipments that were late.\nHA: The mean weight of shipments that weren’t late is less than the mean weight of shipments that were late.\nYou can run the test more concisely using infer’s t_test().\n\nlate_shipments %&gt;% t_test( weight_kilograms ~ late, order = c(“No”, “Yes”), alternative = “less” )\n\nt_test() assumes that the null distribution is normal. We can avoid assumptions by using a simulation-based non-parametric equivalent.\nlate_shipments is available; dplyr and infer are loaded."
+  },
+  {
+    "objectID": "Hypothesis_Testing_in_R_C4.html#rank-sum-tests",
+    "href": "Hypothesis_Testing_in_R_C4.html#rank-sum-tests",
+    "title": "59  Non-Parametric Tests",
+    "section": "59.6 Rank sum tests",
+    "text": "59.6 Rank sum tests\nAnother class of non-parametric hypothesis tests are called rank sum tests. Ranks are the positions of numeric values from smallest to largest. Think of them as positions in running events: whoever has the fastest (smallest) time is rank 1, second fastest is rank 2, and so on.\nBy calculating on the ranks of data instead of the actual values, you can avoid making assumptions about the distribution of the test statistic. It’s most robust in the same way that a median is more robust than a mean.\nTwo commonly used rank-based tests are the Wilcoxon-Mann-Whitney test, which is like a non-parametric t-test, and the Kruskal-Wallis test, which is like a non-parametric ANOVA.\nlate_shipments is available."
   }
 ]

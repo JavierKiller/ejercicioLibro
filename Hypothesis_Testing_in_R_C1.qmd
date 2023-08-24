@@ -1,0 +1,118 @@
+---
+title: "Introduction to Hypothesis Testing"
+---
+
+## Calculating the sample mean
+
+The late_shipments dataset contains supply chain data on the delivery of medical supplies. Each row represents one delivery of a part. The late columns denotes whether or not the part was delivered late. A value of "Yes" means that the part was delivered late, and a value of "No" means the part was delivered on time.
+
+Let's begin our analysis by calculating a point estimate (sample statistic), namely the proportion of late shipments.
+
+late_shipments is available; dplyr is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use View() to view the late_shipments dataset.
+- Calculate the proportion of late shipments in the sample. That is, the mean cases where the late column is "Yes".  
+
+``` {.r filename="E1.R"}
+# View the late_shipments dataset
+View(late_shipments)
+
+# Calculate the proportion of late shipments
+late_prop_samp <- late_shipments %>%
+summarize(prop_late_shipments = mean(late == "Yes")) %>% 
+  pull(prop_late_shipments)
+
+
+# See the results
+late_prop_samp
+```
+
+## Calculating a z-score
+
+Since variables have arbitrary ranges and units, we need to standardize them. For example, it would be silly if a hypothesis test gave a different answer if your variables were in Euros instead of US dollars. Standardization avoids that.
+
+One standardized value of interest in a hypothesis test is called a z-score. To calculate it, we need three numbers: the sample statistic (point estimate), the hypothesized statistic, and the standard error of the statistic (which we estimate from the bootstrap distribution).
+
+The sample statistic is late_prop_samp.
+
+late_shipments_boot_distn is a bootstrap distribution of the proportion of late shipments. The proportion of late shipments statistic is in the late_prop column.
+
+late_prop_samp and late_shipments_boot_distn are available; dplyr is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Hypothesize that the proportion of late shipments is 6%.
+- Calculate the standard error. That is, the standard deviation of the bootstrap distribution.
+- Calculate the z-score.
+
+``` {.r filename="E2.R"}
+# Hypothesize that the proportion is 6%
+late_prop_hyp <- 0.06
+
+# Calculate the standard error
+std_error <- late_shipments_boot_distn %>% 
+  summarize(sd_late_prop = sd(late_prop)) %>% 
+  pull(sd_late_prop)
+
+# Find z-score of late_prop_samp
+z_score <- (late_prop_samp - late_prop_hyp) / std_error
+
+# See the results
+z_score
+```
+
+## Calculating p-values
+
+In order to determine whether to choose the null hypothesis or the alternative hypothesis, you need to calculate a p-value from the z-score.
+
+Let's return to the late shipments dataset and the proportion of late shipments.
+
+The null hypothesis, 
+, is that the proportion of late shipments is six percent.
+
+The alternative hypothesis, 
+, is that the proportion of late shipments is greater than six percent.
+
+The observed sample statistic, late_prop_samp, the null hypothesis statistic, late_prop_hyp (6%), and the bootstrap standard error, std_error are available.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Calculate the z-score of late_prop_samp.
+- Calculate the p-value for the z-score, assuming a right-tailed test.
+
+``` {.r filename="E3.R"}
+# Calculate the z-score of late_prop_samp
+z_score <- (late_prop_samp - late_prop_hyp) / std_error
+
+# Calculate the p-value
+p_value <- pnorm(z_score, lower.tail = FALSE)
+                 
+# See the result
+p_value    
+```
+
+## Calculating confidence intervals
+
+If you give a single estimate of a sample statistic, you are bound to be wrong by some amount. For example, the hypothesized proportion of late shipments was 6%. Even if evidence suggests the null hypothesis that the proportion of late shipments is equal to this, for any new sample of shipments, the proportion is likely to be a little different. Consequently, it's a good idea to state a confidence interval. That is, you say "we are 95% 'confident' the proportion of late shipments is between A and B" (for some value of A and B).
+
+Sampling in R demonstrated two methods for calculating confidence intervals. Here, you'll use quantiles of the bootstrap distribution to calculate the confidence interval.
+
+late_prop_samp and late_shipments_boot_distn are available; dplyr is loaded.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Summarize the prop_late_shipments column of late_shipments_boot_distn to calculate the 95% confidence interval using the quantile method. Label the lower and upper CI values lower and upper
+
+``` {.r filename="E4.R"}
+# Calculate 95% confidence interval using quantile method
+conf_int_quantile <- late_shipments_boot_distn %>%
+  summarize(
+    lower = quantile(prop_late_shipments, 0.025),
+    upper = quantile(prop_late_shipments, 0.975)
+  )
+
+# See the result
+conf_int_quantile
+```
