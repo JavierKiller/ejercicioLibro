@@ -59,7 +59,13 @@ book:
         - Reshaping_Data_with_tidyr_C1.qmd 
         - Reshaping_Data_with_tidyr_C2.qmd 
         - Reshaping_Data_with_tidyr_C3.qmd 
-        - Reshaping_Data_with_tidyr_C4.qmd   
+        - Reshaping_Data_with_tidyr_C4.qmd
+    - part: "Intermediate Regular Expressions in R"
+      chapters:
+        - Intermediate_Regular_Expressions_in_R_C1.qmd 
+        - Intermediate_Regular_Expressions_in_R_C2.qmd 
+        - Intermediate_Regular_Expressions_in_R_C3.qmd 
+        - Intermediate_Regular_Expressions_in_R_C4.qmd   
     - part: "Dealing With Missing Data in R"
       chapters:
         - Dealing_With_Missing_Data_in_R_C1.qmd 

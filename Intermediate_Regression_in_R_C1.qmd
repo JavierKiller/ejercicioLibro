@@ -6,25 +6,21 @@ title: "Parallel Slopes"
 
 In Introduction to Regression in R, you learned to fit linear regression models with a single explanatory variable. In many cases, using only one explanatory variable limits the accuracy of predictions. That means that to truly master linear regression, you need to be able to include multiple explanatory variables.
 
-The case when there is one numeric explanatory variable and one categorical explanatory variable is sometimes called a "parallel slopes" linear regression due to the shape of the predictions—more on that in the next exercise.
+The case when there is one numeric explanatory variable and one categorical explanatory variable is sometimes called a "parallel slopes" linear regression due to the shape of the predictions---more on that in the next exercise.
 
 Here, you'll revisit the Taiwan real estate dataset. Recall the meaning of each variable.
 
-> Variable	                Meaning
-> dist_to_mrt_station_m	    Distance to nearest MRT metro station, in meters.
-> n_convenience	            No. of convenience stores in walking distance.
-> house_age_years	          The age of the house, in years, in 3 groups.
-> price_twd_msq	            House price per unit area, in New Taiwan dollars per meter squared.
+> Variable Meaning dist_to_mrt_station_m Distance to nearest MRT metro station, in meters. n_convenience No. of convenience stores in walking distance. house_age_years The age of the house, in years, in 3 groups. price_twd_msq House price per unit area, in New Taiwan dollars per meter squared.
 
 taiwan_real_estate is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Using the taiwan_real_estate dataset, model the house price (in TWD per square meter) versus the number of nearby convenience stores.
+-   Using the taiwan_real_estate dataset, model the house price (in TWD per square meter) versus the number of nearby convenience stores.
 
-* Model the house price (in TWD per square meter) versus the house age (in years). Don't include an intercept term.
+-   Model the house price (in TWD per square meter) versus the house age (in years). Don't include an intercept term.
 
-* Model the house price (in TWD per square meter) versus the number of nearby convenience stores plus the house age (in years). Don't include an intercept term. 
+-   Model the house price (in TWD per square meter) versus the number of nearby convenience stores plus the house age (in years). Don't include an intercept term.
 
 ``` {.r filename="E1.R"}
 # Fit a linear regr'n of price_twd_msq vs. n_convenience
@@ -62,12 +58,15 @@ taiwan_real_estate is available and ggplot2 is loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Using the taiwan_real_estate dataset, plot the house price versus the number of nearby convenience stores.
-* Make it a scatter plot.
-* Add a smooth linear regression trend line without a standard error ribbon.
+-   Using the taiwan_real_estate dataset, plot the house price versus the number of nearby convenience stores.
 
-* Using the taiwan_real_estate dataset, plot the house price versus the house age.
-* Make it a box plot.
+-   Make it a scatter plot.
+
+-   Add a smooth linear regression trend line without a standard error ribbon.
+
+-   Using the taiwan_real_estate dataset, plot the house price versus the house age.
+
+-   Make it a box plot.
 
 ``` {.r filename="E2.R"}
 # Using taiwan_real_estate, plot price_twd_msq vs. n_convenience
@@ -96,9 +95,9 @@ taiwan_real_estate is available; ggplot2 and moderndive are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Using the taiwan_real_estate dataset, plot house prices versus the number of nearby convenience stores, colored by house age.
-* Make it a scatter plot.
-* Add parallel slopes, without a standard error ribbon.
+-   Using the taiwan_real_estate dataset, plot house prices versus the number of nearby convenience stores, colored by house age.
+-   Make it a scatter plot.
+-   Add parallel slopes, without a standard error ribbon.
 
 ``` {.r filename="E3.R"}
 # Using taiwan_real_estate, plot price_twd_msq vs. n_convenience colored by house_age_years
@@ -119,13 +118,15 @@ taiwan_real_estate and mdl_price_vs_both are available; dplyr, tidyr, and ggplot
 
 ## Instructions `100 XP` {.unnumbered}
 
-* n_convenience should take the numbers zero to ten.
-* house_age_years should take the unique values of the house_age_years column of taiwan_real_estate.
+-   n_convenience should take the numbers zero to ten.
 
-* Add a column to the explanatory_data named for the response variable, assigning to prediction_data.
-* The response column contain predictions made using mdl_price_vs_both and explanatory_data.
+-   house_age_years should take the unique values of the house_age_years column of taiwan_real_estate.
 
-* Update the plot to add a point layer of predictions. Use the prediction_data, set the point size to 5, and the point shape to 15.
+-   Add a column to the explanatory_data named for the response variable, assigning to prediction_data.
+
+-   The response column contain predictions made using mdl_price_vs_both and explanatory_data.
+
+-   Update the plot to add a point layer of predictions. Use the prediction_data, set the point size to 5, and the point shape to 15.
 
 ``` {.r filename="E4.R"}
 # Make a grid of explanatory data
@@ -183,14 +184,15 @@ taiwan_real_estate, mdl_price_vs_both, and explanatory_data are available; dplyr
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Get the coefficients from mdl_price_vs_both, assigning to coeffs.
-* Assign each of the elements of coeffs to the appropriate variable.
+-   Get the coefficients from mdl_price_vs_both, assigning to coeffs.
 
-* Add columns to explanatory_data.
+-   Assign each of the elements of coeffs to the appropriate variable.
 
-    * To choose the intercept, in the case when house_age_years is "0 to 15", choose intercept_0_15. In the case when house_age_years is "15 to 30", choose intercept_15_30. Do likewise for "30 to 45".
-    * Manually calculate the predictions as the intercept plus the slope times n_convenience.
-    
+-   Add columns to explanatory_data.
+
+    -   To choose the intercept, in the case when house_age_years is "0 to 15", choose intercept_0_15. In the case when house_age_years is "15 to 30", choose intercept_15_30. Do likewise for "30 to 45".
+    -   Manually calculate the predictions as the intercept plus the slope times n_convenience.
+
 ``` {.r filename="E5.R"}
 # Get the coefficients from mdl_price_vs_both
 coeffs <- coefficients(mdl_price_vs_both)
@@ -242,8 +244,8 @@ mdl_price_vs_conv, mdl_price_vs_age, and mdl_price_vs_both are available; dplyr 
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Get the unadjusted and adjusted coefficients of determination for mdl_price_vs_conv by glancing at the model, then selecting the r.squared and adj.r.squared values.
-* Do the same for mdl_price_vs_age and mdl_price_vs_both.
+-   Get the unadjusted and adjusted coefficients of determination for mdl_price_vs_conv by glancing at the model, then selecting the r.squared and adj.r.squared values.
+-   Do the same for mdl_price_vs_age and mdl_price_vs_both.
 
 ``` {.r filename="E6.R"}
 mdl_price_vs_conv %>% 
@@ -273,9 +275,9 @@ mdl_price_vs_conv, mdl_price_vs_age, and mdl_price_vs_both are available; dplyr 
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Get the residual standard error for mdl_price_vs_conv by glancing at the model, then pulling the sigma value.
-* Do the same for mdl_price_vs_age.
-* Do the same for mdl_price_vs_both.
+-   Get the residual standard error for mdl_price_vs_conv by glancing at the model, then pulling the sigma value.
+-   Do the same for mdl_price_vs_age.
+-   Do the same for mdl_price_vs_both.
 
 ``` {.r filename="E7.R"}
 mdl_price_vs_conv %>% 

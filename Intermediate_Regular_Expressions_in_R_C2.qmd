@@ -1,0 +1,197 @@
+---
+title: "Creating Strings with Data"
+---
+
+## Stop pasting, start gluing
+
+The function paste() concatenates strings with a space in between, so paste("Hi", "there") will output "Hi there". There is also the paste0() function that doesn't add a space, the result of which would be "Hithere". But when you concatenate multiple strings and variables, you end up writing a lot of double quotes " and commas , and with code that is not very readable. Plus you can only work with variables that are already present.
+
+These are the two use cases where the glue() function really shines. You can either work with variables that are available in the global scope or you can create variables on the fly. In this exercise, you'll see the difference between paste() and glue() in action.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Recreate the sentence that was created with paste0() using glue().
+- Create a temporary variable n which stores the length of characters in firstname and pass it sentence being created.
+
+``` {.r filename="E1.R"}
+firstname <- "John"
+lastname <- "Doe"
+
+paste0(firstname, "'s last name is ", lastname, ".")
+
+# Create the same result as the paste above with glue
+glue("___'s last name is ___.")
+
+# Create a temporary varible "n" and use it inside glue
+glue(
+  "The name {firstname} consists of ___ characters.",
+  ___ = nchar(firstname)
+)
+```
+
+## Gluing data frames
+
+Data is very often stored in data frames. Most of the time, we want to create an analysis that is also readable for humans. For example, it could be valuable to print a sentence about the size of our data frames. By combining glue() with nrow() and ncol(), we can return values and create a sentence that reports on the dimensions of our data frames.
+
+Luckily, the glue package is part of the tidyverse package collection and was built with data frames in mind, so we can operate on entire data frame columns. We can, for example, use it inside mutate() to create a new column with a concatenated string that contains values of other columns. In this exercise, you will apply these examples on the users data frame which contains values of other columns.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use the glue() function to report the number of rows and columns users has, by storing them in the n and m temporary variables respectively.
+- Inspect the data frame users by just executing the line that prints the column names.
+- Mutate users to create a new column n_logins which reports the number of times users logged in by using the name and logins columns respectively.
+
+``` {.r filename="E2.R"}
+# Create two temporary variables "n" and "m" and use them
+glue(
+  "The data frame 'users' has ___ rows and ___ columns.",
+  ___ = nrow(users),
+  ___ = ncol(users)
+)
+
+# This lists the column names of the data frame users
+colnames(users)
+
+# Use them to create a sentence about the numbers of logins
+users %>% mutate(
+  n_logins = glue("___ logged in ___ times.")
+)
+```
+
+## Formulating a question from a list
+
+Part of working with data is becoming proficient and familiar with inspecting and understanding data frames, lists, and vectors. However, it's important to be able to communicate your findings with reports and plots in a human-readable way across any organization. In the video exercise, you saw how to create sentences from lists with the glue_collapse() function.
+
+In this exercise, you will create a small questionnaire with glue_collapse() that could later be fed to the base R command menu().
+
+## Instructions `100 XP` {.unnumbered}
+
+- Construct a well formulated question by passing fruits to glue_collapse().
+- Separate the fruits with a comma and a space ", " and an ", or " between the last two elements.
+
+``` {.r filename="E3.R"}
+fruits <- list("Apple", "Banana", "Cherries", "Dragon Fruit")
+
+# Use ", " as a separator and ", or " between the last fruits
+question <- glue(
+  "Which of these do you prefer: {answers}?",
+  answers = glue_collapse(
+    fruits,
+    sep = ", ",
+    last = ", or "
+  )
+)
+
+# Print question
+print(question)
+```
+
+## Collapsing data frames
+
+In the last exercise you already combined glue() and glue_collapse() to create a correct English sentence from a vector. But very often, you will work not with vectors but with data frames. Luckily the workflow for data frame columns is the same as it is for vectors.
+
+In the scope you have again our data frame users with three names and numbers of logins in it. Use glue_collapse() and print the columns of the data frame in a human readable form.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Print the column names of users by printing each column name separated by ", " in glue_collapse().
+- Use glue() and glue_collapse() to list the names of users stored in the name column in a human-readable way, while ensuring the last name is preceded by " and ".
+- Repeat the same steps, this time for the number of logins stored in the logins column.
+
+``` {.r filename="E4.R"}
+# List colnames separated a comma and a white space
+glue_collapse(colnames(users), sep = ", ")
+
+# Use " and " as a separator for the last elements
+glue(
+  "Our users are called {names}.",
+  names = glue_collapse(users$name, sep = ", ", last = " and ")
+)
+
+# Use the same way to output also the "logins" of the users
+glue(
+  "Our users have logged in {logins} times.",
+  logins = glue_collapse(users$logins, sep = ", ", last = " and ")
+)
+```
+
+## Construct "or patterns" with glue
+
+In the last two lessons you learned to create strings from other strings or vectors or lists, even data frames. Together with the knowledge you have about regular expressions, you are now able to create patterns for all these data types.
+
+Using glue_collapse() you can concatenate the contents of a vector of the column of a data frame and create long patterns that would otherwise be very tedious and error prone to write from hand.
+
+For this exercise, we have a vector users as an input. It is the result of a database export. It contains some rows of a database but also some other information that we don't care about. Using regular expressions we can match only the parts that we are interested in, in this case, the usernames.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use the vector usernames to create a pattern that matches either of the three names in the vector.
+- Bind the three names together using the regular expression "or" character as a separator.
+
+``` {.r filename="E5.R"}
+usernames <- c("Bryan", "Barbara", "Tom")
+
+# Create a pattern using the vector above separated by "or"s
+user_pattern <- glue_collapse(usernames, sep = "|")
+
+str_view(users, user_pattern)
+```
+
+## Using the "or pattern" with a larger dataset
+
+Now that you've understood the principle of concatenating multiple possibilities from a vector, you'll go one step further and apply this to a larger dataset. Available in the global scope are two variables: articles and politicians. The first is a collection of news articles about Swiss politics. The latter is a list of names of Swiss politicians that appear in the articles.
+
+Now it's your job to find out which names appear in which of the articles and which politician appears how many times in all the articles.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use the vector politicians to create a regular expression that matches all the names that are stored in that vector.
+- Create a new column in the data frame articles which contains all politician names that appear in the column text.
+- Glue all articles together so you're able to count the number of occurrences per politician more easily.
+- Use the vector politicians as a pattern and pass it to str_count().  
+
+``` {.r filename="E6.R"}
+# Construct a pattern that searches for all politicians
+polit_pattern <- glue_collapse(politicians, sep = "|")
+
+# Use the pattern to match all names in the column "text"
+articles %<>%
+  mutate(mentions = str_match_all(text, polit_pattern))
+
+# Concatenate all elements in the column text
+all_articles_in_one <- glue_collapse(articles$text)
+
+# Pass the vector politicians to count all its elements
+str_count(all_articles_in_one, politicians)
+```
+
+## Make advanced patterns more readable
+
+Alright, you already master creating patterns that match a list of names by collapsing them using the pipe | as a separator. But collapsing is also useful to concatenate small, digestible parts of a pattern. Using glue_collapse() and vector (with or without names, both is possible) as its only input, you can create very long and complicated patterns out of small pieces that are much easier to interpret.
+
+The variable users was exported from our database and is again available in the global scope. But in this exercise, we are not only interested in the usernames, but also the digit and the email address that follow.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Have a look at the contents of users again.
+- Where we expect our username, write a pattern that matches one or more alphabetical letters. Use square brackets [] to create this custom pattern.
+- Where we expect the number of logins for that user, write a pattern that matches one or more digits. Use the digit character class for this.
+- As the email comes last in every line, write a simple pattern that matches one or more arbitrary characters.
+
+``` {.r filename="E7.R"}
+# Familiarize yourself with users by printing its contents
+print(users)
+
+advanced_pattern <- glue_collapse(c(
+  # Match one or more alphabetical letters
+  "username" = "^[A-Za-z]+",
+  ": ",
+  # Match one or more digit
+  "logins" = "\\d+",
+  ", ",
+  # Match one or more arbitrary characters
+  "email" = ".+$"
+))
+
+str_view(users, advanced_pattern)
+```

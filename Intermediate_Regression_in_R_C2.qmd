@@ -10,11 +10,14 @@ taiwan_real_estate is available; dplyr is loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Filter taiwan_real_estate for rows where house_age_years is "0 to 15", assigning to taiwan_0_to_15.
-* Repeat this for the "15 to 30" and "30 to 45" house age categories.
+-   Filter taiwan_real_estate for rows where house_age_years is "0 to 15", assigning to taiwan_0_to_15.
 
-* Run a linear regression of price_twd_msq versus n_convenience using the taiwan_0_to_15 dataset.
-* Repeat this for taiwan_15_to_30 and taiwan_30_to_45.
+-   Repeat this for the "15 to 30" and "30 to 45" house age categories.
+
+-   Run a linear regression of price_twd_msq versus n_convenience using the taiwan_0_to_15 dataset.
+
+-   Repeat this for taiwan_15_to_30 and taiwan_30_to_45.
+
 ``` {.r filename="E1.R"}
 # Filter for rows where house age is 0 to 15 years
 taiwan_0_to_15 <- taiwan_real_estate %>%
@@ -61,10 +64,11 @@ The models mdl_0_to_15, mdl_15_to_30 and mdl_30_to_45 are available; dplyr is lo
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a tibble of explanatory data, setting n_convenience to a vector from zero to ten, assigning to explanatory_data_0_to_15.
+-   Create a tibble of explanatory data, setting n_convenience to a vector from zero to ten, assigning to explanatory_data_0_to_15.
 
-* Add a column of predictions named price_twd_msq to explanatory_data, using mdl_0_to_15 and explanatory_data. Assign to prediction_data_0_to_15.
-* Repeat this for the 15 to 30 year and 30 to 45 year house age categories.
+-   Add a column of predictions named price_twd_msq to explanatory_data, using mdl_0_to_15 and explanatory_data. Assign to prediction_data_0_to_15.
+
+-   Repeat this for the 15 to 30 year and 30 to 45 year house age categories.
 
 ``` {.r filename="E2.R"}
 # Create a tibble of explanatory data, setting no. of conv stores to 0 to 10
@@ -109,13 +113,17 @@ taiwan_real_estate, prediction_data_0_to_15, prediction_data_15_to_30, and predi
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Using taiwan_real_estate, plot price_twd_msq versus n_convenience colored by house_age_years.
-* Add a point layer.
-* Add smooth trend lines for each color using the linear regression method and turning off the standard error ribbon.
+-   Using taiwan_real_estate, plot price_twd_msq versus n_convenience colored by house_age_years.
 
-* Extend the plot by adding the prediction points from prediction_data_0_to_15. Color them red, with size 3 and shape 15.
-* Add prediction points from prediction_data_15_to_30, colored green, size 3, and shape 15.
-* Add prediction points from prediction_data_30_to_45, colored blue, size 3, and shape 15.
+-   Add a point layer.
+
+-   Add smooth trend lines for each color using the linear regression method and turning off the standard error ribbon.
+
+-   Extend the plot by adding the prediction points from prediction_data_0_to_15. Color them red, with size 3 and shape 15.
+
+-   Add prediction points from prediction_data_15_to_30, colored green, size 3, and shape 15.
+
+-   Add prediction points from prediction_data_30_to_45, colored blue, size 3, and shape 15.
 
 ``` {.r filename="E3.R"}
 # Using taiwan_real_estate, plot price vs. no. of conv. stores colored by house age
@@ -136,20 +144,19 @@ ggplot(taiwan_real_estate, aes(n_convenience, price_twd_msq, color = house_age_y
   geom_point(data = prediction_data_15_to_30, size = 3, shape = 15, color = "green") +
   # Add points using prediction_data_30_to_45, colored blue, size 3, shape 15
   geom_point(data = prediction_data_30_to_45, size = 3, shape = 15, color = "blue") 
-
 ```
 
 ## Assessing model performance
 
-To test which approach is best—the whole dataset model or the models for each house age category—you need to calculate some metrics. Here's, you'll compare the coefficient of determination and the residual standard error for each model.
+To test which approach is best---the whole dataset model or the models for each house age category---you need to calculate some metrics. Here's, you'll compare the coefficient of determination and the residual standard error for each model.
 
 Four models of price versus no. of convenience stores (mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45) are available; dplyr and broom are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Get the coefficient of determination for mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.
+-   Get the coefficient of determination for mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.
 
-* Get the residual standard error for mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.
+-   Get the residual standard error for mdl_all_ages, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.
 
 ``` {.r filename="E4.R"}
 # Get the coeff. of determination for mdl_all_ages
@@ -206,9 +213,9 @@ taiwan_real_estate is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Fit a linear regression of price_twd_msq versus n_convenience and house_age_years and their interaction, using the "times" syntax to implicitly generate the interaction.
+-   Fit a linear regression of price_twd_msq versus n_convenience and house_age_years and their interaction, using the "times" syntax to implicitly generate the interaction.
 
-* Fit a linear regression of price_twd_msq versus n_convenience and house_age_years and their interaction, using the "colon" syntax to explicitly generate the interaction.
+-   Fit a linear regression of price_twd_msq versus n_convenience and house_age_years and their interaction, using the "colon" syntax to explicitly generate the interaction.
 
 ``` {.r filename="E5.R"}
 # Model price vs both with an interaction using "times" syntax
@@ -232,8 +239,8 @@ taiwan_real_estate, mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45 are available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Fit a linear regression of price_twd_msq versus house_age_years plus an interaction between n_convenience and house_age_years, and no global intercept, using the taiwan_real_estate dataset.
-* For comparison, get the coefficients for the three models for each category: mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.
+-   Fit a linear regression of price_twd_msq versus house_age_years plus an interaction between n_convenience and house_age_years, and no global intercept, using the taiwan_real_estate dataset.
+-   For comparison, get the coefficients for the three models for each category: mdl_0_to_15, mdl_15_to_30, and mdl_30_to_45.
 
 ``` {.r filename="E6.R"}
 # Model price vs. house age plus an interaction, no intercept
@@ -257,24 +264,28 @@ coefficients(mdl_30_to_45)
 
 ## Predicting with interactions
 
-As with every other regression model you've created, the fun part is making predictions. Fortunately, the code flow for this case is the same as the one without interactions—R can handle calculating the interactions without any extra prompting from you. The only thing you need to remember is the trick for getting combinations of explanatory variables.
+As with every other regression model you've created, the fun part is making predictions. Fortunately, the code flow for this case is the same as the one without interactions---R can handle calculating the interactions without any extra prompting from you. The only thing you need to remember is the trick for getting combinations of explanatory variables.
 
 mdl_price_vs_both_inter is available; dplyr and ggplot2 are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Make a grid of explanatory data, formed from combinations of the following variables.
+-   Make a grid of explanatory data, formed from combinations of the following variables.
 
-    * n_convenience should take the numbers zero to ten.
-    * house_age_years should take the unique values of the house_age_years column of taiwan_real_estate.
-    
-* Add a column to the explanatory_data, assigning to prediction_data.
-* The column should be named after the response variable, and contain predictions made using mdl_price_vs_both_inter and explanatory_data.
+    -   n_convenience should take the numbers zero to ten.
+    -   house_age_years should take the unique values of the house_age_years column of taiwan_real_estate.
 
-* Using taiwan_real_estate, plot price_twd_msq versus n_convenience, colored by house_age_years.
-* Add a point layer.
-* Add smooth trend lines using linear regression, no standard error ribbon.
-* Add another point layer using prediction_data, with size 5 and shape 15.
+-   Add a column to the explanatory_data, assigning to prediction_data.
+
+-   The column should be named after the response variable, and contain predictions made using mdl_price_vs_both_inter and explanatory_data.
+
+-   Using taiwan_real_estate, plot price_twd_msq versus n_convenience, colored by house_age_years.
+
+-   Add a point layer.
+
+-   Add smooth trend lines using linear regression, no standard error ribbon.
+
+-   Add another point layer using prediction_data, with size 5 and shape 15.
 
 ``` {.r filename="E7.R"}
 # Make a grid of explanatory data
@@ -335,9 +346,9 @@ mdl_price_vs_both_inter and explanatory_data are available; dplyr and tidyr are 
 
 ## Instructions `100 XP` {.unnumbered}
 
-*  Get the coefficients from mdl_price_vs_both_inter, assigning to coeffs.
-* Get the three intercept coefficients from coeffs, assigning to intercept_0_15, intercept_15_30, and intercept_30_45.
-* Get the three slope coefficients from coeffs, assigning to slope_0_15, slope_15_30, and slope_30_45.
+-   Get the coefficients from mdl_price_vs_both_inter, assigning to coeffs.
+-   Get the three intercept coefficients from coeffs, assigning to intercept_0_15, intercept_15_30, and intercept_30_45.
+-   Get the three slope coefficients from coeffs, assigning to slope_0_15, slope_15_30, and slope_30_45.
 
 ``` {.r filename="E8.R"}
 
@@ -366,19 +377,17 @@ Sometimes modeling a whole dataset suggests trends that disagree with models on 
 
 Over the next few exercises, you'll look at eBay auctions of Palm Pilot M515 PDA models.
 
-variable	                meaning
-price	                    Final sale price, USD
-openbid	                  The opening bid, USD
-auction_type	            How long did the auction last?
+variable meaning price Final sale price, USD openbid The opening bid, USD auction_type How long did the auction last?
 
 auctions is available; dplyr and ggplot2 are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Look at the structure of the auctions dataset and familiarize yourself with its columns.
-* Fit a linear regression model of price versus openbid, using the auctions dataset. Look at the coefficients.
+-   Look at the structure of the auctions dataset and familiarize yourself with its columns.
 
-* Using auctions, plot price versus openbid as a scatter plot with linear regression trend lines (no ribbon). Look at the trend line.
+-   Fit a linear regression model of price versus openbid, using the auctions dataset. Look at the coefficients.
+
+-   Using auctions, plot price versus openbid as a scatter plot with linear regression trend lines (no ribbon). Look at the trend line.
 
 ``` {.r filename="E9.R"}
 # Take a glimpse at the dataset
@@ -407,9 +416,9 @@ auctions is available; dplyr and ggplot2 are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Fit a linear regression model of price versus openbid and auction_type, with an interaction, using the auctions dataset. Look at the coefficients.
+-   Fit a linear regression model of price versus openbid and auction_type, with an interaction, using the auctions dataset. Look at the coefficients.
 
-* Using auctions, plot price versus openbid, colored by auction_type, as a scatter plot with linear regression trend lines (no ribbon). Look at the trend lines.
+-   Using auctions, plot price versus openbid, colored by auction_type, as a scatter plot with linear regression trend lines (no ribbon). Look at the trend lines.
 
 ``` {.r filename="E10.R"}
 # Fit linear regression of price vs. opening bid and auction type, with an interaction.

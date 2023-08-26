@@ -12,10 +12,10 @@ The bank churn dataset is available as churn; ggplot2 is loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Using the churn dataset, plot the recency of purchase, time_since_last_purchase, versus the length of customer relationship, time_since_first_purchase, colored by whether or not the customer churned, has_churned.
-* Add a point layer, with transparency set to 0.5.
-* Use a 2-color gradient, with midpoint 0.5.
-* Use the black and white theme.  
+-   Using the churn dataset, plot the recency of purchase, time_since_last_purchase, versus the length of customer relationship, time_since_first_purchase, colored by whether or not the customer churned, has_churned.
+-   Add a point layer, with transparency set to 0.5.
+-   Use a 2-color gradient, with midpoint 0.5.
+-   Use the black and white theme.
 
 ``` {.r filename="E1.R"}
 # Using churn, plot recency vs. length of relationship colored by churn status
@@ -32,6 +32,7 @@ ggplot(
 ```
 
 ## Logistic regression with 2 explanatory variables
+
 To include multiple explanatory variables in logistic regression models, the syntax is the same as for linear regressions. The only change is the same as in the simple case: you run a generalized linear model with a binomial error family.
 
 Here you'll fit a model of churn status with both of the explanatory variables from the dataset: the length of customer relationship and the recency of purchase.
@@ -40,7 +41,7 @@ churn is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Fit a logistic regression of churn status, has_churned versus length of customer relationship, time_since_first_purchase and recency of purchase, time_since_last_purchase, and an interaction between the explanatory variables.
+-   Fit a logistic regression of churn status, has_churned versus length of customer relationship, time_since_first_purchase and recency of purchase, time_since_last_purchase, and an interaction between the explanatory variables.
 
 ``` {.r filename="E2.R"}
 # Fit a logistic regression of churn status vs. length of relationship, recency, and an interaction
@@ -62,14 +63,14 @@ churn and mdl_churn_vs_both_inter are available; dplyr, tidyr and ggplot2 are lo
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a grid of explanatory variables.
+-   Create a grid of explanatory variables.
 
-    * Set time_since_first_purchase to a sequence from minus two to four in steps of 0.1.
-    * Set time_since_last_purchase to a sequence from minus one to six in steps of 0.1.
+    -   Set time_since_first_purchase to a sequence from minus two to four in steps of 0.1.
+    -   Set time_since_last_purchase to a sequence from minus one to six in steps of 0.1.
 
-* Add a column to explanatory_data named has_churned containing predictions using mdl_churn_vs_both_inter and explanatory_data with type "response".
+-   Add a column to explanatory_data named has_churned containing predictions using mdl_churn_vs_both_inter and explanatory_data with type "response".
 
-* Extend the plot by adding points from prediction_data with size 3 and shape 15.
+-   Extend the plot by adding points from prediction_data with size 3 and shape 15.
 
 ``` {.r filename="E3.R"}
 # Make a grid of explanatory data
@@ -132,13 +133,17 @@ churn and mdl_churn_vs_both_inter are available; dplyr and yardstick are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Get the actual responses from the churn dataset.
-* Get the predicted responses from the rounded, fitted values of mdl_churn_vs_both_inter.
-* Create a table of the actual and predicted response values.
-* Convert the table to a conf_mat confusion matrix object.
+-   Get the actual responses from the churn dataset.
 
-* "Automatically" plot the confusion matrix, confusion.
-* Get summary metrics from the confusion matrix. Remember that the churn event is in the second row/column of the matrix.
+-   Get the predicted responses from the rounded, fitted values of mdl_churn_vs_both_inter.
+
+-   Create a table of the actual and predicted response values.
+
+-   Convert the table to a conf_mat confusion matrix object.
+
+-   "Automatically" plot the confusion matrix, confusion.
+
+-   Get summary metrics from the confusion matrix. Remember that the churn event is in the second row/column of the matrix.
 
 ``` {.r filename="E4.R"}
 # Get the actual responses from churn
@@ -182,17 +187,19 @@ ggplot2 is loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a tibble containing three columns.
+-   Create a tibble containing three columns.
 
-    * x values as a sequence from minus ten to ten in steps of 0.1.
-    * logistic_x made from x transformed with the logistic distribution CDF.
-    * logistic_x_man made from x transformed with a logistic function calculated from the equation
-    
+    -   x values as a sequence from minus ten to ten in steps of 0.1.
+    -   logistic_x made from x transformed with the logistic distribution CDF.
+    -   logistic_x_man made from x transformed with a logistic function calculated from the equation
+
 > cd(x) = 1/(1+exp(-x)).
 
-    * Check that both logistic transformations (logistic_x and logistic_x_man) have the same values with all.equal().
-    
-* Using the logistic_distn_cdf dataset, plot logistic_x versus x as a line plot.
+```         
+* Check that both logistic transformations (logistic_x and logistic_x_man) have the same values with all.equal().
+```
+
+-   Using the logistic_distn_cdf dataset, plot logistic_x versus x as a line plot.
 
 ``` {.r filename="E5.R"}
 logistic_distn_cdf <- tibble(
@@ -235,17 +242,20 @@ dplyr and ggplot2 are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Create a tibble containing three columns.
+-   Create a tibble containing three columns.
 
-    * x values as a sequence from minus 0.001 to 0.999 in steps of 0.001.
-    * logit_p made from p transformed with the logistic distribution inverse CDF.
-    * logit_p_man made from p transformed with the equation
-    
+    -   x values as a sequence from minus 0.001 to 0.999 in steps of 0.001.
+    -   logit_p made from p transformed with the logistic distribution inverse CDF.
+    -   logit_p_man made from p transformed with the equation
+
 > log(p/(1-p)).
 
-    * Check that both logit transformations (logit_p and logit_p_man) have the same values with all.equal().
-    
-* Using the logistic_distn_inv_cdf dataset, plot logit_p versus p as a line plot.
+```         
+* Check that both logit transformations (logit_p and logit_p_man) have the same values with all.equal().
+```
+
+-   Using the logistic_distn_inv_cdf dataset, plot logit_p versus p as a line plot.
+
 ``` {.r filename="E6.R"}
 
 logistic_distn_inv_cdf <- tibble(
@@ -287,11 +297,11 @@ A vector of values, x, and a vector of probabilities, p, are available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Examine the structure of the binomial() function. Notice that it contains two elements that are functions, binomial()$$linkinv, and binomial()$$linkfun.
-* Call binomial()$linkinv() on x, assigning to linkinv_x.
-* Check that linkinv_x and plogis() of x give the same results with all.equal().
-* Call binomial()$linkfun() on p, assigning to linkfun_p.
-* Check that linkfun_p and qlogis() of p give the same results.
+-   Examine the structure of the binomial() function. Notice that it contains two elements that are functions, binomial()$$linkinv, and binomial()$$linkfun.
+-   Call binomial()\$linkinv() on x, assigning to linkinv_x.
+-   Check that linkinv_x and plogis() of x give the same results with all.equal().
+-   Call binomial()\$linkfun() on p, assigning to linkfun_p.
+-   Check that linkfun_p and qlogis() of p give the same results.
 
 ``` {.r filename="E7.R"}
 # Look at the structure of binomial() function
@@ -324,28 +334,32 @@ The explanatory values (the time_since_last_purchase column of churn) are availa
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Set the intercept to one.
-* Set the slope to 0.5.
-* Calculate the predicted y-values as the intercept plus the slope times the actual x-values, all transformed with the logistic distribution CDF.
-* Calculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.
-* Calculate minus the sum of the log-likelihoods for each term.
-* Run the tests on the datasummary package.
+-   Set the intercept to one.
 
-* Complete the function body.
+-   Set the slope to 0.5.
 
-    * Get the intercept from the first element of coeffs.
-    * Get the slope from the second element of coeffs.
-    * Calculate the predicted y-values as the intercept plus the slope times the actual x-values, transformed with the logistic distribution CDF.
-    * Calculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.
-    * Calculate minus the sum of the log-likelihoods for each term.
-  
-* Optimize the sum of squares metric.
+-   Calculate the predicted y-values as the intercept plus the slope times the actual x-values, all transformed with the logistic distribution CDF.
 
-    * Call an optimization function.
-    * Initially guess that the intercept is zero and the slope is one.
-    * Use calc_neg_log_likelihood as the optimization function.
+-   Calculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.
 
-  
+-   Calculate minus the sum of the log-likelihoods for each term.
+
+-   Run the tests on the datasummary package.
+
+-   Complete the function body.
+
+    -   Get the intercept from the first element of coeffs.
+    -   Get the slope from the second element of coeffs.
+    -   Calculate the predicted y-values as the intercept plus the slope times the actual x-values, transformed with the logistic distribution CDF.
+    -   Calculate the log-likelihood for each term as the log of the predicted y-values times the actual y-values, plus the log of one minus the predicted y-values times one minus the actual y-values.
+    -   Calculate minus the sum of the log-likelihoods for each term.
+
+-   Optimize the sum of squares metric.
+
+    -   Call an optimization function.
+    -   Initially guess that the intercept is zero and the slope is one.
+    -   Use calc_neg_log_likelihood as the optimization function.
+
 ``` {.r filename="E8.R"}
 # Set the intercept to 1
 intercept <- 1

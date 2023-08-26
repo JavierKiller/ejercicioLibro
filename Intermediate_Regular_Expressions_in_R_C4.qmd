@@ -1,0 +1,150 @@
+---
+title: "Similarities Between Strings"
+---
+
+## Finding a match to a search typo
+
+Human input is very error-prone. People mistype all kinds of texts, including their name or address, and you as a data scientist need to find a way to handle that. Calculating string distances is one way to tackle this problem.
+
+In our small vector usernames you'll find three different names. You will be tasked with finding the closest name possible to the inputted name "Emile Brown". Can you find a similar name in the vector usernames? Use amatch() to search the vector and print out a recommendation similar to the one you have seen on Google.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Specify the maximum edit distance for the amatch() function as 1.
+- Use the return value of amatch() which is stored in closest_index to print the name in usernames.
+
+``` {.r filename="E1.R"}
+usernames <- c("Max Power", "Emilie Brown", "Max Mustermann")
+
+# Search usernames with a maximum edit distance of 1
+closest_index <- amatch(
+  x = "Emile Brown",
+  table = usernames,
+  maxDist  = 1,
+  method = "lv"
+)
+
+# Print the matched name in usernames at closest_index
+print(glue(
+  "Did you mean {name_matched}?",
+  name_matched = usernames[closest_index]
+))
+```
+
+## Trying out different methods
+
+Perfect, you already have learned about multiple methods of calculating string distances. Which method to use depends on a lot of circumstances, so it's a good idea to play around with the different methods and their parameters a bit to get to know them better. For this exercise you'll use the search term "Marya Carey" - a mistyped version of the name "Mariah Carey". How similar is the mistyped name to the real one with different methods of string distances?
+
+The goal is to find parameters that will yield a low distance on the two names described above while maintaining a large distance to the other names in the list that are not the person one is searching for.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Generate the q-grams for substring length values of 1 and 2.
+- Calculate the string distance between search and names using the q-gram method for substring length values of 1 and 2.
+- Calculate the string distance between search and names by using the "osa" method.  
+
+``` {.r filename="E2.R"}
+search <- "Mariah Carey"
+names <- c("M. Carey", "Mick Jagger", "Michael Jackson")
+
+# Pass the values 1 and 2 as "q" and inspect the qgrams
+qgrams("Mariah Carey", "M. Carey", q = 1)
+qgrams("Mariah Carey", "M. Carey", q = 2)
+
+# Try the qgram method on the variables search and names
+stringdist(search, names, method = "qgram", q = 1)
+stringdist(search, names, method = "qgram", q = 2)
+
+# Try the default method (osa) on the same input and compare
+stringdist(search, names, method = "osa")
+```
+
+## Performing a string distance join
+
+Bringing together two different data sources is a very common task in data analysis. Whenever possible, you should use clearly identifiable values like an email address to join two tables by. But what if a user only inputted their name and you have to look it up in a user database? The difficulty: People might abbreviate their first or last name, mistype something, or leave out parts entirely.
+
+In the scope there are two data frames: user_input and database. The first contains the flawed user input and the second the correct names, but both data sources contain the same 100 names. How many of them can you match with a string distance join? By the way: There is no distance method defined, so the default, Optimal String Alignment distance "osa" will be used.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Join user_input and database with a maximum string distance max_dist so exactly eighty names are matched successfully. Experiment until you find the right maximum distance.
+- Use the newly created table joined to print a human friendly report sentence. 
+
+``` {.r filename="E3.R"}
+ # Join the data frames on a maximum string distance of 2
+joined <- stringdist_join(
+  user_input,
+  database,
+  by = c("user_input" = "name"),
+  max_dist = 3,
+  distance_col = "distance",
+  ignore_case = TRUE
+)
+
+# Print the number of rows of the newly created data frame
+print(glue(
+  "{n} out of 100 names were matched successfully",
+  n = nrow(joined)
+))
+```
+
+## Finding matches based on two conditions
+
+In this exercise, you'll match 2 datasets with corresponding movie titles, but that also contain typos. In the first table movie_titles, there are ten movies that you should match with the second table movie_db. But they are based on scanned documents and they contain errors by the Optical Character Recognition software.
+
+Both tables contain the columns title and year. Use these to find matches between them.
+
+Create 2 helper functions that match entries that are similar or equal. One for the movie titles (based on stringdist()) and one for comparing years, using abs() (that returns the delta).
+
+## Instructions `100 XP` {.unnumbered}
+
+- Make the function is_string_distance_below_three() return TRUE if the stringdistance between left and right is below 3.
+
+- Make is_closer_than_three_years() return TRUE if the absolute difference between left and right is smaller than three.
+
+- Use the helper functions to join the two data frames on the two columns "title" and "year" 
+
+``` {.r filename="E4.R"}
+# Calculate the string distance - it should be smaller than 3
+is_string_distance_below_three <- function(left, right) {
+  stringdist(left, right) < 3
+}
+
+is_string_distance_below_three("Hi there", "Hi there")
+
+
+
+
+is_string_distance_below_three <- function(left, right) {
+  stringdist(left, right) < 3
+}
+
+# Check if the absolute value between left and right is smaller than three
+is_closer_than_three_years <- function(left, right) {
+  abs(left - right) < 3
+}
+
+is_closer_than_three_years(2015, 2014)
+
+
+
+
+
+
+
+is_string_distance_below_three <- function(left, right) {
+  stringdist(left, right) < 3
+}
+
+is_closer_than_three_years <- function(left, right) {
+  abs(left - right) < 3
+}
+
+# Join by "title" and "year" with our two helper functions
+fuzzy_left_join(
+  movie_titles, movie_db,
+  by = c("title", "year"),
+  match_fun = c("title" = is_string_distance_below_three, 
+                "year" = is_closer_than_three_years)
+)
+```

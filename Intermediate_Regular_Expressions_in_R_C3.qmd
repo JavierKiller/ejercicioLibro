@@ -1,0 +1,172 @@
+---
+title: "Extracting Structured Data From Text"
+---
+
+## Match all capturing groups
+
+In this exercise, you will work with a text file named top_10 which stores movie names and their rank. In this multi-line text, \\n is used to start a new line. You will use the str_split() function to split the text file into multiple lines.
+
+The newly created one-rowed matrix top_10_lines then contains ten lines with the same pattern: The rank of the movie, followed by a dot and a space and the movie title itself. The function str_match() and two capturing groups () will make it possible to extract these two pieces of information from plain text into a tabular form.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use the str_split() function to split the text into its lines, outputting a character matrix by enabling simplify.
+- Familiarize yourself with the structure of a line. It contains the rank and the title of a movie.
+- Extract the rank and the title of a movie by using capturing groups in the str_match() function.
+
+``` {.r filename="E1.R"}
+# Split the input by line break and enable simplify
+top_10_lines <- str_split(
+  top_10,
+  pattern = "\\n",
+  simplify = TRUE
+)
+
+# Inspect the first three lines and analyze their form
+top_10_lines[1:3]
+
+# Add to the pattern two capturing groups that match rank and title
+str_match(
+  top_10_lines,
+  pattern = "(\\d+)\\. (.+)"
+)
+```
+
+## Search and replace
+
+The function str_replace() is a general function to replace parts of a string. A common application is to replace something with an empty string - which is a simple way to remove unneeded parts from a string.
+
+With capturing groups, str_replace() gets even more interesting: They enable you to change the order of things. By adding so called "backreferences" to the replacement, str_replace() will replace these references with the contents of the corresponding capturing group. For example: If you write \\1, this will be replaced with the 1st capturing group.
+
+In this exercise, you'll see the first use (remove a substring) and the second (reorder two parts of a string) side by side. In the scope, you'll find the variable top_10_lines from the last exercise.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Remove 3D from the end of each line in top_10_lines by replacing it with an empty string.
+- Form a new sentence with the two capturing groups. Reorder them so they result in e.g. "Karate Kid is on rank 1". 
+
+``` {.r filename="E2.R"}
+# Remove a space followed by "3D" at the end of the line
+str_replace(
+  top_10_lines,
+  pattern = " 3D",
+  replacement = ""
+)
+
+# Use backreferences 2 and 1 to create a new sentence
+str_replace(
+  top_10_lines,
+  pattern = "(\\d+)\\. (.*)",
+  replacement = "\\2 is at rank \\1"
+)
+```
+
+## Creating a regex that matches your needs
+
+In this exercise, you're going to replicate what you just saw in the video exercise by extracting the letters "3D" from the "line" column from the screens_per_movie data frame.
+
+For the extract() function to work correctly, you need to make sure that the following requirement is met: The number of capturing groups in the regular expression regex must be identical to the length of the vector into. If that's not the case, you will run into an error.
+
+Can you resolve this issue so "3D" and that one or more number \\d+ get extracted correctly from the data frame screens_per_movie?
+
+## Instructions `100 XP` {.unnumbered}
+
+- Create a regular expression regex that has two capturing groups (). Their contents will be extracted into the new columns.
+- Make sure you do not remove the original text column.
+- Make sure the second captured group gets converted into numbers.
+
+``` {.r filename="E3.R"}
+extract(
+  screens_per_movie,
+  line,
+  into = c("is_3d", "screens"),
+  # Capture two groups: "3D" and "one or more digits"
+  regex = "(3D).*?(\\d+)$",
+  # Pass TRUE or FALSE, the original column should not be removed
+  remove = FALSE,
+  # Pass TRUE or FALSE, the result should get converted to numbers
+  convert = TRUE
+)
+```
+
+## Extracting an advanced regular expression
+
+In this exercise, you will build on top of the prior exercises by creating a more advanced regular expression to capture the title of the movie, the company name of the distributor and the number of screens in each line of the screens_per_movie data frame.
+
+Every line of screens_per_movie contains these three sections. Using extract you will extract these three and get three new columns with exactly the information you want in a tabular and structured form. This step is key if you want to make sense of unstructured data and bring it into a form that you can later analyze and visualize.
+
+## Instructions `100 XP` {.unnumbered}
+
+- First, inspect the first three rows of screens_per_movie and make yourself familiar with the structure of the data.
+
+- Bring the three capturing groups "to life": The first should match anything, the second match one or more word characters and the last match one or more digits.
+
+- Now use the extract() function create the three new columns "title", "distributor" and "screens" from the column line that contains our raw text input.
+``` {.r filename="E4.R"}
+# Print the first three lines of screens_per_movie
+screens_per_movie[1:3, ]
+
+
+
+
+# Print the first three lines of screens_per_movie
+screens_per_movie[1:3, ]
+
+# Match anything, one or more word chars and one or more digits
+str_match(
+  screens_per_movie[3, ]$line,
+  "(.*)\\s{2,}(\\w+)\\s{2,}(\\d+)"
+)
+
+
+
+
+
+# Print the first three lines of screens_per_movie
+screens_per_movie[1:3, ]
+
+# Match anything, one or more word chars and one or more digits
+str_match(
+  screens_per_movie[3, ]$line,
+  "(.*)\\s{2,}(\\w+)\\s{2,}(\\d+)"
+)
+
+# Extract the column line into title, distributor, screens
+extract(
+  screens_per_movie,
+  col = line,
+  into = c("title", "distributor", "screens"),
+  regex = "(.*)\\s{2,}(\\w+)\\s{2,}(\\d+)")
+```
+
+## Extract names with context
+
+Let's take out our dataset about Swiss politicians again. It consist of two variables: articles which is a collection of news articles about Swiss politics and politicians which is a vector with several names of Swiss politicians.
+
+You already counted the number of occurrences per name, but wouldn't it be interesting if you could not only count the names but also see in what context the names are used? You could for example compare whether the contexts differ from female to male politicians. To do so, you'll have to extract the text surrounding our politician names.
+
+As the text contains word characters \\w as well as punctuation [:punct:] like periods . or commas ,, you will have to create a pattern that matches both of these character types.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use the vector politicians and collapse it to create an "or pattern" like you did in chapter 2.
+- Create a custom pattern in square brackets [] that matches both word characters as well as punctuations.
+- Using glue, add the newly created context both in front of as well as after the polit_pattern. The \\s? indicated that after there can be a space or no space after the politician names.
+
+``` {.r filename="E5.R"}
+# Create our polit_pattern again by collapsing "politicians"
+polit_pattern <- glue_collapse(politicians, sep = "|")
+
+# Match one or more word characters or punctuations
+context <- "([\\w[:punct:]]+\\s){0,10}"
+
+# Add this pattern in front and after the polit_pattern
+polit_pattern_with_context <- glue(
+  "{context}({polit_pattern})\\s?{context}"
+)
+
+str_extract_all(
+  articles$text,
+  pattern = polit_pattern_with_context
+)
+```

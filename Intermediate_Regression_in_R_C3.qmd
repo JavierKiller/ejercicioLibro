@@ -10,10 +10,11 @@ taiwan_real_estate is available; magrittr, plot3D and ggplot2 are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* With the taiwan_real_estate dataset, draw a 3D scatter plot of the number of nearby convenience stores on the x-axis, the square-root of the distance to the nearest MRT stop on the y-axis, and the house price on the z-axis.
+-   With the taiwan_real_estate dataset, draw a 3D scatter plot of the number of nearby convenience stores on the x-axis, the square-root of the distance to the nearest MRT stop on the y-axis, and the house price on the z-axis.
 
-* With the taiwan_real_estate dataset, draw a scatter plot of the square-root of the distance to the nearest MRT stop versus the number of nearby convenience stores, colored by house price.
-* Use the continuous viridis color scale, using the "plasma" option.
+-   With the taiwan_real_estate dataset, draw a scatter plot of the square-root of the distance to the nearest MRT stop versus the number of nearby convenience stores, colored by house price.
+
+-   Use the continuous viridis color scale, using the "plasma" option.
 
 ``` {.r filename="E1.R"}
 # With taiwan_real_estate, draw a 3D scatter plot of no. of conv. stores, sqrt dist to MRT, and price
@@ -43,12 +44,13 @@ taiwan_real_estate is available; dplyr, tidyr and ggplot2 are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Fit a linear regression of house price versus the number of convenience stores and the square-root of the distance to the nearest MRT stations, without an interaction, using the taiwan_real_estate dataset.
+-   Fit a linear regression of house price versus the number of convenience stores and the square-root of the distance to the nearest MRT stations, without an interaction, using the taiwan_real_estate dataset.
 
-* Create expanded grid of explanatory variables with number of convenience stores from 0 to 10 and the distance to the nearest MRT station as a sequence from 0 to 80 in steps of 10, all squared (0, 100, 400, …, 6400). Assign to explanatory_data.
-* Add a column of predictions to explanatory_data using mdl_price_vs_conv_dist and explanatory_data. Assign to prediction_data.
+-   Create expanded grid of explanatory variables with number of convenience stores from 0 to 10 and the distance to the nearest MRT station as a sequence from 0 to 80 in steps of 10, all squared (0, 100, 400, ..., 6400). Assign to explanatory_data.
 
-* Extend the plot to add a layer of points using the prediction data, colored yellow, with size 3.
+-   Add a column of predictions to explanatory_data using mdl_price_vs_conv_dist and explanatory_data. Assign to prediction_data.
+
+-   Extend the plot to add a layer of points using the prediction data, colored yellow, with size 3.
 
 ``` {.r filename="E2.R"}
 # Fit a linear regression of price vs. no. of conv. stores and sqrt dist. to nearest MRT, no interaction
@@ -108,12 +110,13 @@ taiwan_real_estate is available; dplyr, tidyr and ggplot2 are loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Fit a linear regression of house price versus the number of convenience stores and the square-root of the distance to the nearest MRT stations, with an interaction, using the taiwan_real_estate dataset.
+-   Fit a linear regression of house price versus the number of convenience stores and the square-root of the distance to the nearest MRT stations, with an interaction, using the taiwan_real_estate dataset.
 
-* Create expanded grid of explanatory variables with number of convenience stores from 0 to 10 and the distance to the nearest MRT station as a sequence from 0 to 80 in steps of 10, all squared (0, 100, 400, …, 6400). Assign to explanatory_data.
-* Add a column of predictions to explanatory_data using mdl_price_vs_conv_dist and explanatory_data. Assign to prediction_data.
+-   Create expanded grid of explanatory variables with number of convenience stores from 0 to 10 and the distance to the nearest MRT station as a sequence from 0 to 80 in steps of 10, all squared (0, 100, 400, ..., 6400). Assign to explanatory_data.
 
-* Extend the plot to add a layer of points using the prediction data, colored yellow, with size 3.
+-   Add a column of predictions to explanatory_data using mdl_price_vs_conv_dist and explanatory_data. Assign to prediction_data.
+
+-   Extend the plot to add a layer of points using the prediction data, colored yellow, with size 3.
 
 ``` {.r filename="E3.R"}
 # Fit a linear regression of price vs. no. of conv. stores and sqrt dist. to nearest MRT, with interaction
@@ -174,9 +177,10 @@ taiwan_real_estate is available; ggplot2 is loaded.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Using the taiwan_real_estate dataset, draw a scatter plot of n_convenience versus the square root of dist_to_mrt_m, colored by price_twd_msq.
-* Use the continuous viridis plasma color scale.
-* Facet the plot, wrapping by house_age_years.
+-   Using the taiwan_real_estate dataset, draw a scatter plot of n_convenience versus the square root of dist_to_mrt_m, colored by price_twd_msq.
+-   Use the continuous viridis plasma color scale.
+-   Facet the plot, wrapping by house_age_years.
+
 ``` {.r filename="E4.R"}
 # Using taiwan_real_estate, no. of conv. stores vs. sqrt of dist. to MRT, colored by plot house price
 ggplot(
@@ -201,11 +205,11 @@ taiwan_real_estate is available.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Fit a linear regression of house price versus n_convenience, the square-root of dist_to_mrt_m, and house_age_years. Don't include a global intercept, and don't include any interactions.
+-   Fit a linear regression of house price versus n_convenience, the square-root of dist_to_mrt_m, and house_age_years. Don't include a global intercept, and don't include any interactions.
 
-* Fit a linear regression of house price versus the square-root of dist_to_mrt_m, n_convenience, and house_age_years. Don't include a global intercept, but do include 2-way and 3-way interactions between the explanatory variables.
+-   Fit a linear regression of house price versus the square-root of dist_to_mrt_m, n_convenience, and house_age_years. Don't include a global intercept, but do include 2-way and 3-way interactions between the explanatory variables.
 
-* Fit a linear regression of house price versus the square-root of dist_to_mrt_m, n_convenience, and house_age_years. Don't include a global intercept, but do include 2-way (not 3-way) interactions between the explanatory variables.
+-   Fit a linear regression of house price versus the square-root of dist_to_mrt_m, n_convenience, and house_age_years. Don't include a global intercept, but do include 2-way (not 3-way) interactions between the explanatory variables.
 
 ``` {.r filename="E5.R"}
 # Model price vs. no. of conv. stores, sqrt dist. to MRT station & house age, no global intercept, no interactions
@@ -250,17 +254,20 @@ taiwan_real_estate and mdl_price_vs_all_3_way_inter are available; dplyr, tidyr 
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Make a grid of explanatory data, formed from combinations of the following variables.
+-   Make a grid of explanatory data, formed from combinations of the following variables.
 
-    * dist_to_mrt_m should take a sequence from zero to eighty in steps of ten, all squared (0, 100, 400, …, 6400).
-    * n_convenience should take the numbers zero to ten.
-    * house_age_years should take the unique values of the house_age_years column of taiwan_real_estate.
+    -   dist_to_mrt_m should take a sequence from zero to eighty in steps of ten, all squared (0, 100, 400, ..., 6400).
+    -   n_convenience should take the numbers zero to ten.
+    -   house_age_years should take the unique values of the house_age_years column of taiwan_real_estate.
 
-* Add a column to the explanatory_data, assigning to prediction_data.
-* The column should be named after the response variable, and contain predictions made using mdl_price_vs_all_3_way_inter and explanatory_data.
+-   Add a column to the explanatory_data, assigning to prediction_data.
 
-* Extend the plot to include predictions as points from prediction_data, with size 3 and shape 15.
-* Look at the plot. What do the prediction points tell you?
+-   The column should be named after the response variable, and contain predictions made using mdl_price_vs_all_3_way_inter and explanatory_data.
+
+-   Extend the plot to include predictions as points from prediction_data, with size 3 and shape 15.
+
+-   Look at the plot. What do the prediction points tell you?
+
 ``` {.r filename="E6.R"}
 # Make a grid of explanatory data
 explanatory_data <- expand_grid(
@@ -323,32 +330,31 @@ To truly understand linear regression, it is helpful to know how the algorithm w
 
 The workflow is
 
-Write a script to calculate the sum of squares.
-Turn this into a function.
-Use R's general purpose optimization function find the coefficients that minimize this.
-The explanatory values (the n_convenience column of taiwan_real_estate) are available as x_actual. The response values (the price_twd_msq column of taiwan_real_estate) are available as y_actual.
+Write a script to calculate the sum of squares. Turn this into a function. Use R's general purpose optimization function find the coefficients that minimize this. The explanatory values (the n_convenience column of taiwan_real_estate) are available as x_actual. The response values (the price_twd_msq column of taiwan_real_estate) are available as y_actual.
 
 ## Instructions `100 XP` {.unnumbered}
 
-* Set the intercept to ten.
-* Set the slope to one.
-* Calculate the predicted y-values as the intercept plus the slope times the actual x-values.
-* Calculate the differences between actual and predicted y-values.
-* Calculate the sum of squares. Get the sum of the differences in y-values, squaring each value.
+-   Set the intercept to ten.
 
-* Complete the function body.
+-   Set the slope to one.
 
-    * Get the intercept from the first element of coeffs.
-    * Get the slope from the second element of coeffs.
-    * Calculate the predicted y-values as the intercept plus the slope times the actual x-values.
-    * Calculate the differences between actual and predicted y-values.
-    * Calculate the sum of squares. Get the sum of the differences in y-values, squaring each value.
+-   Calculate the predicted y-values as the intercept plus the slope times the actual x-values.
 
-* Optimize the sum of squares metric.
+-   Calculate the differences between actual and predicted y-values.
 
-    *Call an optimization function.
-    *Initially guess that the intercept is zero and the slope is zero by passing a named vector of parameters.
-    *Use calc_sum_of_squares as the optimization function.
+-   Calculate the sum of squares. Get the sum of the differences in y-values, squaring each value.
+
+-   Complete the function body.
+
+    -   Get the intercept from the first element of coeffs.
+    -   Get the slope from the second element of coeffs.
+    -   Calculate the predicted y-values as the intercept plus the slope times the actual x-values.
+    -   Calculate the differences between actual and predicted y-values.
+    -   Calculate the sum of squares. Get the sum of the differences in y-values, squaring each value.
+
+-   Optimize the sum of squares metric.
+
+    *Call an optimization function.* Initially guess that the intercept is zero and the slope is zero by passing a named vector of parameters. \*Use calc_sum_of_squares as the optimization function.
 
 ``` {.r filename="E7.R"}
 # Set the intercept to 10
