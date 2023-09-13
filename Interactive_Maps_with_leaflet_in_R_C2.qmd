@@ -1,0 +1,432 @@
+---
+title: "Plotting Points"
+---
+
+## Cleaning up the Base Map
+
+If you are storing leaflet maps in objects, there will come a time when you need to remove markers or reset the view. You can accomplish these tasks with the following functions.
+
+> clearMarkers()- Remove one or more features from a map
+> clearBounds()- Clear bounds and automatically determine bounds based on map elements
+
+To remove the markers and to reset the bounds of our m map we would:
+
+> m <- m  %>% 
+>         addMarkers(lng = dc_hq$lon, lat = dc_hq$lat) %>% 
+>         setView(lat = 50.9, lng = 4.7, zoom = 5)
+
+> m  %>% 
+>     clearMarkers() %>% 
+>     clearBounds()
+
+The leaflet map of DataCamp's headquarters has been printed for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use clearMarkers() to remove markers and clearBounds() to restore the default view and store in the map_clear object.
+
+- Print map_clear
+
+``` {.r filename="E1.R"}
+# Remove markers, reset bounds, and store the updated map in the m object
+map_clear <- map  %>%
+        clearMarkers()  %>% 
+        clearBounds()
+        
+
+
+
+# Remove markers, reset bounds, and store the updated map in the m object
+map_clear <- map %>%
+        clearMarkers() %>% 
+        clearBounds()
+
+# Print the cleared map
+print(map_clear)
+```
+
+## Exploring the IPEDS Data II
+
+Most analyses require data wrangling. Luckily, there are many functions in the tidyverse that facilitate data frame cleaning. For example, the drop_na() function will remove observations with missing values. By default, drop_na() will check all columns for missing values and will remove all observations with one or more missing values.
+
+> miss_ex <- tibble(
+>              animal = c("dog", "cat", "rat", NA),
+>              name   = c("Woodruf", "Stryker", NA, "Morris"),
+>              age    = c(1:4))
+> miss_ex
+
+> miss_ex %>% 
+>      drop_na() %>% 
+>      arrange(desc(age))
+
+> # A tibble: 2 x 3
+>   animal    name   age
+>    <chr>   <chr> <dbl>
+> 1    cat Stryker     2
+> 2    dog Woodruf     1
+
+## Instructions `100 XP` {.unnumbered}
+
+- Remove colleges with missing sector information using drop_na().  
+
+- Count the number of four-year colleges in each state.
+
+- Print the US states in descending order by the number of colleges in each state. 
+
+``` {.r filename="E2.R"}
+# Remove colleges with missing sector information
+ipeds <- 
+    ipeds_missing %>% 
+    drop_na()
+
+
+
+
+# Count the number of four-year colleges in each state
+ipeds %>% 
+    group_by(state) %>% 
+    count()
+    
+    
+
+
+
+# Create a list of US States in descending order by the number of colleges in each state
+ipeds  %>% 
+    group_by(state)  %>% 
+    count()  %>% 
+    arrange(desc(n))
+```
+
+## California Colleges
+
+Now it is your turn to map all of the colleges in a state. In this exercise, we'll apply our example of mapping Maine's colleges to California's colleges. The first step is to set up your data by filtering the ipeds data frame to include only colleges in California. For reference, you will find how we accomplished this with the colleges in Maine below.
+
+> maine_colleges <- 
+>     ipeds %>% 
+>         filter(state == "ME")
+
+> maine_colleges
+
+> # A tibble: 21 x 5
+>                      name       lng      lat state sector_label
+>                     <chr>     <dbl>    <dbl> <chr>        <chr>
+> 1           Bates College -70.20333 44.10530    ME      Private
+> 2         Bowdoin College -69.96524 43.90690    ME      Private
+
+## Instructions `100 XP` {.unnumbered}
+
+- Create a data frame called ca with data on only colleges in California.
+- Use addMarkers() to plot all of the colleges in ca on map.  
+
+``` {.r filename="E3.R"}
+# Create a dataframe called `ca` with data on only colleges in California
+ca <- ipeds %>%
+        filter(state == "CA")
+
+# Use `addMarkers` to plot all of the colleges in `ca` on the `m` leaflet map
+map %>%
+    addMarkers(lng = ca$lng, lat = ca$lat)
+```
+
+## The City of Colleges
+
+Based on our map of California colleges it appears that there is a cluster of colleges in and around the City of Angels (e.g., Los Angeles). Let's take a closer look at these institutions on our leaflet map.
+
+The coordinates for the center of LA are provided for you in the la_coords data frame.
+
+la_coords <- data.frame(lat = 34.05223, lon = -118.2437) 
+Once you create a map focused on LA, try panning and zooming the map. Can you find the cluster of colleges East of LA known as the Claremont Colleges?
+
+When there are hundreds of markers, do you find the pin markers helpful or do they get in your way?
+
+The coordinates of LA have been provided in the la_coords data frame and the ca data frame of California colleges and the map have been loaded for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Center the map on LA.
+
+- Set the zoom level to 8 and store the map in the map_zoom object.
+- Print the map stored in the map_zoom object.
+
+``` {.r filename="E4.R"}
+# Center the map on LA 
+map %>% 
+   addMarkers(data = ca) %>% 
+    setView(lat = la_coords$lat, lng = la_coords$lon, zoom = 12)
+
+
+
+# Set the zoom level to 8 and store in the map_zoom object
+map_zoom <- 
+    map %>% 
+      addMarkers(data = ca) %>% 
+      setView(lat = la_coords$lat, lng = la_coords$lon, zoom = 8)
+      
+map_zoom
+```
+
+## Circle Markers
+
+Circle markers are notably different from pin markers:
+
+We can control their size
+They do not "stand-up" on the map
+We can more easily change their color
+There are many ways to customize circle markers and the design of your leaflet map. To get started we will focus on the following arguments.
+
+addCircleMarkers(map, lng = NULL, lat = NULL, 
+                 radius = 10, color = "#03F", popup = NULL)
+The first argument map takes a leaflet object, which we will pipe directly into addCircleMarkers(). lng and lat are the coordinates we are mapping. The other arguments can customize the appearance and information presented by each marker.
+
+The ca data frame and the leaflet object map have been loaded for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Clear the pin markers from the map.
+
+- Use addCircleMarkers() to plot each college as a circle.
+
+- Change the radius of each circle to be 2 pixels and the color to red.
+
+``` {.r filename="E5.R"}
+# Clear the markers from the map 
+map2 <- map %>% 
+            clearMarkers()
+
+
+
+# Use addCircleMarkers() to plot each college as a circle
+map2 %>%
+    addCircleMarkers(lng = ca$lng, lat = ca$lat)
+    
+
+
+
+# Change the radius of each circle to be 2 pixels and the color to red
+map2 %>% 
+    addCircleMarkers(lng = ca$lng, lat = ca$lat,
+                     radius = 2, color = "red")
+```
+
+## Making our Map Pop
+
+Similar to building a plot with ggplot2 or manipulating data with dplyr, your map needs to be stored in an object if you reference it later in your code.
+
+Speaking of dplyr, the %>% operator can pipe data into the function chain that creates a leaflet map.
+
+> ipeds %>% 
+>     leaflet()  %>% 
+>         addTiles() %>% 
+>         addCircleMarkers(popup = ~name, color = "#FF0000")
+
+Piping makes our code more readable and allows us to refer to variables using the ~ operator rather than repeatedly specifying the data frame.
+
+The color argument in addCircleMarkers() takes the name of a color or a hex code. For example, red or #FF0000.
+
+map has been printed for you. Notice the circle markers are gone!
+
+## Instructions `100 XP` {.unnumbered}
+
+- Add circle markers with popups for college names.
+
+- Change circle markers' color to "#2cb42c" (this case exactly!) and store map in the map_color object.
+
+- Print map_color
+
+``` {.r filename="E6.R"}
+# Add circle markers with popups for college names
+map %>% 
+    addCircleMarkers(data = ca, radius = 2, popup = ~name)
+    
+
+
+
+
+# Add circle markers with popups for college names
+map %>%
+    addCircleMarkers(data = ca, radius = 2, popup = ~name)
+
+# Change circle markers' color to #2cb42c and store map in map_color object
+map_color <- map %>% 
+    addCircleMarkers(data = ca, radius = 2, color = "#2cb42c", popup = ~name)
+    
+
+
+
+# Add circle markers with popups for college names
+map %>%
+    addCircleMarkers(data = ca, radius = 2, popup = ~name)
+
+# Change circle color to #2cb42c and store map in map_color object
+map_color <- map %>% 
+    addCircleMarkers(data = ca, radius = 2, color = "#2cb42c", popup = ~name)
+
+# Print map_color
+print(map_color)
+```
+
+## Building a Better Pop-up
+
+With the paste0() function and a few html tags, we can customize our popups. paste0() converts its arguments to characters and combines them into a single string without separating the arguments.
+
+> addCircleMarkers(popup = ~paste0(name,
+>                                  "<br/>",
+>                                  sector_label))
+
+We can use the <br/> tag to create a line break to have each element appear on a separate line.
+
+To distinguish different data elements, we can make the name of each college italics by wrapping the name variable in <i></i>
+
+> addCircleMarkers(popup = ~paste0("<i>",
+>                                  name,
+>                                  "</i>", 
+>                                  "<br/>", 
+>                                 sector_label))
+
+## Instructions `100 XP` {.unnumbered}
+
+- Clear the bounds and markers on the map stored in map.
+
+- Add circle markers with pop-ups that display both the institution name and sector.
+
+- Make the institution name in each pop-up bold.
+
+``` {.r filename="E7.R"}
+# Clear the bounds and markers on the map object and store in map2
+map2 <- map %>% 
+            clearMarkers() %>% 
+            clearBounds()
+
+
+
+
+
+# Add circle markers with popups that display both the institution name and sector
+map2 %>% 
+    addCircleMarkers(data = ca, radius = 2, 
+                     popup = ~paste0(name, "<br/>", sector_label))
+
+
+
+
+
+# Make the institution name in each popup bold
+map2 %>% 
+    addCircleMarkers(data = ca, radius = 2, 
+                     popup = ~paste0("<b>", name, "</b>", "<br/>", sector_label))
+```
+
+## Swapping Popups for Labels
+
+Popups are great, but they require a little extra effort. That is when labels come to our aid. Using the label argument in the addCircleMarkers() function we can get more information about one of our markers with a simple hover!
+
+ipeds %>% 
+    leaflet()  %>% 
+    addProviderTiles("CartoDB")  %>% 
+    addCircleMarkers(label = ~name, radius = 2)
+Labels are especially helpful when mapping more than a few locations as they provide quick access to detail about what each marker represents.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Add circle markers with labels identifying the name of each college to the current map.
+
+- Add sector information to the label inside parentheses.
+
+``` {.r filename="E8.R"}
+# Add circle markers with labels identifying the name of each college
+map %>% 
+    addCircleMarkers(data = ca, radius = 2, label = ~name)
+
+
+
+# Use paste0 to add sector information to the label inside parentheses 
+map %>% 
+    addCircleMarkers(data = ca, radius = 2, label = ~paste0(name, " (", sector_label, ")"))
+```
+
+## Creating a Color Palette using colorFactor
+
+So far we have only used color to customize the style of our map. With colorFactor() we can create a color palette that maps colors the levels of a factor variable.
+
+> pal <- 
+>    colorFactor(palette = c("blue", "red", "green"), 
+>                levels = c("Public", "Private", "For-Profit"))
+
+> m %>% 
+>     addCircleMarkers(color = ~pal(sector_label))
+
+Why might we not want to use this particular color palette?
+
+If you are interested in using a continuous variable to color a map see colorNumeric().
+
+> pal <- colorNumeric(palette = "RdBu", domain = c(25:50))
+
+> ipeds %>% 
+>     leaflet() %>% 
+>         addProviderTiles("CartoDB")  %>% 
+>         addCircleMarkers(radius = 2, color = ~pal(lat))
+
+## Instructions `100 XP` {.unnumbered}
+
+- Make a color palette called pal for the values of sector_label using colorFactor() using "red", blue", and "#9b4a11".
+- Add circle markers that color colleges using pal() and the values of sector_label.
+
+``` {.r filename="E9.R"}
+# Make a color palette called pal for the values of `sector_label` using `colorFactor()`  
+# Colors should be: "red", "blue", and "#9b4a11" for "Public", "Private", and "For-Profit" colleges, respectively
+pal <- colorFactor(palette = c("red", "blue", "#9b4a11"), 
+                   levels = c("Public", "Private", "For-Profit"))
+
+# Add circle markers that color colleges using pal() and the values of sector_label
+map2 <- 
+    map %>% 
+        addCircleMarkers(data = ca, radius = 2, 
+                         color = ~pal(sector_label), 
+                         label = ~paste0(name, " (", sector_label, ")"))
+
+# Print map2
+map2
+```
+
+## A Legendary Map
+
+Adding information to our map using color is great, but it is only helpful if we remember what the colors represent. With addLegend() we can add a legend to remind us.
+
+There are several arguments we can use to custom the legend to our liking, including opacity, title, and position. To create a legend for our colorNumeric() example, we would do the following.
+
+> pal <- colorNumeric(palette = "RdBu", domain = c(25:50))
+
+> ipeds %>% 
+>     leaflet() %>% 
+>         addProviderTiles("CartoDB")  %>% 
+>         addCircleMarkers(radius = 2,
+>                          color = ~pal(lat)) %>% 
+>          addLegend(pal = pal,
+>                    values = c(25:50),
+>                    opacity = 0.75,
+>                    title = "Latitude",
+>                    position = "topleft")
+
+## Instructions `100 XP` {.unnumbered}
+
+- Add a legend that displays the colors used in pal to m.
+
+- Customize the legend to have an opacity of .5, a title of "Sector", and a position of "topright".
+
+``` {.r filename="E10.R"}
+# Add a legend that displays the colors used in pal
+m %>% 
+    addLegend(pal = pal, 
+              values = c("Public", "Private", "For-Profit"))
+
+
+
+
+# Customize the legend
+m %>% 
+    addLegend(pal = pal, 
+              values = c("Public", "Private", "For-Profit"),
+              # opacity of .5, title of Sector, and position of topright
+              opacity  = 0.5, title = "Sector", position = "topright")
+```
