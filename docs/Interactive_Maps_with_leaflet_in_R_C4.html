@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Plotting Polygons</title>
+<title>libro - 71&nbsp; Plotting Polygons</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,29 +57,741 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="Interactive_Maps_with_leaflet_in_R_C4_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Interactive_Maps_with_leaflet_in_R_C4_files/libs/quarto-html/quarto.js"></script>
-<script src="Interactive_Maps_with_leaflet_in_R_C4_files/libs/quarto-html/popper.min.js"></script>
-<script src="Interactive_Maps_with_leaflet_in_R_C4_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="Interactive_Maps_with_leaflet_in_R_C4_files/libs/quarto-html/anchor.min.js"></script>
-<link href="Interactive_Maps_with_leaflet_in_R_C4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Interactive_Maps_with_leaflet_in_R_C4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="Interactive_Maps_with_leaflet_in_R_C4_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="Interactive_Maps_with_leaflet_in_R_C4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Interactive_Maps_with_leaflet_in_R_C4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Interactive_Maps_with_leaflet_in_R_C3.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Interactive_Maps_with_leaflet_in_R_C1.html">Interactive Maps with leaflet in R</a></li><li class="breadcrumb-item"><a href="./Interactive_Maps_with_leaflet_in_R_C4.html"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Plotting Polygons</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">libro</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/JavierKiller/ejercicioLibro.git" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Introduction to R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Intro to basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Factors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_R_C5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Lists</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Intermedio R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Conditionals and Control Flow</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Loops</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The apply family</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermedio_R_C5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Utilities</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Introduction to Writing Functions in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">How to Write a Function</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">All About Arguments</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Return Values and Scope</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Writing_Functions_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Case Study on Grain Yields</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Introduction to Importing Data in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Importing data from flat files with utils</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">readr &amp; data.table</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Importing Excel data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Importing_Data_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Reproducible Excel work with XLConnect</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Data Manipulation with dplyr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_Manipulation_with_dplyr_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Transforming Data with dplyr</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_Manipulation_with_dplyr_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Aggregating Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_Manipulation_with_dplyr_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Selecting and Transforming Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Data_Manipulation_with_dplyr_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Case Study: The babynames Dataset</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Cleaning Data in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Cleaning_Data_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Common Data Problems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Cleaning_Data_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Categorical and Text Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Cleaning_Data_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Advanced Data Problems</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Cleaning_Data_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Record Linkage</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Reshaping Data with tidyr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reshaping_Data_with_tidyr_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Tidy Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reshaping_Data_with_tidyr_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">From Wide to Long and Back</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reshaping_Data_with_tidyr_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Expanding Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reshaping_Data_with_tidyr_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rectangling Data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+ <span class="menu-text">Intermediate Regular Expressions in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regular_Expressions_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Regular Expressions: Writing Custom Patterns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regular_Expressions_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Creating Strings with Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regular_Expressions_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Extracting Structured Data From Text</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regular_Expressions_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Similarities Between Strings</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+ <span class="menu-text">Dealing With Missing Data in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Dealing_With_Missing_Data_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Why care about missing data?</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Dealing_With_Missing_Data_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Wrangling and tidying up missing values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Dealing_With_Missing_Data_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Testing missing relationships</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Dealing_With_Missing_Data_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Connecting the dots (Imputation)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+ <span class="menu-text">Developing R Packages</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Developing_R_Packages_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">The R Package Structure</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Developing_R_Packages_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">41</span>&nbsp; <span class="chapter-title">Documenting Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Developing_R_Packages_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">42</span>&nbsp; <span class="chapter-title">Checking and Building R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Developing_R_Packages_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">43</span>&nbsp; <span class="chapter-title">Adding Unit Tests to R Packages</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+ <span class="menu-text">Introduction to Statistics in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Statistics_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Summary Statistics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Statistics_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">45</span>&nbsp; <span class="chapter-title">Random Numbers and Probability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Statistics_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">46</span>&nbsp; <span class="chapter-title">More Distributions and the Central Limit Theorem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Statistics_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">47</span>&nbsp; <span class="chapter-title">Correlation and Experimental Design</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true">
+ <span class="menu-text">Introduction to Regression in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Regression_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">48</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Regression_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">49</span>&nbsp; <span class="chapter-title">Predictions and model objects</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Regression_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">50</span>&nbsp; <span class="chapter-title">Assessing model fit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Introduction_to_Regression_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">51</span>&nbsp; <span class="chapter-title">Simple logistic regression</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true">
+ <span class="menu-text">Intermediate Regression in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regression_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">52</span>&nbsp; <span class="chapter-title">Parallel Slopes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regression_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">53</span>&nbsp; <span class="chapter-title">Interactions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regression_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">54</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Intermediate_Regression_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">55</span>&nbsp; <span class="chapter-title">Multiple Logistic Regression</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true">
+ <span class="menu-text">Sampling in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Sampling_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Introduction to Sampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Sampling_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Sampling Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Sampling_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Sampling_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Bootstrap Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true">
+ <span class="menu-text">Hypothesis Testing in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hypothesis_Testing_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">60</span>&nbsp; <span class="chapter-title">Introduction to Hypothesis Testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hypothesis_Testing_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">61</span>&nbsp; <span class="chapter-title">Two-Sample and ANOVA Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hypothesis_Testing_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">62</span>&nbsp; <span class="chapter-title">Proportion Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Hypothesis_Testing_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">63</span>&nbsp; <span class="chapter-title">Non-Parametric Tests</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="true">
+ <span class="menu-text">Foundations of Inference in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Foundations_of_Inference_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Introduction to ideas of inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Foundations_of_Inference_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">65</span>&nbsp; <span class="chapter-title">Completing a randomization test: gender discrimination</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Foundations_of_Inference_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">66</span>&nbsp; <span class="chapter-title">Hypothesis testing errors: opportunity cost</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Foundations_of_Inference_in_R_C4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">Confidence intervals</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="true">
+ <span class="menu-text">Interactive Maps with leaflet in R</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Interactive_Maps_with_leaflet_in_R_C1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">68</span>&nbsp; <span class="chapter-title">Setting Up Interactive Web Maps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Interactive_Maps_with_leaflet_in_R_C2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">69</span>&nbsp; <span class="chapter-title">Plotting Points</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Interactive_Maps_with_leaflet_in_R_C3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Groups, Layers, and Extras</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Interactive_Maps_with_leaflet_in_R_C4.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Plotting Polygons</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction-to-spatial-data" id="toc-introduction-to-spatial-data" class="nav-link active" data-scroll-target="#introduction-to-spatial-data"><span class="header-section-number">71.1</span> Introduction to Spatial Data</a></li>
+  <li><a href="#instructions-100-xp" id="toc-instructions-100-xp" class="nav-link" data-scroll-target="#instructions-100-xp">Instructions <code>100 XP</code></a></li>
+  <li><a href="#exploring-spatial-data" id="toc-exploring-spatial-data" class="nav-link" data-scroll-target="#exploring-spatial-data"><span class="header-section-number">71.2</span> Exploring Spatial Data</a></li>
+  <li><a href="#instructions-100-xp-1" id="toc-instructions-100-xp-1" class="nav-link" data-scroll-target="#instructions-100-xp-1">Instructions <code>100 XP</code></a></li>
+  <li><a href="#joining-spatial-data" id="toc-joining-spatial-data" class="nav-link" data-scroll-target="#joining-spatial-data"><span class="header-section-number">71.3</span> Joining Spatial Data</a></li>
+  <li><a href="#instructions-100-xp-2" id="toc-instructions-100-xp-2" class="nav-link" data-scroll-target="#instructions-100-xp-2">Instructions <code>100 XP</code></a></li>
+  <li><a href="#addpolygons-function" id="toc-addpolygons-function" class="nav-link" data-scroll-target="#addpolygons-function"><span class="header-section-number">71.4</span> addPolygons() Function</a></li>
+  <li><a href="#instructions-100-xp-3" id="toc-instructions-100-xp-3" class="nav-link" data-scroll-target="#instructions-100-xp-3">Instructions <code>100 XP</code></a></li>
+  <li><a href="#nc-high-income-zips" id="toc-nc-high-income-zips" class="nav-link" data-scroll-target="#nc-high-income-zips"><span class="header-section-number">71.5</span> NC High Income Zips</a></li>
+  <li><a href="#instructions-100-xp-4" id="toc-instructions-100-xp-4" class="nav-link" data-scroll-target="#instructions-100-xp-4">Instructions <code>100 XP</code></a></li>
+  <li><a href="#addpolygon-options" id="toc-addpolygon-options" class="nav-link" data-scroll-target="#addpolygon-options"><span class="header-section-number">71.6</span> addPolygon() Options</a></li>
+  <li><a href="#instructions-100-xp-5" id="toc-instructions-100-xp-5" class="nav-link" data-scroll-target="#instructions-100-xp-5">Instructions <code>100 XP</code></a></li>
+  <li><a href="#lets-do-some-logging" id="toc-lets-do-some-logging" class="nav-link" data-scroll-target="#lets-do-some-logging"><span class="header-section-number">71.7</span> Let’s do some Logging</a></li>
+  <li><a href="#instructions-100-xp-6" id="toc-instructions-100-xp-6" class="nav-link" data-scroll-target="#instructions-100-xp-6">Instructions <code>100 XP</code></a></li>
+  <li><a href="#wealthiest-zip-codes-in-america" id="toc-wealthiest-zip-codes-in-america" class="nav-link" data-scroll-target="#wealthiest-zip-codes-in-america"><span class="header-section-number">71.8</span> Wealthiest Zip Codes in America</a></li>
+  <li><a href="#instructions-100-xp-7" id="toc-instructions-100-xp-7" class="nav-link" data-scroll-target="#instructions-100-xp-7">Instructions <code>100 XP</code></a></li>
+  <li><a href="#final-map" id="toc-final-map" class="nav-link" data-scroll-target="#final-map"><span class="header-section-number">71.9</span> Final Map</a></li>
+  <li><a href="#instructions-100-xp-8" id="toc-instructions-100-xp-8" class="nav-link" data-scroll-target="#instructions-100-xp-8">Instructions <code>100 XP</code></a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/edit/main/Interactive_Maps_with_leaflet_in_R_C4.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/JavierKiller/ejercicioLibro.git/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Plotting Polygons</h1>
+<h1 class="title"><span class="chapter-number">71</span>&nbsp; <span class="chapter-title">Plotting Polygons</span></h1>
 </div>
 
 
@@ -94,8 +806,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction-to-spatial-data" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-spatial-data">Introduction to Spatial Data</h2>
+<section id="introduction-to-spatial-data" class="level2" data-number="71.1">
+<h2 data-number="71.1" class="anchored" data-anchor-id="introduction-to-spatial-data"><span class="header-section-number">71.1</span> Introduction to Spatial Data</h2>
 <p>We have been mapping points, but there are several spatial features that can be mapped, including polygons. In R, polygons are often stored in a SpatialPolygonsDataFrame that holds the polygon, coordinate information, and a data frame with one row per polygon.</p>
 <p>A SpatialPolygonsDataFrame called shp that contains the zip code boundaries for North Carolina has been loaded for you. shp has five slots that store various types of information:</p>
 <p>data: data associated with each polygon polygons: coordinates to plot polygons plotOrder: order in which polygons are plotted bbox: bounding box for geographic data (i.e., a rectangle) proj4string: coordinate reference system Let’s take a closer look inside the shp object.</p>
@@ -125,8 +837,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">slotNames</span>(<span class="st">`</span><span class="at">shp</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exploring-spatial-data" class="level2">
-<h2 class="anchored" data-anchor-id="exploring-spatial-data">Exploring Spatial Data</h2>
+<section id="exploring-spatial-data" class="level2" data-number="71.2">
+<h2 data-number="71.2" class="anchored" data-anchor-id="exploring-spatial-data"><span class="header-section-number">71.2</span> Exploring Spatial Data</h2>
 <p>The data slot in shp holds a data frame like we are used to working with. However, since it is stored inside a SpatialPolygonsDataFrame, we access the data frame a little differently using the @ operator.</p>
 <blockquote class="blockquote">
 <p>glimpse(shp@data)</p>
@@ -160,8 +872,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>shp<span class="sc">@</span>data<span class="sc">$</span>GEOID10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="joining-spatial-data" class="level2">
-<h2 class="anchored" data-anchor-id="joining-spatial-data">Joining Spatial Data</h2>
+<section id="joining-spatial-data" class="level2" data-number="71.3">
+<h2 data-number="71.3" class="anchored" data-anchor-id="joining-spatial-data"><span class="header-section-number">71.3</span> Joining Spatial Data</h2>
 <p>We can join data onto the data frame stored in the data slot of our SpatialPolygonsDataFrame. In this chapter, we are interested in the mean income at the zip code level as reported by the IRS. Once we have the income data joined onto the information in the data slot of shp we can map the mean income of zip codes on our leaflet map.</p>
 <p>A data frame called nc_income has been loaded for you. Let’s get started by taking a look at the nc_income data. Then we’ll join it onto the information in the data slot of shp and see if there are any zip codes in our data that are missing income information.</p>
 </section>
@@ -223,8 +935,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.x))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="addpolygons-function" class="level2">
-<h2 class="anchored" data-anchor-id="addpolygons-function">addPolygons() Function</h2>
+<section id="addpolygons-function" class="level2" data-number="71.4">
+<h2 data-number="71.4" class="anchored" data-anchor-id="addpolygons-function"><span class="header-section-number">71.4</span> addPolygons() Function</h2>
 <p>Let’s look at those zip codes with missing data to hypothesize why they do not have income data.</p>
 <p>We are mapping ZCTAs (not actual zip codes) so not every part of NC will have a boundary. Our boundaries may overlap because the file was simplified to reduce size. These are trade offs to consider when mapping polygons.</p>
 <p>Enough nuance, let’s make a map. You can pipe the shp data directly into our calls to leaflet(), addTiles(), and addPolygons() without supplying any additional arguments to map North Carolina’s zip codes. To get you started, the shp SpatialPolygonsDataFrame including the IRS income variables has been loaded for you.</p>
@@ -277,8 +989,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addPolygons</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="nc-high-income-zips" class="level2">
-<h2 class="anchored" data-anchor-id="nc-high-income-zips">NC High Income Zips</h2>
+<section id="nc-high-income-zips" class="level2" data-number="71.5">
+<h2 data-number="71.5" class="anchored" data-anchor-id="nc-high-income-zips"><span class="header-section-number">71.5</span> NC High Income Zips</h2>
 <p>Did you have a hypothesis of why certain zip codes are missing income information? It looks to me like many of them are areas that likely have low populations (e.g., parks, colleges, etc.) and the IRS only reports income data on zip codes with more than 100 filers.</p>
 <p>Now let’s focus in on a subset of zip codes with income data, namely the 25% of zip codes in NC with the highest mean incomes. Where do think these will fall within the states?</p>
 <p>Let’s take a look and find out.</p>
@@ -321,8 +1033,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="addpolygon-options" class="level2">
-<h2 class="anchored" data-anchor-id="addpolygon-options">addPolygon() Options</h2>
+<section id="addpolygon-options" class="level2" data-number="71.6">
+<h2 data-number="71.6" class="anchored" data-anchor-id="addpolygon-options"><span class="header-section-number">71.6</span> addPolygon() Options</h2>
 <p>So far we have used the default appearance for addPolygons(). There are several more ways to customize the polygons.</p>
 <p>The arguments to addPolygons() we will focus on are:</p>
 <ul>
@@ -365,8 +1077,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">bringToFront =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="lets-do-some-logging" class="level2">
-<h2 class="anchored" data-anchor-id="lets-do-some-logging">Let’s do some Logging</h2>
+<section id="lets-do-some-logging" class="level2" data-number="71.7">
+<h2 data-number="71.7" class="anchored" data-anchor-id="lets-do-some-logging"><span class="header-section-number">71.7</span> Let’s do some Logging</h2>
 <p>Let’s look at the quartiles of mean zip code incomes in NC.</p>
 <blockquote class="blockquote">
 <p>summary(high_inc$mean_income)</p>
@@ -401,8 +1113,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>              <span class="at">highlightOptions =</span> <span class="fu">highlightOptions</span>(<span class="at">weight =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">bringToFront =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="wealthiest-zip-codes-in-america" class="level2">
-<h2 class="anchored" data-anchor-id="wealthiest-zip-codes-in-america">Wealthiest Zip Codes in America</h2>
+<section id="wealthiest-zip-codes-in-america" class="level2" data-number="71.8">
+<h2 data-number="71.8" class="anchored" data-anchor-id="wealthiest-zip-codes-in-america"><span class="header-section-number">71.8</span> Wealthiest Zip Codes in America</h2>
 <p>Zooming out from North Carolina, let’s put together a polygon layer for the entire country. Then we will work to add this layer to our map of American colleges.</p>
 <p>According to the 2015 IRS data, there are 427 zip codes in America with a mean income of $ 200,000 or more. It might be interesting to know which colleges are located in these affluent areas. Let’s map these 427 polygons and explore our leaflet map to better understand where the highest income zip codes in America are. To get us started, a SpatialPolygonsDataFrame called wealthy_zips that contains information on each zip code in America with a mean income of $ 200,000 or more has been loaded for you.</p>
 <p>Before we work with this data, take a minute to hypothesize where many of these zip codes are located.</p>
@@ -440,8 +1152,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">highlightOptions =</span> <span class="fu">highlightOptions</span>(<span class="at">weight =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">bringToFront =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="final-map" class="level2">
-<h2 class="anchored" data-anchor-id="final-map">Final Map</h2>
+<section id="final-map" class="level2" data-number="71.9">
+<h2 data-number="71.9" class="anchored" data-anchor-id="final-map"><span class="header-section-number">71.9</span> Final Map</h2>
 <p>Because our leaflet map is built in layers, we can add different types of information to the same base map (e.g., points and polygons). When adding new layers based on different data to an existing leaflet object we must specify the data argument with the function that creates the new layer to override the data that is piped through the chain of functions.</p>
 <blockquote class="blockquote">
 <p>m4 %&gt;% addCircleMarkers(data = private)</p>
@@ -484,10 +1196,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Print and explore your very last map of the course!</span></span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>final_map</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -721,6 +1434,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Interactive_Maps_with_leaflet_in_R_C3.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">70</span>&nbsp; <span class="chapter-title">Groups, Layers, and Extras</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
 </div> <!-- /content -->
 
 

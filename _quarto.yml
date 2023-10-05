@@ -108,12 +108,19 @@ book:
         - Hypothesis_Testing_in_R_C2.qmd 
         - Hypothesis_Testing_in_R_C3.qmd 
         - Hypothesis_Testing_in_R_C4.qmd  
+    - part: "Foundations of Inference in R"
+      chapters:
+        - Foundations_of_Inference_in_R_C1.qmd 
+        - Foundations_of_Inference_in_R_C2.qmd 
+        - Foundations_of_Inference_in_R_C3.qmd 
+        - Foundations_of_Inference_in_R_C4.qmd  
     - part: "Interactive Maps with leaflet in R"
       chapters:
         - Interactive_Maps_with_leaflet_in_R_C1.qmd 
         - Interactive_Maps_with_leaflet_in_R_C2.qmd 
         - Interactive_Maps_with_leaflet_in_R_C3.qmd 
-        - Interactive_Maps_with_leaflet_in_R_C4.qmd  
+        - Interactive_Maps_with_leaflet_in_R_C4.qmd
+
 
 bibliography: references.bib
 

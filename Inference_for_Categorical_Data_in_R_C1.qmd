@@ -1,0 +1,311 @@
+---
+title: "Inference for a single parameter"
+---
+
+## Exploring consci
+
+The General Social Survey asks about far more topics than just happiness. Take a moment to poke around this dataset and visualize the variables that interest you. When you're ready, turn your attention to the question of how much confidence people had in the scientific community in 2016. The answers to this question have been summarized as "High" or "Low" levels of confidence and are stored in the consci variable.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Acquaint yourself with the gss data frame by printing it to the console and noting the names of the variables it contains.
+
+-   Load the dplyr package.
+
+-   Filter the gss data frame to include only data from 2016 and save this new data frame as gss2016.
+
+-   Inspect gss2016 by printing it to the console.
+
+-   Load the ggplot2 package.
+
+-   Construct a bar plot of the distribution of consci.
+
+-   Compute the sample proportion of people that reported having "High" confidence.
+
+``` {.r filename="E1.R"}
+# Print gss data
+gss
+
+# Load dplyr
+library(dplyr)
+
+gss2016 <- gss %>%
+  # Filter for rows in 2016
+  filter(year == 2016)
+  
+  
+# Previous code
+library(dplyr)
+gss2016 <- gss %>%
+  filter(year == 2016)
+
+# Print gss2016 data
+gss2016
+
+# Load ggplot2
+library(ggplot2)
+
+# Plot distribution of consci
+ggplot(gss2016, aes(x = consci)) +
+  # Add a bar layer
+  geom_bar()
+
+
+
+
+# From previous steps
+library(dplyr)
+gss2016 <- gss %>%
+  filter(year == 2016)
+library(ggplot2)
+ggplot(gss2016, aes(x = consci)) +
+  geom_bar()
+
+# Compute proportion of high conf
+p_hat <- gss2016 %>%
+  summarize(prop_high = mean(consci == "High")) %>%
+  pull()
+```
+
+## Generating via
+
+To assess your uncertainty in this estimate of the number of people that have "High" confidence in the scientific community, you need to calculate the standard error. Start by considering how different the data might look in just a single bootstrap sample.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Using the gss2016 data, create a single bootstrap dataset.
+
+-   specify the variable of interest (consci) and designate that "High" values constitute a success.
+
+-   generate just one bootstrap replicate.
+
+-   Construct a bar plot of the distribution of consci.
+
+-   Compute the sample proportion of people that reported having "High" confidence.
+
+``` {.r filename="E2.R"}
+# Load the infer package
+library(infer)
+
+# Create single bootstrap dataset
+boot1 <- gss2016 %>%
+  # Specify the response
+  specify(response = consci, success = "High") %>%
+  # Generate one bootstrap replicate
+  generate(reps = 1, type = "bootstrap")
+
+# See the result
+boot1
+
+
+
+
+# From previous step
+library(infer)
+boot1 <- gss2016 %>%
+  specify(response = consci, success = "High") %>%
+  generate(reps = 1, type = "bootstrap")
+
+# Using boot1, plot consci
+ggplot(boot1, aes(x = consci)) +
+  # Add bar layer
+  geom_bar()
+
+
+# From previous step
+library(infer)
+boot1 <- gss2016 %>%
+  specify(response = consci, success = "High") %>%
+  generate(reps = 1, type = "bootstrap")
+
+# Compute proportion with high conf
+boot1 %>%
+  summarize(prop_high = mean(consci == "High")) %>%
+  pull()
+```
+
+## Constructing a CI
+
+You've seen one example of how p-hat can vary upon resampling, but we need to do this many many times to get a good estimate of its variability. Here you will compute a full bootstrap distribution to estimate the standard error (SE) that will be used to form a confidence interval. You'll use an additional verb from infer, calculate(), to streamline this process of calculating many statistics from many datasets.
+
+Take a moment to inspect the output of calculate. This function reduces your data frame to just two columns: one for the "stat"s and another for the "replicate" they correspond to.
+
+When you plot your bootstrap distribution, you'll find that it's bell-shaped. It's this shape that allows you to add and subtract two SEs to get a 95% interval.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Create a bootstrap distribution called boot_dist using the following steps:
+
+-   specify that you're interested in the consci variable where success is indicated by having "High" confidence. generate 500 bootstrap replicates.
+
+-   calculate a proportion statistic by setting stat to "prop".
+
+-   Visualize the bootstrap distribution of statistics in a density plot.
+
+-   Compute the standard error by summarizeing the distribution with its standard deviation, sd(), then pull() it out and save it to SE.
+
+-   Use that SE to construct an approximate 95% confidence interval around p_hat by adding and subtracting twice the standard error (this is the same p_hat that you calculated in a previous exercise).
+
+``` {.r filename="E3.R"}
+# Create bootstrap distribution for proportion with High conf
+boot_dist <- gss2016 %>%
+  # Specify the response and success
+  specify(response = consci, success = "High") %>%
+  # Generate 500 bootstrap reps
+  generate(reps = 500, type = "bootstrap") %>%
+  # Calculate proportions
+  calculate(stat = "prop")
+
+# See the result
+boot_dist
+
+
+
+# From previous step
+boot_dist <- gss2016 %>%
+  specify(response = consci, success = "High") %>%
+  generate(reps = 500, type = "bootstrap") %>%
+  calculate(stat = "prop")
+
+# Plot bootstrap distribution of stat
+ggplot(boot_dist, aes(x = stat)) +
+  # Add density layer
+  geom_density()
+
+
+
+
+# From previous steps
+boot_dist <- gss2016 %>%
+  specify(response = consci, success = "High") %>%
+  generate(reps = 500, type = "bootstrap") %>%
+  calculate(stat = "prop")
+ggplot(boot_dist, aes(x = stat)) +
+  geom_density()
+
+# Compute estimate of SE
+SE <- boot_dist %>%
+  summarize(se = stat) %>%
+  pull()
+
+
+
+# From previous steps
+boot_dist <- gss2016 %>%
+  specify(response = consci, success = "High") %>%
+  generate(reps = 500, type = "bootstrap") %>%
+  calculate(stat = "prop")
+ggplot(boot_dist, aes(x = stat)) +
+  geom_density()
+SE <- boot_dist %>%
+  summarize(se = sd(stat)) %>%
+  pull()
+
+# Create CI
+c(p_hat - 2 * SE, p_hat + 2 * SE)
+```
+
+## SE with different p
+
+You just saw the effect that sample size can have on inference, but that's not the only variable in play here. Let's return now to our full dataset and see what happens to the SE when we consider a category that has a different population proportion, p.
+
+We've displayed here the plot that you made way back in exercise 4 to study the proportion of respondents that have "High" confidence in science. Notice this proportion is very close to .5. In this exercise, you'll be looking at the variable meta_region, which records whether or not the respondent lives in the pacific region of the US. These respondents were fairly rare, which allows you to study how SEs behave in a setting where the proportion is is very far from 0.5.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Create a plot of meta_region to display how different the proportions are from the plot of consci.
+
+-   Create the bootstrap distribution for the proportion of people that live in the "pacific" meta_region.
+
+-   Summarize those bootstrap statistics with the standard deviation and save it to SE_low_p.
+
+-   Compare SE_low_p to the SE that you calculated back in exercise 4 for the proportion of respondents with high confidence in science (this is available in your environment as SE).
+
+``` {.r filename="E4.R"}
+# Using gss2016, plot meta_region
+ggplot(gss2016, aes(x = meta_region)) +
+  # Add bar layer
+  geom_bar()
+
+
+
+# From previous step
+ggplot(gss2016, aes(x = meta_region)) +
+  geom_bar()
+
+# Specify the response for the bootstrap distribution
+boot_dist <- gss2016 %>%
+  specify(response = meta_region, success = "pacific") %>%
+  generate(reps = 500, type = "bootstrap") %>%
+  calculate(stat = "prop")
+
+
+
+
+# From previous steps
+ggplot(gss2016, aes(x = meta_region)) +
+  geom_bar()
+boot_dist <- gss2016 %>%
+  specify(response = meta_region, success = "pacific") %>%
+  generate(reps = 500, type = "bootstrap") %>%
+  calculate(stat = "prop")
+
+# Calculate std error
+SE_low_p <- boot_dist %>%
+  summarize(se = sd(stat)) %>%
+  pull()
+
+# Compare SEs
+c(SE_low_p, SE)
+```
+
+## CI via approximation
+
+The approximation shortcut offers an alternative method of describing the sampling distribution. In this exercise, you will apply the approximation shortcut to build a confidence interval for the proportion of respondents that live in the pacific region.
+
+When building any confidence interval, note that you use three ingredients: the point estimate (here, p_hat), the SE, and the number of standard errors to add and subtract. For a sampling distribution that is bell-shaped, adding and subtracting two SEs corresponds to a confidence level of 95%. When you use the bootstrap, you can check that the distribution is bell-shaped because you have a have the bootstrap distribution to plot. When you use the approximation, you're flying blind --- well, not quite blind, but you are dependent on the "rule of thumb" to ensure that you're working with a bell shape.
+
+## Instructions `100 XP` {.unnumbered}
+
+-   Calculate the sample size, n (which is the number of rows).
+
+-   Calculated the observed statistic, p_hat, as the proportion of people in the "pacific" meta-region.
+
+-   Check the rules-of-thumb for the normal distribution being a decent approximation.
+
+-   Calculate the standard error using the approximation formula.
+
+-   Use SE_approx to form a confidence interval for p_hat. The limits should be two standard errors either side of p_hat.
+
+``` {.r filename="E5.R"}
+# Calculate n as the number of rows
+n <- nrow(gss2016)
+
+# Calculate p_hat as the proportion in pacific meta region
+p_hat <- gss2016 %>%
+  summarize(prop_pacific = mean(meta_region == "pacific")) %>%
+  pull()
+
+# See the result
+p_hat
+
+
+
+
+
+# From previous step
+n <- nrow(gss2016)
+p_hat <- gss2016 %>%
+  summarize(prop_pacific = mean(meta_region == "pacific")) %>%
+  pull()
+
+# Check conditions
+n * p_hat >= 10
+n * (1 - p_hat) >= 10
+
+# Calculate SE
+SE_approx <- sqrt(p_hat * (1 - p_hat) / n)
+
+# Form 95% CI
+c(p_hat - 2 * SE_approx, p_hat + 2 * SE_approx)
+```

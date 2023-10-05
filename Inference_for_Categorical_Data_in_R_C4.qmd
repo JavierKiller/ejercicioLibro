@@ -1,0 +1,328 @@
+---
+title: "Comparing many parameters: goodness of fit"
+---
+
+## Who won?
+
+The iran dataset contains all of the votes cast in this election, meaning that you can find the victor by computing the total number of votes for each candidate. In addition to answering the question of who won nationwide, you can also see how the results differed by province.
+
+Along the way, you'll use a very useful function called gather(). This allows you to reshape your data frame by taking information stored in variable names and moving it to live in its own column.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the iran data, compute the total votes for each candidate by summarize()ing each of the candidate count columns with their sum. Name each new column with the name of the candidate.
+- Print totals to your screen.
+
+- gather() the candidate names into a new column alongside their respective votes. The names of the previous columns are called the key, which you should rename "candidate" and the contents are cells are the value, which you should rename "votes".
+- Inspect the resulting data frame to understand its structure.
+
+- Use gathered_totals to construct a bar plot of votes to visualize the overall election outcome. Since you already have the totals for each candidate, you need to map candidate to the x, votes to the y, then add a geom_col() layer.
+``` {.r filename="E1.R"}
+# Compute and save candidate totals
+totals <- iran %>%
+  summarize(ahmadinejad = sum(ahmadinejad),
+            rezai = sum(rezai),
+            karrubi = sum(karrubi),
+            mousavi = sum(mousavi))
+
+# Inspect totals
+totals
+
+
+
+
+
+# From previous step
+totals <- iran %>%
+  summarize(ahmadinejad = sum(ahmadinejad),
+            rezai = sum(rezai),
+            karrubi = sum(karrubi),
+            mousavi = sum(mousavi))
+
+# Gather data
+gathered_totals <- totals %>%
+  gather(key = "candidate", value = "votes")
+
+# Inspect gathered totals
+gathered_totals
+
+
+
+
+
+# From previous steps
+totals <- iran %>%
+  summarize(ahmadinejad = sum(ahmadinejad),
+            rezai = sum(rezai),
+            karrubi = sum(karrubi),
+            mousavi = sum(mousavi))
+gathered_totals <- totals %>%
+  gather(key = "candidate", value = "votes")
+
+# Plot total votes for each candidate
+ggplot(gathered_totals, aes(x = candidate, y = votes)) +
+  # Add col layer
+  geom_col()
+```
+
+## Breaking it down by province
+
+Although the overall vote totals are the most important, you can dig deeper into this data by utilizing the geographic information. In this exercise, you'll see how the results differed by province.
+
+Did Ahmadinejad win throughout the country, or were there provinces where the second place candidate came out on top? To answer this question, start by creating a province-level dataset.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Start with iran, group by province, then summarize with two variables: the sum of the votes of the first place candidate and the sum of the votes of the second place candidate. Name each new column with the name of the candidate.
+Inspect province_totals.
+- Filter province_totals for every row where the second-place candidate got more votes than the first-place candidate.
+
+``` {.r filename="E2.R"}
+# Construct province-level dataset
+province_totals <- iran %>%
+  # Group by province
+  group_by(province) %>%
+  # Sum up votes for top two candidates
+  summarize(mousavi = sum(mousavi),
+            ahmadinejad = sum(ahmadinejad))
+ 
+# Inspect data frame
+province_totals
+
+# Filter for won provinces won by #2
+province_totals %>%
+  filter(mousavi > ahmadinejad)
+```
+
+## Extracting the first digit I
+
+To address the question of voter fraud, begin by creating a new column of data containing the first digit of the total number of votes cast. For this, you'll need a custom function which we've created for you called get_first(). The core of this function is substr(), which will take a string and extract a section of it called a substring.
+
+Once you create a new variable containing only the first digit, you can get a sense of how close it follows Benford's Law by constructing a bar plot.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Take a look at how get_first() works by simply typing the name of the function (with no parentheses). All it does is fiddle with the output from substr() so that it's a factor.
+- Mutate a new column in the iran data frame called first_digit that contains the first digit of city by city total votes cast.
+- Check to see that get_first() worked. From the iran data, select off the columns total_votes_cast and first_digit and print them to the screen.
+- Construct a bar plot to visualize the distribution of the first digit.
+
+``` {.r filename="E3.R"}
+# Print get_first
+get_first
+
+# Create first_digit
+iran <- iran %>%
+  mutate(first_digit = get_first(total_votes_cast))
+
+# Check if get_first worked
+iran %>%
+  select(total_votes_cast, first_digit)
+  
+# Construct bar plot
+ggplot(iran, aes(x = first_digit)) +
+  # Add bar layer
+  geom_bar()
+```
+
+##  Goodness of fit test
+
+The null hypothesis in a goodness of fit test is a list of specific parameter values for each proportion. In your analysis, the equivalent hypothesis is that Benford's Law applies to the distribution of first digits of total vote counts at the city level. You could write this as:
+
+
+Where 
+ is the height of the first bar in the Benford's bar plot. The alternate hypothesis is that at least one of these proportions is different; that the first digit distribution doesn't follow Benford's Law.
+
+In this exercise, you'll use simulation to build up the null distribution of the sorts of chi-squared statistics that you'd observe if in fact these counts did follow Benford's Law.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Inspect p_benford by printing it to the screen.
+- Starting with iran, compute the chi-squared statistic by using chisq_stat. Note that you must specify the variable in the data frame that will serve as your response as well as the vector of probabilities that you wish to compare them to.
+- Construct a null distribution with 500 samples of the Chisq statistic via simulation under the point null hypothesis that the vector of proportions p is p_benford. Save the resulting statistics as null.
+
+``` {.r filename="E4.R"}
+# Inspect p_benford
+p_benford
+
+# Compute observed stat
+chi_obs_stat <- iran %>%
+  chisq_stat(response = first_digit, p = p_benford)
+
+# Form null distribution
+null <- iran %>%
+  # Specify the response
+  specify(response = first_digit) %>%
+  # Set up the null hypothesis
+  hypothesize(null = "point", p = p_benford) %>%
+  # Generate 500 reps
+  generate(reps = 500, type = "simulate") %>%
+  # Calculate statistics
+  calculate(stat = "Chisq")
+```
+
+## A p-value, two ways
+
+You've seen before how there are usually two ways to get to the null distribution: through computation and through a mathematical approximation. The chi-squared goodness of fit test is no exception. The approximation distribution is again the "Chi-squared distribution" with degrees of freedom equal to the number of categories minus one.
+
+In this exercise you'll compare these two approaches to calculate a p-value that measures the consistency of the distribution of the Iran first digits with Benford's Law. Note that the observed statistic that you created in the last exercise is saved in your work space as chi_obs_stat.
+
+
+## Instructions `100 XP` {.unnumbered}
+
+- Compute the degrees of freedom of the chi-squared approximation by taking the first_digit vector from the iran data then calculating the number of categories using the nlevels() function then subtracting one.
+- Using null, plot the distribution of the chi-squared statistics using a density plot. Add a vertical line indicating the observed statistic, then overlay the curve of the chi-squared approximation with the degrees of freedom in blue.
+
+- Compute the permutation p-value by summarizing the statistics with the proportion that are greater than the observed statistic.
+- Compute the approximation p-value using the pchisq() function. Recall that this will return the area under the curve to the left of the observed value, so you'll need to modify it to return the right tail.
+``` {.r filename="E5.R"}
+# Compute degrees of freedom
+degrees_of_freedom <- iran %>% 
+  # Pull out first_digit vector
+  pull(first_digit) %>% 
+  # Calculate n levels and subtract 1
+  nlevels() - 1
+
+# Plot both null dists
+ggplot(null, aes(x = stat)) +
+  # Add density layer
+  geom_density() +
+  # Add vertical line at obs stat
+  geom_vline(xintercept = chi_obs_stat) + 
+  # Overlay chisq approx
+  stat_function(fun = dchisq, args = list(df = degrees_of_freedom), color = "blue")
+
+
+
+
+# From previous step
+degrees_of_freedom <- iran %>% 
+  pull(first_digit) %>% 
+  nlevels() - 1
+
+# Permutation p-value
+null %>%
+  summarize(pval = mean(stat >= chi_obs_stat))
+
+# Approximation p-value
+pchisq(chi_obs_stat, df = degrees_of_freedom, lower.tail = FALSE)
+```
+
+## Extracting the first digit II
+
+There are different levels at which we could consider looking at vote totals. We could look at precincts, or counties, or states, and each level might give us a slightly different picture of what's going on.
+
+For this analysis, look at totals at the county level in Iowa and focus on the votes for the two major party candidates: Republicans Trump / Pence and Democrats Clinton / Kaine.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the iowa dataset, filter the rows so they contain only the two main party candidates, then group based on county and add up the votes to create a new column called dem_rep_votes. Save the resulting data frame to iowa_county.
+
+- Extract the first digit from the dem_rep_votes column using the custom function get_first(), call it first_digit, and save it back over iowa_county.
+
+- Construct a bar plot of first_digit.
+``` {.r filename="E6.R"}
+# Get Iowa county vote totals
+iowa_county <- iowa %>%
+  # Filter for rep/dem
+  filter(candidate %in% c("Hillary Clinton / Tim Kaine", "Donald Trump / Mike Pence")) %>%
+  # Group by county
+  group_by(county) %>%
+  # Compute total votes in each county
+  summarize(dem_rep_votes = sum(votes))
+  
+# See the result
+iowa_county
+
+
+
+
+
+# From previous step
+iowa_county <- iowa %>%
+  filter(candidate == "Hillary Clinton / Tim Kaine" | 
+         candidate == "Donald Trump / Mike Pence") %>%
+  group_by(county) %>%
+  summarize(dem_rep_votes = sum(votes)) 
+  
+# Add first digit
+iowa_county <- iowa_county %>%
+  mutate(first_digit = get_first(dem_rep_votes))
+  
+# See the result
+iowa_county
+
+
+
+
+
+# From previous steps
+iowa_county <- iowa %>%
+  filter(candidate == "Hillary Clinton / Tim Kaine" | 
+         candidate == "Donald Trump / Mike Pence") %>%
+  group_by(county) %>%
+  summarize(dem_rep_votes = sum(votes)) %>%
+  mutate(first_digit = get_first(dem_rep_votes))
+  
+# Using iowa_county, plot first_digit
+ggplot(iowa_county, aes(x = first_digit)) +
+  # Add bar layer
+  geom_bar()
+  
+# See the result
+iowa_county
+```
+
+## Testing Iowa
+
+You probably noticed that the bar plot of first digits is alarming: it looks quite different from what Benford's Law prescribes! Before you get ahead of yourself, though, realize that those bars each only contained a handful of counties, so you don't actually have that much data.
+
+This is a prime example of when a hypothesis test is handy. It can tell you if the structure that you see (in this case, the deviation from Benford's Law) could just be due to the random variability of your small sample, or if it's indicative of a systematic difference.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Starting with iowa_county, compute the observed chi-squared statistic using chisq_stat().
+
+- Form the null distribution of chi-squared statistics via simulation under the point null hypothesis that these data come from the probabilities specified by Benford's Law. Save this distribution to null.
+
+- Construct a density plot of the distribution of the null statistics and add a vertical line indicating the location of the chi_obs_stat.
+``` {.r filename="E7.R"}
+# Compute observed stat
+chi_obs_stat <- iowa_county %>%
+  chisq_stat(response = first_digit, p = p_benford)
+
+
+
+
+# Form null distribution
+null <- iowa_county %>%
+  # Specify response
+  specify(response = first_digit) %>%
+  # Set up null
+  hypothesize(null = "point", p = p_benford) %>%
+  # Generate 500 reps
+  generate(reps = 500, type = "simulate") %>%
+  # Calculate statistics
+  calculate(stat = "Chisq")
+  
+  
+  
+
+
+
+# From previous steps
+chi_obs_stat <- iowa_county %>%
+  chisq_stat(response = first_digit, p = p_benford)
+null <- iowa_county %>%
+  specify(response = first_digit) %>%
+  hypothesize(null = "point", p = p_benford) %>%
+  generate(reps = 500, type = "simulate") %>%
+  calculate(stat = "Chisq")
+
+# Visualize null stat
+ggplot(null, aes(x = stat)) +
+  # Add density layer
+  geom_density() +
+  # Add vertical line at observed stat
+  geom_vline(xintercept = chi_obs_stat)
+```

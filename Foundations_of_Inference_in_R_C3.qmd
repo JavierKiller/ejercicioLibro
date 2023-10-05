@@ -1,0 +1,145 @@
+---
+title: "Hypothesis testing errors: opportunity cost"
+---
+
+## Summarizing opportunity cost (1)
+
+As you saw in the video, we're interested in whether the treatment and control groups were equally likely to buy a DVD after reading the experimental statements.
+
+In this exercise, you'll use the data from the study to find the sample statistics (here: proportions) that are needed for the analysis.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Use the count() function to tabulate the dataset called opportunity. Make a note of the values in the decision column for use in the next step.
+- For each experimental group, find the proportion who bought a DVD. That is, calculate the mean where decision is "buyDVD".
+
+``` {.r filename="E1.R"}
+# Tabulate the data
+opportunity %>%
+  count(decision, group)
+
+# Find the proportion who bought the DVD in each group
+opportunity %>%
+  group_by(group) %>%
+  summarize(buy_prop = mean(decision == "buyDVD"))
+```
+
+## Plotting opportunity cost
+
+Again, interest is in whether the treatment and control groups were equally likely to buy a DVD after reading the experimental statements. Here, you'll create a barplot to visualize the difference in proportions between the treatment and control groups.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the opportunity dataset, plot group filled by decision.
+- Call geom_bar() to add a bar plot layer, setting the position argument to "fill" to compare relative frequencies. Note that fill should be defined by the decision for each group.
+
+``` {.r filename="E2.R"}
+# Plot group, filled by decision
+ggplot(opportunity, aes(x = group, fill = decision)) + 
+  # Add a bar layer, with position "fill"
+  geom_bar(position = "fill")
+```
+
+## Randomizing opportunity cost
+
+As in Chapter 2 Exercise 5, you will permute the data to generate a distribution of differences as if the null hypothesis were true.
+
+In the study, the number of individuals in each of the control and treatment groups is fixed. Additionally, when you assume that the null hypothesis is true—that is, the experiment had no effect on the outcome of buying a DVD—it is reasonable to infer that the number of individuals who would buy a DVD is also fixed. That is, 97 people were going to buy a DVD regardless of which treatment group they were in.
+
+Using the new data and the methods from the previous chapter, create a randomization distribution of the difference in proportions calculated on permuted data.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the opportunity dataset, calculate the observed difference in purchase rate.
+  - Group by group.
+  - Summarize to calculate the proportion deciding to buy a DVD. That is, get the mean() of cases of decision equalling "buyDVD".
+  - Summarize again to calculate the diff()erence of prop_buy between groups.
+- Create a data frame of permuted differences in purchase rates.
+  - Specify the model decision vs. group, with the success value "buyDVD".
+  - Hypothesise "independence".
+  - Generate 1000 reps of type "permute".
+  - Calculate the summary statistic "diff in props".
+- Draw a histogram of permuted differences.
+  - Using the permutation dataset, opp_perm, plot stat.
+  - Add a histogram layer with geom_histogram(). The binwidth is set to 0.005.
+  - Add a vertical line with geom_vline(). The xintercept is at diff_obs. 
+``` {.r filename="E3.R"}
+# Calculate the observed difference in purchase rate
+diff_obs <- opportunity %>%
+  # Group by group
+  group_by(group) %>%
+  # Calculate proportion deciding to buy a DVD
+  summarize(prop_buy = mean(decision == "buyDVD")) %>%
+  # Calculate difference between groups
+  summarize(stat = diff(prop_buy)) %>% 
+  pull()
+    
+# Review the result
+diff_obs
+
+
+
+# Create data frame of permuted differences in purchase rates
+opp_perm <- opportunity %>%
+  # Specify decision vs. group, where success is buying a DVD
+  specify(decision ~ group, success = "buyDVD") %>%
+  # Set the null hypothesis to independence
+  hypothesize(null = "independence") %>%
+  # Generate 1000 reps of type permute
+  generate(reps = 1000, type = "permute") %>%
+  # Calculate the summary stat difference in proportions
+  calculate(stat = "diff in props", order = c("treatment", "control"))
+    
+# Review the result
+opp_perm
+
+
+
+# From previous steps
+diff_obs <- opportunity %>%
+  group_by(group) %>%
+  summarize(prop_buy = mean(decision == "buyDVD")) %>%
+  summarize(stat = diff(prop_buy)) %>% 
+  pull()
+opp_perm <- opportunity %>%
+  specify(decision ~ group, success = "buyDVD") %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in props", order = c("treatment", "control"))
+  
+# Using the permuation data, plot stat
+ggplot(opp_perm, aes(x = stat)) + 
+  # Add a histogram layer with binwidth 0.005
+  geom_histogram(binwidth = 0.005) +
+  # Add a vline layer with intercept diff_obs
+  geom_vline(aes(xintercept = diff_obs), color = "red")
+```
+
+## Summarizing opportunity cost (2)
+
+Now that you've created the randomization distribution, you'll use it to assess whether the observed difference in proportions is consistent with the null difference. You will measure this consistency (or lack thereof) with a p-value, or the proportion of permuted differences less than or equal to the observed difference.
+
+The permuted dataset and the original observed statistic are available in your workspace as opp_perm and diff_orig respectively.
+
+visualize and get_p_value using the built in infer functions. Remember that the null statistics are above the original difference, so the p-value (which represents how often a null value is more extreme) is calculated by counting the number of null values which are less than the original difference.
+
+## Instructions `100 XP` {.unnumbered}
+
+- First visualize the sampling distribution of the permuted statistics indicating the place where obs_stat = diff_orig, and coloring in values below with the command direction = "less".
+- Then get_p_value is calculated as the proportion of permuted statistics which are direction = "less" than obs_stat = diff_orig.
+- As an alternative way to calculate the p-value, use summarize() and mean() to find the proportion of times the permuted differences in opp_perm (called stat) are less than or equal to the observed difference (called diff_orig).
+- You can test your knowledge by trying out: direction = "greater", direction = "two_sided", and direction = "less" before submitting your answer to both visualize and get_p_value.
+
+``` {.r filename="E4.R"}
+# Visualize the statistic 
+opp_perm %>%
+  visualize(obs_stat = diff_orig, direction = "less")
+
+# Calculate the p-value using `get_p_value`
+opp_perm %>%
+  get_p_value(obs_stat = diff_orig, direction = "less")
+
+# Calculate the p-value using `summarize`
+opp_perm %>%
+  summarize(p_value = mean(stat <= diff_orig))
+```

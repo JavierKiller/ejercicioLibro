@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/index.html</loc>
-    <lastmod>2023-05-22T00:43:22.306Z</lastmod>
+    <lastmod>2023-10-05T02:38:42.614Z</lastmod>
   </url>
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/intro.html</loc>
@@ -279,5 +279,17 @@
   <url>
     <loc>https://javierkiller.github.io/ejercicioLibro/Intermediate_Regular_Expressions_in_R_C4.html</loc>
     <lastmod>2023-08-26T01:55:59.321Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Interactive_Maps_with_leaflet_in_R_C4.html</loc>
+    <lastmod>2023-10-05T02:38:38.667Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Interactive_Maps_with_leaflet_in_R_C2.html</loc>
+    <lastmod>2023-10-05T02:38:40.953Z</lastmod>
+  </url>
+  <url>
+    <loc>https://javierkiller.github.io/ejercicioLibro/Foundations_of_Inference_in_R_C4.html</loc>
+    <lastmod>2023-10-05T02:38:49.677Z</lastmod>
   </url>
 </urlset>

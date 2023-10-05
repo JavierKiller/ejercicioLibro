@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Groups, Layers, and Extras</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Interactive_Maps_with_leaflet_in_R_C3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Interactive_Maps_with_leaflet_in_R_C3_files/libs/quarto-html/quarto.js"></script>
+<script src="Interactive_Maps_with_leaflet_in_R_C3_files/libs/quarto-html/popper.min.js"></script>
+<script src="Interactive_Maps_with_leaflet_in_R_C3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Interactive_Maps_with_leaflet_in_R_C3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Interactive_Maps_with_leaflet_in_R_C3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Interactive_Maps_with_leaflet_in_R_C3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Interactive_Maps_with_leaflet_in_R_C3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Interactive_Maps_with_leaflet_in_R_C3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Interactive_Maps_with_leaflet_in_R_C3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Groups, Layers, and Extras</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="middle-america" class="level2">
+<h2 class="anchored" data-anchor-id="middle-america">Middle America</h2>
+<p>Starting from scratch, our first step is to create a base map and to set our map’s view. Rather than using the geocode() function from ggmaps, we’ll add an extra feature to our map so we can use the map to geocode.</p>
+<p>After creating the map in Step 1, search for “U.S. Center Chapel” in Kansas and click the marker to add a pin.</p>
+<p>When you hover over the pin what are the coordinates?</p>
+</section>
+<section id="instructions-100-xp" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Load leaflet.extras.</li>
+<li>Pipe the result of addtiles into addSearchOSM.</li>
+<li>Add addReverseSearchOSM as the final call in the function chain.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E1.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet.extras)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addSearchOSM</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addReverseSearchOSM</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="building-a-base" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-base">Building a Base</h2>
+<p>Now that we know where to center our map (Lat = 39.8282, Lng = -98.5795), let’s build a new basemap. Remember that we can use either addTiles() or addProviderTiles() to add a map tile to our leaflet object.</p>
+<p>Since we are working toward mapping all of America’s colleges, we can include the ipeds data at the start of the chain of functions that will create our base map. This way the ipeds data will be stored with our base map so that we can easily access it. Once we have built a solid base, we can map every college in America with just two lines of R code.</p>
+<p>The ipeds data and leaflet and tidyverse libraries have been loaded for you.</p>
+</section>
+<section id="instructions-100-xp-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Store a new map in the m2 object that:
+<ul>
+<li>Uses the CartoDB provider tile.</li>
+<li>Has a zoom level of 3.</li>
+<li>Then add circle markers to m2 to map all of America’s colleges.</li>
+</ul></li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E2.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span>  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    ipeds <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="co"># use the CartoDB provider tile</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">addProviderTiles</span>(<span class="st">"CartoDB"</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="co"># center on the middle of the US with zoom of 3</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">setView</span>(<span class="at">lat =</span> <span class="fl">39.8282</span>, <span class="at">lng =</span> <span class="sc">-</span><span class="fl">98.5795</span>, <span class="at">zoom =</span> <span class="dv">3</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Map all American colleges </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>m2 <span class="sc">%&gt;%</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addCircleMarkers</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mapping-public-colleges" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-public-colleges">Mapping Public Colleges</h2>
+<p>We can add each sector to our map as a layer providing users with the ability to select which sectors are displayed. To do this we will make use of a new argument to the addCircleMarkers() function, called a group.</p>
+<blockquote class="blockquote">
+<p>leaflet() %&gt;% addProviderTiles(“CartoDB”) %&gt;% addCircleMarkers(data = public, label = ~htmlEscape(name), group = “Public”)</p>
+</blockquote>
+<p>We’ll integrate another feature into our map from the htmltools library. Wrapping our labels with the htmlEscape() function will sanitize characters that may be interpreted as HTML. This will prevent any of the college names from appearing with unintended formatting.</p>
+<p>The color palette pal we created in Chapter 2 has been loaded for you.</p>
+</section>
+<section id="instructions-100-xp-2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Load the htmltools package.</li>
+<li>Filter the ipeds data to create a data frame with only public colleges.</li>
+<li>Create a leaflet map of public colleges.</li>
+<li>Add the group argument to addCircleMarkers().</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E3.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the htmltools package</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame called public with only public colleges</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>public <span class="ot">&lt;-</span> <span class="fu">filter</span>(ipeds, sector_label <span class="sc">==</span> <span class="st">"Public"</span>)  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a leaflet map of public colleges called m3 </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addProviderTiles</span>(<span class="st">"CartoDB"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> public, <span class="at">radius =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(name),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(sector_label), <span class="at">group =</span> <span class="st">"Public"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>m3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mapping-public-and-private-colleges" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-public-and-private-colleges">Mapping Public and Private Colleges</h2>
+<p>We can add private colleges exactly how we added public colleges. Then using the addLayersControl() function with the overlayGroups argument we can give our users the ability to display public and/or private colleges. The overlayGroups argument takes a vector of groups that we have defined while creating our layers (i.e., public and private). As a reminder, here is how we can add public colleges to our map as a layer:</p>
+<blockquote class="blockquote">
+<h1 id="create-data-frame-called-public-with-only-public-colleges">Create data frame called public with only public colleges</h1>
+<p>public &lt;- filter(ipeds, sector_label == “Public”)</p>
+</blockquote>
+<blockquote class="blockquote">
+<h1 id="add-public-colleges-as-a-layer-and-save-map-as-m3">Add public colleges as a layer and save map as <code>m3</code></h1>
+<p>m3 &lt;- leaflet() %&gt;% addProviderTiles(“CartoDB”) %&gt;% addCircleMarkers(data = public, radius = 2, label = ~htmlEscape(name), color = ~pal(sector_label), group = “Public”) %&gt;% addLayersControl(overlayGroups = c(“Public”))</p>
+</blockquote>
+<p>The htmltools library, color palette pal and the m3 map with public colleges have been loaded for you.</p>
+</section>
+<section id="instructions-100-xp-3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Filter the ipeds data to create a data frame with only private colleges.</li>
+<li>Add private colleges to m3 as a new layer.</li>
+<li>Use the addLayersControl() function and overlayGroups argument to allow users to toggle the public and private layers.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E4.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame called private with only private colleges</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>private <span class="ot">&lt;-</span> <span class="fu">filter</span>(ipeds, sector_label <span class="sc">==</span> <span class="st">"Private"</span>)  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add private colleges to `m3` as a new layer</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> m3 <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> private, <span class="at">radius =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(name),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(sector_label), <span class="at">group =</span> <span class="st">"Private"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addLayersControl</span>(<span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">"Public"</span>, <span class="st">"Private"</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>m3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mapping-all-colleges" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-all-colleges">Mapping All Colleges</h2>
+<p>Let’s keep layering up and add for-profit colleges to our leaflet map that is stored in the m3 object.</p>
+<p>After you print() the m3 map with public, private, and for-profit colleges as their own layers, then try removing all three layers and adding them back to the map in a different order.</p>
+<p>The different college sectors are added back to the map as layers in the order you specify (i.e., the last sector that you select will be on top).</p>
+<p>The color palette pal and the m3 map with public and private colleges have been loaded for you.</p>
+</section>
+<section id="instructions-100-xp-4" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Filter the ipeds data to create a data frame with only for-profit colleges and assign it to profit.</li>
+<li>Create a leaflet map of public, private, and for-profit colleges.</li>
+<li>Use the addLayersControl() function and overlayGroups argument to allow users to toggle all three sectors of colleges.</li>
+<li>Center the map on the middle of the US and set the zoom level to 4.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E5.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame called profit with only For-Profit colleges</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>profit <span class="ot">&lt;-</span> <span class="fu">filter</span>(ipeds, sector_label <span class="sc">==</span> <span class="st">"For-Profit"</span>)  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add For-Profit colleges to `m3` as a new layer</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> m3 <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> profit, <span class="at">radius =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(name),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(sector_label),   <span class="at">group =</span> <span class="st">"For-Profit"</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addLayersControl</span>(<span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">"Public"</span>, <span class="st">"Private"</span>, <span class="st">"For-Profit"</span>))  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Center the map on the middle of the US with a zoom of 4</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> m3 <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setView</span>(<span class="at">lat =</span> <span class="fl">39.8282</span>, <span class="at">lng =</span> <span class="sc">-</span><span class="fl">98.5795</span>, <span class="at">zoom =</span> <span class="dv">4</span>) </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>m4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="change-up-the-base" class="level2">
+<h2 class="anchored" data-anchor-id="change-up-the-base">Change up the Base</h2>
+<p>Similar to how we added overlay groups (i.e., college sectors), we can allow our users to toggle between different base maps using the baseGroups argument to the addLayersControl() function.</p>
+<p>First we will need to add multiple basemaps and specify the name of a group for each.</p>
+<blockquote class="blockquote">
+<p>leaflet() %&gt;% addTiles(group = “OSM”) %&gt;% addProviderTiles(“CartoDB”, group = “CartoDB”)</p>
+</blockquote>
+<p>Try running the above code in the console. You should see a leaflet map in the viewer with the CartoDB basemap. This is because we added the CartoDB base map after the default OpenStreetMap tile. If we add addLayerControl(), our users will be able to toggle between the two base maps (you can include many base maps, but only one can be selected at a time).</p>
+</section>
+<section id="instructions-100-xp-5" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Add the OSM, CartoDB and Esri tiles.</li>
+<li>Use the addLayersControl() function to allow users to toggle between the three base maps.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E6.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add the OSM, CartoDB and Esri tiles</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">"OSM"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(<span class="st">"CartoDB"</span>, <span class="at">group =</span> <span class="st">"CartoDB"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(<span class="st">"Esri"</span>, <span class="at">group =</span> <span class="st">"Esri"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use addLayersControl to allow users to toggle between basemaps</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLayersControl</span>(<span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">"OSM"</span>, <span class="st">"CartoDB"</span>, <span class="st">"Esri"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="putting-it-all-together" class="level2">
+<h2 class="anchored" data-anchor-id="putting-it-all-together">Putting it all Together</h2>
+<p>Let’s try putting this all together at one time. Building our interactive map of every four-year college in America can be broken down into four steps:</p>
+<p>Initialize the web map Lay down our base maps Plot each sector of colleges as its own layer Add layer controls so users can toggle base and overlay groups The public, private, and profit data frames as well as the color palette pal have been loaded for you.</p>
+</section>
+<section id="instructions-100-xp-6" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-6">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Fill in the function names to create an interactive web map that has multiple overlay and base map groups.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E7.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">"OSM"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addProviderTiles</span>(<span class="st">"CartoDB"</span>, <span class="at">group =</span> <span class="st">"Carto"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addProviderTiles</span>(<span class="st">"Esri"</span>, <span class="at">group =</span> <span class="st">"Esri"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> public, <span class="at">radius =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(name),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(sector_label), <span class="at">group =</span> <span class="st">"Public"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> private, <span class="at">radius =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(name),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(sector_label), <span class="at">group =</span> <span class="st">"Private"</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> profit, <span class="at">radius =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(name),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(sector_label), <span class="at">group =</span> <span class="st">"For-Profit"</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addLayersControl</span>(<span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">"OSM"</span>, <span class="st">"Carto"</span>, <span class="st">"Esri"</span>), </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">"Public"</span>, <span class="st">"Private"</span>, <span class="st">"For-Profit"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setView</span>(<span class="at">lat =</span> <span class="fl">39.8282</span>, <span class="at">lng =</span> <span class="sc">-</span><span class="fl">98.5795</span>, <span class="at">zoom =</span> <span class="dv">4</span>) </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>m4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="adding-a-piece-of-flair" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-piece-of-flair">Adding a Piece of Flair</h2>
+<p>Earlier in this chapter, we used addSearchOSM() to find the middle of the US. To search for markers, rather than locations, we can use the addSearchFeatures() function. addSearchFeatures() will add a search box that you can use to find markers in the group(s) passed to the targetGroups argument. For example, to search our map for public colleges we could use the following code.</p>
+<blockquote class="blockquote">
+<p>m4 %&gt;% addSearchFeatures( targetGroups = ‘Public’, options = searchFeaturesOptions(zoom = 10))</p>
+</blockquote>
+<p>The m4 map and the leaflet.extras package have been loaded for you.</p>
+</section>
+<section id="instructions-100-xp-7" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-7">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Use the addSearchFeatures() function to make colleges in all sectors searchable.</li>
+<li>Set the search zoom level to 18.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E8.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make each sector of colleges searchable </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>m4_search <span class="ot">&lt;-</span> m4  <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addSearchFeatures</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">targetGroups =</span> <span class="fu">c</span>(<span class="st">"Public"</span>, <span class="st">"Private"</span>, <span class="st">"For-Profit"</span>), </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set the search zoom level to 18</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">searchFeaturesOptions</span>(<span class="at">zoom =</span> <span class="dv">18</span>)) </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Try searching the map for a college</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>m4_search</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="a-cluster-approach" class="level2">
+<h2 class="anchored" data-anchor-id="a-cluster-approach">A Cluster Approach</h2>
+<p>Rather than using layers to improve the usability of our map, we could elect to cluster the colleges by clustering groups of nearby colleges together to reduce the number of points on the map. Zooming in will cause the clusters to break apart and the individual colleges to appear. This can be a useful tactic for mapping a large number of points in a user-friendly manner.</p>
+<p>We can cluster all of our colleges by setting the clusterOptions argument of addCircleMarkers() as follows.</p>
+<blockquote class="blockquote">
+<p>ipeds %&gt;% leaflet() %&gt;% addTiles() %&gt;% addCircleMarkers(clusterOptions = markerClusterOptions())</p>
+</blockquote>
+<p>The ipeds data, htmltools library, and color palette pal have been loaded for you.</p>
+</section>
+<section id="instructions-100-xp-8" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-8">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Sanitize any html in our labels.</li>
+<li>Color code colleges by sector using the pal color palette.</li>
+<li>Cluster all colleges using clusterOptions.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E9.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ipeds <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Sanitize any html in our labels</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">addCircleMarkers</span>(<span class="at">radius =</span> <span class="dv">2</span>, <span class="at">label =</span> <span class="sc">~</span><span class="fu">htmlEscape</span>(name),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                         <span class="co"># Color code colleges by sector using the `pal` color palette</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(sector_label),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                         <span class="co"># Cluster all colleges using `clusterOptions`</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">clusterOptions =</span> <span class="fu">markerClusterOptions</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,298 @@
+---
+title: "Completing a randomization test: gender discrimination"
+---
+
+## Summarizing gender discrimination
+
+As the first step of any analysis, you should look at and summarize the data. Categorical variables are often summarized using proportions, and it is always important to understand the denominator of the proportion.
+
+Do you want the proportion of women who were promoted or the proportion of promoted individuals who were women? Here, you want the first of these, so in your R code it's necessary to group_by() the sex variable.
+
+The discrimination study data are available in your workspace as disc.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the count() function from dplyr, tabulate the variables sex and promote.
+- Summarize the data by using group_by() on the sex variable.
+- Find the proportion who were promoted. Call this variable promoted_prop. Note that with binary variables, the proportion of either value can be found using the mean() function (e.g. mean(variable == "value")). 
+
+``` {.r filename="E1.R"}
+# Create a contingency table summarizing the data
+disc %>%
+  # Count the rows by sex, promote
+  count(sex, promote)
+
+# Find proportion of each sex who were promoted
+disc %>%
+  # Group by sex
+  group_by(sex) %>%
+  # Calculate proportion promoted summary stat
+  summarize(promoted_prop = mean(promote == "promoted"))
+```
+
+## Step-by-step through the permutation
+
+To help you understand the code used to create the randomization distribution, this exercise will walk you through the steps of the infer framework. In particular, you'll see how differences in the generated replicates affect the calculated statistics.
+
+After running the infer steps, be sure to notice that the numbers are slightly different for each replicate.
+
+## Instructions `100 XP` {.unnumbered}
+
+The dplyr and infer packages have been loaded for you, along with the disc data frame from the last exercise.
+
+- Call the functions for the first three steps. The work has been done for you, your job is to investigate the results of calling the first three infer steps.
+- In order to see the effect of permuting,
+  - group the permuted data frame, disc_perm, by the new replicate variable, then
+  - count the variables of interest (promote within each sex) using count().
+- Using disc_perm, calculate() the statistic of interest. Set stat to "diff in props" and order to c("male", "female").  
+
+``` {.r filename="E2.R"}
+# Replicate the entire data frame, permuting the promote variable
+disc_perm <- disc %>%
+  specify(promote ~ sex, success = "promoted") %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 5, type = "permute")
+
+disc_perm %>%
+  # Group by replicate
+  group_by(replicate) %>%
+  # Count per group
+  count()
+
+disc_perm %>%
+  # Calculate difference in proportion, male then female
+  calculate(stat = "diff in props", order = c("male", "female"))
+```
+
+## Randomizing gender discrimination
+
+Recall that we are considering a situation where the number of men and women are fixed (representing the resumes) and the number of people promoted is fixed (the managers were able to promote only 35 individuals).
+
+In this exercise, you'll create a randomization distribution of the null statistic with 1000 replicates as opposed to just 5 in the previous exercise. As a reminder, the statistic of interest is the difference in proportions promoted between genders (i.e. proportion for males minus proportion for females). From the original dataset, you can calculate how the promotion rates differ between males and females. Using the specify-hypothesis-generate-calculate workflow in infer, you can calculate the same statistic, but instead of getting a single number, you get a whole distribution. In this exercise, you'll compare that single number from the original dataset to the distribution made by the simulation.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Calculate the observed difference in promotion rate.
+  - Group by sex.
+  - Calculate the fraction promoted for each sex by summarizing on the mean() of promote == "promoted". Call the summary variable prop_prom.
+  - Calculate the difference in fractions between sexes by summarizing again, setting stat to the diff() of prop_prom. 
+
+- Create a data frame of permuted differences in promotion rates.
+  - Specify promote vs. sex. ("promoted" is considered success.)
+  - Set the null hypothesis as "independence".
+  - Generate 1000 reps of type "permute".
+  - Calculate the summary stat "diff in props".
+
+- Draw a histogram of permuted differences.
+  - Using the permutation dataset, disc_perm, plot stat.
+  - Add a histogram layer with geom_histogram(). The binwidth is set to 0.01.
+  - Add a vertical line with geom_vline(). The xintercept is at diff_orig.
+``` {.r filename="E3.R"}
+# Calculate the observed difference in promotion rate
+diff_orig <- disc %>%
+  # Group by sex
+  group_by(sex) %>%
+  # Summarize to calculate fraction promoted
+  summarize(prop_prom = mean(promote == "promoted")) %>%
+  # Summarize to calculate difference
+  summarize(stat = diff(prop_prom)) %>% 
+  pull()
+  
+# See the result
+diff_orig
+
+
+
+# Create data frame of permuted differences in promotion rates
+disc_perm <- disc %>%
+  # Specify promote vs. sex
+  specify(promote ~ sex, success = "promoted") %>%
+  # Set null hypothesis as independence
+  hypothesize(null = "independence") %>%
+  # Generate 1000 permutations
+  generate(reps = 1000, type = "permute") %>%
+  # Calculate difference in proportions
+  calculate(stat = "diff in props", order = c("male", "female"))
+  
+  
+  
+# From previous steps
+diff_orig <- disc %>%
+  group_by(sex) %>%
+  summarize(prop_prom = mean(promote == "promoted")) %>%
+  summarize(stat = diff(prop_prom)) %>% 
+  pull()
+disc_perm <- disc %>%
+  specify(promote ~ sex, success = "promoted") %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 1000, type = "permute") %>%
+  calculate(stat = "diff in props", order = c("male", "female"))
+  
+# Using permutation data, plot stat
+ggplot(disc_perm, aes(x = stat)) + 
+  # Add a histogram layer
+  geom_histogram(binwidth = 0.01) +
+  # Add a vertical line at diff_orig
+  geom_vline(aes(xintercept = diff_orig), color = "red")
+```
+
+## Critical region
+
+It seems as though the statistic—a difference in promotion rates of 0.2917—is on the extreme end of the permutation distribution. That is, there are very few permuted differences which are as extreme as the observed difference.
+
+To quantify the extreme permuted (null) differences, we use the quantile() function.
+
+The dplyr package has been loaded for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the permuted differences, disc_perm, find the quantile values of stat such that:
+
+  - 10% of the permuted differences are above the value (0.9 quantile)
+  - 5% of the permuted differences are above the value (0.95 quantile)
+  - 1% of the permuted differences are above the value (0.99 quantile)
+
+``` {.r filename="E4.R"}
+disc_perm %>% 
+  summarize(
+    # Find the 0.9 quantile of diff_perm's stat
+    q.90 = quantile(stat, p = 0.9),
+    # ... and the 0.95 quantile
+    q.95 = quantile(stat, p = 0.95),
+    # ... and the 0.99 quantile
+    q.99 = quantile(stat, p = 0.99)
+  )
+```
+
+## Two-sided critical region
+
+For the discrimination data, the question at hand is whether or not women were promoted less often than men. However, there are often scenarios where the research question centers around a difference without directionality.
+
+For example, you might be interested in whether the rate of promotion for men and women is different. In that case, a difference in proportions of -0.29 is just as "extreme" as a difference of positive 0.29.
+
+If you had seen that women were promoted more often, what would the other side of the distribution of permuted differences look like? That is, what are the smallest (negative) values of the distribution of permuted differences?
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the permuted differences, disc_perm, find the quantile values such that:
+
+  - 1% of the permuted differences are below the value (0.01 quantile)
+  - 5% of the permuted differences are below the value (0.05 quantile)
+  - 10% of the permuted differences are below the value (0.1 quantile)
+
+``` {.r filename="E5.R"}
+# Use disc_perm
+disc_perm %>% 
+  # ... to calculate summary stats
+  summarize(
+    # Find the 0.01 quantile of stat
+    q.01 = quantile(stat, p = 0.01),
+    # ... and 0.05
+    q.05 = quantile(stat, p = 0.05),
+    # ... and 0.1 
+    q.10 = quantile(stat, p = 0.1)
+  )
+```
+
+## Sample size for critical region
+
+Using the randomization distributions with the small and big datasets, calculate different cutoffs for significance. Remember, you are most interested in a large positive difference in promotion rates, so you are calculating the upper quantiles of 0.90, 0.95, and 0.99.
+
+A function for calculating these quantiles, calc_upper_quantiles() is sown in the script.
+
+## Instructions `100 XP` {.unnumbered}
+
+- As a reference point, run the call to calc_upper_quantiles() to calculate the relevant quantiles associated with the original dataset of 1000 permuted differences, disc_perm.
+- Do the same for the small dataset, disc_perm_small …
+- and for the big dataset, disc_perm_big.
+
+``` {.r filename="E6.R"}
+calc_upper_quantiles <- function(dataset) {
+  dataset %>% 
+    summarize(
+      q.90 = quantile(stat, p = 0.90),
+      q.95 = quantile(stat, p = 0.95),
+      q.99 = quantile(stat, p = 0.99)
+    )
+}
+
+# Recall the quantiles associated with the original dataset
+calc_upper_quantiles(disc_perm)
+
+# Calculate the quantiles associated with the small dataset
+calc_upper_quantiles(disc_perm_small)
+
+# Calculate the quantiles associated with the big dataset
+calc_upper_quantiles(disc_perm_big)
+```
+
+## Practice calculating p-values
+
+In the original dataset, 87.5% of the men were promoted and 58.3% of the women were promoted.
+
+Consider a situation where there are 24 men, 24 women, and 35 people are still promoted. But in this new scenario, 75% of the men are promoted and 70.8% of the women are promoted. Does the difference in promotion rates still appear to be statistically significant? That is, could this difference in promotion rates have come from random chance?
+
+You'll analyze these new data, contained in disc_new, using the same permutation algorithm from before.
+
+The disc_perm and disc_perm_new datasets are available in your workspace.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Run the code to recall the counts of sex and promote in the original dataset.
+- Get the counts in the new dataset, disc_new.  
+
+- Run the code to recall the histogram of the difference statistic in the original permutation dataset.
+- Draw the histogram with the new permutation dataset, disc_perm_new. On this plot, set the x-axis intercept of the vertical line to diff_orig_new.
+
+- Run the code to recall the p-value of the difference statistic in the original permutation dataset.
+- Calculate the p-value with the new permutation dataset, disc_perm_new, and the new observed difference, diff_orig_new.
+``` {.r filename="E7.R"}
+# Recall the original data
+disc %>% 
+  count(sex, promote)
+
+# Tabulate the new data
+disc_new %>% 
+  count(sex, promote)
+  
+
+
+# Recall the distribution of the original permuted differences
+ggplot(disc_perm, aes(x = stat)) + 
+  geom_histogram() +
+  geom_vline(aes(xintercept = diff_orig), color = "red")
+
+# Plot the distribution of the new permuted differences
+ggplot(disc_perm_new, aes(x = stat)) + 
+  geom_histogram() +
+  geom_vline(aes(xintercept = diff_orig_new), color = "red")
+  
+  
+# Recall the p-value from the original data
+disc_perm %>%
+  summarize(p_value = mean(diff_orig <= stat))
+
+# Find the p-value from the new data
+disc_perm_new %>%
+  summarize(p_value = mean(diff_orig_new <= stat))
+```
+
+## Calculating two-sided p-values
+
+What if the original research hypothesis had focused on any difference in promotion rates between men and women instead of focusing on whether men are more likely to be promoted than women? In this case, a difference like the one observed would occur twice as often (by chance) because sometimes the difference would be positive and sometimes it would be negative.
+
+When there is no directionality to the alternative hypothesis, the hypothesis and p-value are considered to be two-sided. In a two-sided setting, the p-value is double the one-sided p-value.
+
+In this exercise, you'll calculate a two-sided p-value given the original randomization distribution and dataset.
+
+The observed difference is stored in diff_orig and the difference in each permutation is the stat column of disc_perm.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Calculate the two-sided p-value. This is double the one-sided p-value that you calculated in previous exercises.
+
+``` {.r filename="E8.R"}
+# Calculate the two-sided p-value
+disc_perm %>%
+  summarize(p_value = 2 * mean(diff_orig <= stat))
+```

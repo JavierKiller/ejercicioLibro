@@ -8258,5 +8258,376 @@
     "title": "35  Similarities Between Strings",
     "section": "Instructions 100 XP",
     "text": "Instructions 100 XP\n\nMake the function is_string_distance_below_three() return TRUE if the stringdistance between left and right is below 3.\nMake is_closer_than_three_years() return TRUE if the absolute difference between left and right is smaller than three.\nUse the helper functions to join the two data frames on the two columns “title” and “year”\n\n\n\nE4.R\n\n# Calculate the string distance - it should be smaller than 3\nis_string_distance_below_three &lt;- function(left, right) {\n  stringdist(left, right) &lt; 3\n}\n\nis_string_distance_below_three(\"Hi there\", \"Hi there\")\n\n\n\n\nis_string_distance_below_three &lt;- function(left, right) {\n  stringdist(left, right) &lt; 3\n}\n\n# Check if the absolute value between left and right is smaller than three\nis_closer_than_three_years &lt;- function(left, right) {\n  abs(left - right) &lt; 3\n}\n\nis_closer_than_three_years(2015, 2014)\n\n\n\n\n\n\n\nis_string_distance_below_three &lt;- function(left, right) {\n  stringdist(left, right) &lt; 3\n}\n\nis_closer_than_three_years &lt;- function(left, right) {\n  abs(left - right) &lt; 3\n}\n\n# Join by \"title\" and \"year\" with our two helper functions\nfuzzy_left_join(\n  movie_titles, movie_db,\n  by = c(\"title\", \"year\"),\n  match_fun = c(\"title\" = is_string_distance_below_three, \n                \"year\" = is_closer_than_three_years)\n)"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#introduction-to-spatial-data",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#introduction-to-spatial-data",
+    "title": "71  Plotting Polygons",
+    "section": "71.1 Introduction to Spatial Data",
+    "text": "71.1 Introduction to Spatial Data\nWe have been mapping points, but there are several spatial features that can be mapped, including polygons. In R, polygons are often stored in a SpatialPolygonsDataFrame that holds the polygon, coordinate information, and a data frame with one row per polygon.\nA SpatialPolygonsDataFrame called shp that contains the zip code boundaries for North Carolina has been loaded for you. shp has five slots that store various types of information:\ndata: data associated with each polygon polygons: coordinates to plot polygons plotOrder: order in which polygons are plotted bbox: bounding box for geographic data (i.e., a rectangle) proj4string: coordinate reference system Let’s take a closer look inside the shp object."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nPrint the summary() of the shp data.\nPrint the class of shp.\nPrint the slot names of shp.\n\n\n\nE1.R\n\n# Print a summary of the `shp` data\nsummary(shp)\n\n\n\n# Print the class of `shp`\nclass(shp)\n\n\n\n# Print the slot names of `shp`\nslotNames(`shp`)"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#exploring-spatial-data",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#exploring-spatial-data",
+    "title": "71  Plotting Polygons",
+    "section": "71.2 Exploring Spatial Data",
+    "text": "71.2 Exploring Spatial Data\nThe data slot in shp holds a data frame like we are used to working with. However, since it is stored inside a SpatialPolygonsDataFrame, we access the data frame a little differently using the @ operator.\n\nglimpse(shp@data)\n\n\nObservations: 808 Variables: 2 $ GEOID10  27925, 28754, 28092… $ ALAND10  624688620, 223734670, 317180853 …\n\nOur data frame has 808 observations of two variables:\nGEOID10: the zip code of each polygon ALAND10: the area (square meters) of each polygon"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-1",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-1",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the glimpse() function to look at the data slot of shp.\nPrint the class of the data slot of shp.\nPrint the GEOID10 variable.\n\n\n\nE2.R\n\n# Glimpse the data slot of shp\nglimpse(shp@data)\n\n\n# Print the class of the data slot of shp\nclass(shp@data)\n\n\n# Print GEOID10\nshp@data$GEOID10"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#joining-spatial-data",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#joining-spatial-data",
+    "title": "71  Plotting Polygons",
+    "section": "71.3 Joining Spatial Data",
+    "text": "71.3 Joining Spatial Data\nWe can join data onto the data frame stored in the data slot of our SpatialPolygonsDataFrame. In this chapter, we are interested in the mean income at the zip code level as reported by the IRS. Once we have the income data joined onto the information in the data slot of shp we can map the mean income of zip codes on our leaflet map.\nA data frame called nc_income has been loaded for you. Let’s get started by taking a look at the nc_income data. Then we’ll join it onto the information in the data slot of shp and see if there are any zip codes in our data that are missing income information."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-2",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-2",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the glimpse() function to look at nc_income.\nSummarize the nc_income data using the summary() function.\nleft_join() the nc_income data onto shp@data.\nUse the summarize() function with across() to print the number of missing values in each variable in shp_nc_income.\n\n\n\nE3.R\n\n# Glimpse the nc_income data\nglimpse(nc_income)\n\n\n\n\n\n# Glimpse the nc_income data\nglimpse(nc_income)\n\n# Summarize the nc_income data\nsummary(nc_income)\n\n\n\n\n\n# Glimpse the nc_income data\nglimpse(nc_income)\n\n# Summarize the nc_income data\nsummary(nc_income)\n\n# Left join nc_income onto shp@data \nshp_nc_income &lt;- shp@data %&gt;% \n                left_join(nc_income, by = c(\"GEOID10\" = \"zipcode\"))\n\n\n\n\n\n# Glimpse the nc_income data\nglimpse(nc_income)\n\n# Summarize the nc_income data\nsummary(nc_income)\n\n# Left join nc_income onto shp@data and store in shp_nc_income\nshp_nc_income &lt;- shp@data %&gt;% \n                left_join(nc_income, by = c(\"GEOID10\" = \"zipcode\"))\n\n# Print the number of missing values of each variable in shp_nc_income\nshp_nc_income  %&gt;%\n  summarize(across(everything(), ~sum(is.na(.x))))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#addpolygons-function",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#addpolygons-function",
+    "title": "71  Plotting Polygons",
+    "section": "71.4 addPolygons() Function",
+    "text": "71.4 addPolygons() Function\nLet’s look at those zip codes with missing data to hypothesize why they do not have income data.\nWe are mapping ZCTAs (not actual zip codes) so not every part of NC will have a boundary. Our boundaries may overlap because the file was simplified to reduce size. These are trade offs to consider when mapping polygons.\nEnough nuance, let’s make a map. You can pipe the shp data directly into our calls to leaflet(), addTiles(), and addPolygons() without supplying any additional arguments to map North Carolina’s zip codes. To get you started, the shp SpatialPolygonsDataFrame including the IRS income variables has been loaded for you."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-3",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-3",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nMap the polygons in shp using addPolygons().\nCreate a new SpatialPolygonsDataFrame called shp_na that contains information on zip codes with missing income data.\nMap the polygons in shp_na using addPolygons().\n\n\n\nE4.R\n\n# map the polygons in shp\nshp %&gt;% \n    leaflet() %&gt;% \n    addTiles() %&gt;% \n    addPolygons()\n    \n\n\n\n# map the polygons in shp\nshp %&gt;% \n    leaflet() %&gt;% \n    addTiles() %&gt;% \n    addPolygons()\n\n# which zips were not in the income data?\nshp_na &lt;- shp[is.na(shp$mean_income),]\n\n\n\n\n# map the polygons in shp\nshp %&gt;% \n    leaflet() %&gt;% \n    addTiles() %&gt;% \n    addPolygons()\n\n# which zips were not in the income data?\nshp_na &lt;- shp[is.na(shp$mean_income),]\n\n# map the polygons in shp_na\nshp_na %&gt;% \n    leaflet() %&gt;% \n    addTiles() %&gt;% \n    addPolygons()"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#nc-high-income-zips",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#nc-high-income-zips",
+    "title": "71  Plotting Polygons",
+    "section": "71.5 NC High Income Zips",
+    "text": "71.5 NC High Income Zips\nDid you have a hypothesis of why certain zip codes are missing income information? It looks to me like many of them are areas that likely have low populations (e.g., parks, colleges, etc.) and the IRS only reports income data on zip codes with more than 100 filers.\nNow let’s focus in on a subset of zip codes with income data, namely the 25% of zip codes in NC with the highest mean incomes. Where do think these will fall within the states?\nLet’s take a look and find out."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-4",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-4",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nSummarize the mean income variable to find the cut point for the top quartile of mean income.\nCreate a subset called high_inc that includes only zip codes in the top quartile of mean income.\nMap the boundaries of the zip codes in the top quartile of mean income.\n\n\n\nE5.R\n\n# summarize the mean income variable\nsummary(shp$mean_income)\n\n\n\n# summarize the mean income variable\nsummary(shp$mean_income)\n\n# subset shp to include only zip codes in the top quartile of mean income\nhigh_inc &lt;- shp[!is.na(shp$mean_income) & shp$mean_income &gt; 55917,]\n\n\n\n\n# summarize the mean income variable\nsummary(shp$mean_income)\n\n# subset shp to include only zip codes in the top quartile of mean income\nhigh_inc &lt;- shp[!is.na(shp$mean_income) & shp$mean_income &gt; 55917,]\n\n# map the boundaries of the zip codes in the top quartile of mean income\nhigh_inc %&gt;%\n  leaflet() %&gt;%\n  addTiles() %&gt;%\n  addPolygons()"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#addpolygon-options",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#addpolygon-options",
+    "title": "71  Plotting Polygons",
+    "section": "71.6 addPolygon() Options",
+    "text": "71.6 addPolygon() Options\nSo far we have used the default appearance for addPolygons(). There are several more ways to customize the polygons.\nThe arguments to addPolygons() we will focus on are:\n\nweight: the thickness of the boundary lines in pixels\ncolor: the color of the polygons\nlabel: the information to appear on hover\nhighlightOptions: options to highlight a polygon on hover\n\n\naddPolygons(weight = 2, color = “red”, label = ~paste0(“Total Income:”, dollar(income)), highlight = highlightOptions(weight = 10, color = “blue”, bringToFront = TRUE))\n\nThe high_inc SpatialPolygonsDataFrame you created in the previous exercise has been loaded for you."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-5",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-5",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse the arguments of addPolygons() to map the high income zip codes in NC with:\n\nA boundary thickness of 1 pixel,\nPolygons that are colored with the nc_pal palette and are highlighted on hover, and\nLabels that display the words “Mean Income:” followed by the mean income of the zip code.\n\n\n\n\nE6.R\n\n# create color palette with colorNumeric()\nnc_pal &lt;- colorNumeric(\"YlGn\", domain = high_inc@data$mean_income)\n\nhigh_inc %&gt;%\n  leaflet() %&gt;%\n  addTiles() %&gt;%\n  # set boundary thickness to 1 and color polygons\n  addPolygons(___ = ___, ___ = ~nc_pal(mean_income),\n              # add labels that display mean income\n              label = ___(\"Mean Income: \", dollar(mean_income)),\n              # highlight polygons on hover\n              ___ = highlightOptions(weight = 5, color = \"white\",\n              bringToFront = TRUE))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#lets-do-some-logging",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#lets-do-some-logging",
+    "title": "71  Plotting Polygons",
+    "section": "71.7 Let’s do some Logging",
+    "text": "71.7 Let’s do some Logging\nLet’s look at the quartiles of mean zip code incomes in NC.\n\nsummary(high_inc$mean_income)\n\n\nMin. 1st Qu. Median Mean 3rd Qu. Max. 55947 62380 71655 83682 90695 550849\n\nThe range is nearly $500,000! However, the median is much closer to the min than to the max, indicating a right-skew. Since the mean income variable contains exceptionally large values, the continuous color gradient is not very helpful. Log transforming a right-skewed variable pulls large values closer to the mean and yields a more symmetrically distributed variable.\nLog transforming the mean income on our map increases the variation in the color gradient across the high income zip codes and enables better visualization of the distribution of mean income across the state."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-6",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-6",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a logged version of the nc_pal color palette.\nApply the logged color palette to the leaflet map.\nComment out the map tile from the leaflet map to more easily visualize the variation in mean income (add # without a space prior to the function that adds the map tile).\n\n\n\nE7.R\n\n# Use the log function to create a new version of nc_pal\nnc_pal &lt;- colorNumeric(\"YlGn\", domain = log(high_inc@data$mean_income))\n\n# comment out the map tile\nhigh_inc %&gt;%\n  leaflet() %&gt;%\n  #___addProviderTiles(\"CartoDB\") %&gt;%\n  # apply the new nc_pal to the map\n  addPolygons(weight = 1, color = ~nc_pal(log(mean_income)), fillOpacity = 1,\n              label = ~paste0(\"Mean Income: \", dollar(mean_income)),\n              highlightOptions = highlightOptions(weight = 5, color = \"white\", bringToFront = TRUE))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#wealthiest-zip-codes-in-america",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#wealthiest-zip-codes-in-america",
+    "title": "71  Plotting Polygons",
+    "section": "71.8 Wealthiest Zip Codes in America",
+    "text": "71.8 Wealthiest Zip Codes in America\nZooming out from North Carolina, let’s put together a polygon layer for the entire country. Then we will work to add this layer to our map of American colleges.\nAccording to the 2015 IRS data, there are 427 zip codes in America with a mean income of $ 200,000 or more. It might be interesting to know which colleges are located in these affluent areas. Let’s map these 427 polygons and explore our leaflet map to better understand where the highest income zip codes in America are. To get us started, a SpatialPolygonsDataFrame called wealthy_zips that contains information on each zip code in America with a mean income of $ 200,000 or more has been loaded for you.\nBefore we work with this data, take a minute to hypothesize where many of these zip codes are located."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-7",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-7",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCall the slotNames function to print the slot names of wealthy_zips.\nPrint a summary of the mean_income variable.\nAdd the boundaries from wealthy_zips to a leaflet map using the addPolygons() function and customize the polygons so they are green and are included in a group called “Wealthy Zipcodes”.\n\n\n\nE8.R\n\n# Print the slot names of `wealthy_zips`\nslotNames(wealthy_zips)\n\n\n\n\n\n# Print a summary of the `mean_income` variable\nsummary(wealthy_zips@data$mean_income)\n\n\n\n# plot zip codes with mean incomes &gt;= $200k\nwealthy_zips %&gt;% \n  leaflet() %&gt;% \n  addProviderTiles(\"CartoDB\") %&gt;% \n  # set color to green and create Wealth Zipcodes group\n  addPolygons(weight = 1, fillOpacity = .7, color = \"green\",  group = \"Wealthy Zipcodes\", \n              label = ~paste0(\"Mean Income: \", dollar(mean_income)),\n              highlightOptions = highlightOptions(weight = 5, color = \"white\", bringToFront = TRUE))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#final-map",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#final-map",
+    "title": "71  Plotting Polygons",
+    "section": "71.9 Final Map",
+    "text": "71.9 Final Map\nBecause our leaflet map is built in layers, we can add different types of information to the same base map (e.g., points and polygons). When adding new layers based on different data to an existing leaflet object we must specify the data argument with the function that creates the new layer to override the data that is piped through the chain of functions.\n\nm4 %&gt;% addCircleMarkers(data = private)\n\nLet’s combine our point and polygon maps to add a layer highlighting America’s wealthiest zip codes to our map of every college in America. To get us started, the last layered version of the college map m4 has been printed for you and the wealthy_zips SpatialPolygonsDataFrame is pre-loaded.\nAfter you create the final map, take a few minutes to explore (and enjoy) your leaflet map!"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-8",
+    "href": "Interactive_Maps_with_leaflet_in_R_C4.html#instructions-100-xp-8",
+    "title": "71  Plotting Polygons",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd a layer of polygons to m4 using the information in wealthy_zips and update the layer controls to include the “Wealthy Zip Codes” group.\nHave fun exploring the final map of the course!\n\n\n\nE9.R\n\n# Add polygons using wealthy_zips\nfinal_map &lt;- m4 %&gt;% \n   addPolygons(data = wealthy_zips, weight = 1, fillOpacity = .5, color = \"Grey\",  group = \"Wealthy Zip Codes\", \n              label = ~paste0(\"Mean Income: \", dollar(mean_income)),\n              highlight = highlightOptions(weight = 5, color = \"white\", bringToFront = TRUE)) %&gt;% \n    # Update layer controls including \"Wealthy Zip Codes\"\n    addLayersControl(baseGroups = c(\"OSM\", \"Carto\", \"Esri\"), \n                         overlayGroups = c(\"Public\", \"Private\", \"For-Profit\", \"Wealthy Zip Codes\"))\n\n\n\n\n\n# Add polygons using wealthy_zips\nfinal_map &lt;- m4 %&gt;% \n   addPolygons(data = wealthy_zips, weight = 1, fillOpacity = .5, color = \"Grey\",  group = \"Wealthy Zip Codes\", \n              label = ~paste0(\"Mean Income: \", dollar(mean_income)),\n              highlightOptions = highlightOptions(weight = 5, color = \"white\", bringToFront = TRUE)) %&gt;% \n    # Update layer controls including \"Wealthy Zip Codes\"\n    addLayersControl(baseGroups = c(\"OSM\", \"Carto\", \"Esri\"), \n                         overlayGroups = c(\"Public\", \"Private\", \"For-Profit\", \"Wealthy Zip Codes\"))     \n\n# Print and explore your very last map of the course!\nfinal_map"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#cleaning-up-the-base-map",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#cleaning-up-the-base-map",
+    "title": "69  Plotting Points",
+    "section": "69.1 Cleaning up the Base Map",
+    "text": "69.1 Cleaning up the Base Map\nIf you are storing leaflet maps in objects, there will come a time when you need to remove markers or reset the view. You can accomplish these tasks with the following functions.\n\nclearMarkers()- Remove one or more features from a map clearBounds()- Clear bounds and automatically determine bounds based on map elements\n\nTo remove the markers and to reset the bounds of our m map we would:\n\nm &lt;- m %&gt;% addMarkers(lng = dc_hq\\(lon, lat = dc_hq\\)lat) %&gt;% setView(lat = 50.9, lng = 4.7, zoom = 5)\n\n\nm %&gt;% clearMarkers() %&gt;% clearBounds()\n\nThe leaflet map of DataCamp’s headquarters has been printed for you."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nUse clearMarkers() to remove markers and clearBounds() to restore the default view and store in the map_clear object.\nPrint map_clear\n\n\n\nE1.R\n\n# Remove markers, reset bounds, and store the updated map in the m object\nmap_clear &lt;- map  %&gt;%\n        clearMarkers()  %&gt;% \n        clearBounds()\n        \n\n\n\n# Remove markers, reset bounds, and store the updated map in the m object\nmap_clear &lt;- map %&gt;%\n        clearMarkers() %&gt;% \n        clearBounds()\n\n# Print the cleared map\nprint(map_clear)"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#exploring-the-ipeds-data-ii",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#exploring-the-ipeds-data-ii",
+    "title": "69  Plotting Points",
+    "section": "69.2 Exploring the IPEDS Data II",
+    "text": "69.2 Exploring the IPEDS Data II\nMost analyses require data wrangling. Luckily, there are many functions in the tidyverse that facilitate data frame cleaning. For example, the drop_na() function will remove observations with missing values. By default, drop_na() will check all columns for missing values and will remove all observations with one or more missing values.\n\nmiss_ex &lt;- tibble( animal = c(“dog”, “cat”, “rat”, NA), name = c(“Woodruf”, “Stryker”, NA, “Morris”), age = c(1:4)) miss_ex\n\n\nmiss_ex %&gt;% drop_na() %&gt;% arrange(desc(age))\n\n\n70 A tibble: 2 x 3\nanimal name age    1 cat Stryker 2 2 dog Woodruf 1"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-1",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-1",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRemove colleges with missing sector information using drop_na().\nCount the number of four-year colleges in each state.\nPrint the US states in descending order by the number of colleges in each state.\n\n\n\nE2.R\n\n# Remove colleges with missing sector information\nipeds &lt;- \n    ipeds_missing %&gt;% \n    drop_na()\n\n\n\n\n# Count the number of four-year colleges in each state\nipeds %&gt;% \n    group_by(state) %&gt;% \n    count()\n    \n    \n\n\n\n# Create a list of US States in descending order by the number of colleges in each state\nipeds  %&gt;% \n    group_by(state)  %&gt;% \n    count()  %&gt;% \n    arrange(desc(n))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#california-colleges",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#california-colleges",
+    "title": "69  Plotting Points",
+    "section": "70.1 California Colleges",
+    "text": "70.1 California Colleges\nNow it is your turn to map all of the colleges in a state. In this exercise, we’ll apply our example of mapping Maine’s colleges to California’s colleges. The first step is to set up your data by filtering the ipeds data frame to include only colleges in California. For reference, you will find how we accomplished this with the colleges in Maine below.\n\nmaine_colleges &lt;- ipeds %&gt;% filter(state == “ME”)\n\n\nmaine_colleges\n\n\n71 A tibble: 21 x 5\n                 name       lng      lat state sector_label\n                &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;\n1 Bates College -70.20333 44.10530 ME Private 2 Bowdoin College -69.96524 43.90690 ME Private"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-2",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-2",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCreate a data frame called ca with data on only colleges in California.\nUse addMarkers() to plot all of the colleges in ca on map.\n\n\n\nE3.R\n\n# Create a dataframe called `ca` with data on only colleges in California\nca &lt;- ipeds %&gt;%\n        filter(state == \"CA\")\n\n# Use `addMarkers` to plot all of the colleges in `ca` on the `m` leaflet map\nmap %&gt;%\n    addMarkers(lng = ca$lng, lat = ca$lat)"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#the-city-of-colleges",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#the-city-of-colleges",
+    "title": "69  Plotting Points",
+    "section": "71.1 The City of Colleges",
+    "text": "71.1 The City of Colleges\nBased on our map of California colleges it appears that there is a cluster of colleges in and around the City of Angels (e.g., Los Angeles). Let’s take a closer look at these institutions on our leaflet map.\nThe coordinates for the center of LA are provided for you in the la_coords data frame.\nla_coords &lt;- data.frame(lat = 34.05223, lon = -118.2437) Once you create a map focused on LA, try panning and zooming the map. Can you find the cluster of colleges East of LA known as the Claremont Colleges?\nWhen there are hundreds of markers, do you find the pin markers helpful or do they get in your way?\nThe coordinates of LA have been provided in the la_coords data frame and the ca data frame of California colleges and the map have been loaded for you."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-3",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-3",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCenter the map on LA.\nSet the zoom level to 8 and store the map in the map_zoom object.\nPrint the map stored in the map_zoom object.\n\n\n\nE4.R\n\n# Center the map on LA \nmap %&gt;% \n   addMarkers(data = ca) %&gt;% \n    setView(lat = la_coords$lat, lng = la_coords$lon, zoom = 12)\n\n\n\n# Set the zoom level to 8 and store in the map_zoom object\nmap_zoom &lt;- \n    map %&gt;% \n      addMarkers(data = ca) %&gt;% \n      setView(lat = la_coords$lat, lng = la_coords$lon, zoom = 8)\n      \nmap_zoom"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#circle-markers",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#circle-markers",
+    "title": "69  Plotting Points",
+    "section": "71.2 Circle Markers",
+    "text": "71.2 Circle Markers\nCircle markers are notably different from pin markers:\nWe can control their size They do not “stand-up” on the map We can more easily change their color There are many ways to customize circle markers and the design of your leaflet map. To get started we will focus on the following arguments.\naddCircleMarkers(map, lng = NULL, lat = NULL, radius = 10, color = “#03F”, popup = NULL) The first argument map takes a leaflet object, which we will pipe directly into addCircleMarkers(). lng and lat are the coordinates we are mapping. The other arguments can customize the appearance and information presented by each marker.\nThe ca data frame and the leaflet object map have been loaded for you."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-4",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-4",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nClear the pin markers from the map.\nUse addCircleMarkers() to plot each college as a circle.\nChange the radius of each circle to be 2 pixels and the color to red.\n\n\n\nE5.R\n\n# Clear the markers from the map \nmap2 &lt;- map %&gt;% \n            clearMarkers()\n\n\n\n# Use addCircleMarkers() to plot each college as a circle\nmap2 %&gt;%\n    addCircleMarkers(lng = ca$lng, lat = ca$lat)\n    \n\n\n\n# Change the radius of each circle to be 2 pixels and the color to red\nmap2 %&gt;% \n    addCircleMarkers(lng = ca$lng, lat = ca$lat,\n                     radius = 2, color = \"red\")"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#making-our-map-pop",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#making-our-map-pop",
+    "title": "69  Plotting Points",
+    "section": "71.3 Making our Map Pop",
+    "text": "71.3 Making our Map Pop\nSimilar to building a plot with ggplot2 or manipulating data with dplyr, your map needs to be stored in an object if you reference it later in your code.\nSpeaking of dplyr, the %&gt;% operator can pipe data into the function chain that creates a leaflet map.\n\nipeds %&gt;% leaflet() %&gt;% addTiles() %&gt;% addCircleMarkers(popup = ~name, color = “#FF0000”)\n\nPiping makes our code more readable and allows us to refer to variables using the ~ operator rather than repeatedly specifying the data frame.\nThe color argument in addCircleMarkers() takes the name of a color or a hex code. For example, red or #FF0000.\nmap has been printed for you. Notice the circle markers are gone!"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-5",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-5",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd circle markers with popups for college names.\nChange circle markers’ color to “#2cb42c” (this case exactly!) and store map in the map_color object.\nPrint map_color\n\n\n\nE6.R\n\n# Add circle markers with popups for college names\nmap %&gt;% \n    addCircleMarkers(data = ca, radius = 2, popup = ~name)\n    \n\n\n\n\n# Add circle markers with popups for college names\nmap %&gt;%\n    addCircleMarkers(data = ca, radius = 2, popup = ~name)\n\n# Change circle markers' color to #2cb42c and store map in map_color object\nmap_color &lt;- map %&gt;% \n    addCircleMarkers(data = ca, radius = 2, color = \"#2cb42c\", popup = ~name)\n    \n\n\n\n# Add circle markers with popups for college names\nmap %&gt;%\n    addCircleMarkers(data = ca, radius = 2, popup = ~name)\n\n# Change circle color to #2cb42c and store map in map_color object\nmap_color &lt;- map %&gt;% \n    addCircleMarkers(data = ca, radius = 2, color = \"#2cb42c\", popup = ~name)\n\n# Print map_color\nprint(map_color)"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#building-a-better-pop-up",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#building-a-better-pop-up",
+    "title": "69  Plotting Points",
+    "section": "71.4 Building a Better Pop-up",
+    "text": "71.4 Building a Better Pop-up\nWith the paste0() function and a few html tags, we can customize our popups. paste0() converts its arguments to characters and combines them into a single string without separating the arguments.\n\naddCircleMarkers(popup = ~paste0(name, “”, sector_label))\n\nWe can use the  tag to create a line break to have each element appear on a separate line.\nTo distinguish different data elements, we can make the name of each college italics by wrapping the name variable in \n\naddCircleMarkers(popup = ~paste0(“”, name, “”, “”, sector_label))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-6",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-6",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nClear the bounds and markers on the map stored in map.\nAdd circle markers with pop-ups that display both the institution name and sector.\nMake the institution name in each pop-up bold.\n\n\n\nE7.R\n\n# Clear the bounds and markers on the map object and store in map2\nmap2 &lt;- map %&gt;% \n            clearMarkers() %&gt;% \n            clearBounds()\n\n\n\n\n\n# Add circle markers with popups that display both the institution name and sector\nmap2 %&gt;% \n    addCircleMarkers(data = ca, radius = 2, \n                     popup = ~paste0(name, \"&lt;br/&gt;\", sector_label))\n\n\n\n\n\n# Make the institution name in each popup bold\nmap2 %&gt;% \n    addCircleMarkers(data = ca, radius = 2, \n                     popup = ~paste0(\"&lt;b&gt;\", name, \"&lt;/b&gt;\", \"&lt;br/&gt;\", sector_label))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#swapping-popups-for-labels",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#swapping-popups-for-labels",
+    "title": "69  Plotting Points",
+    "section": "71.5 Swapping Popups for Labels",
+    "text": "71.5 Swapping Popups for Labels\nPopups are great, but they require a little extra effort. That is when labels come to our aid. Using the label argument in the addCircleMarkers() function we can get more information about one of our markers with a simple hover!\nipeds %&gt;% leaflet() %&gt;% addProviderTiles(“CartoDB”) %&gt;% addCircleMarkers(label = ~name, radius = 2) Labels are especially helpful when mapping more than a few locations as they provide quick access to detail about what each marker represents."
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-7",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-7",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd circle markers with labels identifying the name of each college to the current map.\nAdd sector information to the label inside parentheses.\n\n\n\nE8.R\n\n# Add circle markers with labels identifying the name of each college\nmap %&gt;% \n    addCircleMarkers(data = ca, radius = 2, label = ~name)\n\n\n\n# Use paste0 to add sector information to the label inside parentheses \nmap %&gt;% \n    addCircleMarkers(data = ca, radius = 2, label = ~paste0(name, \" (\", sector_label, \")\"))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#creating-a-color-palette-using-colorfactor",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#creating-a-color-palette-using-colorfactor",
+    "title": "69  Plotting Points",
+    "section": "71.6 Creating a Color Palette using colorFactor",
+    "text": "71.6 Creating a Color Palette using colorFactor\nSo far we have only used color to customize the style of our map. With colorFactor() we can create a color palette that maps colors the levels of a factor variable.\n\npal &lt;- colorFactor(palette = c(“blue”, “red”, “green”), levels = c(“Public”, “Private”, “For-Profit”))\n\n\nm %&gt;% addCircleMarkers(color = ~pal(sector_label))\n\nWhy might we not want to use this particular color palette?\nIf you are interested in using a continuous variable to color a map see colorNumeric().\n\npal &lt;- colorNumeric(palette = “RdBu”, domain = c(25:50))\n\n\nipeds %&gt;% leaflet() %&gt;% addProviderTiles(“CartoDB”) %&gt;% addCircleMarkers(radius = 2, color = ~pal(lat))"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-8",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-8",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nMake a color palette called pal for the values of sector_label using colorFactor() using “red”, blue”, and “#9b4a11”.\nAdd circle markers that color colleges using pal() and the values of sector_label.\n\n\n\nE9.R\n\n# Make a color palette called pal for the values of `sector_label` using `colorFactor()`  \n# Colors should be: \"red\", \"blue\", and \"#9b4a11\" for \"Public\", \"Private\", and \"For-Profit\" colleges, respectively\npal &lt;- colorFactor(palette = c(\"red\", \"blue\", \"#9b4a11\"), \n                   levels = c(\"Public\", \"Private\", \"For-Profit\"))\n\n# Add circle markers that color colleges using pal() and the values of sector_label\nmap2 &lt;- \n    map %&gt;% \n        addCircleMarkers(data = ca, radius = 2, \n                         color = ~pal(sector_label), \n                         label = ~paste0(name, \" (\", sector_label, \")\"))\n\n# Print map2\nmap2"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#a-legendary-map",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#a-legendary-map",
+    "title": "69  Plotting Points",
+    "section": "71.7 A Legendary Map",
+    "text": "71.7 A Legendary Map\nAdding information to our map using color is great, but it is only helpful if we remember what the colors represent. With addLegend() we can add a legend to remind us.\nThere are several arguments we can use to custom the legend to our liking, including opacity, title, and position. To create a legend for our colorNumeric() example, we would do the following.\n\npal &lt;- colorNumeric(palette = “RdBu”, domain = c(25:50))\n\n\nipeds %&gt;% leaflet() %&gt;% addProviderTiles(“CartoDB”) %&gt;% addCircleMarkers(radius = 2, color = ~pal(lat)) %&gt;% addLegend(pal = pal, values = c(25:50), opacity = 0.75, title = “Latitude”, position = “topleft”)"
+  },
+  {
+    "objectID": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-9",
+    "href": "Interactive_Maps_with_leaflet_in_R_C2.html#instructions-100-xp-9",
+    "title": "69  Plotting Points",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nAdd a legend that displays the colors used in pal to m.\nCustomize the legend to have an opacity of .5, a title of “Sector”, and a position of “topright”.\n\n\n\nE10.R\n\n# Add a legend that displays the colors used in pal\nm %&gt;% \n    addLegend(pal = pal, \n              values = c(\"Public\", \"Private\", \"For-Profit\"))\n\n\n\n\n# Customize the legend\nm %&gt;% \n    addLegend(pal = pal, \n              values = c(\"Public\", \"Private\", \"For-Profit\"),\n              # opacity of .5, title of Sector, and position of topright\n              opacity  = 0.5, title = \"Sector\", position = \"topright\")"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCompute the sample proportion for each of the 1000 original samples, assigning to ex1_props.\n\nGroup by poll.\nSummarize to calculate stat as the mean() of cases of vote equalling “yes”.\n\nSelect one poll from which to resample, as one_poll.\n\nFilter for the first poll. That is, when poll equals 1.\nSelect the vote column.\n\nCompute p-hat for each resampled poll, as ex2_props.\n\nSpecify the response as vote. The success value is “yes”.\nGenerate 1000 replicates of type “bootstrap”.\nCalculate the “prop”ortion summary statistic.\n\nNote that because you are looking for an interval estimate, you have not made a hypothesis claim about the proportion (thus, there is no hypothesize step needed in the infer pipeline).\nUsing ex1_props, calculate the variability of p-hat In the call to summarize(), set variability to the standard deviation, sd(), of stat.\nDo the same with ex2_props to calculate the variability of p-hat. A- gain, because you are looking for an interval estimate, you have not made a hypothesis claim about the proportion (thus, there is no hypothesize step needed in the infer pipeline).\n\n\n\nE1.R\n\n# Compute p-hat for each poll\nex1_props &lt;- all_polls %&gt;% \n  # Group by poll\n  group_by(poll) %&gt;% \n  # Calculate proportion of yes votes\n  summarize(stat = mean(vote == \"yes\"))\n  \n# Review the result\nex1_props\n\n\n\n\n# Select one poll from which to resample\none_poll &lt;- all_polls %&gt;%\n  # Filter for the first poll\n  filter(poll == 1) %&gt;%\n  # Select vote\n  select(vote)\n  \n# Compute p-hat* for each resampled poll\nex2_props &lt;- one_poll %&gt;%\n  # Specify vote as the response, where yes means success\n  specify(response = vote, success = \"yes\") %&gt;%\n  # Generate 1000 reps of type bootstrap\n  generate(reps = 1000, type = \"bootstrap\") %&gt;% \n  # Calculate the summary stat \"prop\"\n  calculate(stat = \"prop\")\n\n\n\n\n# From previous steps\nex1_props &lt;- all_polls %&gt;% \n  group_by(poll) %&gt;% \n  summarize(stat = mean(vote == \"yes\"))\nex2_props &lt;- all_polls %&gt;%\n  filter(poll == 1) %&gt;%\n  select(vote) %&gt;%\n  specify(response = vote, success = \"yes\") %&gt;%\n  generate(reps = 1000, type = \"bootstrap\") %&gt;% \n  calculate(stat = \"prop\")\n  \n# Calculate variability of p-hat\nex1_props %&gt;% \n  summarize(variability = sd(stat))\n  \n# Calculate variability of p-hat*\nex2_props %&gt;% \n  summarize(variability = sd(stat))"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#visualizing-the-variability-of-p-hat",
+    "href": "Foundations_of_Inference_in_R_C4.html#visualizing-the-variability-of-p-hat",
+    "title": "67  Confidence intervals",
+    "section": "67.1 Visualizing the variability of p-hat",
+    "text": "67.1 Visualizing the variability of p-hat\nIn order to compare the variability of the sampled and values in the previous exercises, it is valuable to visualize their distributions. To recall, the exercises walked through two different experiments for investigating the variability of and :\n\nExperiment 1: Sample ( n=30 ) repeatedly from an extremely large population (gold standard, but unrealistic)\nExperiment 2: Resample ( n=30 ) repeatedly with replacement from a single sample of size 30"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-1",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-1",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCombine data from both experiments by calling bind_rows(), passing ex1_props and ex2_props. Call this both_ex_props. A dataset ID column named experiment will be created.\nUsing both_ex_props, plot stat colored by experiment.\nAdd a density curve using geom_density(), setting the bandwidth argument, bw, to 0.1.\n\n\n\nE2.R\n\n# Combine data from both experiments\nboth_ex_props &lt;- bind_rows(ex1_props, ex2_props, .id = \"experiment\")\n\n# Using both_ex_props, plot stat colored by experiment\nggplot(both_ex_props, aes(stat, color = experiment)) + \n  # Add a density layer with bandwidth 0.1\n  geom_density(bw = 0.1)"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#empirical-rule",
+    "href": "Foundations_of_Inference_in_R_C4.html#empirical-rule",
+    "title": "67  Confidence intervals",
+    "section": "67.2 Empirical Rule",
+    "text": "67.2 Empirical Rule\nMany statistics we use in data analysis (including both the sample average and sample proportion) have nice properties that are used to better understand the population parameter(s) of interest.\nOne such property is that if the variability of the sample proportion (called the standard error, or ) is known, then approximately 95% of values (from different samples) will be within of the true population proportion.\nTo check whether that holds in the situation at hand, let’s go back to the polls generated by taking many samples from the same population.\nThe all_polls dataset contains 1000 samples of size 30 from a population with a probability of voting for Candidate X equal to 0.6.\nNote that you will use the R function sd() which calculates the variability of any set of numbers. In statistics, when sd() is applied to a variable (e.g., price of house) we call it the standard deviation. When sd() is applied to a statistic (e.g., set of sample proportions) we call it the standard error."
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-2",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-2",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun the code to generate props, the proportion of individuals who are planning to vote yes in each poll. This is based upon ex1_props from previous exercises.\nAdd a column, is_in_conf_int that is TRUE when the sampled proportion of yes votes is less than 2 standard errors away from the true population proportion of yes votes. That is, the abs()solute difference between prop_yes and true_prop_yes is less than twice sd() of prop_yes.\nCalculate the proportion of sample statistics in the confidence interval, prop_in_conf_int, by taking the mean() of is_in_conf_int.\n\n\n\nE3.R\n\n# Proportion of yes votes by poll\nprops &lt;- all_polls %&gt;% \n  group_by(poll) %&gt;% \n  summarize(prop_yes = mean(vote == \"yes\"))\n\n# The true population proportion of yes votes\ntrue_prop_yes &lt;- 0.6\n\n# Proportion of polls within 2SE\nprops %&gt;%\n  # Add column: is prop_yes in 2SE of 0.6\n  mutate(is_in_conf_int = abs(prop_yes - true_prop_yes) &lt; 2 * sd(prop_yes)) %&gt;%\n  # Calculate  proportion in conf int\n  summarize(prop_in_conf_int = mean(is_in_conf_int))"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#bootstrap-t-confidence-interval",
+    "href": "Foundations_of_Inference_in_R_C4.html#bootstrap-t-confidence-interval",
+    "title": "67  Confidence intervals",
+    "section": "67.3 Bootstrap t-confidence interval",
+    "text": "67.3 Bootstrap t-confidence interval\nThe previous exercises told you two things:\n\nYou can measure the variability associated with p-hat by resampling from the original sample.\nOnce you know the variability of p-hat, you can use it as a way to measure how far away the true proportion is.\n\nNote that the rate of closeness (here 95%) refers to how often a sample is chosen so that it is close to the population parameter. You won’t ever know if a particular dataset is close to the parameter or far from it, but you do know that over your lifetime, 95% of the samples you collect should give you estimates that are within of the true population parameter.\nThe votes from a single poll, one_poll, and the data from 1000 bootstrap resamples, one_poll_boot are available in your workspace. These are based on Experiment 2 from earlier in the chapter.\nAs in the previous exercise, when discussing the variability of a statistic, the number is referred to as the standard error."
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-3",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-3",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate and assign the result to p_hat. In the call to summarize(), calculate stat as the mean of vote equalling “yes”.\nFind an interval of values that are plausible for the true parameter by calculating .\n\nThe lower bound of the confidence interval is p_hat minus twice the standard error of stat. Use sd() to calculate the standard error.\nThe upper bound is p_hat plus twice the standard error of stat.\n\n\n\n\nE4.R\n\n# From previous exercises\none_poll &lt;- all_polls %&gt;%\n  filter(poll == 1) %&gt;%\n  select(vote)\none_poll_boot &lt;- one_poll %&gt;%\n  specify(response = vote, success = \"yes\") %&gt;%\n  generate(reps = 1000, type = \"bootstrap\") %&gt;% \n  calculate(stat = \"prop\")\n  \np_hat &lt;- one_poll %&gt;%\n  # Calculate proportion of yes votes\n  summarize(stat = mean(vote == \"yes\")) %&gt;%\n  pull()\n\n# Create an interval of plausible values\none_poll_boot %&gt;%\n  summarize(\n    # Lower bound is p_hat minus 2 std errs\n    lower = p_hat - 2 * sd(stat),\n    # Upper bound is p_hat plus 2 std errs\n    upper = p_hat + 2 * sd(stat)\n  )"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#bootstrap-percentile-interval",
+    "href": "Foundations_of_Inference_in_R_C4.html#bootstrap-percentile-interval",
+    "title": "67  Confidence intervals",
+    "section": "67.4 Bootstrap percentile interval",
+    "text": "67.4 Bootstrap percentile interval\nThe main idea in the previous exercise was that the distance between the original sample and the resampled (or bootstrapped) values gives a measure for how far the original is from the true population proportion.\nThe same variability can be measured through a different mechanism. As before, if is sufficiently close to the true parameter, then the resampled (bootstrapped) values will vary in such a way that they overlap with the true parameter.\nInstead of using as a way to measure the middle 95% of the sampled values, you can find the middle of the resampled values by removing the upper and lower 2.5%. Note that this second method of constructing bootstrap intervals also gives an intuitive way for making 90% or 99% confidence intervals as well as 95% intervals.\nThe bootstrapped resamples, one_poll_boot, and the proportion of yes votes, p_hat are available in your workspace."
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-4",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-4",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nRun the code to remind yourself of the t-interval from the previous exercise. Calculate the 95 percent interval of the bootstrapped p-hat values contained in one_poll_boot. Summarize to calculate the lower end at the 2.5% quantile of stat by setting p to 0.025. Calculate the upper end in a similar way.\nPerform the same calculation using infer’s convenience function, get_confidence_interval(). For the interval, use level = 0.95, and call the output percentile_ci.\nvisualize() the distribution of bootstrapped proportions with the middle 95 percent highlighted. Set the endpoints of the highlighted region to percentile_ci. Set direction to “between” to highlight in-between those endpoints.\n\n\n\nE5.R\n\n# From previous exercise: bootstrap t-confidence interval\none_poll_boot %&gt;%\n  summarize(\n    lower = p_hat - 2 * sd(stat),\n    upper = p_hat + 2 * sd(stat)\n  )\n  \n# Manually calculate a 95% percentile interval\none_poll_boot %&gt;%\n  summarize(\n    lower = quantile(stat, 0.025),\n    upper = quantile(stat, 0.975)\n  )\n\n\n\n\n# From previous step\none_poll_boot %&gt;%\n  summarize(\n    lower = quantile(stat, 0.025),\n    upper = quantile(stat, 0.975)\n  )\n  \n# Calculate the same interval, more conveniently\npercentile_ci &lt;- one_poll_boot %&gt;% \n  get_confidence_interval(p = 0.025)\n  \n# Review the value\npercentile_ci\n\n\n\n\n# From previous step\npercentile_ci &lt;- one_poll_boot %&gt;% \n  get_confidence_interval(level = 0.95)\n  \none_poll_boot %&gt;% \n  # Visualize in-between the endpoints given by percentile_ci\n  visualize(endpoints = percentile_ci, direction = \"between\")"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#sample-size-effects-on-bootstrap-cis",
+    "href": "Foundations_of_Inference_in_R_C4.html#sample-size-effects-on-bootstrap-cis",
+    "title": "67  Confidence intervals",
+    "section": "67.5 Sample size effects on bootstrap CIs",
+    "text": "67.5 Sample size effects on bootstrap CIs\nIn a previous multiple choice exercise, you realized that if you resampled the data with the wrong size (e.g. 300 or 3 instead of 30), the standard error (SE) of the sample proportions was off. With 300 resampled observations, the SE was too small. With 3 resampled observations, the SE was too large.\nHere, you will use the incorrect standard error (based on the incorrect sample size) to create a confidence interval. The idea is that when the standard error is off, the interval is not particularly useful, nor is it correct."
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-5",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-5",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nA function for calculating the bootstrapped t-confidence interval, calc_t_conf_int(), is shown is the script. Read the code and try to understand it.\nCall calc_t_conf_int() on one_poll_boot to calculate the correct t-confidence interval.\nDo the same on one_poll_boot_300, to find an incorrect interval for the resamples of size 300.\nDo the same on one_poll_boot_3, to find an incorrect interval for the resamples of size 3.\n\n\n\nE6.R\n\ncalc_t_conf_int &lt;- function(resampled_dataset) {\n  resampled_dataset %&gt;%\n    summarize(\n      lower = p_hat - 2 * sd(stat),\n      upper = p_hat + 2 * sd(stat)\n    )\n}\n\n# Find the bootstrap t-confidence interval for 30 resamples\ncalc_t_conf_int(one_poll_boot)\n\n# ... and for 300 resamples\ncalc_t_conf_int(one_poll_boot_300)\n\n# ... and for 3 resamples\ncalc_t_conf_int(one_poll_boot_3)"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#sample-proportion-value-effects-on-bootstrap-cis",
+    "href": "Foundations_of_Inference_in_R_C4.html#sample-proportion-value-effects-on-bootstrap-cis",
+    "title": "67  Confidence intervals",
+    "section": "67.6 Sample proportion value effects on bootstrap CIs",
+    "text": "67.6 Sample proportion value effects on bootstrap CIs\nOne additional element that changes the width of the confidence interval is the sample parameter value, p-hat.\nGenerally, when the true parameter is close to 0.5, the standard error of is larger than when the true parameter is closer to 0 or 1. When calculating a bootstrap t-confidence interval, the standard error controls the width of the CI, and here (given a true parameter of 0.8) the sample proportion is higher than in previous exercises, so the width of the confidence interval will be narrower."
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-6",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-6",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\ncalc_p_hat() is shown in the script to calculate the sample proportions. calc_t_conf_int() from the previous exercise has been updated to now use any value of p_hat as an argument. Read their definitions and try to understand them.\nRun the code to calculate the bootstrap t-confidence interval for the original population.\nConsider a new population where the true parameter is 0.8, one_poll_0.8. Calculate of this new sample, using the same technique as with the original dataset. Call it p_hat_0.8.\nFind the bootstrap t-confidence interval using the new bootstrapped data, one_poll_boot_0.8, and the new p-hat. Notice that it is narrower than previously calculated.\n\n\n\nE7.R\n\ncalc_p_hat &lt;- function(dataset) {\n  dataset %&gt;%\n    summarize(stat = mean(vote == \"yes\")) %&gt;%\n    pull()\n}\ncalc_t_conf_int &lt;- function(resampled_dataset, p_hat) {\n  resampled_dataset %&gt;%\n    summarize(\n      lower = p_hat - 2 * sd(stat),\n      upper = p_hat + 2 * sd(stat)\n    )\n}\n\n# Find proportion of yes votes from original population\np_hat &lt;- calc_p_hat(one_poll)\n\n# Review the value\np_hat  \n\n# Calculate bootstrap t-confidence interval (original 0.6 param)\ncalc_t_conf_int(one_poll_boot, p_hat)\n\n# Find proportion of yes votes from new population\np_hat_0.8 &lt;- calc_p_hat(one_poll_0.8)\n  \n# Review the value\np_hat_0.8  \n  \n# Calculate the bootstrap t-confidence interval (new 0.8 param)\ncalc_t_conf_int(one_poll_boot_0.8, p_hat_0.8)"
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#percentile-effects-on-bootstrap-cis",
+    "href": "Foundations_of_Inference_in_R_C4.html#percentile-effects-on-bootstrap-cis",
+    "title": "67  Confidence intervals",
+    "section": "67.7 Percentile effects on bootstrap CIs",
+    "text": "67.7 Percentile effects on bootstrap CIs\nMost scientists use 95% intervals to quantify their uncertainty about an estimate. That is, they understand that over a lifetime of creating confidence intervals, only 95% of them will actually contain the parameter that they set out to estimate.\nThere are studies, however, which warrant either stricter or more lenient confidence intervals (and subsequent error rates).\nThe previous bootstrapped p-hat values have been loaded for you and are available in one_poll_boot."
+  },
+  {
+    "objectID": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-7",
+    "href": "Foundations_of_Inference_in_R_C4.html#instructions-100-xp-7",
+    "title": "67  Confidence intervals",
+    "section": "Instructions 100 XP",
+    "text": "Instructions 100 XP\n\nCalculate a 95% percentile interval by calling get_confidence_interval(), setting level to 0.95.\nDo the same for a 99% interval,\n… and a 90% interval.\nThe results you just got are stored in a dataframe called conf_int_data. With this dataset, plot ci_endpoints (vertical axis) vs. ci_percent (horizontal axis), and add a line layer using geom_line().\n\n\n\nE8.R\n\n# Calculate a 95% bootstrap percentile interval\none_poll_boot %&gt;% \n  get_confidence_interval(level = 0.95) \n\n# Calculate a 99% bootstrap percentile interval\none_poll_boot %&gt;% \n  get_confidence_interval(level = 0.99) \n\n# Calculate a 90% bootstrap percentile interval\none_poll_boot %&gt;% \n  get_confidence_interval(level = 0.90) \n\n# Plot ci_endpoints vs. ci_percent to compare the intervals\nggplot(conf_int_data, aes(ci_percent, ci_endpoints)) +\n  # Add a line layer\n  geom_line()"
   }
 ]

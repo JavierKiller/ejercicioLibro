@@ -1,0 +1,265 @@
+---
+title: "Introduction to ideas of inference"
+---
+
+## Working with the NHANES data
+
+Throughout this chapter, you will use the NHANES dataset from the NHANES R package. The data are collected by the Center for Disease Control (CDC, the national public health institute in the United States) and can be thought of as a random sample of US residents.
+
+Before moving on to investigate particular variables, you'll have an opportunity to briefly explore the data in this exercise.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Load the ggplot2 and NHANES packages, one at a time.
+- Use the colnames() function to list the variables included in NHANES. (Click the link for more info.)
+
+- Using the NHANES data, create a barplot of HomeOwn (fill color) broken down by Gender (x-axis).
+  - Set position = "fill" in geom_bar() to compare relative frequencies.
+
+- Create a density plot for SleepHrsNight colored by SleepTrouble and faceted by HealthGen.
+  - Since SleepHrsNight contains discrete values, the density should be smoothed a bit using adjust = 2.
+  - Use facet_wrap(~ HealthGen) to visualize how the variables of interest vary by general health status.
+``` {.r filename="E1.R"}
+# Load packages
+library(ggplot2)
+library(NHANES)
+
+# What are the variables in the NHANES dataset?
+colnames(NHANES)
+
+
+
+# Create bar plot for Home Ownership by Gender
+ggplot(NHANES, aes(x = Gender, fill = HomeOwn)) + 
+  # Set the position to fill
+  geom_bar(position = "fill") +
+  ylab("Relative frequencies")
+
+
+# Density plot of SleepHrsNight colored by SleepTrouble
+ggplot(NHANES, aes(x = SleepHrsNight, color = SleepTrouble)) + 
+  # Adjust by 2
+  geom_density(adjust = 2) + 
+  # Facet by HealthGen
+  facet_wrap(~ HealthGen)
+```
+
+## Calculating statistic of interest
+
+Using the NHANES dataset, let's investigate the relationship between gender and home ownership. Remember, more information about the dataset can be found here: NHANES.
+
+As seen in the video, natural variability can be modeled from shuffling observations around to remove any relationships that might exist in the population. However, before you permute the data, you need to calculate the original observed statistic. In this exercise, you will calculate the difference in proportion of home owners who are men versus women.
+
+Recall that:
+
+* %in% returns a logical vector that is TRUE when values on the left hand side are listed on the right hand side.
+* The mean of a logical vector is the proportion of cases where that vector is TRUE.
+
+> fruits <- c("apple", "banana", "cherry")
+> fruits %in% c("banana", "cherry")
+> mean(fruits %in% c("banana", "cherry"))
+
+## Instructions `100 XP` {.unnumbered}
+
+- The dplyr, ggplot2, infer, and NHANES packages have been loaded for you.
+  - From NHANES, select the Gender and HomeOwnership columns, then filter the rows to keep individuals whose home ownership status is "Own" or "Rent". Save the result to homes.
+
+- Find the observed difference in proportions of men who own and women who own.
+  - Group by Gender.
+  - Compute the proportion of individuals who own a home. Note that this will calculate proportions for both genders since you've grouped by the Gender variable in the line before it. The proportion is given by the mean of the HomeOwn variable who "Own".
+  - Using the diff() function, calculate the difference in proportion of home ownership.
+
+Hint
+``` {.r filename="E2.R"}
+# Subset the data: homes
+homes <- NHANES %>%
+  # Select Gender and HomeOwn
+  select(Gender, HomeOwn) %>%
+  # Filter for HomeOwn equal to "Own" or "Rent"
+  filter(HomeOwn %in% c("Own", "Rent"))
+  
+
+
+# From previous step
+homes <- NHANES %>%
+  select(Gender, HomeOwn) %>%
+  filter(HomeOwn %in% c("Own", "Rent"))
+
+diff_orig <- homes %>%   
+  # Group by gender
+  group_by(Gender) %>%
+  # Summarize proportion of homeowners
+  summarize(prop_own = mean(HomeOwn == "Own")) %>%
+  # Summarize difference in proportion of homeowners
+  summarize(obs_diff_prop = diff(prop_own)) # male - female
+  
+# See the result
+diff_orig 
+```
+
+## Randomized data under null model of independence 
+
+The infer package will allow you to model a particular null hypothesis and then randomize the data to calculate permuted statistics. In this exercise, after specifying your null hypothesis you will permute the home ownership variable 10 times. By doing so, you will ensure that there is no relationship between home ownership and gender, so any difference in home ownership proportion for female versus male will be due only to natural variability.
+
+This exercise will demonstrate the first three steps from the infer package:
+
+* specify will specify the response and explanatory variables.
+* hypothesize will declare the null hypothesis.
+* generate will generate resamples, permutations, or simulations.
+
+The dplyr, ggplot2, NHANES, and infer packages have been loaded for you and the homes dataset you created in the last exercise is available in your workspace.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the infer framework, step through specifying the null model and then performing 10 permutations to evaluate whether home ownership status (i.e. HomeOwn) differs between the "female" and "male" groups:
+  - specify that the relationship of interest is HomeOwn vs. Gender and a success in this context is homeownership, set success to "Own".
+
+- Using the infer framework:
+  - specify has been done for you.
+  - hypothesize that the null is true where null = "independence" (gender and homeownership are not related).
+
+- Using the infer framework:
+  - specify has been done for you.
+  - hypothesize has been done for you.
+  - generate ten permutations; set reps to 10.
+``` {.r filename="E3.R"}
+# Specify variables
+homeown_perm <- homes %>%
+  specify(HomeOwn ~ Gender, success = "Own") 
+ 
+# Print results to console
+homeown_perm
+
+
+# Hypothesize independence
+homeown_perm <- homes %>%
+  specify(HomeOwn ~ Gender, success = "Own") %>%
+  hypothesize(null = "independence") 
+
+# Print results to console
+homeown_perm
+
+
+# Perform 10 permutations
+homeown_perm <- homes %>%
+  specify(HomeOwn ~ Gender, success = "Own") %>%
+  hypothesize(null = "independence") %>% 
+  generate(reps = 10, type = "permute") 
+  
+# Print results to console
+homeown_perm
+```
+
+## Randomized statistics and dotplot
+
+By permuting the home ownership variable multiple times, you generate differences in proportions that are consistent with the assumption that the variables are unrelated. The statistic of interest is the difference in proportions given by stat = "diff in props". After calculating the randomized statistics, you will plot them in a dotplot.
+
+This exercise shows all four steps from the infer package:
+
+* specify will specify the response and explanatory variables.
+* hypothesize will declare the null hypothesis.
+* generate will generate resamples, permutations, or simulations.
+* calculate will calculate summary statistics.
+
+Each step will be covered throughout the course; in this exercise you'll write code for calculate().
+
+The dplyr, ggplot2, NHANES, and infer packages have been loaded for you. Repeat the permuting and plotting with 100 differences in proportions generated by shuffling the HomeOwn variable.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the infer framework, step through specifying the null model and then performing 100 permutations to evaluate whether home ownership status (i.e. HomeOwn) differs between the "female" and "male" groups:
+  - specify(), hypothesize(), and generate() have been done for you.
+  - calculate() the statistic "diff in props" with the order of c("male", "female").
+
+- Using homeown_perm, plot the 100 differences in proportions using geom_dotplot. Adjust the size of the dots by setting binwidth to 0.001 in your call to geom_dotplot().
+``` {.r filename="E4.R"}
+# Perform 100 permutations
+homeown_perm <- homes %>%
+  specify(HomeOwn ~ Gender, success = "Own") %>%
+  hypothesize(null = "independence") %>% 
+  generate(reps = 100, type = "permute") %>% 
+  calculate(stat = "diff in props", order = c("male", "female"))
+
+# Print results to console
+homeown_perm
+
+
+
+# Perform 100 permutations
+homeown_perm <- homes %>%
+  specify(HomeOwn ~ Gender, success = "Own") %>%
+  hypothesize(null = "independence") %>% 
+  generate(reps = 100, type = "permute") %>% 
+  calculate(stat = "diff in props", order = c("male", "female"))
+
+# Dotplot of 100 permuted differences in proportions
+ggplot(homeown_perm, aes(x = stat)) + 
+  geom_dotplot(binwidth = 0.001)
+```
+
+## Randomization density
+
+Using 100 repetitions allows you to understand the mechanism of permuting. However, 100 is not enough to observe the full range of likely values for the null differences in proportions.
+
+Recall the four steps of inference. These are the same four steps that will be used in all inference exercises in this course and future statistical inference courses. Use the names of the functions to help you recall the analysis process.
+
+specify will specify the response and explanatory variables.
+hypothesize will declare the null hypothesis.
+generate will generate resamples, permutations, or simulations.
+calculate will calculate summary statistics.
+In this exercise, you'll repeat the process 1000 times to get a sense for the complete distribution of null differences in proportions.
+
+## Instructions `100 XP` {.unnumbered}
+
+The dplyr, ggplot2, NHANES, and infer packages have been loaded for you.
+
+- Generate 1000 differences in proportions by shuffling the HomeOwn variable using the infer syntax. Recall the infer syntax:
+  - specify that the relationship of interest is HomeOwn vs. Gender and a success in this context is homeownership, success = "Own".
+  - hypothesize that the null is true where null = "independence" (meaning gender and homeownership are not related).
+  - generate 1000 permutations; set reps to 1000.
+  - calculate the statistic stat = "diff in props" with the order of c("male", "female").
+- Run the density plot code to create a smoothed visual representation of the distribution of differences. What shape does the curve have?
+
+``` {.r filename="E5.R"}
+# Perform 1000 permutations
+  # Specify HomeOwn vs. Gender, with `"Own" as success
+homeown_perm <- homes %>%
+  specify(HomeOwn ~ Gender, success = "Own") %>%
+  # Use a null hypothesis of independence
+  hypothesize(null = "independence") %>% 
+  # Generate 1000 repetitions (by permutation)
+  generate(reps = 1000, type = "permute") %>% 
+  # Calculate the difference in proportions (male then female)
+  calculate(stat = "diff in props", order = c("male", "female"))
+
+# Density plot of 1000 permuted differences in proportions
+ggplot(homeown_perm, aes(x = stat)) + 
+  geom_density()
+```
+
+## Do the data come from the population?
+
+Recall that the observed difference (i.e. the difference in proportions in the homes dataset, shown as the red vertical line) was around -0.0078, which seems to fall below the bulk of the density of shuffled differences. It is important to know, however, whether any of the randomly permuted differences were as extreme as the observed difference.
+
+In this exercise, you'll re-create this dotplot as a density plot and count the number of permuted differences that were to the left of the observed difference.
+
+## Instructions `100 XP` {.unnumbered}
+
+The homeown_perm dataset is available in your workspace.
+
+- Using geom_density(), plot the permuted differences.
+- Add a vertical red line with geom_vline() where the observed difference falls. diff_orig is provided in your workspace and represents the original value of the difference statistic.
+- Count the number of permuted differences that were less than or equal to the observed difference.
+
+``` {.r filename="E6.R"}
+# Plot permuted differences, diff_perm
+ggplot(homeown_perm, aes(x = diff_perm)) + 
+  # Add a density layer
+  geom_density() +
+  # Add a vline layer with intercept diff_orig
+  geom_vline(aes(xintercept = diff_orig), color = "red")
+
+# Compare permuted differences to observed difference
+homeown_perm %>%
+  summarize(n_perm_le_obs = sum(diff_perm <= diff_orig))
+```

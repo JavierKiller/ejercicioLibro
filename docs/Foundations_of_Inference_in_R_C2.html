@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Completing a randomization test: gender discrimination</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Foundations_of_Inference_in_R_C2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Foundations_of_Inference_in_R_C2_files/libs/quarto-html/quarto.js"></script>
+<script src="Foundations_of_Inference_in_R_C2_files/libs/quarto-html/popper.min.js"></script>
+<script src="Foundations_of_Inference_in_R_C2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Foundations_of_Inference_in_R_C2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Foundations_of_Inference_in_R_C2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Foundations_of_Inference_in_R_C2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Foundations_of_Inference_in_R_C2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Foundations_of_Inference_in_R_C2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Foundations_of_Inference_in_R_C2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Completing a randomization test: gender discrimination</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="summarizing-gender-discrimination" class="level2">
+<h2 class="anchored" data-anchor-id="summarizing-gender-discrimination">Summarizing gender discrimination</h2>
+<p>As the first step of any analysis, you should look at and summarize the data. Categorical variables are often summarized using proportions, and it is always important to understand the denominator of the proportion.</p>
+<p>Do you want the proportion of women who were promoted or the proportion of promoted individuals who were women? Here, you want the first of these, so in your R code it’s necessary to group_by() the sex variable.</p>
+<p>The discrimination study data are available in your workspace as disc.</p>
+</section>
+<section id="instructions-100-xp" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Using the count() function from dplyr, tabulate the variables sex and promote.</li>
+<li>Summarize the data by using group_by() on the sex variable.</li>
+<li>Find the proportion who were promoted. Call this variable promoted_prop. Note that with binary variables, the proportion of either value can be found using the mean() function (e.g.&nbsp;mean(variable == “value”)).</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E1.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a contingency table summarizing the data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>disc <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count the rows by sex, promote</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sex, promote)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Find proportion of each sex who were promoted</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>disc <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by sex</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate proportion promoted summary stat</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">promoted_prop =</span> <span class="fu">mean</span>(promote <span class="sc">==</span> <span class="st">"promoted"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-by-step-through-the-permutation" class="level2">
+<h2 class="anchored" data-anchor-id="step-by-step-through-the-permutation">Step-by-step through the permutation</h2>
+<p>To help you understand the code used to create the randomization distribution, this exercise will walk you through the steps of the infer framework. In particular, you’ll see how differences in the generated replicates affect the calculated statistics.</p>
+<p>After running the infer steps, be sure to notice that the numbers are slightly different for each replicate.</p>
+</section>
+<section id="instructions-100-xp-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-1">Instructions <code>100 XP</code></h2>
+<p>The dplyr and infer packages have been loaded for you, along with the disc data frame from the last exercise.</p>
+<ul>
+<li>Call the functions for the first three steps. The work has been done for you, your job is to investigate the results of calling the first three infer steps.</li>
+<li>In order to see the effect of permuting,
+<ul>
+<li>group the permuted data frame, disc_perm, by the new replicate variable, then</li>
+<li>count the variables of interest (promote within each sex) using count().</li>
+</ul></li>
+<li>Using disc_perm, calculate() the statistic of interest. Set stat to “diff in props” and order to c(“male”, “female”).</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E2.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replicate the entire data frame, permuting the promote variable</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>disc_perm <span class="ot">&lt;-</span> disc <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(promote <span class="sc">~</span> sex, <span class="at">success =</span> <span class="st">"promoted"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">5</span>, <span class="at">type =</span> <span class="st">"permute"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>disc_perm <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by replicate</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(replicate) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Count per group</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>disc_perm <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate difference in proportion, male then female</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"diff in props"</span>, <span class="at">order =</span> <span class="fu">c</span>(<span class="st">"male"</span>, <span class="st">"female"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="randomizing-gender-discrimination" class="level2">
+<h2 class="anchored" data-anchor-id="randomizing-gender-discrimination">Randomizing gender discrimination</h2>
+<p>Recall that we are considering a situation where the number of men and women are fixed (representing the resumes) and the number of people promoted is fixed (the managers were able to promote only 35 individuals).</p>
+<p>In this exercise, you’ll create a randomization distribution of the null statistic with 1000 replicates as opposed to just 5 in the previous exercise. As a reminder, the statistic of interest is the difference in proportions promoted between genders (i.e.&nbsp;proportion for males minus proportion for females). From the original dataset, you can calculate how the promotion rates differ between males and females. Using the specify-hypothesis-generate-calculate workflow in infer, you can calculate the same statistic, but instead of getting a single number, you get a whole distribution. In this exercise, you’ll compare that single number from the original dataset to the distribution made by the simulation.</p>
+</section>
+<section id="instructions-100-xp-2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-2">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Calculate the observed difference in promotion rate.
+<ul>
+<li>Group by sex.</li>
+<li>Calculate the fraction promoted for each sex by summarizing on the mean() of promote == “promoted”. Call the summary variable prop_prom.</li>
+<li>Calculate the difference in fractions between sexes by summarizing again, setting stat to the diff() of prop_prom.</li>
+</ul></li>
+<li>Create a data frame of permuted differences in promotion rates.
+<ul>
+<li>Specify promote vs.&nbsp;sex. (“promoted” is considered success.)</li>
+<li>Set the null hypothesis as “independence”.</li>
+<li>Generate 1000 reps of type “permute”.</li>
+<li>Calculate the summary stat “diff in props”.</li>
+</ul></li>
+<li>Draw a histogram of permuted differences.
+<ul>
+<li>Using the permutation dataset, disc_perm, plot stat.</li>
+<li>Add a histogram layer with geom_histogram(). The binwidth is set to 0.01.</li>
+<li>Add a vertical line with geom_vline(). The xintercept is at diff_orig. ``` {.r filename=“E3.R”} # Calculate the observed difference in promotion rate diff_orig &lt;- disc %&gt;% # Group by sex group_by(sex) %&gt;% # Summarize to calculate fraction promoted summarize(prop_prom = mean(promote == “promoted”)) %&gt;% # Summarize to calculate difference summarize(stat = diff(prop_prom)) %&gt;% pull()</li>
+</ul></li>
+</ul>
+</section>
+<section id="see-the-result" class="level1">
+<h1>See the result</h1>
+<p>diff_orig</p>
+</section>
+<section id="create-data-frame-of-permuted-differences-in-promotion-rates" class="level1">
+<h1>Create data frame of permuted differences in promotion rates</h1>
+<p>disc_perm &lt;- disc %&gt;% # Specify promote vs.&nbsp;sex specify(promote ~ sex, success = “promoted”) %&gt;% # Set null hypothesis as independence hypothesize(null = “independence”) %&gt;% # Generate 1000 permutations generate(reps = 1000, type = “permute”) %&gt;% # Calculate difference in proportions calculate(stat = “diff in props”, order = c(“male”, “female”))</p>
+</section>
+<section id="from-previous-steps" class="level1">
+<h1>From previous steps</h1>
+<p>diff_orig &lt;- disc %&gt;% group_by(sex) %&gt;% summarize(prop_prom = mean(promote == “promoted”)) %&gt;% summarize(stat = diff(prop_prom)) %&gt;% pull() disc_perm &lt;- disc %&gt;% specify(promote ~ sex, success = “promoted”) %&gt;% hypothesize(null = “independence”) %&gt;% generate(reps = 1000, type = “permute”) %&gt;% calculate(stat = “diff in props”, order = c(“male”, “female”))</p>
+</section>
+<section id="using-permutation-data-plot-stat" class="level1">
+<h1>Using permutation data, plot stat</h1>
+<p>ggplot(disc_perm, aes(x = stat)) + # Add a histogram layer geom_histogram(binwidth = 0.01) + # Add a vertical line at diff_orig geom_vline(aes(xintercept = diff_orig), color = “red”)</p>
+<pre><code>
+## Critical region
+
+It seems as though the statistic—a difference in promotion rates of 0.2917—is on the extreme end of the permutation distribution. That is, there are very few permuted differences which are as extreme as the observed difference.
+
+To quantify the extreme permuted (null) differences, we use the quantile() function.
+
+The dplyr package has been loaded for you.
+
+## Instructions `100 XP` {.unnumbered}
+
+- Using the permuted differences, disc_perm, find the quantile values of stat such that:
+
+  - 10% of the permuted differences are above the value (0.9 quantile)
+  - 5% of the permuted differences are above the value (0.95 quantile)
+  - 1% of the permuted differences are above the value (0.99 quantile)
+
+``` {.r filename="E4.R"}
+disc_perm %&gt;% 
+  summarize(
+    # Find the 0.9 quantile of diff_perm's stat
+    q.90 = quantile(stat, p = 0.9),
+    # ... and the 0.95 quantile
+    q.95 = quantile(stat, p = 0.95),
+    # ... and the 0.99 quantile
+    q.99 = quantile(stat, p = 0.99)
+  )</code></pre>
+<section id="two-sided-critical-region" class="level2">
+<h2 class="anchored" data-anchor-id="two-sided-critical-region">Two-sided critical region</h2>
+<p>For the discrimination data, the question at hand is whether or not women were promoted less often than men. However, there are often scenarios where the research question centers around a difference without directionality.</p>
+<p>For example, you might be interested in whether the rate of promotion for men and women is different. In that case, a difference in proportions of -0.29 is just as “extreme” as a difference of positive 0.29.</p>
+<p>If you had seen that women were promoted more often, what would the other side of the distribution of permuted differences look like? That is, what are the smallest (negative) values of the distribution of permuted differences?</p>
+</section>
+<section id="instructions-100-xp-3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-3">Instructions <code>100 XP</code></h2>
+<ul>
+<li><p>Using the permuted differences, disc_perm, find the quantile values such that:</p>
+<ul>
+<li>1% of the permuted differences are below the value (0.01 quantile)</li>
+<li>5% of the permuted differences are below the value (0.05 quantile)</li>
+<li>10% of the permuted differences are below the value (0.1 quantile)</li>
+</ul></li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E5.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use disc_perm</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>disc_perm <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ... to calculate summary stats</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find the 0.01 quantile of stat</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">q.01 =</span> <span class="fu">quantile</span>(stat, <span class="at">p =</span> <span class="fl">0.01</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... and 0.05</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">q.05 =</span> <span class="fu">quantile</span>(stat, <span class="at">p =</span> <span class="fl">0.05</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ... and 0.1 </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">q.10 =</span> <span class="fu">quantile</span>(stat, <span class="at">p =</span> <span class="fl">0.1</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sample-size-for-critical-region" class="level2">
+<h2 class="anchored" data-anchor-id="sample-size-for-critical-region">Sample size for critical region</h2>
+<p>Using the randomization distributions with the small and big datasets, calculate different cutoffs for significance. Remember, you are most interested in a large positive difference in promotion rates, so you are calculating the upper quantiles of 0.90, 0.95, and 0.99.</p>
+<p>A function for calculating these quantiles, calc_upper_quantiles() is sown in the script.</p>
+</section>
+<section id="instructions-100-xp-4" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-4">Instructions <code>100 XP</code></h2>
+<ul>
+<li>As a reference point, run the call to calc_upper_quantiles() to calculate the relevant quantiles associated with the original dataset of 1000 permuted differences, disc_perm.</li>
+<li>Do the same for the small dataset, disc_perm_small …</li>
+<li>and for the big dataset, disc_perm_big.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E6.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>calc_upper_quantiles <span class="ot">&lt;-</span> <span class="cf">function</span>(dataset) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarize</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">q.90 =</span> <span class="fu">quantile</span>(stat, <span class="at">p =</span> <span class="fl">0.90</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">q.95 =</span> <span class="fu">quantile</span>(stat, <span class="at">p =</span> <span class="fl">0.95</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">q.99 =</span> <span class="fu">quantile</span>(stat, <span class="at">p =</span> <span class="fl">0.99</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall the quantiles associated with the original dataset</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">calc_upper_quantiles</span>(disc_perm)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the quantiles associated with the small dataset</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">calc_upper_quantiles</span>(disc_perm_small)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the quantiles associated with the big dataset</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">calc_upper_quantiles</span>(disc_perm_big)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="practice-calculating-p-values" class="level2">
+<h2 class="anchored" data-anchor-id="practice-calculating-p-values">Practice calculating p-values</h2>
+<p>In the original dataset, 87.5% of the men were promoted and 58.3% of the women were promoted.</p>
+<p>Consider a situation where there are 24 men, 24 women, and 35 people are still promoted. But in this new scenario, 75% of the men are promoted and 70.8% of the women are promoted. Does the difference in promotion rates still appear to be statistically significant? That is, could this difference in promotion rates have come from random chance?</p>
+<p>You’ll analyze these new data, contained in disc_new, using the same permutation algorithm from before.</p>
+<p>The disc_perm and disc_perm_new datasets are available in your workspace.</p>
+</section>
+<section id="instructions-100-xp-5" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-5">Instructions <code>100 XP</code></h2>
+<ul>
+<li><p>Run the code to recall the counts of sex and promote in the original dataset.</p></li>
+<li><p>Get the counts in the new dataset, disc_new.</p></li>
+<li><p>Run the code to recall the histogram of the difference statistic in the original permutation dataset.</p></li>
+<li><p>Draw the histogram with the new permutation dataset, disc_perm_new. On this plot, set the x-axis intercept of the vertical line to diff_orig_new.</p></li>
+<li><p>Run the code to recall the p-value of the difference statistic in the original permutation dataset.</p></li>
+<li><p>Calculate the p-value with the new permutation dataset, disc_perm_new, and the new observed difference, diff_orig_new.</p></li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E7.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall the original data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>disc <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sex, promote)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabulate the new data</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>disc_new <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sex, promote)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall the distribution of the original permuted differences</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(disc_perm, <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span> </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> diff_orig), <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the distribution of the new permuted differences</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(disc_perm_new, <span class="fu">aes</span>(<span class="at">x =</span> stat)) <span class="sc">+</span> </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> diff_orig_new), <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall the p-value from the original data</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>disc_perm <span class="sc">%&gt;%</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">p_value =</span> <span class="fu">mean</span>(diff_orig <span class="sc">&lt;=</span> stat))</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the p-value from the new data</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>disc_perm_new <span class="sc">%&gt;%</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">p_value =</span> <span class="fu">mean</span>(diff_orig_new <span class="sc">&lt;=</span> stat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="calculating-two-sided-p-values" class="level2">
+<h2 class="anchored" data-anchor-id="calculating-two-sided-p-values">Calculating two-sided p-values</h2>
+<p>What if the original research hypothesis had focused on any difference in promotion rates between men and women instead of focusing on whether men are more likely to be promoted than women? In this case, a difference like the one observed would occur twice as often (by chance) because sometimes the difference would be positive and sometimes it would be negative.</p>
+<p>When there is no directionality to the alternative hypothesis, the hypothesis and p-value are considered to be two-sided. In a two-sided setting, the p-value is double the one-sided p-value.</p>
+<p>In this exercise, you’ll calculate a two-sided p-value given the original randomization distribution and dataset.</p>
+<p>The observed difference is stored in diff_orig and the difference in each permutation is the stat column of disc_perm.</p>
+</section>
+<section id="instructions-100-xp-6" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="instructions-100-xp-6">Instructions <code>100 XP</code></h2>
+<ul>
+<li>Calculate the two-sided p-value. This is double the one-sided p-value that you calculated in previous exercises.</li>
+</ul>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>E8.R</strong></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the two-sided p-value</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>disc_perm <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">p_value =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">mean</span>(diff_orig <span class="sc">&lt;=</span> stat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
